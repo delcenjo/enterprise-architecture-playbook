@@ -1,0 +1,77 @@
+# ============================================================
+# AI Architect - Enterprise .gitignore
+# ============================================================
+
+# === Python ===
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+*.whl
+
+# Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+
+# === Node.js / Frontend ===
+node_modules/
+frontend/dist/
+frontend/.vite/
+*.tsbuildinfo
+
+# === Environment & Secrets ===
+# CRITICAL: Never upload API keys or secrets
+.env
+.env.local
+.env.production
+.env.*.local
+# The .env.example IS safe to upload (contains placeholders only)
+!.env.example
+
+# === IDE & Editor ===
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# === Docker ===
+# Docker volumes and runtime data (not the config files)
+postgres_data/
+
+# === Caches ===
+.cache/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# === Logs ===
+*.log
+logs/
+
+# === OS Files ===
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+
+# === Generated Output ===
+# PDF reports and generated deliverables (runtime artifacts)
+output_generator/generated/
+*.pdf
+
+# === Gemini Agent Data ===
+# Agent workspace data — NOT project code
+.gemini/
+.agents/
+.agent/
