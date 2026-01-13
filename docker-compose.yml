@@ -1,0 +1,107 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: pricing_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: pricing
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d pricing"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build: 
+      context: ./api
+    container_name: pricing_api
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      - DB_HOST=postgres
+      - DB_USER=postgres
+      - DB_PASSWORD=password
+      - DB_NAME=pricing
+      - DB_PORT=5432
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  price-ingestor:
+    build:
+      context: ./ingestor
+    container_name: pricing_ingestor
+    environment:
+      - DB_HOST=postgres
+      - DB_USER=postgres
+      - DB_PASSWORD=password
+      - DB_NAME=pricing
+      - DB_PORT=5432
+      - AWS_REGION=us-east-1
+    depends_on:
+      postgres:
+        condition: service_healthy
+    # For now, it will run once and exit, we can wrap it in a cron or loop later if desired
+    # Using a sleep loop to keep it alive for cron scheduling
+    command: >
+      sh -c "while true; do python main.py; echo 'Sleeping for 24h...'; sleep 86400; done"
+
+  intelligence:
+    build:
+      context: ./intelligence
+    container_name: intelligence_engine
+    restart: always
+    ports:
+      - "8001:8001"
+    environment:
+      - PRICING_API_URL=http://api:8000
+      - LLM_MODEL=gpt-4o-mini
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-dummy_key_for_now}
+    depends_on:
+      - api
+
+  output_generator:
+    build:
+      context: ./output_generator
+    container_name: deliverable_generator
+    restart: always
+    ports:
+      - "8002:8002"
+    depends_on:
+      - intelligence
+
+  orchestrator:
+    build:
+      context: ./orchestrator
+    container_name: orchestrator_gateway
+    restart: always
+    ports:
+      - "8003:8003"
+    environment:
+      - INTELLIGENCE_URL=http://intelligence:8001
+      - OUTPUT_GENERATOR_URL=http://output_generator:8002
+    depends_on:
+      - intelligence
+      - output_generator
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: document_forge_ui
+    ports:
+      - "8080:80"
+    depends_on:
+      - orchestrator
+
+volumes:
+  postgres_data:
