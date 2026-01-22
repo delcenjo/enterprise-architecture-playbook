@@ -1,0 +1,23 @@
+{
+    "version": "2024.01.15",
+    "region": "eu-west-1",
+    "currency": "USD",
+    "services": {
+        "compute": {
+            "t3.medium": 0.0416,
+            "m5.large": 0.096,
+            "c5.xlarge": 0.17
+        },
+        "storage": {
+            "ebs_gp3": 0.08,
+            "s3_standard": 0.023
+        },
+        "rds": {
+            "db.t3.medium": 0.068,
+            "db.m5.large": 0.2
+        },
+        "bandwidth": {
+            "egress_gb": 0.09
+        }
+    }
+}

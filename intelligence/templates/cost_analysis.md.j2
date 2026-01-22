@@ -1,0 +1,34 @@
+## Análisis de Costes de Infraestructura ({{ region }})
+
+### Escenario Actual
+- **Coste mensual estimado**: {{ current.monthly | currency }} 
+  *Fuente: API de Precios Oficial (Confianza 1.0), actualizado {{ last_updated }}*
+- **Proyección a 12 meses**: {{ current.yearly | currency }}
+- **Punto de inflexión**: {{ break_even_point }} usuarios activos simultáneos.
+
+### Optimización Propuesta
+{% if optimization.potential_savings > 0.10 %}
+> [!WARNING]
+> **Oportunidad crítica:** Se detectó un potencial de ahorro del {{ optimization.potential_savings | percent }}. Actuar de inmediato para reducir la quema de liquidez mensual.
+{% endif %}
+
+| Métrica   | Actual                      | Optimizado                      | Ahorro                      |
+|-----------|-----------------------------|---------------------------------|-----------------------------|
+| Compute   | {{ current.compute | currency }}  | {{ optimized.compute | currency }}  | {{ savings.compute | currency }}  |
+| Storage   | {{ current.storage | currency }}  | {{ optimized.storage | currency }}  | {{ savings.storage | currency }}  |
+| **Total** | **{{ current.total | currency }}** | **{{ optimized.total | currency }}** | **{{ savings.total | currency }}** |
+
+### Detalle por Servicio Principal
+{% for service in services %}
+- **{{ service.name }}**: {{ service.cost }}/mes
+  - *Recomendación:* {{ service.recommendation }}
+  - *Nivel de Impacto:* {{ service.impact }}
+{% endfor %}
+
+{% if risks %}
+### Análisis de Riesgos Estructurales
+{% for risk in risks %}
+- **{{ risk.type }}**: {{ risk.description }}
+  - *Mitigación recomendada:* {{ risk.mitigation }}
+{% endfor %}
+{% endif %}
