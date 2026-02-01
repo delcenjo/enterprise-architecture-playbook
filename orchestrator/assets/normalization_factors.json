@@ -1,0 +1,20 @@
+{
+    "SaaS B2B": {
+        "concurrent_factor": 0.05,
+        "data_per_user_mb": 100
+    },
+    "Startup": {
+        "concurrent_factor": 0.1,
+        "data_per_user_mb": 50,
+        "max_growth": 2.0
+    },
+    "Fintech": {
+        "concurrent_factor": 0.2,
+        "data_per_user_mb": 200
+    },
+    "default": {
+        "concurrent_factor": 0.01,
+        "data_per_user_mb": 50,
+        "max_growth": 1.0
+    }
+}

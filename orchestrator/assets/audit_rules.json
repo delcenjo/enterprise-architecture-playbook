@@ -1,0 +1,70 @@
+{
+    "risk_penalties": {
+        "high_sensitivity_no_encryption": 40,
+        "high_ha_no_multi_az": 30,
+        "aggressive_growth": 15,
+        "data_compliance_mismatch": 25,
+        "cost_anomaly_db_heavy": 10
+    },
+    "mitigations": {
+        "high_sensitivity_no_encryption": "Apply AWS KMS and enable EKS secret encryption",
+        "high_ha_no_multi_az": "Refactor RDS to Multi-AZ Deployment",
+        "aggressive_growth": "Enable Predictive Auto-scaling in EKS",
+        "data_compliance_mismatch": "Check cross-region data transfer regulations",
+        "cost_anomaly_db_heavy": "Evaluate Reserved Instances or instance sizing for RDS"
+    },
+    "thresholds": {
+        "db_cost_ratio_limit": 0.6,
+        "growth_warn_limit": 0.8
+    },
+    "threat_profiles_2026": {
+        "misconfigurations": {
+            "name": "Cloud Misconfigurations",
+            "probability": 4,
+            "impact": 5,
+            "base_cost": 4400000,
+            "mitigation_reduction": 0.7,
+            "resource_driver": "storage"
+        },
+        "insecure_apis": {
+            "name": "Insecure APIs & Leaks",
+            "probability": 3,
+            "impact": 4,
+            "base_cost": 100000,
+            "mitigation_reduction": 0.4,
+            "resource_driver": "egress"
+        },
+        "resource_overuse": {
+            "name": "Resource Exhaustion (CPU/RAM)",
+            "probability": 3,
+            "impact": 4,
+            "base_cost": 10000,
+            "mitigation_reduction": 0.3,
+            "resource_driver": "compute"
+        },
+        "vendor_lockin": {
+            "name": "Vendor Lock-in Risk",
+            "probability": 2,
+            "impact": 3,
+            "base_cost": 100000,
+            "mitigation_reduction": 0.2,
+            "resource_driver": "storage"
+        },
+        "data_sovereignty": {
+            "name": "Data Sovereignty (GDPR)",
+            "probability": 4,
+            "impact": 5,
+            "base_cost": 4000000,
+            "mitigation_reduction": 0.6,
+            "resource_driver": "egress"
+        },
+        "ai_shadow_agents": {
+            "name": "AI Shadow Agents / Rogue Models",
+            "probability": 3,
+            "impact": 4,
+            "base_cost": 500000,
+            "mitigation_reduction": 0.5,
+            "resource_driver": "compute"
+        }
+    }
+}

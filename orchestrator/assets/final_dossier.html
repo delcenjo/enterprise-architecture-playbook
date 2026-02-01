@@ -1,0 +1,195 @@
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Enterprise Architecture Dossier</title>
+            <style>:root {
+    --primary: #1A237E;
+    --secondary: #E8EAF6;
+    --accent: #FFAB00;
+    --text: #212121;
+    --bg-gradient: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    --card-bg: rgba(255, 255, 255, 0.95);
+    --border-radius: 12px;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--bg-gradient);
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 40px auto;
+    background: var(--card-bg);
+    padding: 60px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    backdrop-filter: blur(10px);
+}
+
+header {
+    border-bottom: 3px solid var(--primary);
+    padding-bottom: 20px;
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1, h2, h3 { color: var(--primary); }
+h1 { font-size: 2.5rem; margin: 0; }
+.seal { font-family: monospace; font-size: 0.8rem; color: #666; background: #eee; padding: 4px 8px; border-radius: 4px; }
+
+.financial-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 40px 0;
+}
+
+.metric-card {
+    background: var(--secondary);
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 5px solid var(--primary);
+}
+
+.visual-section {
+    margin: 40px 0;
+    text-align: center;
+}
+
+.visual-section img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+th, td {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+th { background: var(--secondary); color: var(--primary); }
+
+.risk-high { color: #C62828; font-weight: bold; }
+.complience-shield {
+    background: #4CAF50;
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    margin: 20px 0;
+}
+
+@media print {
+    body { background: white; }
+    .container { box-shadow: none; margin: 0; max-width: 100%; width: 100%; }
+}
+</style>
+        </head>
+        <body>
+            <div class="container">
+                <header>
+                    <h1>Strategy & Architecture Dossier</h1>
+                    <div class="seal">SEAL: 171f502ce09ac474...</div>
+                </header>
+
+                <div class="financial-grid">
+                    <div class="metric-card">
+                        <h3>5Y NPV</h3>
+                        <p style="font-size: 1.5rem; font-weight: bold;">$7,715,872.74</p>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Payback</h3>
+                        <p style="font-size: 1.5rem; font-weight: bold;">1 Months</p>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Compliance</h3>
+                        <p style="font-size: 1.5rem; font-weight: bold;">70%</p>
+                    </div>
+                </div>
+
+                
+        <section id="executive-summary">
+            <h2>1. Executive Summary: Strategic Alignment</h2>
+            <p>The proposed solution for the <strong>SaaS B2B</strong> platform is meticulously engineered to support an initial user base of 
+            50,000 users with a 80.0% growth trajectory. 
+            By adopting the <strong>event-driven</strong> blueprint, we ensure linear scalability and technical debt avoidance.</p>
+        </section>
+
+        <section id="strategic-blueprint">
+            <h2>2. Technical Architecture & Component Selection</h2>
+            <p>Our audit confirms that the selected components provide the necessary vertical and horizontal scalability required for 2500 
+            concurrent connections. The integration of <strong>WAFv2, KeyManagement, DDoS Protection</strong> provides a robust 
+            security perimeter, specifically tuned for <strong>DataSensitivity.CRITICAL</strong> sensitivity data.</p>
+        </section>
+
+        <section id="financial-strategy">
+            <h2>3. Financial Modeling & ROI Prediction</h2>
+            <p>Based on our deterministic 5-year simulation, the project presents an <strong>NPV of $7,715,872.74</strong>. 
+            The payback period (ROI) is estimated at <strong>1 months</strong> under the base scenario. 
+            We have accounted for infrastructure overhead, security add-ons, and dynamic load-balancing costs.</p>
+        </section>
+        
+
+                <div class="visual-section">
+                    <h2>Infrastructure Blueprint</h2>
+                    <img src="architecture.png" alt="Architecture Diagram">
+                </div>
+
+                <div class="visual-section">
+                    <h2>Financial Performance Scenarios</h2>
+                    <img src="financial_projection.png" alt="Financial Projection">
+                </div>
+
+                <div class="visual-section">
+                    <h2>Load Dynamics</h2>
+                    <img src="load_curve.png" alt="Load Profile">
+                </div>
+
+                <h2>Infrastructure bill of materials (BOM)</h2>
+                <table>
+                    <thead>
+                        <tr><th>Component</th><th>Type</th><th>Size/ID</th><th>Est. Monthly</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Event Bus</td><td>EventBridge</td><td>N/A</td><td>$0.00</td></tr><tr><td>Functions</td><td>Lambda</td><td>c5.xlarge</td><td>$0.00</td></tr><tr><td>NoSQL</td><td>DynamoDB</td><td>db.m5.large</td><td>$126.00</td></tr><tr><td>WAF</td><td>WAFv2</td><td>N/A</td><td>$25.00</td></tr><tr><td>KMS</td><td>KeyManagement</td><td>N/A</td><td>$1.00</td></tr><tr><td>Shield</td><td>DDoS Protection</td><td>N/A</td><td>$3,000.00</td></tr>
+                    </tbody>
+                    <tfoot>
+                        <tr><th colspan="3">Total Monthly Estimated</th><th>$3,542.62</th></tr>
+                    </tfoot>
+                </table>
+
+                <h2>Risk Audit & Mitigation</h2>
+                <table>
+                    <thead>
+                        <tr><th>Severity</th><th>Risk Description</th><th>Mitigation Strategy</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><span class='risk-high'>CRITICAL</span></td><td>High Availability Gap</td><td>Refactor RDS to Multi-AZ Deployment</td></tr>
+                    </tbody>
+                </table>
+
+                <footer style="margin-top: 50px; font-size: 0.8rem; color: #888;">
+                    Certified by AI Architect Agent v2 - Standard Compliance Framework
+                </footer>
+            </div>
+        </body>
+        </html>
+        

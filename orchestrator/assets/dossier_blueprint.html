@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="dossier_style.css">
+    <style>
+        /* Embedding CSS for WeasyPrint consistency if needed */
+        
+    </style>
+</head>
+<body>
+
+    <!-- PORTADA -->
+    <div class="page cover-page">
+        <div class="logo-placeholder">IA²E ARCHITECT ENGINE</div>
+        <h1>{{ b_type }} ARCHITECTURE STRATEGY</h1>
+        <p class="mt-4" style="font-size: 1.2rem; color: #64748b;">Executive Review & Institutional Roadmap</p>
+        
+        <div class="seal-container">
+            <strong>TECHNICAL INTEGRITY SEAL</strong><br>
+            HASH: {{ integrity_seal }}<br>
+            TIMESTAMP: {{ timestamp }}
+        </div>
+    </div>
+
+    <!-- EXECUTIVE SUMMARY -->
+    <div class="page">
+        <h2>01. Executive Summary</h2>
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-label">5Y Net Present Value</div>
+                <div class="kpi-val">{{ currency_symbol }}{{ npv|format_currency }}</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Payback (Months)</div>
+                <div class="kpi-val">{{ roi_months }}</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Compliance Score</div>
+                <div class="kpi-val">{{ compliance_score }}%</div>
+            </div>
+        </div>
+
+        <div class="narrative mt-4">
+            {{ executive_narrative }}
+        </div>
+
+        <div class="visual-box">
+            <h3>Provider Comparison (Global Audit)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Cloud Provider</th>
+                        <th>Monthly TCO ({{ currency }})</th>
+                        <th>Efficiency Index</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for provider, cost in provider_comparison.items() %}
+                    <tr {% if provider == 'azure' %}style="font-weight: bold; color: var(--accent);"{% endif %}>
+                        <td>{{ provider|upper }}</td>
+                        <td>{{ currency_symbol }}{{ cost|format_currency }}</td>
+                        <td>{{ "Optimized" if cost < total_monthly * 1.05 else "Standard" }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- REQUIREMENTS & AUDIT -->
+    <div class="page">
+        <h2>02. Constraints & Assumptions Audit</h2>
+        <p>A deterministic normalization was applied to the initial business parameters to ensure technical feasibility and risk mitigation.</p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Domain</th>
+                    <th>Input Value</th>
+                    <th>Normalized Profile</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in audit_table %}
+                <tr>
+                    <td>{{ row.domain }}</td>
+                    <td>{{ row.input }}</td>
+                    <td>{{ row.profile }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="visual-box">
+            <h3>Simulated Load Dynamics (24h)</h3>
+            <img src="load_curve.png" alt="Load Profile">
+        </div>
+    </div>
+
+    <!-- RESOURCE TRANSPARENCY -->
+    <div class="page">
+        <h2>02.1 Resource Requirements Transparency</h2>
+        <p>The following infrastructure specifications were derived through pure mathematical modeling based on the load profile above. Zero speculative estimation was used.</p>
+        
+        <div class="kpi-grid">
+            <div class="kpi-card" style="background: #f8fafc;">
+                <div class="kpi-label">Compute Capacity</div>
+                <div class="kpi-val">{{ raw_reqs.compute.vcpu|round(1) }} vCPUs</div>
+                <div class="kpi-label" style="font-size: 0.7rem;">+ {{ raw_reqs.compute.ram_gb|round(1) }} GB RAM</div>
+            </div>
+            <div class="kpi-card" style="background: #f8fafc;">
+                <div class="kpi-label">Provisioned IOPS</div>
+                <div class="kpi-val">{{ raw_reqs.storage.iops|round(0) }}</div>
+                <div class="kpi-label" style="font-size: 0.7rem;">High-Performance Storage</div>
+            </div>
+            <div class="kpi-card" style="background: #f8fafc;">
+                <div class="kpi-label">Monthly Egress</div>
+                <div class="kpi-val">{{ raw_reqs.networking.egress_gb|round(1) }} GB</div>
+                <div class="kpi-label" style="font-size: 0.7rem;">Data Transfer Model</div>
+            </div>
+        </div>
+
+        <h3 class="mt-4">Cost Distribution by Resource Type</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Resource Domain</th>
+                    <th>Technical Driver</th>
+                    <th>Monthly Base Cost</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Compute Instances</td>
+                    <td>{{ raw_reqs.compute.vcpu|round(1) }} vCPUs (m5 Instances)</td>
+                    <td>{{ currency_symbol }}{{ resource_breakdown.compute|format_currency }}</td>
+                </tr>
+                <tr>
+                    <td>Storage & IOPS</td>
+                    <td>gp3 High-Performance EBS</td>
+                    <td>{{ currency_symbol }}{{ resource_breakdown.storage|format_currency }}</td>
+                </tr>
+                <tr>
+                    <td>Networking / Egress</td>
+                    <td>{{ raw_reqs.networking.egress_gb|round(1) }} GB Data Out</td>
+                    <td>{{ currency_symbol }}{{ resource_breakdown.networking|format_currency }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ARCHITECTURE STRATEGY -->
+    <div class="page">
+        <h2>03. Target Architecture Strategy</h2>
+        <p>The system has selected the <strong>{{ architecture_pattern }}</strong> blueprint as the optimal structural foundation.</p>
+        
+        <div class="visual-box">
+            <h3>System Logical Blueprint</h3>
+            <img src="architecture.png" alt="Architecture Diagram">
+        </div>
+
+        <h3>Bill of Materials (BOM)</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Subsystem</th>
+                    <th>Resource Type</th>
+                    <th>Sizing</th>
+                    <th>Est. Monthly</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in bom %}
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.type }}</td>
+                    <td>{{ item.size }}</td>
+                    <td>{{ currency_symbol }}{{ item.cost|format_currency }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr style="background: var(--bg-light); font-weight: 700;">
+                    <td colspan="3">Total Infrastructure Monthly TCO</td>
+                    <td>{{ currency_symbol }}{{ total_monthly|format_currency }}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <!-- RISK & MITIGATION -->
+    <div class="page">
+        <h2>04. Risk Register & Recommendations</h2>
+        <p>The following risks were identified during the technical audit phase based on the stated sensitivity and availability targets. Probability and Impact scores are based on <strong>2026 Cloud Threat Benchmarks</strong>.</p>
+        
+        <div class="visual-box">
+            <h3>Technical Risk Heatmap (2026 Matrix)</h3>
+            <img src="risk_heatmap.png" alt="Risk Heatmap">
+            <p style="font-size: 0.8rem; color: #64748b; text-align: center;">Quadrant 4: Critical Exposure (High Prob/Impact) | Quadrant 1: Managed Risk</p>
+        </div>
+
+        <h3>Expert Technical Audit Checklist</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Threat / Risk Cluster</th>
+                    <th>P/I/S</th>
+                    <th>Exposure Source</th>
+                    <th>Professional Mitigation</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for audit in technical_audit %}
+                <tr {% if audit.raw_score > 15 %}style="background: #FFF1F2;"{% endif %}>
+                    <td><strong>{{ audit.name }}</strong></td>
+                    <td>{{ audit.probability }}/{{ audit.impact }}/{{ audit.raw_score }}</td>
+                    <td>{{ audit.critical_resource }}</td>
+                    <td>{{ audit.mitigation }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <div class="visual-box mt-4" style="background: #F8FAFC; border: 1px solid #E2E8F0; padding: 1rem; border-radius: 8px;">
+            <h4>Institutional Recommendation</h4>
+            <p style="font-size: 0.9rem; margin-bottom: 0;">{{ executive_narrative }}</p>
+        </div>
+    </div>
+     <div class="narrative mt-4">
+            <h3>Strategic Roadmap Summary</h3>
+            {{ roadmap_narrative }}
+        </div>
+    </div>
+
+    <!-- ADVANCED SCALABILITY DESIGN (V23) -->
+    <div class="page">
+        <h2>05. Advanced Scalability & Pattern Strategy</h2>
+        <p>Based on the <strong>Pattern Knowledge Base (V23)</strong> and the calculated traffic profile, the following expert scaling patterns are recommended to achieve enterprise-grade resilience.</p>
+
+        {% if enterprise_patterns %}
+        <div class="expert-section">
+            {% for pattern in enterprise_patterns %}
+            <div class="pattern-card" style="border: 1px solid #E2E8F0; padding: 1rem; margin-bottom: 1rem; border-radius: 8px; background: #F8FAFC;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                    <h4 style="color: var(--primary); margin-top: 0;">{{ pattern.name }} (Confidence: {{ (pattern.confidence * 100)|int }}%)</h4>
+                    {% if pattern.is_irreversible %}
+                    <span style="background: #FECACA; color: #991B1B; font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; font-weight: bold; border: 1px solid #991B1B;">⚠️ IRREVERSIBLE ACTION</span>
+                    {% endif %}
+                </div>
+                <p style="font-size: 0.9rem; margin-bottom: 0.5rem;"><strong>Rationale:</strong> {{ pattern.rationale }}</p>
+                {% if pattern.lock_in %}
+                <p style="font-size: 0.8rem; color: #991B1B; margin-bottom: 0.5rem;"><strong>Lock-in Risk:</strong> {{ pattern.lock_in }}</p>
+                {% endif %}
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; font-size: 0.8rem;">
+                    {% for k, v in pattern.impact.items() %}
+                    <div style="background: white; padding: 0.5rem; border-radius: 4px; border: 1px solid #CBD5E1;">
+                        <span style="display: block; color: #64748B;">{{ k|replace('_', ' ')|capitalize }}</span>
+                        <strong>{{ v }}</strong>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p>Standard architectural patterns are sufficient for the current workload profile.</p>
+        {% endif %}
+
+        <h3>Pattern Comparison & Trade-off Matrix</h3>
+        <p style="font-size: 0.85rem;">Quantitative comparison of recommended vs alternative patterns based on implementation risk and cost.</p>
+        <table style="font-size: 0.8rem;">
+            <thead>
+                <tr>
+                    <th>Dimension</th>
+                    <th>Complexity</th>
+                    <th>Infra Cost</th>
+                    <th>Impl. Time</th>
+                    <th>Scalability</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if tradeoff_matrix and tradeoff_matrix.matrix %}
+                    {% for p_id, p_data in tradeoff_matrix.matrix.items() %}
+                    <tr {% if (enterprise_patterns|selectattr('id', 'equalto', p_id)|list)|length > 0 %}style="background: #ECFDF5; border-left: 4px solid #10B981;"{% endif %}>
+                        <td><strong>{{ p_id|upper }}</strong></td>
+                        <td>{{ p_data.complexity }}/10</td>
+                        <td>{{ p_data.infra_cost }}x</td>
+                        <td>{{ p_data.impl_time_weeks }} weeks</td>
+                        <td>{{ p_data.scalability }}</td>
+                    </tr>
+                    {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- APPENDICES -->
+    <div class="page">
+        <h2>06. Appendices</h2>
+        <h3>Methodology</h3>
+        <p>All calculations follow standard NPV/ROI formulas with a 10% WACC assumption. Pricing is derived from current AWS region benchmarks (Feb 2026).</p>
+        
+        <h3>State Audit Trail (JSON Fragment)</h3>
+        <pre style="background: var(--bg-light); padding: 1rem; font-size: 0.7rem; border-radius: 4px;">
+{{ state_json_sample }}
+        </pre>
+
+        <p style="margin-top: 5rem; font-size: 0.8rem; text-align: center; color: #94a3b8;">
+            Generado por Institutional AI Architecture Engine v1.0 | Propiedad de Inteliproyecto S.A.
+        </p>
+    </div>
+
+</body>
+</html>

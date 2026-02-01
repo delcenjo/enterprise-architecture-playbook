@@ -1,0 +1,100 @@
+{
+  "patterns": [
+    {
+      "id": "saas-multi-tenant-hyper",
+      "name": "Institutional SaaS Multi-tenant (High-Depth)",
+      "affinity_scores": {
+        "is_saas": 10,
+        "high_concurrency": 8,
+        "variable_load": 7
+      },
+      "components": [
+        {
+          "name": "Global Edge Gateway",
+          "type": "cloudfront",
+          "role": "edge"
+        },
+        {
+          "name": "Application Cluster",
+          "type": "m5.large",
+          "role": "compute"
+        },
+        {
+          "name": "Distributed Data Store",
+          "type": "db.m5.large",
+          "role": "data"
+        }
+      ],
+      "base_infrastructure": {
+        "orchestrator": "EKS",
+        "monitoring": "Prometheus/Grafana",
+        "logging": "EFK Stack"
+      },
+      "adaptation_rules": [
+        {
+          "condition": "traffic.concurrent_users > 10000",
+          "action": "replicas['api'] = 12"
+        },
+        {
+          "condition": "compliance.availability_target == '99.99%'",
+          "action": "replicas['multi_az'] = 1"
+        }
+      ]
+    },
+    {
+      "id": "fintech-critical-isolated",
+      "name": "Fintech Tier-0 (Isolated Architecture)",
+      "affinity_scores": {
+        "fintech": 15,
+        "high_sensitivity": 10
+      },
+      "components": [
+        {
+          "name": "PCI-Proxy Gateway",
+          "type": "c5.xlarge",
+          "role": "edge"
+        },
+        {
+          "name": "Core Banking API",
+          "type": "m5.xlarge",
+          "role": "compute"
+        },
+        {
+          "name": "Encrypted DB Cluster",
+          "type": "db.m5.xlarge",
+          "role": "data"
+        }
+      ],
+      "base_infrastructure": {
+        "encryption": "KMS-Hardware-HSM",
+        "audit": "CloudTrail-Strict"
+      }
+    }
+  ],
+  "addons": {
+    "critical_sensitivity": [
+      {
+        "name": "DDoS Protection Shield",
+        "type": "DDoS Protection",
+        "role": "security"
+      },
+      {
+        "name": "Hardware HSM",
+        "type": "KeyManagement",
+        "role": "security"
+      }
+    ],
+    "high_sensitivity": [
+      {
+        "name": "WAF Global Shield",
+        "type": "WAFv2",
+        "role": "security"
+      },
+      {
+        "name": "KMS Encryption",
+        "type": "KeyManagement",
+        "role": "security"
+      }
+    ]
+  }
+}

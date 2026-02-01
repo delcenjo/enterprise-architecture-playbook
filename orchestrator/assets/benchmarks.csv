@@ -1,0 +1,6 @@
+type,data_mb,concurrent_factor
+SaaS B2B,100,0.05
+Startup,50,0.1
+Fintech,200,0.2
+E-commerce,150,0.15
+default,50,0.01

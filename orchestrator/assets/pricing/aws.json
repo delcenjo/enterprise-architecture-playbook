@@ -1,0 +1,85 @@
+{
+    "pricing_metadata": {
+        "last_update": "2026-02-21",
+        "regions": [
+            "us-east-1",
+            "eu-central-1",
+            "ap-southeast-1"
+        ]
+    },
+    "regional_multipliers": {
+        "us-east-1": 1.0,
+        "eu-central-1": 1.15,
+        "ap-southeast-1": 1.25
+    },
+    "instances": {
+        "t3.medium": {
+            "cpu": 2,
+            "ram_gb": 4,
+            "hourly_cost": 0.0416
+        },
+        "m5.large": {
+            "cpu": 2,
+            "ram_gb": 8,
+            "hourly_cost": 0.096
+        },
+        "m5.xlarge": {
+            "cpu": 4,
+            "ram_gb": 16,
+            "hourly_cost": 0.192
+        },
+        "c5.xlarge": {
+            "cpu": 4,
+            "ram_gb": 8,
+            "hourly_cost": 0.17
+        },
+        "r5.xlarge": {
+            "cpu": 4,
+            "ram_gb": 32,
+            "hourly_cost": 0.252
+        }
+    },
+    "storage": {
+        "gp3": {
+            "per_gb_month": 0.08,
+            "included_iops": 3000,
+            "extra_iops_cost": 0.005
+        },
+        "s3_standard": {
+            "per_gb_month": 0.023
+        },
+        "s3_glacier": {
+            "per_gb_month": 0.0036
+        }
+    },
+    "networking": {
+        "egress_gb_tier1_10TB": 0.09,
+        "egress_gb_tier2_40TB": 0.085,
+        "nat_gateway_hourly": 0.045,
+        "nat_gateway_per_gb": 0.045
+    },
+    "database": {
+        "db.t3.medium": {
+            "hourly_cost": 0.082
+        },
+        "db.m5.large": {
+            "hourly_cost": 0.175
+        },
+        "db.m5.xlarge": {
+            "hourly_cost": 0.35
+        }
+    },
+    "addons": {
+        "WAFv2": {
+            "monthly_base": 25.0,
+            "per_rule_month": 1.0
+        },
+        "KeyManagement": {
+            "monthly_base": 1.0,
+            "per_key_month": 1.0
+        },
+        "DDoS Protection": {
+            "monthly_base": 3000.0
+        }
+    }
+}

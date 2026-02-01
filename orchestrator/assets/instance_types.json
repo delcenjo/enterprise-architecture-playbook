@@ -1,0 +1,37 @@
+[
+    {
+        "id": "t3.medium",
+        "family": "general",
+        "vCPU": 2,
+        "RAM_GB": 4,
+        "hourly_cost": 0.0416
+    },
+    {
+        "id": "c5.large",
+        "family": "compute",
+        "vCPU": 2,
+        "RAM_GB": 4,
+        "hourly_cost": 0.085
+    },
+    {
+        "id": "c5.xlarge",
+        "family": "compute",
+        "vCPU": 4,
+        "RAM_GB": 8,
+        "hourly_cost": 0.17
+    },
+    {
+        "id": "r5.large",
+        "family": "memory",
+        "vCPU": 2,
+        "RAM_GB": 16,
+        "hourly_cost": 0.126
+    },
+    {
+        "id": "m5.large",
+        "family": "general",
+        "vCPU": 2,
+        "RAM_GB": 8,
+        "hourly_cost": 0.096
+    }
+]

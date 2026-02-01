@@ -1,0 +1,22 @@
+{
+    "enterprise_blue": {
+        "primary": "#1A237E",
+        "secondary": "#E8EAF6",
+        "accent": "#FFAB00",
+        "background": "#FFFFFF",
+        "text": "#212121",
+        "compute_color": "#BBDEFB",
+        "data_color": "#C8E6C9",
+        "network_color": "#FFF9C4"
+    },
+    "cyberpunk": {
+        "primary": "#0D0221",
+        "secondary": "#FB28FF",
+        "accent": "#00F7FF",
+        "background": "#0D0221",
+        "text": "#FFFFFF",
+        "compute_color": "#2DE2E6",
+        "data_color": "#FF3864",
+        "network_color": "#7B6CF6"
+    }
+}
