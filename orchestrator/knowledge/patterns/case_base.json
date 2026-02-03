@@ -1,0 +1,619 @@
+[
+    {
+        "case_id": "fintech_payment_processing_2024",
+        "pattern_applied": "Saga Pattern - Orchestration",
+        "context": {
+            "tx_volume": "50k tx/day",
+            "architecture": "Microservices (12 services)",
+            "team_size": 8,
+            "stack": "Java/Spring Boot, Kafka, PostgreSQL"
+        },
+        "original_problem": {
+            "description": "Partial failures left inconsistent states",
+            "metric_pre": "0.5% inconsistent tx, 2h/week manual reconciliation"
+        },
+        "results": {
+            "metric_post": "0.001% inconsistencies, auto-reconciliation",
+            "infra_cost_change": "+20%",
+            "operating_cost_change": "-40% (less support tickets)"
+        },
+        "lessons_learned": [
+            "Orchestrator is a SPOF - needs 3x replication",
+            "Requires mindset shift to eventual consistency",
+            "Chaos engineering is mandatory for testing"
+        ]
+    },
+    {
+        "case_id": "ecommerce_black_friday_read_surge",
+        "pattern_applied": "CQRS + Redis Read Models",
+        "context": {
+            "read_volume": "1M req/minute",
+            "architecture": "Distributed Monolith to Microlith",
+            "team_size": 12,
+            "stack": "Node.js, Redis, MongoDB, SQL"
+        },
+        "original_problem": {
+            "description": "Read contention on SQL DB during high surges",
+            "metric_pre": "3s latency, 15% request drop rate"
+        },
+        "results": {
+            "metric_post": "50ms latency, 0% drop rate",
+            "infra_cost_change": "+150% (due to Read Replicas + Redis clusters)",
+            "operating_cost_change": "+10% (sync logic maintenance)"
+        },
+        "lessons_learned": [
+            "Read-only models simplify cache invalidation",
+            "Aggregated views reduce CPU spikes on primary DB"
+        ]
+    },
+    {
+        "case_id": "fintech_api_2024",
+        "pattern_applied": "STRIDE + Attack Tree + Risk Quantification",
+        "context": {
+            "tx_volume": "10k tx/day",
+            "architecture": "Microservices (6 services)",
+            "team_size": 6,
+            "stack": "Python/FastAPI, PostgreSQL, Kafka"
+        },
+        "original_problem": {
+            "description": "Potential PII exfiltration in internal endpoints",
+            "metric_pre": "300k€/year estimated risk exposure"
+        },
+        "results": {
+            "risks_identified": 12,
+            "risks_mitigated": 9,
+            "detection_time": "3 days",
+            "lessons_learned": [
+                "STRIDE detects 80% of critical risks early",
+                "Attack trees help prioritize high-impact mitigations",
+                "Don't analyze superficially without validating with logs"
+            ]
+        }
+    },
+    {
+        "case_id": "ecommerce_checkout_2023",
+        "pattern_applied": "Multi-level Caching (Application + Database)",
+        "context": {
+            "tx_volume": "10k req/h",
+            "architecture": "Microservices",
+            "team_size": 5,
+            "stack": "Node.js, Redis, PostgreSQL"
+        },
+        "original_problem": {
+            "description": "Slow product queries and high checkout latency",
+            "metric_pre": "Latencia: 450ms, Error rate: 2%"
+        },
+        "results": {
+            "metric_post": "Latencia: 120ms, Error rate: 0.1%",
+            "infra_cost_change": "+15% (Redis Cluster)",
+            "operating_cost_change": "-30% (decreased DB load)",
+            "lessons_learned": [
+                "Short TTL on materialized views prevents major inconsistencies",
+                "Edge caching improves TTFB for global traffic",
+                "Sensitive data must be encrypted if cached"
+            ]
+        }
+    },
+    {
+        "case_id": "fintech_tx_processing_2023",
+        "pattern_applied": "High-throughput Messaging (Kafka)",
+        "context": {
+            "tx_volume": "50k msg/h",
+            "architecture": "Microservices",
+            "team_size": 7,
+            "stack": "Java/Spring Boot, Kafka, PostgreSQL"
+        },
+        "original_problem": {
+            "description": "Inconsistent transactions and high manual retry rate",
+            "metric_pre": "0.5% failure rate, 3h/day manual reconciliation"
+        },
+        "results": {
+            "metric_post": "0.001% failure rate, 0h/day reconciliation",
+            "infra_cost_change": "+25% (Replication, Storage)",
+            "operating_cost_change": "-50% (Full automation)",
+            "lessons_learned": [
+                "Idempotency is critical for safe retries",
+                "DLQ is mandatory for unprocessable messages",
+                "Partitioning by key preserves business event order"
+            ]
+        }
+    },
+    {
+        "case_id": "ecommerce_inventory_2023",
+        "pattern_applied": "CRDTs + Eventual Consistency",
+        "context": {
+            "tx_volume": "500k eventos/día",
+            "architecture": "Microservices",
+            "team_size": 10,
+            "stack": "Go, Redis CRDT, Kafka"
+        },
+        "original_problem": {
+            "description": "Stock inconsistency during flash sales, duplicate sales",
+            "metric_pre": "0.5% stock errors, 2h/day manual reconciliation"
+        },
+        "results": {
+            "metric_post": "0.001% failure rate, 0h/day reconciliation",
+            "infra_cost_change": "+15% (CRDTs + Kafka)",
+            "operating_cost_change": "-60% (Automation)",
+            "lessons_learned": [
+                "CRDTs are excellent for counters and sets in distributed envs",
+                "Vector clocks are necessary to detect concurrent updates correctly",
+                "Eventual consistency allows high availability during traffic spikes"
+            ]
+        }
+    },
+    {
+        "case_id": "fintech_multi_account_2024",
+        "pattern_applied": "Multi-account (AWS Organizations + Landing Zones)",
+        "context": {
+            "teams": 5,
+            "products": 3,
+            "stack": "AWS, Terraform, Control Tower, SCPs"
+        },
+        "original_problem": {
+            "description": "Cross-team costs, complex audit, permission risks",
+            "metric_pre": "3h/week cost reconciliation, 2 permission incidents/month"
+        },
+        "results": {
+            "operating_cost": "-30% (visibility and chargeback)",
+            "incident_rate": "0 incidents/month",
+            "reconciliation_time": "30min/week",
+            "lessons_learned": [
+                "Account separation improves security and independent audit",
+                "Landing zones reduce misconfiguration errors",
+                "Per-account chargeback is superior to tagging alone in enterprise"
+            ]
+        }
+    },
+    {
+        "case_id": "ecommerce_service_mesh_2024",
+        "pattern_applied": "Enterprise Service Mesh (Istio)",
+        "context": {
+            "services": 12,
+            "entorno": "AWS multi-account, Kubernetes",
+            "stack": "Istio, Prometheus, Jaeger, Grafana"
+        },
+        "original_problem": {
+            "description": "Difficulty in controlling cascading failures and monitoring critical latencies",
+            "metric_pre": "15% of requests with latency >1s, 3h/week partial downtime"
+        },
+        "results": {
+            "latencia_post": "350ms average",
+            "downtime_post": "15min/week",
+            "overhead": "+10% CPU/mem",
+            "visibilidad": "100% tracing/metrics coverage",
+            "lessons_learned": [
+                "Mesh doesn't replace good service design foundations",
+                "Overhead is tolerable when observability and resilience are prioritized",
+                "Configuring traffic policies from start prevents routing issues"
+            ]
+        }
+    },
+    {
+        "case_id": "fintech_serverless_vs_containers_2024",
+        "pattern_applied": "Hybrid Platform (Serverless + Containers)",
+        "context": {
+            "service": "Real-time transaction processing",
+            "users": 500000,
+            "stack": "AWS Lambda, SQS, DynamoDB, Docker/K8s"
+        },
+        "original_problem": {
+            "description": "Handling unpredictable peaks of 50k tx/min without infra overprovisioning",
+            "metric_pre": "5% downtime during peak hours due to container saturation"
+        },
+        "results": {
+            "latency": "120ms (Serverless) / 80ms (Containers)",
+            "scaling": "Automatic to 1000 concurrent invocations",
+            "op_cost": "-40% during peak loads",
+            "resilience": "0.1% failure rate with circuit breakers",
+            "lessons_learned": [
+                "Serverless is ideal for event-driven workloads and unpredictable peaks",
+                "Containers are superior for low-latency critical services and mesh integration",
+                "Hybrid approach allows for cost vs performance optimization"
+            ]
+        }
+    },
+    {
+        "case_id": "finops_optimization_fintech_2024",
+        "pattern_applied": "Advanced FinOps Strategy (RI + Savings Plans + Spot + Rightsizing)",
+        "context": {
+            "services": "CQRS + Event Sourcing + API Gateway",
+            "stack": "AWS EC2, RDS, Lambda, S3",
+            "usage": "CPU 35%, Mem 50%, IOPS 70%"
+        },
+        "original_problem": {
+            "description": "High cloud costs despite stable load on critical services",
+            "cost_pre": "120k €/month"
+        },
+        "results": {
+            "cost_post": "75k €/month (-37%)",
+            "performance_impact": "0% degradation",
+            "roi": "3 weeks payback period",
+            "lessons_learned": [
+                "Combining RI, Savings Plans, and rightsizing is more effective than any single strategy",
+                "Spot instances require a robust automation and fallback plan",
+                "Showback creates a culture of cost accountability across teams"
+            ]
+        }
+    },
+    {
+        "case_id": "dr_multi_region_fintech_2023",
+        "pattern_applied": "Active-Active Multi-Region DR",
+        "context": {
+            "services": "Microservicios CQRS + Event Sourcing + API Gateway",
+            "stack": "AWS EC2, RDS, S3, Lambda",
+            "SLA": "99.99% uptime"
+        },
+        "original_problem": {
+            "description": "Region failure caused 30 min downtime and partial data loss",
+            "rto_pre": "30 min",
+            "rpo_pre": "10 min",
+            "cost_pre": "120k €/month"
+        },
+        "results": {
+            "rto_post": "2 min",
+            "rpo_post": "0 min (synchronous)",
+            "availability": "99.999%",
+            "cost_post": "150k €/month (+25%)",
+            "lessons_learned": [
+                "Active-Active dramatically reduces RTO/RPO but significantly increases cost",
+                "Automated failover requires regular testing (chaos engineering)",
+                "Coordinating DR with FinOps is essential to justify redundant infrastructure costs"
+            ]
+        }
+    },
+    {
+        "case_id": "zta_fintech_2024",
+        "pattern_applied": "Zero Trust Architecture (ZTA) Implementation",
+        "context": {
+            "services": "Microservicios CQRS + Event Sourcing + API Gateway",
+            "stack": "AWS, Kubernetes, Istio, Vault",
+            "compliance": "PSD2, GDPR, DORA"
+        },
+        "original_problem": {
+            "description": "Internal users with excessive permissions caused security incidents",
+            "incidents_pre": "5/month",
+            "cost_pre": "30k €/month"
+        },
+        "results": {
+            "incidentes_post": 0,
+            "segmentation_coverage": "95%",
+            "cost_mensual_post": "35k €/month (+16%)",
+            "lessons_learned": [
+                "Micro-segmentation reduces blast radius but adds operational complexity",
+                "Continuous authentication is essential for unmanaged endpoints/BYOD",
+                "Dynamic policy enforcement requires real-time monitoring and auditing"
+            ]
+        }
+    },
+    {
+        "case_id": "secret_mgmt_fintech_2023",
+        "pattern_applied": "Centralized Secret Management & Automatic Rotation",
+        "context": {
+            "services": "API Gateway, microservicios CQRS/Event Sourcing",
+            "stack": "AWS, Kubernetes, HashiCorp Vault, Istio",
+            "compliance": "PSD2, GDPR, DORA"
+        },
+        "original_problem": {
+            "description": "Exposed DB credentials due to poor management practices",
+            "incidents_pre": "3/month",
+            "cost_pre": "15k €/month"
+        },
+        "results": {
+            "incidentes_post": 0,
+            "secret_coverage": "100%",
+            "cost_mensual_post": "18k €/month (+20%)",
+            "lessons_learned": [
+                "Centralizing secrets significantly reduces exposure risk but requires monitoring",
+                "Automatic rotation prevents vulnerabilities from static credentials",
+                "Granular IAM policies prevent privilege escalation"
+            ]
+        }
+    },
+    {
+        "case_id": "crypto_confidential_health_2024",
+        "pattern_applied": "Confidential Computing & Envelope Encryption",
+        "context": {
+            "services": "Genomics analysis, AI diagnostics",
+            "stack": "Azure Confidential VMs, Intel SGX, Azure Key Vault",
+            "compliance": "HIPAA, GDPR Article 9"
+        },
+        "original_problem": {
+            "description": "High risk of patient data exposure during processing",
+            "breach_cost_est": "5M €+",
+            "infra_cost_pre": "20k €/month"
+        },
+        "results": {
+            "breach_risk_mitigated": "Elite",
+            "performance_overhead": "+25% CPU",
+            "infra_cost_post": "26k €/month (+30%)",
+            "lessons_learned": [
+                "Confidential computing is justified when breach cost exceeds infrastructure delta by 10x",
+                "mTLS ensures that data never touches the network in plain text",
+                "Hardware-backed attestation is required for trustworthy diagnostics"
+            ]
+        }
+    },
+    {
+        "case_id": "tm_fintech_quantified_2024",
+        "pattern_applied": "Quantitative Threat Modeling (ALE/SLE)",
+        "context": {
+            "services": "Fintech Mobile Wallet, API Gateway",
+            "stack": "Kubernetes, Istio, Vault, AWS KMS",
+            "compliance": "GDPR, PSD2, DORA"
+        },
+        "original_problem": {
+            "description": "Risk of PII breach with massive potential GDPR fines",
+            "sle_impact": "3.0M € (Fines + Reputation)",
+            "aro_frequency": "0.15 (15% annual probability)",
+            "ale_initial": "450k €/year"
+        },
+        "results": {
+            "ale_residual": "50k €/year",
+            "mitigation_cost": "120k €/year (OpEx + Infra)",
+            "annual_roi": "280k € (ALE reduction - Mitigation cost)",
+            "lessons_learned": [
+                "Quantifying risk as ALE allows security to be treated as an investment",
+                "STRIDE analysis identified that Tampering and Info Disclosure were the highest financial risks",
+                "Economic Attack Trees showed that securing the API gateway was the highest ROI action"
+            ]
+        }
+    },
+    {
+        "case_id": "dora_resilience_banking_2025",
+        "pattern_applied": "DORA ICT Risk Management & Operational Resilience",
+        "context": {
+            "services": "Core Banking, Payment Settlement",
+            "stack": "Azure, Multi-region AKS, Cosmos DB Global, Azure Front Door",
+            "compliance": "DORA (Articles 6-12), PSD2"
+        },
+        "original_problem": {
+            "description": "Legacy single-region architecture with high risk of regulatory sanction (>2M€) for lack of resilience",
+            "regulatory_risk_ale": "400k €/year (2M€ fine * 20% prob)",
+            "operational_rto": "24h (Manual failover)"
+        },
+        "results": {
+            "operational_rto_post": "< 15 min (Automated Multi-region)",
+            "regulatory_compliance": "100% (Audited)",
+            "annual_roi_compliance": "320k € (Risk reduction - OpEx)",
+            "lessons_learned": [
+                "DORA requires not just technology, but formalized governance and accountability",
+                "Automated multi-region failover is the only way to meet Article 10 resilience requirements for critical banking functions",
+                "Continuous monitoring and automated reporting (Art. 11) reduced legal response time by 80%"
+            ]
+        }
+    },
+    {
+        "case_id": "tprm_cloud_concentration_exit_2025",
+        "pattern_applied": "TPRM Concentration Risk & Exit Strategy Mitigation",
+        "context": {
+            "services": "Investment Platform, Customer Data Engine",
+            "stack": "AWS (Original), GCP (Backup), Kubernetes, Crossplane, Terraform",
+            "compliance": "DORA (Art. 28-30), Concentration Risk guidelines"
+        },
+        "original_problem": {
+            "description": "100% dependency on a single hyperscaler for critical functions with no technical portability",
+            "concentration_risk_score": "High (95%)",
+            "estimated_exit_time": "14 months (Severe Lock-in)"
+        },
+        "results": {
+            "concentration_risk_score_post": "Medium (< 60%)",
+            "estimated_exit_time_post": "4 months (via K8s + Agnostic DBs)",
+            "regulatory_roi": "High (Sanction avoidance + Negotiation leverage)",
+            "lessons_learned": [
+                "Containerization is a prerequisite for a credible technical Exit Strategy",
+                "Maintaining an agnostic backup and infrastructure-as-code (Crossplane/Terraform) reduces the time-to-exit by 70%",
+                "Multi-vendor leverage improved contract negotiation terms by 15%"
+            ]
+        }
+    },
+    {
+        "case_id": "dora_tlpt_banking_val_2025",
+        "pattern_applied": "Operational Resilience Testing / TLPT (Threat-Led)",
+        "context": {
+            "services": "Investment Banking Core, Payment Gateway",
+            "stack": "On-prem, AWS Hybrid, F5, SIEM (Splunk)",
+            "compliance": "DORA Art. 26 (TLPT mandate), TIBER-EU"
+        },
+        "original_problem": {
+            "description": "Board-level uncertainty regarding the effectiveness of identity and access controls under realistic attack",
+            "validation_gap": "High (Theoretical only)",
+            "potential_breach_vale": "3.5M € (Validated scenario impact)"
+        },
+        "results": {
+            "ttd_measured": "4h (Target: 1h) - Gap detected",
+            "ttc_measured": "12h (Target: 4h) - Gap detected",
+            "remediation_roi": "High (Fixed privilege escalation paths found during exercise)",
+            "lessons_learned": [
+                "TLPT is the only way to validate that 'on-paper' controls actually stop a determined adversary",
+                "Detection time (TTD) was severely impacted by logging silos between on-prem and cloud",
+                "The Board now allocates budget based on 'Empirical Risk' rather than static checkboxes"
+            ]
+        }
+    },
+    {
+        "case_id": "urrse_board_decision_2025",
+        "pattern_applied": "Unified Risk & Resilience Scoring Engine (URRSE)",
+        "context": {
+            "services": "Enterprise Digital Transformation, Cloud Migration",
+            "stack": "Multi-cloud, Hybrid On-prem, Legacy Core",
+            "compliance": "DORA, SEC Cybersecurity Rules"
+        },
+        "original_problem": {
+            "description": "Fragmented risk reporting (PDFs, Excels) led to Board-level confusion and budget stagnation for 2 years",
+            "initial_gri": "74 / 100",
+            "initial_ale_total": "5.5M € / year"
+        },
+        "results": {
+            "gri_post_investment": "42 / 100",
+            "ale_reduction": "2.1M € / year",
+            "budget_justification": "Approved +15% based on ROI-driven URRSE metrics",
+            "lessons_learned": [
+                "Translating technical vulnerabilities into GRI (0-100) and ALE (€) is the only way to get Board attention",
+                "Weighting factors allowed the CIO to prove that Operational Resilience was the most critical gap, not Compliance",
+                "The unified dashboard replaced 12 fragmented reports, reducing board prep time by 75%"
+            ]
+        }
+    },
+    {
+        "case_id": "risk_engine_saas_blueprint_2025",
+        "pattern_applied": "Risk & Resilience SaaS Architecture / SaaS Blueprint",
+        "context": {
+            "target_market": "EU Financial Sector (Banks, Fintechs, Insurtechs)",
+            "product_type": "B2B SaaS Risk Management & DORA Reporting",
+            "regulatory_focus": "DORA, TIBER-EU, TIBER-BE"
+        },
+        "technical_vision": {
+            "core_stack": "Next.js 15, FastAPI, Multi-modal DB (Postgres + Neo4j + Timescale)",
+            "security": "Tenant-specific KMS, mTLS, Zero Trust internal architecture",
+            "monetization": "3-Tier (Mid-Fintech, Significant Entity, Enterprise)"
+        },
+        "roadmap_12_months": {
+            "q1_mvp": "Core scoring engine, basic ALE model, DORA 6-12 reporting",
+            "q2_integrations": "AWS/Azure/GCP connectors, SIEM-IAM ingestion",
+            "q3_advanced_risk": "Attack tree automation (Neo4j), Exit Strategy feasibility module",
+            "q4_stress_simulation": "TLPT ingestion, extreme scenario stress testing, trend analytics"
+        },
+        "strategic_value": [
+            "Eliminates reliance on fragmented Excels/PDFs for risk management",
+            "Provides 'Regulatory-ready' evidence for DORA inspections automatically",
+            "Monetizable product with High Margin and high barriers to entry"
+        ]
+    },
+    {
+        "case_id": "dora_full_framework_audit_2025",
+        "pattern_applied": "DORA ICT Risk Management Framework (Art. 6-12)",
+        "context": {
+            "entity": "Significant EU Bank",
+            "audit_type": "Regulatory Compliance Preparedness",
+            "scope": "Critical Payment Infrastructure"
+        },
+        "findings": {
+            "structural_gaps": [
+                "Incomplete CMDB (Art. 7 failure): Critical dependencies between payment API and KYC provider were not mapped",
+                "Detection Latency (Art. 9 gap): MTTD was 48h due to fragmented logging across multi-cloud regions",
+                "Recovery Validation (Art. 10 gap): Multi-region failover had not been tested for 'Extreme' scenarios"
+            ],
+            "risk_impact": "High residual risk of regulatory license withdrawal and financial instability"
+        },
+        "remediation_results": {
+            "gri_reduction": "78 to 35",
+            "ale_reduction": "3.5M € / year",
+            "compliance_status": "DORA-Ready verified by external auditor",
+            "lessons_learned": [
+                "DORA compliance is not a checkbox exercise; it requires real-time graph-based dependency mapping (Art. 7)",
+                "Automated reporting (Art. 11/12) reduced CISO emergency workload by 60% during minor incidents",
+                "Board accountability (Art. 6) was achieved through automated GRI dashboards, leading to 2M€ extra budget for SRE/Observability integration"
+            ]
+        }
+    },
+    {
+        "case_id": "dora_major_incident_2025",
+        "pattern_applied": "Major ICT-related Incident (Incident Management Pillar)",
+        "context": {
+            "entity": "Regional Payments Processor",
+            "incident_type": "Transactional Core Failure (Cloud region outage)",
+            "impact_scope": "30,000 clients, 400k € indirect loss"
+        },
+        "management_timeline": {
+            "T_0": "Incident detected (MTTD: 5 min)",
+            "T_1h": "Classified as 'Major' based on critical function impact and cost thresholds",
+            "T_3h": "Initial Notification sent to Regulator (within 4h mandate)",
+            "T_18h": "Intermediate Report sent with root cause hypothesis and mitigation status",
+            "T_60h": "Final Report sent with evidence of remediated control gap and permanent fix"
+        },
+        "results": {
+            "regulatory_status": "Zero sanctions; commended for transparency and timeline precision",
+            "financial_recovery": "85% of transactions re-processed within 4h",
+            "lessons_learned": [
+                "Automated classification is the difference between compliance and multi-million euro fines",
+                "Pre-filled regulatory templates reduced reporting effort by 80%",
+                "Linking incident response to the CISO Dashboard provided the Board with real-time confidence"
+            ]
+        }
+    },
+    {
+        "case_id": "tiber_eu_simulation_2025",
+        "pattern_applied": "TIBER-EU Framework (Resilience Testing Pillar)",
+        "context": {
+            "entity": "G-SIB (Global Systemically Important Bank)",
+            "scope": "End-to-end Core Clearing & Settlement Systems",
+            "test_type": "Threat-led Ethical Red Teaming (TLPT)"
+        },
+        "phases_executed": {
+            "threat_intel": "Identification of 3 advanced persistent threat (APT) actors targeting SWIFT-like interfaces",
+            "red_team_attack": "12-week simulated campaign including spear-phishing and lateral movement",
+            "blue_team_response": "Evaluation of detection latency and containment effectiveness under 'Blind' conditions"
+        },
+        "findings": {
+            "critical_vulnerability": "Legacy mainframe interface allowed unauthorized lateral movement from secondary SaaS HR system",
+            "resilience_gap": "Detection evasion was successful for 14 days due to logs being misclassified as low-priority bulk data",
+            "gri_impact": "Initial pre-test GRI was 85; post-remediation GRI target 25"
+        },
+        "strategic_outcomes": {
+            "compliance_status": "DORA TLPT mandate successfully fulfilled",
+            "board_action": "Approval of 15M€ infrastructure modernization plan based on empirical proof of risk",
+            "lessons_learned": [
+                "Technical controls are insufficient without integrated threat intelligence (TIBER-EU)",
+                "Cross-border entities require unified red teaming to identify regional weakest links",
+                "Automated log prioritization (Art. 9) is critical to prevent detection evasion"
+            ]
+        }
+    },
+    {
+        "case_id": "tprm_cloud_outage_2025",
+        "pattern_applied": "Critical ICT Third-Party Provider (TPRM Pillar)",
+        "context": {
+            "incident": "Major regional outage of Primary Cloud Provider (Region: EU-West-1)",
+            "affected_systems": "Real-time payment processing and customer dashboard",
+            "provider_criticality": "High"
+        },
+        "response_actions": {
+            "detection": "Observability engine detected 100% API error rate in 45 seconds",
+            "mitigation": "Automatic invocation of Multi-Cloud Exit Strategy. Circuit Breaker tripped for Primary Cloud, routing traffic to Secondary Cloud (Region: US-East-1)",
+            "recovery": "Full service restoration in 8 minutes with 0.01% transaction loss (within RPO/RTO)"
+        },
+        "post_mortem_findings": {
+            "primary_cause": "Propagated DNS failure at the Cloud Provider's global control plane",
+            "residual_risk_identified": "Data synchronization latency between regions led to minor state inconsistency for 200 accounts",
+            "chained_dependency": "Fallback provider's CDN also relied on the primary provider's underlying infra—revealing a hidden L3 dependency"
+        },
+        "strategic_outcomes": {
+            "gri_impact": "Systemic risk exposure reduced from 90 to 15",
+            "compliance_verification": "DORA Art. 28-30 audit evidence automatically generated during incident",
+            "lessons_learned": [
+                "Exit strategies must be tested' empirically (Resilience Testing) to ensure data state sync works",
+                "Mapping L3 dependencies (Provider of Providers) is the only way to avoid 'Resilience Illusion'",
+                "Multi-vendor architectures require advanced API abstraction layers to minimize switchover latency"
+            ]
+        }
+    },
+    {
+        "case_id": "ci_dependency_mapping_2025",
+        "pattern_applied": "Critical Systems Dependency Map (CI Pillar)",
+        "context": {
+            "environment": "Hyper-distributed Fintech Ecosystem",
+            "nodes_mapped": 145,
+            "threshold_criticality": 0.85
+        },
+        "discovery_process": {
+            "graph_analysis": "Automated L4 traversal revealed that 92% of high-value transactions depended on a legacy Auth Proxy (CI) with no active redundancy",
+            "impact_scoring": "The Auth Proxy received an Impact Score of 0.98 due to its position as a central choke point",
+            "spof_flagging": "Implicit SPOF detected: 3 major providers (Cloud, Payments, Verification) were all communicating via this single proxy instance"
+        },
+        "remediation_actions": {
+            "architectural_change": "Implemented 'Cell-based' architecture to shard the Auth Proxy, limiting the blast radius of a single failure",
+            "pattern_injection": "Injected Bulkhead and Circuit Breaker patterns at the API Gateway level to isolate the CI",
+            "redundancy": "Added multi-region active-active deployment for the Auth service"
+        },
+        "strategic_outcomes": {
+            "gri_impact": "Theoretical catastrophic downtime reduced by 95%",
+            "operational_resilience": "Validated during a simulated proxy failure: Only 12% traffic affected (the local cell) instead of 100%",
+            "lessons_learned": [
+                "CIs are often legacy components hidden behind modern microservices",
+                "Graph centrality is a better predictor of risk than service age or code complexity",
+                "Automated mapping is mandatory for systems with >50 interdependent components"
+            ]
+        }
+    }
+]

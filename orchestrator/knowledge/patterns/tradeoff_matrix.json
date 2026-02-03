@@ -1,0 +1,785 @@
+{
+    "dimensions": [
+        "Cognitive Complexity",
+        "Infra Cost",
+        "Implementation Time",
+        "Risk",
+        "Scalability Gain",
+        "Rollback Capability"
+    ],
+    "matrix": {
+        "cqrs": {
+            "complexity": 8,
+            "infra_cost": 2.0,
+            "impl_time_weeks": 12,
+            "risk": "Medium (Eventual Consistency)",
+            "scalability": "10x Read",
+            "rollback": "Complex"
+        },
+        "saga": {
+            "complexity": 7,
+            "infra_cost": 1.3,
+            "impl_time_weeks": 8,
+            "risk": "Medium (Config Errors)",
+            "scalability": "High Consistency",
+            "rollback": "Yes (Compensating Events)"
+        },
+        "event_sourcing": {
+            "complexity": 9,
+            "infra_cost": 1.5,
+            "impl_time_weeks": 20,
+            "risk": "High (Schema Evolution)",
+            "scalability": "Infinite Audit",
+            "rollback": "Yes (Event Replay)"
+        },
+        "circuit_breaker": {
+            "complexity": 2,
+            "infra_cost": 1.05,
+            "impl_time_weeks": 1,
+            "risk": "Low",
+            "scalability": "Resilience",
+            "rollback": "Automatic"
+        },
+        "bulkhead": {
+            "complexity": 4,
+            "infra_cost": 1.2,
+            "impl_time_weeks": 2,
+            "risk": "Low",
+            "scalability": "Fault Isolation",
+            "rollback": "N/A"
+        },
+        "sharding_tenant": {
+            "complexity": 9,
+            "infra_cost": 1.5,
+            "impl_time_weeks": 16,
+            "risk": "Very High (Migration)",
+            "scalability": "High Vertical",
+            "rollback": "Extreme Effort"
+        },
+        "sharding_geo": {
+            "complexity": 8,
+            "infra_cost": 1.4,
+            "impl_time_weeks": 12,
+            "risk": "High (Compliance)",
+            "scalability": "Global Resident",
+            "rollback": "Complex"
+        },
+        "cache_cdn": {
+            "complexity": 3,
+            "infra_cost": 0.3,
+            "impl_time_weeks": 1,
+            "risk": "Low (Egress saved)",
+            "scalability": "Global Offload",
+            "rollback": "Instant"
+        },
+        "cache_app": {
+            "complexity": 7,
+            "infra_cost": 1.2,
+            "impl_time_weeks": 4,
+            "risk": "High (Stale Data)",
+            "scalability": "DB CPU Relief",
+            "rollback": "Manual Flush"
+        },
+        "msg_queue": {
+            "complexity": 4,
+            "infra_cost": 0.2,
+            "impl_time_weeks": 2,
+            "risk": "Medium (Eventually Consistent)",
+            "scalability": "High Horizontal",
+            "rollback": "Complex (Drain Queue)"
+        },
+        "msg_log": {
+            "complexity": 9,
+            "infra_cost": 1.8,
+            "impl_time_weeks": 8,
+            "risk": "Very High (Ops Burden)",
+            "scalability": "Extreme (Streaming)",
+            "rollback": "Difficult (Rewind/Offset)"
+        },
+        "eventually_consistent": {
+            "complexity": 7,
+            "infra_cost": 0.5,
+            "impl_time_weeks": 4,
+            "risk": "High (Write Skew)",
+            "scalability": "Extreme (No coordination)",
+            "rollback": "Very Difficult"
+        },
+        "vector_clocks": {
+            "complexity": 8,
+            "infra_cost": 0.3,
+            "impl_time_weeks": 6,
+            "risk": "Medium (Metadata bloat)",
+            "scalability": "Very High",
+            "rollback": "N/A"
+        },
+        "crdt_convergence": {
+            "complexity": 9,
+            "infra_cost": 0.4,
+            "impl_time_weeks": 10,
+            "risk": "Medium (Model limits)",
+            "scalability": "Perfect (No locks)",
+            "rollback": "Impossible"
+        },
+        "multi_account": {
+            "complexity": 6,
+            "infra_cost": 0.3,
+            "impl_time_weeks": 3,
+            "risk": "Medium (Cross-account ops)",
+            "scalability": "Extreme (Account limits bypass)",
+            "rollback": "Complex (Migration)"
+        },
+        "landing_zone": {
+            "complexity": 8,
+            "infra_cost": 1.2,
+            "impl_time_weeks": 6,
+            "risk": "High (Automation Drift)",
+            "scalability": "Perfect (Account Vending)",
+            "rollback": "Manual"
+        },
+        "service_mesh": {
+            "complexity": 9,
+            "infra_cost": 0.8,
+            "impl_time_weeks": 5,
+            "risk": "High (Op Complexity / Latency)",
+            "scalability": "Very High",
+            "rollback": "Difficult"
+        },
+        "mtls_security": {
+            "complexity": 4,
+            "infra_cost": 0.1,
+            "impl_time_weeks": 2,
+            "risk": "Medium (Cert Management)",
+            "scalability": "High",
+            "rollback": "Easy"
+        },
+        "serverless_compute": {
+            "complexity": 3,
+            "infra_cost": 0.1,
+            "impl_time_weeks": 1,
+            "risk": "Low (Vendor Lock-in)",
+            "scalability": "Extreme",
+            "rollback": "Instant"
+        },
+        "container_compute": {
+            "complexity": 7,
+            "infra_cost": 0.6,
+            "impl_time_weeks": 4,
+            "risk": "Medium (Maintenance)",
+            "scalability": "High",
+            "rollback": "Standard"
+        },
+        "finops_reserved_instances": {
+            "complexity": 3,
+            "infra_cost": 0.6,
+            "impl_time_weeks": 2,
+            "risk": "High (Lock-in/Subutilization)",
+            "scalability": "Cost Scales Down",
+            "rollback": "Complex (Contract)"
+        },
+        "finops_savings_plans": {
+            "complexity": 4,
+            "infra_cost": 0.7,
+            "impl_time_weeks": 3,
+            "risk": "Medium (Commitment)",
+            "scalability": "Flexible Commits",
+            "rollback": "Complex (Contract)"
+        },
+        "finops_spot_instances": {
+            "complexity": 6,
+            "infra_cost": 0.2,
+            "impl_time_weeks": 4,
+            "risk": "High (Production Interruption)",
+            "scalability": "High Vertical/Horizontal",
+            "rollback": "Instant"
+        },
+        "finops_rightsizing": {
+            "complexity": 8,
+            "infra_cost": 0.8,
+            "impl_time_weeks": 8,
+            "risk": "Medium (Performance)",
+            "scalability": "Automated Efficiency",
+            "rollback": "Easy"
+        },
+        "crypto_at_rest_envelope": {
+            "complexity": 6,
+            "infra_cost": 1.1,
+            "impl_time_weeks": 4,
+            "risk": "Very Low (KMS Managed)",
+            "scalability": "High",
+            "rollback": "Standard",
+            "performance_latency": "Low"
+        },
+        "crypto_in_transit_mtls": {
+            "complexity": 7,
+            "infra_cost": 1.3,
+            "impl_time_weeks": 6,
+            "risk": "Very Low (ZTA)",
+            "scalability": "High",
+            "rollback": "Complex",
+            "performance_latency": "Medium (+3-5ms)"
+        },
+        "crypto_in_use_confidential": {
+            "complexity": 9,
+            "infra_cost": 2.5,
+            "impl_time_weeks": 12,
+            "risk": "Maximum Protection",
+            "scalability": "Medium (Hardware Limited)",
+            "rollback": "Very Complex",
+            "performance_latency": "High (+20-40%)"
+        },
+        "crypto_hsm_dedicated": {
+            "complexity": 8,
+            "infra_cost": 3.0,
+            "impl_time_weeks": 8,
+            "risk": "Elite (Hardware Isolated)",
+            "scalability": "High",
+            "rollback": "Complex",
+            "performance_latency": "Medium"
+        },
+        "crypto_foundational_sec": {
+            "complexity": 2,
+            "infra_cost": 0.1,
+            "impl_time_weeks": 1,
+            "risk": "Medium (Cloud Defaults)",
+            "scalability": "Infinite",
+            "rollback": "Instant",
+            "performance_latency": "Zero"
+        },
+        "tm_stride_quantified": {
+            "complexity": 7,
+            "infra_cost": 0.2,
+            "impl_time_weeks": 4,
+            "risk": "Moderate (Detection Gap)",
+            "scalability": "High",
+            "rollback": "Instant",
+            "risk_coverage": "85%",
+            "devops_integration": "Easy"
+        },
+        "tm_attack_tree_economic": {
+            "complexity": 8,
+            "infra_cost": 0.3,
+            "impl_time_weeks": 6,
+            "risk": "Low (Path Coverage)",
+            "scalability": "Medium",
+            "rollback": "Instant",
+            "risk_coverage": "95%",
+            "devops_integration": "Medium"
+        },
+        "tm_risk_quantification_ale": {
+            "complexity": 9,
+            "infra_cost": 0.5,
+            "impl_time_weeks": 8,
+            "risk": "Low (Data accuracy dep)",
+            "scalability": "Enterprise",
+            "rollback": "N/A",
+            "risk_coverage": "100% (Financial)",
+            "devops_integration": "Business-led"
+        },
+        "tm_stride": {
+            "complexity": 5,
+            "infra_cost": 0.1,
+            "impl_time_weeks": 2,
+            "risk": "Medium",
+            "scalability": "High",
+            "rollback": "Instant",
+            "risk_coverage": "75%",
+            "devops_integration": "Easy"
+        },
+        "cache_static_global": {
+            "complexity": 3,
+            "infra_cost": 0.2,
+            "impl_time_weeks": 1,
+            "risk": "Medium (Stale Data)",
+            "scalability": "Global",
+            "rollback": "Instant",
+            "latency_improvement": "70%",
+            "throughput_gain": "2.0x"
+        },
+        "cache_app_memory": {
+            "complexity": 6,
+            "infra_cost": 1.1,
+            "impl_time_weeks": 3,
+            "risk": "Medium (Cache Incoherence)",
+            "scalability": "High",
+            "rollback": "Standard",
+            "latency_improvement": "50%",
+            "throughput_gain": "1.5x"
+        },
+        "cache_db_materialized": {
+            "complexity": 7,
+            "infra_cost": 0.5,
+            "impl_time_weeks": 2,
+            "risk": "Low (Stale Aggregations)",
+            "scalability": "Medium",
+            "rollback": "Standard",
+            "latency_improvement": "80%",
+            "throughput_gain": "1.1x"
+        },
+        "msg_bus_kafka": {
+            "complexity": 9,
+            "infra_cost": 2.5,
+            "impl_time_weeks": 8,
+            "risk": "High (Cluster Complexity)",
+            "scalability": "Horizontal (High)",
+            "rollback": "Complex",
+            "throughput_perf": "Ultra High",
+            "reliability": "Exactly-once"
+        },
+        "msg_broker_rabbitmq": {
+            "complexity": 7,
+            "infra_cost": 1.2,
+            "impl_time_weeks": 4,
+            "risk": "Medium (Memory Pressure)",
+            "scalability": "Vertical/Horizontal (Medium)",
+            "rollback": "Standard",
+            "throughput_perf": "Medium",
+            "reliability": "At-least-once"
+        },
+        "msg_queue_sqs": {
+            "complexity": 3,
+            "infra_cost": 0.5,
+            "impl_time_weeks": 1,
+            "risk": "Low (Vendor Lock-in)",
+            "scalability": "Managed (Serverless)",
+            "rollback": "Instant",
+            "throughput_perf": "High",
+            "reliability": "At-least-once"
+        },
+        "ec_vector_clocks": {
+            "complexity": 7,
+            "infra_cost": 1.2,
+            "impl_time_weeks": 4,
+            "risk": "Medium (Conflict resolution)",
+            "scalability": "Horizontal",
+            "rollback": "Complex",
+            "availability": "High",
+            "latency": "Low/Medium",
+            "conflict_risk": "Medium"
+        },
+        "ec_crdts": {
+            "complexity": 8,
+            "infra_cost": 1.8,
+            "impl_time_weeks": 6,
+            "risk": "High (Data overhead)",
+            "scalability": "Global",
+            "rollback": "N/A (Causal)",
+            "availability": "Very High",
+            "latency": "Baja",
+            "conflict_risk": "Bajo"
+        },
+        "ec_lww": {
+            "complexity": 3,
+            "infra_cost": 0.3,
+            "impl_time_weeks": 1,
+            "risk": "High (Data loss risk)",
+            "scalability": "Unlimited",
+            "rollback": "Easy",
+            "availability": "Alta",
+            "latency": "Muy Baja",
+            "conflict_risk": "Alto"
+        },
+        "ma_single_tagging": {
+            "security_isolation": "Low",
+            "operating_cost": "Low",
+            "complexity": 2,
+            "audit_readiness": "Medium",
+            "scalability": "Limited",
+            "best_case": "Small Startups"
+        },
+        "ma_product_isolation": {
+            "security_isolation": "High",
+            "operating_cost": "Medium",
+            "complexity": 5,
+            "audit_readiness": "High",
+            "scalability": "High",
+            "best_case": "Multi-team SME"
+        },
+        "ma_full_env_isolation": {
+            "security_isolation": "Very High",
+            "operating_cost": "High",
+            "complexity": 7,
+            "audit_readiness": "Very High",
+            "scalability": "High",
+            "best_case": "Regulated Product / Fintech"
+        },
+        "ma_landing_zone_scp": {
+            "security_isolation": "Maximum",
+            "operating_cost": "Medium-High",
+            "complexity": 9,
+            "audit_readiness": "Maximum",
+            "scalability": "Enterprise Global",
+            "best_case": "Enterprise / Large Scale"
+        },
+        "sm_mtls_only": {
+            "security": "High (mTLS)",
+            "observability": "Medium",
+            "complexity": 5,
+            "overhead": "+5% CPU/mem",
+            "best_case": "Medium Microservices (5-10 services)"
+        },
+        "sm_full_mesh": {
+            "security": "Very High (mTLS + Policies)",
+            "observability": "Maximum (Tracing + Metrics)",
+            "complexity": 9,
+            "overhead": "+10-15% CPU/mem",
+            "best_case": "Enterprise Ecosystem (>10 services)"
+        },
+        "sm_linkerd_light": {
+            "security": "High",
+            "observability": "High",
+            "complexity": 6,
+            "overhead": "+3-5% CPU/mem",
+            "best_case": "Performance-sensitive workloads"
+        },
+        "plat_serverless": {
+            "latency": "Variable (Cold start risk)",
+            "scalability": "Automatic (High)",
+            "cost": "Pay-per-execution",
+            "ops_complexity": "Low",
+            "mesh_integration": "Limited",
+            "best_case": "Variable/Event-driven"
+        },
+        "plat_containers": {
+            "latency": "Consistent (Low)",
+            "scalability": "Orchestrated (K8s/ECS)",
+            "cost": "Reserved/On-demand",
+            "ops_complexity": "High",
+            "mesh_integration": "Full",
+            "best_case": "Constant High Load / Mesh"
+        },
+        "fo_reserved_instances": {
+            "cost": "Low (Up to 72% savings)",
+            "risk": "Medium (Commitment)",
+            "flexibility": "Low",
+            "ops_complexity": "Medium",
+            "best_case": "Stable workloads > 1 year"
+        },
+        "fo_savings_plans": {
+            "cost": "Low-Medium",
+            "risk": "Medium",
+            "flexibility": "High",
+            "ops_complexity": "Medium",
+            "best_case": "Multi-service/Dynamic usage"
+        },
+        "fo_spot_instances": {
+            "cost": "Very Low (Up to 90% savings)",
+            "risk": "High (Interruption)",
+            "flexibility": "Medium",
+            "ops_complexity": "High",
+            "best_case": "Batch / Fault-tolerant jobs"
+        },
+        "fo_rightsizing": {
+            "cost": "Variable",
+            "risk": "Low (Performance)",
+            "flexibility": "High",
+            "ops_complexity": "Medium-High",
+            "best_case": "Sub-optimal utilized resources"
+        },
+        "fo_chargeback": {
+            "cost": "N/A",
+            "risk": "Low",
+            "flexibility": "High",
+            "ops_complexity": "Medium",
+            "best_case": "Large Multi-team Organizations"
+        },
+        "dr_active_active": {
+            "cost": "Very High (2x+)",
+            "risk": "Very Low",
+            "complexity": 9,
+            "sla_impact": "99.999%",
+            "best_case": "Zero RPO/RTO requirements"
+        },
+        "dr_active_passive": {
+            "cost": "High (1.5x)",
+            "risk": "Low-Medium",
+            "complexity": 7,
+            "sla_impact": "99.99%",
+            "best_case": "Critical internal apps"
+        },
+        "dr_backup_restore": {
+            "cost": "Low",
+            "risk": "High (RTO/RPO)",
+            "complexity": 3,
+            "sla_impact": "99.9%",
+            "best_case": "Budget-limited / Non-critical workloads"
+        },
+        "zta_identity_proxy": {
+            "cost": "Medium",
+            "risk": "Low",
+            "complexity": 5,
+            "ux_impact": "Small",
+            "best_case": "External access / Remote contractors"
+        },
+        "zta_micro_segmentation": {
+            "cost": "High",
+            "risk": "Very Low",
+            "complexity": 8,
+            "ux_impact": "Medium",
+            "best_case": "Critical Microservices / Blast Radius Control"
+        },
+        "zta_continuous_auth": {
+            "cost": "Medium",
+            "risk": "Low",
+            "complexity": 7,
+            "ux_impact": "Medium",
+            "best_case": "BYOD / High Risk Endpoints"
+        },
+        "secret_vault_centralized": {
+            "cost": "Medium-High",
+            "risk": "Very Low",
+            "complexity": 8,
+            "security_impact": "Elite",
+            "best_case": "Production / Regulated environments"
+        },
+        "secret_leasing_expiration": {
+            "cost": "Medium",
+            "risk": "Low",
+            "complexity": 7,
+            "security_impact": "Dynamic",
+            "best_case": "Shared secrets / Microservices"
+        },
+        "secret_multi_region_sync": {
+            "cost": "High",
+            "risk": "Very Low",
+            "complexity": 9,
+            "security_impact": "Elite (DR Ready)",
+            "best_case": "Multi-region / Mission Critical"
+        },
+        "secret_vault_standard": {
+            "cost": "Low",
+            "risk": "Medium (Manual rotation risk)",
+            "complexity": 4,
+            "security_impact": "Baseline",
+            "best_case": "Startups / Internal tools"
+        },
+        "dora_ict_risk_mgmt": {
+            "cost": "High (Compliance + Audit)",
+            "risk": "Low (Regulatory focus)",
+            "complexity": 8,
+            "regulatory_roi": "Very High (Avoids sanctions)",
+            "best_case": "EU Financial Entities / Banks"
+        },
+        "dora_art8_prevention": {
+            "cost": "Medium-High",
+            "risk": "Very Low",
+            "complexity": 7,
+            "regulatory_roi": "High (Technical compliance)",
+            "best_case": "Regulated Microservices / mTLS-matured"
+        },
+        "dora_art10_recovery": {
+            "cost": "Very High (Multi-site infrastructure)",
+            "risk": "Minimum (Operational resilience)",
+            "complexity": 9,
+            "regulatory_roi": "Elite (Mission critical / Art 10 compliance)",
+            "best_case": "Tier-1 Banking Services"
+        },
+        "tprm_concentration_risk": {
+            "cost": "Medium-High (Redundancy)",
+            "risk": "High (if single-vendor)",
+            "complexity": 7,
+            "security_impact": "Systemic Resilience",
+            "best_case": "Mission Critical infrastructure"
+        },
+        "tprm_exit_strategy": {
+            "cost": "High (Implementation + Testing)",
+            "risk": "Minimum (Portability ready)",
+            "complexity": 9,
+            "regulatory_roi": "Elite (Art 28 compliance)",
+            "best_case": "Hyperscaler dependency / Core Banking"
+        },
+        "resilience_testing_tlpt": {
+            "cost": "Very High",
+            "risk_validation": "Extreme (Empirical)",
+            "complexity": 10,
+            "ttd_impact": "High reduction",
+            "best_case": "Systemic Financial Entities"
+        },
+        "resilience_testing_red_team": {
+            "cost": "High",
+            "risk_validation": "High (Adversarial)",
+            "complexity": 8,
+            "ttc_impact": "Optimized containment",
+            "best_case": "Large enterprises / Advanced SOCs"
+        },
+        "resilience_scenario_testing": {
+            "cost": "Medium",
+            "risk_validation": "Moderate (Theoretical Scenarios)",
+            "complexity": 6,
+            "operational_readiness": "Verified",
+            "best_case": "All DORA-regulated entities"
+        },
+        "unified_risk_engine": {
+            "effort": "Medium (Data sourcing)",
+            "clarity": "Elite (Board-ready)",
+            "complexity": 8,
+            "roi_justification": "Maximum",
+            "best_case": "Strategic budget planning / C-Level reporting"
+        },
+        "financial_exposure_model": {
+            "effort": "Low (Automated)",
+            "precision": "High (if base ALEs are accurate)",
+            "complexity": 7,
+            "financial_impact_clarity": "Very High",
+            "best_case": "Insurance / Risk transfer / Board presentations"
+        },
+        "multi_tenant_isolation_strict": {
+            "security": "Maximum (Banking grade)",
+            "cost_per_tenant": "High",
+            "complexity": 8,
+            "operational_overhead": "High",
+            "best_case": "Tier 3 / Significant Financial Entities"
+        },
+        "data_stack_hybrid_risk": {
+            "flexibility": "Extreme (Graph + Relational + Time-series)",
+            "complexity": 9,
+            "query_performance": "Optimized per use-case",
+            "maintenance_effort": "Very High",
+            "best_case": "Advanced Threat & Resilience SaaS platforms"
+        },
+        "dora_ict_risk_framework_full": {
+            "regulatory_rigurosity": "Maximum",
+            "operational_agility": "Reduced (Documentation overhead)",
+            "complexity": 9,
+            "compliance_roi": "Critical (Avoids total license revocation)",
+            "best_case": "EU Systemic Banks / Critical ICT Providers"
+        },
+        "dora_art11_reporting_auto": {
+            "reporting_speed": "Ultrafast (< 4h)",
+            "precision": "High (Automation-driven)",
+            "complexity": 6,
+            "manual_effort": "Zero",
+            "best_case": "Incident Management at scale / GRC Automation"
+        },
+        "major_ict_incident": {
+            "classification_speed": "High",
+            "regulatory_risk": "High (if late)",
+            "complexity": 8,
+            "operational_pressure": "Extreme",
+            "best_case": "Automated incident engines / Financial crisis response"
+        },
+        "regulatory_incident_timeline": {
+            "reporting_precision": "Critical",
+            "compliance_roi": "High (Avoids sanctions)",
+            "complexity": 5,
+            "manual_effort_risk": "Very High",
+            "best_case": "Regulatory reporting workflows / Audit readiness"
+        },
+        "resilience_testing_advanced": {
+            "testing_realism": "High (Adversary Emulation)",
+            "operational_risk": "Moderate (Staging/Controlled Prod)",
+            "complexity": 9,
+            "resilience_assurance": "Maximum",
+            "best_case": "Chaos Engineering / Continuous security validation"
+        },
+        "tiber_eu_framework": {
+            "adversary_sophistication": "Advanced (Threat-led)",
+            "compliance_roi": "Strategic (Mandatory for Systemic Banks)",
+            "complexity": 10,
+            "board_confidence": "Maximum",
+            "best_case": "Systemic Financial Infrastructure / TLPT Mandate"
+        },
+        "tprm_critical_provider": {
+            "vendor_redundancy": "High (Multi-cloud/SaaS fallback)",
+            "integration_complexity": "High (Data synchronization + API abstraction)",
+            "resilience_assurance": "Maximum (No single point of failure)",
+            "compliance_value": "Critical (DORA Art. 28 alignment)",
+            "best_case": "Distributed clearing systems / High-availability fintech"
+        },
+        "chain_dependency_risk": {
+            "visibility_depth": "L4 (Full supply chain mapping)",
+            "operational_overhead": "Very High (Continuous sub-provider vetting)",
+            "unseen_risk_reduction": "Significant",
+            "best_case": "Strategic resilience planning / Systemic risk mitigation"
+        },
+        "dependency_graph_model": {
+            "mapping_depth": "Variable (L1-L4)",
+            "operational_accuracy": "High (if automated)",
+            "complexity": 8,
+            "resilience_priority": "Critical",
+            "best_case": "Large-scale microservices / Financial core mapping"
+        },
+        "critical_item_ci": {
+            "protection_cost": "High (Redundancy focus)",
+            "failure_impact_reduction": "Maximum",
+            "complexity": 6,
+            "best_case": "Identity services / Payment cores / Database clusters"
+        },
+        "pseudonymization_strategy": {
+            "privacy_level": "Moderate (Reversible)",
+            "data_utility": "High (Maintains individual linkages)",
+            "operational_overhead": "Low-Medium (Key management)",
+            "regulatory_status": "Personal Data (GDPR applies)",
+            "best_case": "Production logs / Internal customer support / Payments"
+        },
+        "anonymization_advanced": {
+            "privacy_level": "Maximum (Irreversible)",
+            "data_utility": "Variable (Information loss due to grouping/noise)",
+            "operational_overhead": "High (Statistical validation needed)",
+            "regulatory_status": "Non-Personal Data (GDPR scope exit)",
+            "best_case": "Public dataset release / Third-party sharing / Large-scale ML"
+        },
+        "gdpr_tokenization": {
+            "complexity": 5,
+            "infra_cost": 1.1,
+            "impl_time_weeks": 3,
+            "risk": "Medium (Vault Dep)",
+            "scalability": "High",
+            "data_utility": "Full",
+            "privacy_level": "Moderate (Pseudonymization)"
+        },
+        "gdpr_differential_privacy": {
+            "complexity": 9,
+            "infra_cost": 1.5,
+            "impl_time_weeks": 8,
+            "risk": "Low (Provable)",
+            "scalability": "High",
+            "data_utility": "Medium-Low",
+            "privacy_level": "Maximum (Anonymous)"
+        },
+        "gdpr_k_anonymity": {
+            "complexity": 6,
+            "infra_cost": 0.5,
+            "impl_time_weeks": 4,
+            "risk": "Medium (Homogeneity attack)",
+            "scalability": "Medium",
+            "data_utility": "Medium-High",
+            "privacy_level": "High (Anonymous)"
+        },
+        "gdpr_crypto_shredding": {
+            "complexity": 7,
+            "infra_cost": 1.2,
+            "impl_time_weeks": 6,
+            "risk": "High (Key loss = Data loss)",
+            "scalability": "High (Per-tenant keys)",
+            "data_utility": "None (After shredding)",
+            "privacy_level": "Absolute (Cryptographic Deletion)"
+        },
+        "gdpr_ttl_enforcement": {
+            "complexity": 4,
+            "infra_cost": -0.2,
+            "impl_time_weeks": 3,
+            "risk": "Medium (Accidental deletion)",
+            "scalability": "Unlimited",
+            "data_utility": "High (While active)",
+            "privacy_level": "High (Temporal minimization)"
+        },
+        "gdpr_dpia_automated": {
+            "complexity": 5,
+            "infra_cost": 0.2,
+            "impl_time_weeks": 3,
+            "risk": "Low",
+            "scalability": "High",
+            "data_utility": "High",
+            "privacy_level": "Extremely High (Risk Managed)"
+        },
+        "gdpr_algorithmic_assessment": {
+            "complexity": 8,
+            "infra_cost": 0.8,
+            "impl_time_weeks": 8,
+            "risk": "High (Bias detection)",
+            "scalability": "Low",
+            "data_utility": "Medium (Explainability overhead)",
+            "privacy_level": "Extremely High (Ethical AI)"
+        }
+    }
+}

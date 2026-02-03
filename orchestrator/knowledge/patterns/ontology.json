@@ -1,0 +1,3996 @@
+{
+    "patterns": {
+        "cqrs": {
+            "name": "Command Query Responsibility Segregation",
+            "type": "Structural",
+            "complexity": 8,
+            "operating_cost": "High",
+            "coupling": "Reduce",
+            "relationships": {
+                "requires": [
+                    "Event Sourcing (Recommended)"
+                ],
+                "conflicts_with": [],
+                "replaces": [
+                    "Simple CRUD"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Read/Write ratio > 10:1",
+                    "Complex data aggregation required",
+                    "High concurrent reads"
+                ],
+                "anti_triggers": [
+                    "Strong consistency required for all reads",
+                    "Small development team < 5 devs"
+                ],
+                "preconditions": [
+                    "Message Bus or Event Store availability"
+                ]
+            },
+            "success_metrics": {
+                "read_latency_improvement": "40-60%",
+                "write_latency_degradation": "10-20%",
+                "throughput_gain": "5x-10x"
+            }
+        },
+        "saga": {
+            "name": "Saga Pattern (Distributed Transactions)",
+            "type": "Behavioral",
+            "complexity": 7,
+            "operating_cost": "Medium",
+            "coupling": "Reduce",
+            "relationships": {
+                "requires": [
+                    "Microservices"
+                ],
+                "conflicts_with": [
+                    "2PC (Two-Phase Commit)"
+                ],
+                "replaces": [
+                    "Distributed 2PC"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Distributed transactions across >2 services",
+                    "Long-running business processes"
+                ],
+                "anti_triggers": [
+                    "Low latency strong consistency required",
+                    "Low service count < 3"
+                ],
+                "preconditions": [
+                    "Compensation logic implemented in each service"
+                ]
+            },
+            "success_metrics": {
+                "data_consistency_gain": "99.99%",
+                "infra_overhead": "20-30%",
+                "reliability_improvement": "High"
+            }
+        },
+        "event_sourcing": {
+            "name": "Event Sourcing",
+            "type": "Descriptive",
+            "complexity": 9,
+            "operating_cost": "Very High",
+            "coupling": "Reduce",
+            "relationships": {
+                "requires": [
+                    "CQRS"
+                ],
+                "conflicts_with": [],
+                "replaces": [
+                    "State-based storage"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Full audit trail required",
+                    "Temporal queries (view state at any time)",
+                    "High audit sensitivity"
+                ],
+                "anti_triggers": [
+                    "Simple domain models",
+                    "Strict storage limits",
+                    "Team unfamiliar with functional state"
+                ],
+                "preconditions": [
+                    "Immutable event store",
+                    "Snapshotting strategy"
+                ]
+            },
+            "success_metrics": {
+                "audit_reliability": "100%",
+                "scalability_gain": "3x",
+                "storage_overhead": "4x"
+            }
+        },
+        "circuit_breaker": {
+            "name": "Circuit Breaker",
+            "type": "Resilience",
+            "complexity": 3,
+            "operating_cost": "Low",
+            "coupling": "Maintain",
+            "relationships": {
+                "requires": [],
+                "conflicts_with": [],
+                "replaces": [
+                    "Endless retries"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Cascading failures in sync calls",
+                    "Dependency instability"
+                ],
+                "anti_triggers": [
+                    "Asynchronous messaging only",
+                    "Critical operations requiring no-fail (rare)"
+                ],
+                "preconditions": [
+                    "Monitoring of error rates"
+                ]
+            },
+            "success_metrics": {
+                "system_stability": "+50%",
+                "latency_cap": "Significant",
+                "infra_savings": "Preventing retry storms"
+            }
+        },
+        "bulkhead": {
+            "name": "Bulkhead",
+            "type": "Structural/Resilience",
+            "complexity": 5,
+            "operating_cost": "Medium",
+            "coupling": "Reduce",
+            "relationships": {
+                "requires": [
+                    "Circuit Breaker (Recommended)"
+                ],
+                "conflicts_with": [],
+                "replaces": [
+                    "Shared resource pools"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Service saturation affecting other services",
+                    "Hardware/Pool shared risks"
+                ],
+                "anti_triggers": [
+                    "Very limited hardware budget",
+                    "Non-critical secondary services"
+                ],
+                "preconditions": [
+                    "Isolation of thread pools or process resources"
+                ]
+            },
+            "success_metrics": {
+                "fault_isolation": "100%",
+                "resource_efficiency": "-10% (isolation overhead)",
+                "availability": "Improved in partial failure"
+            }
+        },
+        "sharding_tenant": {
+            "name": "Tenant-based Sharding",
+            "type": "Data Partitioning",
+            "complexity": 9,
+            "operating_cost": "Very High",
+            "reversibility": "Low",
+            "lock_in_risk": "High",
+            "context": {
+                "triggers": [
+                    "SaaS Multi-tenant",
+                    "> 100 tenants",
+                    "Noisy neighbor risks",
+                    "Gini Coefficient > 0.6"
+                ],
+                "anti_triggers": [
+                    "< 20 tenants",
+                    "DB Size < 50GB",
+                    "Startup pre-PMF"
+                ],
+                "preconditions": [
+                    "Tenant-aware application layer",
+                    "Cross-shard query abstraction"
+                ]
+            }
+        },
+        "sharding_geo": {
+            "name": "Geographic Sharding",
+            "type": "Data Partitioning",
+            "complexity": 8,
+            "operating_cost": "High",
+            "reversibility": "Low",
+            "lock_in_risk": "Medium",
+            "context": {
+                "triggers": [
+                    "Latency > 150ms intercontinental",
+                    "Data residency regulation (GDPR/DORA)"
+                ],
+                "anti_triggers": [
+                    "Concentrated user base",
+                    "System throughput < 5k req/s"
+                ],
+                "preconditions": [
+                    "Multi-region cloud infrastructure"
+                ]
+            }
+        },
+        "sharding_functional": {
+            "name": "Functional/Domain Sharding",
+            "type": "Data Partitioning",
+            "complexity": 6,
+            "operating_cost": "Medium",
+            "reversibility": "Medium",
+            "lock_in_risk": "Low",
+            "context": {
+                "triggers": [
+                    "Distinct access patterns",
+                    "Mature microservices",
+                    "Domain isolation required"
+                ],
+                "anti_triggers": [
+                    "Monolith",
+                    "Small team < 6 devs",
+                    "Cross-function joins > 20%"
+                ],
+                "preconditions": [
+                    "Clear bounded contexts"
+                ]
+            }
+        },
+        "sharding_hotspot": {
+            "name": "Hot-spot Mitigation",
+            "type": "Mitigation Pattern",
+            "complexity": 4,
+            "operating_cost": "Medium",
+            "reversibility": "High",
+            "lock_in_risk": "Low",
+            "context": {
+                "triggers": [
+                    "Monotonic keys",
+                    "Write skew detected",
+                    "Temporal concentration"
+                ],
+                "anti_triggers": [
+                    "Uniform random distribution"
+                ],
+                "preconditions": [
+                    "Key hashing or random salt logic"
+                ]
+            }
+        },
+        "cache_cdn": {
+            "name": "CDN (Edge Content)",
+            "type": "Read Acceleration",
+            "complexity": 3,
+            "operating_cost": "Low/Egress Savings",
+            "risk": "Stale Content",
+            "context": {
+                "triggers": [
+                    "Static assets",
+                    "Public APIs",
+                    "Global users",
+                    "Read ratio > 10:1"
+                ],
+                "anti_triggers": [
+                    "High volatility",
+                    "Personalized private data"
+                ],
+                "preconditions": [
+                    "Publicly accessible endpoints"
+                ]
+            },
+            "success_metrics": {
+                "egress_reduction": "40-80%",
+                "latency_improvement": "Global < 50ms",
+                "backend_offload": "30-50%"
+            }
+        },
+        "cache_app": {
+            "name": "Application Cache (Redis)",
+            "type": "Read Acceleration",
+            "complexity": 6,
+            "operating_cost": "Medium",
+            "risk": "Data Inconsistency",
+            "context": {
+                "triggers": [
+                    "DB saturation",
+                    "Heavy compute queries",
+                    "Session data",
+                    "Read ratio > 5:1"
+                ],
+                "anti_triggers": [
+                    "Highly volatile data",
+                    "Low latency tolerance for staleness",
+                    "Write heavy workload"
+                ],
+                "preconditions": [
+                    "Redis/Memcached availability"
+                ]
+            },
+            "success_metrics": {
+                "db_cpu_reduction": "40-60%",
+                "query_latency": "< 5ms",
+                "throughput_increase": "2x-5x"
+            }
+        },
+        "cache_invalidation_event": {
+            "name": "Event-driven Invalidation",
+            "type": "Invalidation Strategy",
+            "complexity": 8,
+            "risk": "Lowest (Consistent)",
+            "context": {
+                "triggers": [
+                    "Critical consistency needs",
+                    "High cache hit ratio required"
+                ],
+                "anti_triggers": [
+                    "Simple small workloads",
+                    "No event bus available"
+                ]
+            }
+        },
+        "msg_queue": {
+            "name": "Queue-based Messaging (SQS/RabbitMQ)",
+            "type": "Asynchronous Communication",
+            "complexity": 4,
+            "operating_cost": "Low",
+            "risk": "Message Loss (if no DLQ)",
+            "context": {
+                "triggers": [
+                    "Background tasks",
+                    "Email/Notifications",
+                    "Simple decoupled workflows",
+                    "Low volume < 50k msg/s"
+                ],
+                "anti_triggers": [
+                    "Historical replay needed",
+                    "Multi-consumer streaming",
+                    "Real-time analytics"
+                ],
+                "preconditions": [
+                    "Stateless workers"
+                ]
+            },
+            "success_metrics": {
+                "latency_decoupling": "Sync -> Async",
+                "worker_scaling": "Horizontal",
+                "infra_footprint": "Small"
+            }
+        },
+        "msg_log": {
+            "name": "Log-based Streaming (Kafka)",
+            "type": "Event Streaming",
+            "complexity": 9,
+            "operating_cost": "Very High",
+            "risk": "Operational Complexity / Consumer Lag",
+            "context": {
+                "triggers": [
+                    "Event Sourcing",
+                    "Multi-consumer fan-out",
+                    "Historical replay required",
+                    "High volume > 100k msg/s"
+                ],
+                "anti_triggers": [
+                    "Small teams",
+                    "Simple job processing",
+                    "Low budget"
+                ],
+                "preconditions": [
+                    "Zookeeper/KRaft cluster",
+                    "Consumer group management"
+                ]
+            },
+            "success_metrics": {
+                "throughput": "1M+ msg/s",
+                "data_persistence": "Inmutable Log",
+                "decoupling": "Full System Semantic"
+            }
+        },
+        "resiliency_idempotency": {
+            "name": "Idempotent Processing",
+            "type": "Reliability Pattern",
+            "complexity": 5,
+            "risk": "Duplicate Data (if missing)",
+            "context": {
+                "triggers": [
+                    "Financial transactions",
+                    "Message retries",
+                    "Exactly-once requirements"
+                ],
+                "anti_triggers": [
+                    "Log-only non-critical data"
+                ]
+            }
+        },
+        "eventually_consistent": {
+            "name": "Eventual Consistency Pattern",
+            "type": "Distributed Coherence",
+            "complexity": 7,
+            "operating_cost": "Medium",
+            "risk": "Write Skew / Lost Updates",
+            "context": {
+                "triggers": [
+                    "Multi-region Active-Active",
+                    "Ultra-high availability (AP)",
+                    "Offline-first sync"
+                ],
+                "anti_triggers": [
+                    "Banking ledgers",
+                    "Inventory management",
+                    "ACID strict requirements"
+                ]
+            }
+        },
+        "crdt_convergence": {
+            "name": "CRDT (Conflict-Free Replicated Data Types)",
+            "type": "Automatic Coherence",
+            "complexity": 9,
+            "operating_cost": "High (Metadata overhead)",
+            "risk": "Limited Data Model flexibility",
+            "context": {
+                "triggers": [
+                    "Collaborative editing",
+                    "Distributed counters",
+                    "Edge-replicated state"
+                ],
+                "anti_triggers": [
+                    "Complex business logic merge",
+                    "Financial accounting"
+                ]
+            }
+        },
+        "vector_clocks": {
+            "name": "Vector Clocks",
+            "type": "Conflict Detection",
+            "complexity": 8,
+            "risk": "Clock Drift / Scale overhead",
+            "context": {
+                "triggers": [
+                    "Peer-to-peer sync",
+                    "Multi-master conflict detection"
+                ],
+                "anti_triggers": [
+                    "Centralized DB architectures"
+                ]
+            }
+        },
+        "multi_account": {
+            "name": "Multi-Account Organization Strategy",
+            "type": "Cloud-Native Governance",
+            "complexity": 6,
+            "operating_cost": "High (Initial Setup)",
+            "risk": "Cross-account confusion / Orphaned resources",
+            "context": {
+                "triggers": [
+                    "Team size > 20",
+                    "Multi-product portfolio",
+                    "Billing segmentation needed",
+                    "Strict Compliance (DORA/PCI)"
+                ],
+                "anti_triggers": [
+                    "Single project startups",
+                    "Solo developers",
+                    "Low operational budget"
+                ]
+            },
+            "success_metrics": {
+                "blast_radius_reduction": "High",
+                "cost_transparency": "Showback/Chargeback enabled",
+                "security_compliance": "Centralized Audit"
+            }
+        },
+        "landing_zone": {
+            "name": "Automated Landing Zone",
+            "type": "Infra-Governance",
+            "complexity": 8,
+            "risk": "Automation drift",
+            "context": {
+                "triggers": [
+                    "Rapid account vending",
+                    "Standardized baseline requirements"
+                ],
+                "anti_triggers": [
+                    "Manual cloud management"
+                ]
+            }
+        },
+        "scp_governance": {
+            "name": "Service Control Policies (SCP)",
+            "type": "Security Policy",
+            "complexity": 5,
+            "risk": "Over-restrictive blocking",
+            "context": {
+                "triggers": [
+                    "Enforced regional limits",
+                    "Preventing expensive service use",
+                    "Governance at scale"
+                ],
+                "anti_triggers": [
+                    "Experimental sandboxes without guardrails"
+                ]
+            }
+        },
+        "service_mesh": {
+            "name": "Service Mesh Architecture (Istio/Linkerd)",
+            "type": "Cloud-Native Infrastructure",
+            "complexity": 9,
+            "operating_cost": "High (Infra + Ops)",
+            "risk": "Sidecar Latency / Operational Overhead",
+            "context": {
+                "triggers": [
+                    "Microservices > 5",
+                    "Complex intra-service comms",
+                    "Cross-cutting observability needed"
+                ],
+                "anti_triggers": [
+                    "Monoliths",
+                    "Simple microservices < 3 services",
+                    "Low ops capacity"
+                ]
+            },
+            "success_metrics": {
+                "observability_depth": "Full Tracing/Metrics",
+                "resilience_native": "Circuit Breaking / Retries",
+                "security_standard": "Global mTLS"
+            }
+        },
+        "mtls_security": {
+            "name": "Mutual TLS (mTLS)",
+            "type": "Security Pattern",
+            "complexity": 4,
+            "risk": "Certificate rotation failure",
+            "context": {
+                "triggers": [
+                    "Compliance regulated traffic",
+                    "Zero Trust environments"
+                ],
+                "anti_triggers": [
+                    "Open internal networks"
+                ]
+            }
+        },
+        "traffic_splitting": {
+            "name": "Traffic Splitting (Canary/AB)",
+            "type": "Deployment Pattern",
+            "complexity": 5,
+            "risk": "Stateful session breakage",
+            "context": {
+                "triggers": [
+                    "Progressive Delivery",
+                    "Confidence-based rollouts"
+                ],
+                "anti_triggers": [
+                    "Big bang deployments"
+                ]
+            }
+        },
+        "serverless_compute": {
+            "name": "Serverless Compute (AWS Lambda / Cloud Functions)",
+            "type": "Compute Strategy",
+            "complexity": 3,
+            "operating_cost": "Variable (Pay-per-execution)",
+            "risk": "Cold Start Latency / Execution Limits (15m)",
+            "context": {
+                "triggers": [
+                    "Event-driven architectures",
+                    "Highly spikey/unpredictable traffic",
+                    "Execution duration < 1s typical",
+                    "Execution duration < 15m absolute"
+                ],
+                "anti_triggers": [
+                    "Constant 24/7 high traffic",
+                    "Stateful apps",
+                    "Long-running batch > 15m",
+                    "Sub-ms latency requirement"
+                ]
+            },
+            "success_metrics": {
+                "op_overhead_reduction": "Extreme",
+                "cost_efficiency_at_low_load": "Perfect",
+                "scaling_speed": "Millisecond-level"
+            }
+        },
+        "container_compute": {
+            "name": "Containerized Compute (K8s / ECS)",
+            "type": "Compute Strategy",
+            "complexity": 7,
+            "operating_cost": "Fixed + Scaling (Instances)",
+            "risk": "Orchestration complexity / Fixed cost drain",
+            "context": {
+                "triggers": [
+                    "Constant/Predictable high traffic",
+                    "Long-running processes > 15m",
+                    "Full runtime control needed",
+                    "Integration with Service Mesh"
+                ],
+                "anti_triggers": [
+                    "Extreme intermittency",
+                    "Minimal ops team"
+                ]
+            },
+            "success_metrics": {
+                "predictable_performance": "High (No Cold Start)",
+                "resource_optimization": "Granular bin-packing",
+                "universality": "Any language/binary"
+            }
+        },
+        "finops_reserved_instances": {
+            "name": "Reserved Instances (RI)",
+            "type": "FINOPS_STRATEGY",
+            "complexity": 3,
+            "operating_cost": "Low (High CapEx / Low OpEx)",
+            "risk": "Subutilization / Lock-in",
+            "relationships": {
+                "requires": [
+                    "Predictable usage patterns"
+                ],
+                "conflicts_with": [
+                    "Unpredictable growth",
+                    "High spot usage"
+                ],
+                "replaces": [
+                    "On-demand compute"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Constant 24/7 traffic",
+                    "Predictable workload",
+                    "Stable CPU/Memory usage",
+                    "1-3 year commitment acceptable"
+                ],
+                "anti_triggers": [
+                    "Unpredictable usage pattern",
+                    "Startup prep-PMF",
+                    "Highly dynamic environments"
+                ],
+                "preconditions": [
+                    "Historical usage metrics",
+                    "Growth estimation"
+                ]
+            },
+            "success_metrics": {
+                "savings_vs_ondemand": "40-70%",
+                "risk_of_subutilization": "High if miscalculated",
+                "tco_reduction": "Significant"
+            }
+        },
+        "finops_savings_plans": {
+            "name": "Savings Plans",
+            "type": "FINOPS_STRATEGY",
+            "complexity": 4,
+            "operating_cost": "Low (Flexible CapEx)",
+            "risk": "Commitment overhead",
+            "relationships": {
+                "requires": [
+                    "Multi-family or Multi-region compute"
+                ],
+                "conflicts_with": [
+                    "Strict single-instance constraints"
+                ],
+                "replaces": [
+                    "Reserved Instances for flexible workloads"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Multi-cloud or multi-region usage",
+                    "Mixed compute types (Serverless + Containers)",
+                    "Changing instance family needs",
+                    "Long-term commitment with flexibility"
+                ],
+                "anti_triggers": [
+                    "Single specific instance type long-term",
+                    "Zero upfront budget"
+                ],
+                "preconditions": [
+                    "Overall spend analysis"
+                ]
+            },
+            "success_metrics": {
+                "savings_vs_ondemand": "30-60%",
+                "flexibility": "High",
+                "coverage": "Multi-service"
+            }
+        },
+        "finops_spot_instances": {
+            "name": "Spot Instances / Preemptible VMs",
+            "type": "FINOPS_STRATEGY",
+            "complexity": 6,
+            "operating_cost": "Very Low",
+            "risk": "Production Interruption",
+            "relationships": {
+                "requires": [
+                    "Interruption tolerance",
+                    "Automated Fallback"
+                ],
+                "conflicts_with": [
+                    "Stateful workloads",
+                    "High availability required"
+                ],
+                "replaces": [
+                    "On-demand batch processing"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Batch processing",
+                    "Stateless workloads",
+                    "CI/CD pipelines",
+                    "High interruption tolerance"
+                ],
+                "anti_triggers": [
+                    "Critical production APIs without fallback",
+                    "Databases",
+                    "Stateful sessions"
+                ],
+                "preconditions": [
+                    "Fallback to On-Demand",
+                    "Stateless application architecture"
+                ]
+            },
+            "success_metrics": {
+                "savings_vs_ondemand": "70-90%",
+                "interruption_rate": "< 5-10%",
+                "time_to_recovery": "Automated"
+            }
+        },
+        "finops_rightsizing": {
+            "name": "Rightsizing",
+            "type": "FINOPS_STRATEGY",
+            "complexity": 5,
+            "operating_cost": "Low",
+            "risk": "Performance Degradation",
+            "relationships": {
+                "requires": [
+                    "Accurate observability",
+                    "Monitoring"
+                ],
+                "conflicts_with": [
+                    "Blind automation"
+                ],
+                "replaces": [
+                    "Overprovisioning"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Over/Under utilized instances",
+                    "Excessive cloud bill",
+                    "Periodic review cycles"
+                ],
+                "anti_triggers": [
+                    "Lack of reliable metrics",
+                    "Spikey unmonitored traffic"
+                ],
+                "preconditions": [
+                    "CPU/Memory/Disk usage metrics",
+                    "Automated adjustments tools"
+                ]
+            },
+            "success_metrics": {
+                "resource_efficiency": "High",
+                "waste_reduction": "20-40%",
+                "performance_impact": "Negligible if done right"
+            }
+        },
+        "dr_active_active": {
+            "name": "Active-Active Multi-Region",
+            "type": "DISASTER_RECOVERY",
+            "complexity": 9,
+            "operating_cost": "Very High (2x+ Infrastructure)",
+            "risk": "Cross-region data corruption / Split-brain",
+            "relationships": {
+                "requires": [
+                    "Global load balancing",
+                    "Conflict-free replication or strong consistency"
+                ],
+                "conflicts_with": [
+                    "Strict monotonic real-time ledgers (without consensus)"
+                ],
+                "replaces": [
+                    "Active-Passive"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Business critical 24/7",
+                    "RPO < 5 min",
+                    "RTO < 15 min",
+                    "Global concurrent users",
+                    "Zero downtime tolerance"
+                ],
+                "anti_triggers": [
+                    "Low budget",
+                    "Single region user base",
+                    "High intercontinental latency tolerance"
+                ],
+                "preconditions": [
+                    "Multi-region deployment capabilities",
+                    "Automated global routing"
+                ]
+            },
+            "success_metrics": {
+                "rpo_achieved": "< 5 min",
+                "rto_achieved": "< 15 min",
+                "downtime_reduction": "99.999% Availability"
+            }
+        },
+        "dr_active_passive": {
+            "name": "Active-Passive (Warm Standby)",
+            "type": "DISASTER_RECOVERY",
+            "complexity": 7,
+            "operating_cost": "High (1.5x Infrastructure)",
+            "risk": "Failover failure / Operational drift",
+            "relationships": {
+                "requires": [
+                    "Continuous Data Replication",
+                    "Automated/Manual Failover playbooks"
+                ],
+                "conflicts_with": [
+                    "Zero RTO requirements"
+                ],
+                "replaces": [
+                    "Backup & Restore for critical apps"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Internal business critical apps",
+                    "RPO ~ 1h",
+                    "RTO ~ 1-4h",
+                    "Cost awareness with high availability need"
+                ],
+                "anti_triggers": [
+                    "Zero downtime required",
+                    "Non-critical batch jobs"
+                ],
+                "preconditions": [
+                    "Replication lag monitoring",
+                    "Routine failover testing (GameDays)"
+                ]
+            },
+            "success_metrics": {
+                "rpo_achieved": "~ 1 hour",
+                "rto_achieved": "~ 1-4 hours",
+                "cost_savings_vs_active_active": "30-50%"
+            }
+        },
+        "dr_backup_restore": {
+            "name": "Backup & Restore (Incremental)",
+            "type": "DISASTER_RECOVERY",
+            "complexity": 3,
+            "operating_cost": "Low (Storage costs)",
+            "risk": "High RTO / Untested backups failing",
+            "relationships": {
+                "requires": [
+                    "Automated Snapshots",
+                    "Incremental Backups",
+                    "Infrastructure as Code"
+                ],
+                "conflicts_with": [
+                    "Low RTO/RPO needs"
+                ],
+                "replaces": [
+                    "No DR strategy"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Cost optimization priority",
+                    "Startups with low resources",
+                    "RPO 12-24h",
+                    "RTO > 4h",
+                    "Non-critical data"
+                ],
+                "anti_triggers": [
+                    "Mission-critical applications",
+                    "Financial ledgers"
+                ],
+                "preconditions": [
+                    "Immutable backup storage",
+                    "Automated restore scripts"
+                ]
+            },
+            "success_metrics": {
+                "rpo_achieved": "12-24 hours",
+                "rto_achieved": "> 4 hours",
+                "cost_efficiency": "Very High"
+            }
+        },
+        "zta_strict": {
+            "name": "Strict Zero Trust (Maximum Security)",
+            "type": "ZERO_TRUST_ARCHITECTURE",
+            "complexity": 9,
+            "operating_cost": "High (Management + Tooling)",
+            "risk": "High operational friction / Availability false positives",
+            "relationships": {
+                "requires": [
+                    "Strong Identity provider",
+                    "IAP",
+                    "MFA",
+                    "Continuous monitoring"
+                ],
+                "conflicts_with": [
+                    "Open non-authenticated internal networks",
+                    "Legacy apps without ID support"
+                ],
+                "replaces": [
+                    "VPN-based perimeter security"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Fintech / Healthcare / Sensitive data",
+                    "Global remote access",
+                    "Compliance-heavy environments (DORA/PCI)",
+                    "High risk of internal movement (lateral shift)"
+                ],
+                "anti_triggers": [
+                    "Low sensitivity internal tools",
+                    "Early-stage startups with no compliance burden",
+                    "High latency tolerance requirements"
+                ],
+                "preconditions": [
+                    "Complete device/service inventory",
+                    "Centralized IAM"
+                ]
+            },
+            "success_metrics": {
+                "security_posture": "Maximum",
+                "unauthorized_access_reduction": "> 95%",
+                "mean_time_to_prevent": "Near-realtime"
+            }
+        },
+        "zta_adaptive": {
+            "name": "Adaptive Zero Trust (Context-Aware)",
+            "type": "ZERO_TRUST_ARCHITECTURE",
+            "complexity": 7,
+            "operating_cost": "Medium (Automation focus)",
+            "risk": "Policy misconfiguration (too lax)",
+            "relationships": {
+                "requires": [
+                    "Contextual signal analytics",
+                    "Adaptive MFA",
+                    "Dynamic RBAC"
+                ],
+                "conflicts_with": [
+                    "Static permission models"
+                ],
+                "replaces": [
+                    "Standard role-based access"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Corporate SaaS apps",
+                    "Need for low friction user experience",
+                    "Mixed internal/external workforce",
+                    "Dynamic environment with many changes"
+                ],
+                "anti_triggers": [
+                    "Extreme security requirements (military/sovereign)",
+                    "No monitoring budget"
+                ],
+                "preconditions": [
+                    "Identity + Device signal signals",
+                    "Policy analytics engine"
+                ]
+            },
+            "success_metrics": {
+                "ux_friction_reduction": "High vs Strict",
+                "security_coverage": "Adaptive",
+                "operational_complexity": "Moderate"
+            }
+        },
+        "zta_foundational": {
+            "name": "Foundational Zero Trust (Least Privilege)",
+            "type": "ZERO_TRUST_ARCHITECTURE",
+            "complexity": 4,
+            "operating_cost": "Low (Policy focus)",
+            "risk": "Partial coverage (blind spots)",
+            "relationships": {
+                "requires": [
+                    "IAM Least Privilege",
+                    "Basic network segmentation",
+                    "Admin MFA"
+                ],
+                "conflicts_with": [
+                    "Shared admin credentials",
+                    "Flat networks"
+                ],
+                "replaces": [
+                    "Trust-by-default internal networks"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Early-stage startups",
+                    "B2B SaaS with low sensitivity",
+                    "Departmental segmentation needs",
+                    "Resource-constrained security teams"
+                ],
+                "anti_triggers": [
+                    "Global scaling with high risk",
+                    "Regulated financial services"
+                ],
+                "preconditions": [
+                    "IAM basic setup",
+                    "Resource tagging"
+                ]
+            },
+            "success_metrics": {
+                "blast_radius_reduction": "Moderate",
+                "compliance_baseline": "Achieved",
+                "initial_implementation_time": "Fast"
+            }
+        },
+        "secret_vault_centralized": {
+            "name": "Centralized Secret Vault & Rotation",
+            "type": "SECRET_MANAGEMENT",
+            "complexity": 8,
+            "operating_cost": "High (Infrastructure + Licensing)",
+            "risk": "Single Point of Failure / High OpEx",
+            "relationships": {
+                "requires": [
+                    "Centralized Identity Provider",
+                    "KMS / HSM",
+                    "Strong auditing"
+                ],
+                "supports": [
+                    "secret_rotation",
+                    "automatic_remediation"
+                ],
+                "replaces": [
+                    "Environment variables / Hardcoded secrets"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Production critical systems",
+                    "Fintech / Regulated sectors (DORA/PSD2)",
+                    "Requirement for automatic rotation",
+                    "Strict audit trail requirements"
+                ],
+                "anti_triggers": [
+                    "Static/Manual secret management environments",
+                    "No-vault budget"
+                ],
+                "preconditions": [
+                    "Secret inventory",
+                    "IAM integration"
+                ]
+            },
+            "success_metrics": {
+                "secret_exposure_time": "Near zero",
+                "rotation_frequency": "Automated",
+                "audit_coverage": "100%"
+            }
+        },
+        "secret_leasing_expiration": {
+            "name": "Leasing & Dynamic Expiration",
+            "type": "SECRET_MANAGEMENT",
+            "complexity": 7,
+            "operating_cost": "Medium (Automation focus)",
+            "risk": "Dependency on SDK/API / Potential availability impact on expiration",
+            "relationships": {
+                "requires": [
+                    "SDK/API integration",
+                    "Temporary Tokens / Leasing",
+                    "Short TTL policies"
+                ],
+                "supports": [
+                    "blast_radius_reduction",
+                    "dynamic_access_control"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Microservices with short-lived access needs",
+                    "Requirement to minimize session hijacking risk",
+                    "High frequency automated deployments"
+                ],
+                "anti_triggers": [
+                    "Manual operations",
+                    "Stale/Legacy monolithic apps"
+                ],
+                "preconditions": [
+                    "Vault API support for dynamic secrets",
+                    "Application SDK integration"
+                ]
+            },
+            "success_metrics": {
+                "credential_freshness": "High",
+                "unauthorized_usage_blocking": "Near-realtime",
+                "security_coverage": "Dynamic"
+            }
+        },
+        "secret_vault_standard": {
+            "name": "Standard Cloud-Native Vault",
+            "type": "SECRET_MANAGEMENT",
+            "complexity": 4,
+            "operating_cost": "Low (Managed Service)",
+            "risk": "Medium exposure if rotation is not configured",
+            "relationships": {
+                "requires": [
+                    "Cloud IAM roles",
+                    "Basic encryption at rest"
+                ],
+                "conflicts_with": [
+                    "Multi-cloud vault requirement (needs abstraction)"
+                ],
+                "replaces": [
+                    "Insecure parameter stores"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Startups",
+                    "Internal business tools",
+                    "Limited resource teams",
+                    "Primary usage within one cloud provider"
+                ],
+                "anti_triggers": [
+                    "Ultra-high security / Compliance mandates",
+                    "Multi-cloud secrets consistency requirement"
+                ],
+                "preconditions": [
+                    "Cloud provider access",
+                    "Basic IAM knowledge"
+                ]
+            },
+            "success_metrics": {
+                "cost_to_security_ratio": "Optimal",
+                "management_ease": "High",
+                "risk_reduction": "Baseline fulfilled"
+            }
+        },
+        "crypto_high_assurance": {
+            "name": "High-Assurance Applied Cryptography",
+            "type": "CRYPTOGRAPHY_APPLIED",
+            "complexity": 9,
+            "operating_cost": "High (Enclaves + KMS + Compliance)",
+            "risk": "Performance overhead / High complexity / Key management errors",
+            "relationships": {
+                "requires": [
+                    "Confidential Computing (Nitro/SGX)",
+                    "KMS with automatic rotation",
+                    "mTLS",
+                    "TLS 1.3"
+                ],
+                "conflicts_with": [
+                    "Legacy protocols",
+                    "Non-encrypted storage",
+                    "Manual key rotation"
+                ],
+                "replaces": [
+                    "Standard encryption without enclaves"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Fintech / Payment processing",
+                    "Regulated healthcare data",
+                    "Requirement for encryption in-use",
+                    "Strict compliance (PCI-DSS / HIPAA)"
+                ],
+                "anti_triggers": [
+                    "Low sensitivity static data",
+                    "Budget-constrained startups",
+                    "Latency-sensitive apps with non-critical data"
+                ],
+                "preconditions": [
+                    "Hardware support for Enclaves",
+                    "KMS availability"
+                ]
+            },
+            "success_metrics": {
+                "data_protection_coverage": "At rest, In transit, In use",
+                "compliance_score": "Elite / Audit-ready",
+                "encryption_latency_overhead": "Monitored / Optimized"
+            }
+        },
+        "crypto_standard_enterprise": {
+            "name": "Standard Enterprise Cryptography",
+            "type": "CRYPTOGRAPHY_APPLIED",
+            "complexity": 7,
+            "operating_cost": "Medium (KMS usage)",
+            "risk": "Partial encryption coverage / Slow key rotation",
+            "relationships": {
+                "requires": [
+                    "KMS integration",
+                    "TLS 1.3",
+                    "Managed Encryption at rest"
+                ],
+                "conflicts_with": [
+                    "Cleartext data storage"
+                ],
+                "replaces": [
+                    "Self-managed key storage"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "SaaS B2B handling customer PII",
+                    "Corporate applications",
+                    "Cloud-native workloads",
+                    "Standard regulatory compliance (GDPR)"
+                ],
+                "anti_triggers": [
+                    "Internal non-personal data",
+                    "No requirement for rotation"
+                ],
+                "preconditions": [
+                    "KMS setup",
+                    "Service role IAM permissions"
+                ]
+            },
+            "success_metrics": {
+                "encryption_at_rest_pct": "100%",
+                "transit_security": "Modern (TLS 1.3)",
+                "audit_logs_validity": "Confirmed"
+            }
+        },
+        "crypto_foundational_sec": {
+            "name": "Foundational Cryptography (Baseline)",
+            "type": "CRYPTOGRAPHY_APPLIED",
+            "complexity": 4,
+            "operating_cost": "Low (Cloud-native defaults)",
+            "risk": "Basic protection only / Policy gaps",
+            "relationships": {
+                "requires": [
+                    "TLS 1.3",
+                    "Cloud-provider encryption defaults"
+                ],
+                "conflicts_with": [
+                    "Plain HTTP",
+                    "Unencrypted S3/Disks"
+                ],
+                "replaces": [
+                    "No encryption"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Early-stage startups",
+                    "Internal tools with low sensitivity",
+                    "Developer environments",
+                    "Requirement for minimal operational impact"
+                ],
+                "anti_triggers": [
+                    "External financial data",
+                    "Regulated industry mandates"
+                ],
+                "preconditions": [
+                    "Baseline cloud setup"
+                ]
+            },
+            "success_metrics": {
+                "min_security_baseline": "Met",
+                "infra_overhead": "Minimal",
+                "implementation_speed": "High"
+            }
+        },
+        "tm_stride": {
+            "name": "STRIDE Threat Modeling",
+            "type": "THREAT_MODEL",
+            "complexity": 7,
+            "operating_cost": "Medium",
+            "risk": "Superficial analysis / High false negative rate if not validated",
+            "relationships": {
+                "requires": [
+                    "Architecture Diagram",
+                    "Asset Inventory"
+                ],
+                "replaces": [
+                    "Checklist-based security review"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Application exposed to external users",
+                    "New feature with sensitive data handling",
+                    "Requirement for structural threat identification"
+                ],
+                "anti_triggers": [
+                    "Offline-only systems",
+                    "Internal research tools with no real data"
+                ],
+                "preconditions": [
+                    "Updated system architecture",
+                    "Defined trust boundaries"
+                ]
+            },
+            "success_metrics": {
+                "relevant_threats_identified": "> 10 per core module",
+                "coverage": "Spoofing, Tampering, Repudiation, Info Disclosure, DoS, Elevation of Privilege"
+            }
+        },
+        "tm_attack_tree": {
+            "name": "Attack Tree Modeling",
+            "type": "THREAT_MODEL",
+            "complexity": 8,
+            "operating_cost": "High",
+            "risk": "Complexity explosion in large systems",
+            "relationships": {
+                "requires": [
+                    "System dependencies graph",
+                    "Attacker profiles"
+                ],
+                "supports": [
+                    "tm_risk_quantification"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Distributed microservices architecture",
+                    "Multiple trust boundaries crossing",
+                    "High-security environment requirements"
+                ],
+                "anti_triggers": [
+                    "Simple monolithic apps",
+                    "Systems with low interdependence"
+                ],
+                "preconditions": [
+                    "Dependency mapping",
+                    "Network isolation diagrams"
+                ]
+            },
+            "success_metrics": {
+                "critical_paths_identified": "100%",
+                "dependency_risk_clarity": "High"
+            }
+        },
+        "tm_risk_quantification": {
+            "name": "Risk Quantification & ROI",
+            "type": "THREAT_MODEL",
+            "complexity": 8,
+            "operating_cost": "High",
+            "risk": "Data inaccuracy in financial impact estimates",
+            "relationships": {
+                "requires": [
+                    "tm_stride",
+                    "Financial loss data"
+                ],
+                "justifies": [
+                    "Security investments / OpEx increase"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "High-value PII or financial data processing",
+                    "Board-level compliance reporting",
+                    "Need for security budget justification"
+                ],
+                "anti_triggers": [
+                    "Low impact data loss scenarios",
+                    "Small-scale internal prototypes"
+                ],
+                "preconditions": [
+                    "Identified threats",
+                    "Asset valuation"
+                ]
+            },
+            "success_metrics": {
+                "mitigation_roi_calculated": "Yes",
+                "risk_residual_visibility": "High",
+                "financial_exposure_clarity": "C-level ready"
+            }
+        },
+        "cache_static_global": {
+            "name": "Global Static Caching (CDN/Edge)",
+            "type": "CACHING_MULTI_NIVEL",
+            "complexity": 3,
+            "operating_cost": "Low (Usage-based)",
+            "risk": "Stale content / Cache invalidation propagation delay",
+            "relationships": {
+                "requires": [
+                    "DNS Configuration",
+                    "Asset Tagging"
+                ],
+                "supports": [
+                    "scalability_surge_protection"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Global static content delivery",
+                    "High egress bandwidth costs",
+                    "Need for minimal TTFB across multiple regions"
+                ],
+                "anti_triggers": [
+                    "Dynamic content with zero-tolerance for staleness",
+                    "Low traffic internal assets"
+                ],
+                "preconditions": [
+                    "Publicly accessible origins",
+                    "Cache-control header strategy"
+                ]
+            },
+            "success_metrics": {
+                "cache_hit_ratio": "> 85%",
+                "ttfb_reduction": "> 70%",
+                "egress_cost_saving": "Significant"
+            }
+        },
+        "cache_app_memory": {
+            "name": "Application Memory Caching",
+            "type": "CACHING_MULTI_NIVEL",
+            "complexity": 5,
+            "operating_cost": "Medium (Dedicated cluster)",
+            "risk": "Cache stampede / Memory exhaustion / Inconsistency",
+            "relationships": {
+                "requires": [
+                    "Redis or Memcached",
+                    "Serialization logic"
+                ],
+                "integrates_with": [
+                    "CQRS (Read Models)",
+                    "Saga snapshoting"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Repetitive complex application logic",
+                    "Microservices hotspots",
+                    "High-frequency data access (>1k req/s per service)"
+                ],
+                "anti_triggers": [
+                    "Strict transactional consistency requirements",
+                    "Low-frequency data access"
+                ],
+                "preconditions": [
+                    "Cache eviction policy (LRU/TTL)",
+                    "Handling of 'cache miss' scenario"
+                ]
+            },
+            "success_metrics": {
+                "latency_reduction": "40-60%",
+                "backend_load_reduction": "High",
+                "application_throughput": "+30-50%"
+            }
+        },
+        "cache_db_materialized": {
+            "name": "Database-level Caching (Materialized Views)",
+            "type": "CACHING_MULTI_NIVEL",
+            "complexity": 6,
+            "operating_cost": "Medium (Storage + Refresh overhead)",
+            "risk": "Write amplification during refresh / Stale aggregations",
+            "relationships": {
+                "requires": [
+                    "RDBMS with View support",
+                    "Refresh triggers"
+                ],
+                "supports": [
+                    "complex_reporting",
+                    "analytical_dashboards"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Complex joins and aggregations on large tables",
+                    "Analytical dashboard requirements",
+                    "Slow query hotspots on primary DB"
+                ],
+                "anti_triggers": [
+                    "Frequently changing writes on the underlying tables",
+                    "Real-time data requirement"
+                ],
+                "preconditions": [
+                    "Table indexing",
+                    "Refresh strategy (On-demand/Scheduled)"
+                ]
+            },
+            "success_metrics": {
+                "query_latency_reduction": "70-90%",
+                "db_cpu_utilization_improvement": "High",
+                "report_generation_speed": "High"
+            }
+        },
+        "msg_bus_kafka": {
+            "name": "High-throughput Event Bus (Kafka)",
+            "type": "COLAS_Y_MENSAJERIA",
+            "complexity": 9,
+            "operating_cost": "High (Cluster management + Storage)",
+            "risk": "Zookeeper/Kraft complexity / Replication lag / SPOF if not 3-node min",
+            "relationships": {
+                "requires": [
+                    "Managed or Self-hosted Cluster",
+                    "Schema Registry (optional)"
+                ],
+                "integrates_with": [
+                    "Event Sourcing",
+                    "CQRS",
+                    "Big Data Pipelines"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "High volume events (>10k msg/s)",
+                    "Need for strict ordering via partitioning",
+                    "Requirement for exactly-once processing",
+                    "Long-term event retention"
+                ],
+                "anti_triggers": [
+                    "Low throughput systems",
+                    "Requirement for complex routing/priority queues",
+                    "Small dev teams with no Kafka expertise"
+                ],
+                "preconditions": [
+                    "VPC peering/connectivity setup",
+                    "Consumer group management defined"
+                ]
+            },
+            "success_metrics": {
+                "message_loss_rate": "0% (Exactly-once)",
+                "event_replay_capability": "Yes",
+                "system_decoupling_level": "High"
+            }
+        },
+        "msg_broker_rabbitmq": {
+            "name": "Intelligent Message Broker (RabbitMQ)",
+            "type": "COLAS_Y_MENSAJERIA",
+            "complexity": 7,
+            "operating_cost": "Medium",
+            "risk": "Memory pressure on high concurrency / Erlang-based debugging complexity",
+            "relationships": {
+                "requires": [
+                    "RabbitMQ Server/Cluster"
+                ],
+                "supports": [
+                    "Complex routing (Exchanges)",
+                    "Priority Queues"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Complex message routing requirements",
+                    "Need for message priority support",
+                    "Task queue management with dead-lettering",
+                    "Legacy systems integration (AMQP/STOMP)"
+                ],
+                "anti_triggers": [
+                    "Ultra-high throughput log-based streaming",
+                    "Simple point-to-point async triggers"
+                ],
+                "preconditions": [
+                    "Exchange/Queue binding strategy defined",
+                    "Acknowledgment policy configured"
+                ]
+            },
+            "success_metrics": {
+                "routing_accuracy": "100%",
+                "message_delivery_latency": "Low",
+                "reliable_handshake": "Yes"
+            }
+        },
+        "msg_queue_sqs": {
+            "name": "Serverless Managed Queue (AWS SQS / GCP PubSub)",
+            "type": "COLAS_Y_MENSAJERIA",
+            "complexity": 3,
+            "operating_cost": "Low (Pay-per-request)",
+            "risk": "Limited ordering (unless FIFO) / Scaling latency in extreme surges",
+            "relationships": {
+                "requires": [
+                    "Cloud IAM permissions"
+                ],
+                "integrates_with": [
+                    "Serverless Functions (Lambda/CloudRun)",
+                    "Monolithic background workers"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Requirement for zero maintenance",
+                    "Serverless or cloud-native architectures",
+                    "Variable traffic with high peaks",
+                    "Simple point-to-point decoupling"
+                ],
+                "anti_triggers": [
+                    "Requirement for ultra-low latency (<10ms)",
+                    "Very high persistent throughput (becomes expensive)",
+                    "Need for complex exchanges/routing"
+                ],
+                "preconditions": [
+                    "IAM roles configured",
+                    "DLQ setup for failure handling"
+                ]
+            },
+            "success_metrics": {
+                "operational_overhead": "Zero",
+                "auto_scaling_efficiency": "High",
+                "visibility_timeout_optimization": "Yes"
+            }
+        },
+        "ec_vector_clocks": {
+            "name": "Vector Clocks Consistency",
+            "type": "CONSISTENCIA_EVENTUAL",
+            "complexity": 7,
+            "operating_cost": "Medium (Storage for version vectors)",
+            "risk": "Conflict resolution complexity / Logical clock synchronization",
+            "relationships": {
+                "requires": [
+                    "Metadata storage for clocks"
+                ],
+                "supports": [
+                    "causal_consistency",
+                    "semantic_conflict_resolution"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Need to detect concurrent updates in distributed systems",
+                    "Causal ordering of events requirement",
+                    "Decentralized synchronization"
+                ],
+                "anti_triggers": [
+                    "Single-leader architectures",
+                    "Strict requirement for Last-Write-Wins"
+                ],
+                "preconditions": [
+                    "Versioning system in place",
+                    "Conflict resolution logic (Merge Functions)"
+                ]
+            },
+            "success_metrics": {
+                "causal_violations_detected": "High",
+                "resolution_accuracy": "High",
+                "availability_during_partition": "High"
+            }
+        },
+        "ec_crdts": {
+            "name": "Conflict-free Replicated Data Types (CRDTs)",
+            "type": "CONSISTENCIA_EVENTUAL",
+            "complexity": 8,
+            "operating_cost": "High (Data overhead for state/ops)",
+            "risk": "High memory consumption / Complexity in designing custom types",
+            "relationships": {
+                "requires": [
+                    "CRDT-compatible database (e.g., Redis, Riak, CosmosDB)"
+                ],
+                "supports": [
+                    "conflict_free_merges",
+                    "offline_first_apps"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Distributed counters, sets, or flags",
+                    "Collaborative editing/real-time synchronization",
+                    "Multi-master replication without central coordination"
+                ],
+                "anti_triggers": [
+                    "Complex relational integrity constraints",
+                    "Large BLOB updates where state-based CRDTs are inefficient"
+                ],
+                "preconditions": [
+                    "Operations must be commutative, associative, and idempotent"
+                ]
+            },
+            "success_metrics": {
+                "merge_automation": "100% (No conflict handling needed)",
+                "convergence_speed": "High",
+                "developer_productivity_on_conflicts": "High"
+            }
+        },
+        "ec_lww": {
+            "name": "Last-Write-Wins (LWW) Consistency",
+            "type": "CONSISTENCIA_EVENTUAL",
+            "complexity": 3,
+            "operating_cost": "Low",
+            "risk": "Silent data loss on concurrent updates / NTP clock skew impact",
+            "relationships": {
+                "requires": [
+                    "Synchronized system clocks (NTP)",
+                    "Timestamp metadata"
+                ],
+                "supports": [
+                    "simple_kv_replication"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Low criticality metadata",
+                    "Stateless session data",
+                    "Systems where losing concurrent updates is tolerable"
+                ],
+                "anti_triggers": [
+                    "Financial transactions",
+                    "Inventory management during peaks",
+                    "Collaborative editing"
+                ],
+                "preconditions": [
+                    "Reliable timestamping"
+                ]
+            },
+            "success_metrics": {
+                "system_simplicity_maintained": "High",
+                "low_latency_writes": "Excellent"
+            }
+        },
+        "ma_single_tagging": {
+            "name": "Single Account with Tagging Governance",
+            "type": "MULTI_ACCOUNT_STRATEGIES",
+            "complexity": 2,
+            "operating_cost": "Low",
+            "risk": "Blast radius in case of compromise / Accidental resource deletion / No hard cost isolation",
+            "relationships": {
+                "requires": [
+                    "IAM Roles & Policies",
+                    "Resource Tagging Policy"
+                ],
+                "supports": [
+                    "basic_cost_tracking"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Small dev teams (<5 people)",
+                    "Single product/service startup",
+                    "Requirement for minimal operational overhead",
+                    "Early-stage development/prototyping"
+                ],
+                "anti_triggers": [
+                    "Regulatory requirement for independent audits",
+                    "Multiple independent business units/products",
+                    "Production workloads with high blast radius risk"
+                ],
+                "preconditions": [
+                    "Strict Tagging enforcement",
+                    "IAM least-privilege principal"
+                ]
+            },
+            "success_metrics": {
+                "bill_transparency": "High (via Tags)",
+                "governance_simplicity": "High",
+                "setup_speed": "Instant"
+            }
+        },
+        "ma_product_isolation": {
+            "name": "Multi-account Isolation by Product",
+            "type": "MULTI_ACCOUNT_STRATEGIES",
+            "complexity": 5,
+            "operating_cost": "Medium",
+            "risk": "Identity management complexity / Inter-account connectivity (VPC Peering/Transit Gateway)",
+            "relationships": {
+                "requires": [
+                    "AWS Organizations / Azure Management Groups",
+                    "SSO/Identity Center"
+                ],
+                "supports": [
+                    "accurate_chargeback",
+                    "security_segmentation"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Multiple independent teams or products",
+                    "Need for hard isolation of security and cost",
+                    "SaaS with multi-tenant isolation needs"
+                ],
+                "anti_triggers": [
+                    "Very small organizations",
+                    "Low architectural complexity"
+                ],
+                "preconditions": [
+                    "Centralized billing enabled",
+                    "Consolidated identity strategy"
+                ]
+            },
+            "success_metrics": {
+                "chargeback_accuracy": "100% per account",
+                "blast_radius_containment": "High",
+                "audit_clarity": "Product-level independent"
+            }
+        },
+        "ma_full_env_isolation": {
+            "name": "Full Isolation by Product & Environment",
+            "type": "MULTI_ACCOUNT_STRATEGIES",
+            "complexity": 7,
+            "operating_cost": "High",
+            "risk": "Replication of base infra overhead / Deployment pipeline complexity",
+            "relationships": {
+                "requires": [
+                    "Infrastructure as Code (IaC)",
+                    "CI/CD across accounts"
+                ],
+                "supports": [
+                    "regulatory_compliance",
+                    "fintech_isolation"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Fintech or highly regulated business",
+                    "Need for 100% isolation of Dev/Test from Prod",
+                    "Strict audit requirements (SOC2, PCI-DSS, GDPR)"
+                ],
+                "anti_triggers": [
+                    "Fast-moving internal prototypes",
+                    "Cost-constrained projects"
+                ],
+                "preconditions": [
+                    "Automated account provisioning (Terraform/Control Tower)",
+                    "Hardened DevSecOps pipelines"
+                ]
+            },
+            "success_metrics": {
+                "compliance_readiness": "Very High",
+                "prod_incident_prevention": "High (Hard wall)",
+                "auditor_satisfaction": "High"
+            }
+        },
+        "ma_landing_zone_scp": {
+            "name": "Landing Zone with SCP Governance",
+            "type": "MULTI_ACCOUNT_STRATEGIES",
+            "complexity": 9,
+            "operating_cost": "Medium-High (Managed services cost)",
+            "risk": "Incorrect SCP blocking critical business operations / Steep learning curve",
+            "relationships": {
+                "requires": [
+                    "AWS Control Tower / Azure Blueprint",
+                    "Service Control Policies (SCPs)"
+                ],
+                "supports": [
+                    "centralized_governance",
+                    "automated_guardrails"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Enterprise scale (>10 accounts)",
+                    "Need for automated security guardrails",
+                    "Centralized network and security logging",
+                    "Multi-region DR strategies"
+                ],
+                "anti_triggers": [
+                    "Small startups",
+                    "Projects with no centralized IT/Cloud team"
+                ],
+                "preconditions": [
+                    "Experience with SCPs and guardrail concepts",
+                    "Platform Team or Center of Excellence (CoE) in place"
+                ]
+            },
+            "success_metrics": {
+                "policy_compliance_automation": "100%",
+                "security_incident_reduction": "Significant",
+                "time_to_provision_account": "Low (Automated)"
+            }
+        },
+        "sm_mtls_only": {
+            "name": "Minimal Service Mesh (mTLS focus)",
+            "type": "SERVICE_MESH",
+            "complexity": 5,
+            "operating_cost": "Medium",
+            "risk": "Certificate management overhead / Sidecar lifecycle issues",
+            "relationships": {
+                "requires": [
+                    "Service Mesh Control Plane (Linkerd/Istio in minimal profile)"
+                ],
+                "supports": [
+                    "automated_mtls",
+                    "service_identity"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Security mandate for encryption in transit",
+                    "Need for strong service-to-service authentication",
+                    "Small-to-medium microservice count (5-10 services)"
+                ],
+                "anti_triggers": [
+                    "Low service count (<3)",
+                    "Environments where network-level encryption is sufficient"
+                ],
+                "preconditions": [
+                    "Cluster capable of sidecar injection"
+                ]
+            },
+            "success_metrics": {
+                "encryption_coverage": "100%",
+                "identity_validation_success": "High"
+            }
+        },
+        "sm_full_istio": {
+            "name": "Enterprise Service Mesh (Full Istio)",
+            "type": "SERVICE_MESH",
+            "complexity": 9,
+            "operating_cost": "High (Resource overhead + Management)",
+            "risk": "Configuration complexity / Latency introduction / Upgrade difficulty",
+            "relationships": {
+                "requires": [
+                    "Istio Control Plane",
+                    "Kubernetes"
+                ],
+                "supports": [
+                    "canary_releases",
+                    "distributed_tracing",
+                    "circuit_breaking"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Need for advanced traffic routing (Canary/A-B)",
+                    "Deep observability and distributed tracing requirement",
+                    "Complex microservice ecosystem (>10-15 services)",
+                    "Multi-cluster communication"
+                ],
+                "anti_triggers": [
+                    "Organizations with limited DevOps capacity",
+                    "Small microservice deployments"
+                ],
+                "preconditions": [
+                    "Istiod installed and configured",
+                    "Tracing backend (Jaeger/Zipkin) available"
+                ]
+            },
+            "success_metrics": {
+                "traffic_routing_precision": "High",
+                "tracing_visibility": "100%",
+                "resilience_policy_effectiveness": "High"
+            }
+        },
+        "sm_linkerd_light": {
+            "name": "Performance-Optimized Service Mesh (Linkerd)",
+            "type": "SERVICE_MESH",
+            "complexity": 6,
+            "operating_cost": "Medium-Low",
+            "risk": "Fewer advanced features compared to Istio",
+            "relationships": {
+                "requires": [
+                    "Linkerd Control Plane"
+                ],
+                "supports": [
+                    "instant_mtls",
+                    "golden_metrics"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Low latency requirements",
+                    "Need for golden metrics and mTLS with minimal configuration",
+                    "Performance-sensitive workloads"
+                ],
+                "anti_triggers": [
+                    "Complex Lua scripts or WASM extension needs (use Istio)",
+                    "Native non-K8s stack (Limited support)"
+                ],
+                "preconditions": [
+                    "Linkerd CLI and cluster check passed"
+                ]
+            },
+            "success_metrics": {
+                "operational_simplicity": "High",
+                "overhead_impact": "Low",
+                "mtls_automation": "100%"
+            }
+        },
+        "plat_serverless_lambda": {
+            "name": "Serverless Functions (FaaS)",
+            "type": "SERVERLESS_VS_CONTAINERS",
+            "complexity": 3,
+            "operating_cost": "Pay-per-use (Highly Variable)",
+            "risk": "Cold starts / Vendor lock-in / Execution time limits / Debugging complexity",
+            "relationships": {
+                "requires": [
+                    "Cloud Provider Function Service (AWS Lambda/Azure Functions)"
+                ],
+                "supports": [
+                    "event_driven_architecture",
+                    "rapid_scaling"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Highly variable workloads / Unpredictable traffic peaks",
+                    "Event-driven processing (S3 events, DB streams)",
+                    "Requirement for zero server management",
+                    "Cost optimization for low-volume or intermittent tasks"
+                ],
+                "anti_triggers": [
+                    "Constant high-load workloads",
+                    "Services requiring ultra-low latency consistency (<50ms consistently)",
+                    "Large monolithic applications"
+                ],
+                "preconditions": [
+                    "Stateless application logic",
+                    "Fast startup runtime (Go, Rust, Node.js optimized)"
+                ]
+            },
+            "success_metrics": {
+                "autoscaling_speed": "Instant",
+                "infra_management_overhead": "Zero",
+                "cost_efficiency_at_variable_load": "High"
+            }
+        },
+        "plat_containers_k8s": {
+            "name": "Containerized Microservices (Docker/K8s)",
+            "type": "SERVERLESS_VS_CONTAINERS",
+            "complexity": 7,
+            "operating_cost": "Base infra + Management overhead",
+            "risk": "Orchestration complexity / Scaling lag / Management of underlying nodes",
+            "relationships": {
+                "requires": [
+                    "Container Runtime",
+                    "Orchestrator (K8s/ECS)"
+                ],
+                "supports": [
+                    "service_mesh",
+                    "long_running_processes",
+                    "full_env_control"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Constant high-load services",
+                    "Need for full control over runtime and environment",
+                    "Predictable performance and latency",
+                    "Integration with advanced Service Mesh features"
+                ],
+                "anti_triggers": [
+                    "Simple task automation",
+                    "Extremely low traffic services where idle costs are prohibitive"
+                ],
+                "preconditions": [
+                    "Dockerized application",
+                    "DevOps capacity for cluster management"
+                ]
+            },
+            "success_metrics": {
+                "latency_predictability": "High",
+                "ecosystem_compatibility": "Maximum",
+                "inter_service_communication_control": "Excellent"
+            }
+        },
+        "fo_reserved_savings": {
+            "name": "Reserved Instances & Savings Plans",
+            "type": "FINOPS_AVANZADO",
+            "complexity": 4,
+            "operating_cost": "Upfront/Commitment based",
+            "risk": "Underutilization if workload changes / Long-term contract commitment",
+            "relationships": {
+                "requires": [
+                    "Billing access",
+                    "Usage history"
+                ],
+                "supports": [
+                    "long_term_cost_reduction",
+                    "budget_predictability"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Stable workload with usage history > 6 months",
+                    "Predictable base load for critical services",
+                    "Requirement for significant cost reduction (up to 72%)"
+                ],
+                "anti_triggers": [
+                    "Highly dynamic environments with short-lived projects",
+                    "Experimental workloads",
+                    "Organizations with severe cash flow constraints"
+                ],
+                "preconditions": [
+                    "Reliable usage forecasting",
+                    "Finance team approval for commitments"
+                ]
+            },
+            "success_metrics": {
+                "savings_vs_ondemand": "30% - 70%",
+                "utilization_rate": ">90%",
+                "budget_variance": "Low"
+            }
+        },
+        "fo_spot_instances": {
+            "name": "Spot Instances Strategy",
+            "type": "FINOPS_AVANZADO",
+            "complexity": 6,
+            "operating_cost": "Very Low (Market driven)",
+            "risk": "Service interruption with short notice (2 mins) / Requires robust fallback logic",
+            "relationships": {
+                "requires": [
+                    "Fault-tolerant architecture",
+                    "Auto Scaling Groups"
+                ],
+                "supports": [
+                    "drastic_compute_savings",
+                    "batch_processing"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Batch processing / Background jobs",
+                    "Stateful workloads with frequent checkpoints",
+                    "Dev/Test environments without strict SLA",
+                    "Scalable container clusters with mixed instance types"
+                ],
+                "anti_triggers": [
+                    "User-facing critical APIs without redundant capacity",
+                    "Jobs that cannot be resumed / No checkpointing",
+                    "Databases or stateful services without replication"
+                ],
+                "preconditions": [
+                    "Automated instance replacement",
+                    "Fallback to on-demand/RI if spot is unavailable"
+                ]
+            },
+            "success_metrics": {
+                "compute_savings": "Up to 90%",
+                "interruption_recovery_time": "Low",
+                "cluster_stability": "Maintained"
+            }
+        },
+        "fo_dynamic_rightsizing": {
+            "name": "Dynamic Rightsizing & Auto-scaling",
+            "type": "FINOPS_AVANZADO",
+            "complexity": 5,
+            "operating_cost": "Medium (Managed services + CloudWatch)",
+            "risk": "Performance degradation if sized too small / Throttling during sudden spikes",
+            "relationships": {
+                "requires": [
+                    "CloudWatch / Prometheus metrics",
+                    "IAM permissions for resizing"
+                ],
+                "supports": [
+                    "just_in_time_provisioning",
+                    "waste_elimination"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Variable workload with daily/weekly cycles",
+                    "Detected low utilization (<30% CPU/Mem) on over-provisioned resources",
+                    "Cost-sensitive environments with variable demand"
+                ],
+                "anti_triggers": [
+                    "Workloads with extremely unpredictable, sudden mega-spikes (use Serverless)",
+                    "Legacy apps with slow startup times"
+                ],
+                "preconditions": [
+                    "Comprehensive monitoring metrics",
+                    "Automated rightsizing tool or scripts"
+                ]
+            },
+            "success_metrics": {
+                "average_utilization": "50% - 80%",
+                "cost_avoidance": "Significant",
+                "sla_maintenance_rate": "100%"
+            }
+        },
+        "fo_showback_chargeback": {
+            "name": "Showback & Chargeback Governance",
+            "type": "FINOPS_AVANZADO",
+            "complexity": 5,
+            "operating_cost": "Low (Administrative overhead)",
+            "risk": "Inter-departmental friction / Difficulty in attributing shared resources (e.g., Transit Gateway)",
+            "relationships": {
+                "requires": [
+                    "Tagging Policy",
+                    "Multi-account (AWS Organizations/Azure MG)"
+                ],
+                "supports": [
+                    "cost_accountability",
+                    "business_unit_ROI"
+                ]
+            },
+            "context": {
+                "triggers": [
+                    "Large organizations with multiple teams/projects",
+                    "Requirement for unit economics (cost per transaction/user)",
+                    "Need for cultural change towards cost awareness"
+                ],
+                "anti_triggers": [
+                    "Small startups with a single product and team",
+                    "Monolithic finance structure with no team-level budgets"
+                ],
+                "preconditions": [
+                    "100% compliant tagging enforce",
+                    "Consolidated billing enabled"
+                ]
+            },
+            "forecast_accuracy": "Improved"
+        }
+    },
+    "zta_identity_proxy": {
+        "name": "Identity-aware Proxy (IAP) & MFA",
+        "type": "ZERO_TRUST_ARCHITECTURE",
+        "complexity": 5,
+        "operating_cost": "Medium (Managed service cost)",
+        "risk": "Friction if MFA is too aggressive / Single point of failure for access",
+        "relationships": {
+            "requires": [
+                "Centralized IdP (Azure AD, Okta, IAM)",
+                "MFA Enforced"
+            ],
+            "supports": [
+                "remote_access_security",
+                "unauthorized_access_block"
+            ]
+        },
+        "context": {
+            "triggers": [
+                "External users accessing internal resources",
+                "Requirement for PSD2/MFA compliance",
+                "Need to replace traditional VPNs with context-aware access"
+            ],
+            "anti_triggers": [
+                "Low sensitivity internal tools",
+                "No budget for identity management"
+            ],
+            "preconditions": [
+                "Strong identity source",
+                "Service/Asset inventory"
+            ]
+        },
+        "success_metrics": {
+            "unauthorized_access_blocked": "Significant",
+            "mfa_coverage": "100%",
+            "access_log_auditability": "Excellent"
+        }
+    },
+    "zta_micro_segmentation": {
+        "name": "Service-to-Service Micro-segmentation",
+        "type": "ZERO_TRUST_ARCHITECTURE",
+        "complexity": 8,
+        "operating_cost": "High (Mesh/Firewall management)",
+        "risk": "High complexity / Potential breakage if policies are too tight",
+        "relationships": {
+            "requires": [
+                "Service Mesh (Istio/Linkerd) or Network Policies (K8s)",
+                "Service Identity"
+            ],
+            "supports": [
+                "blast_radius_reduction",
+                "lateral_movement_prevention"
+            ]
+        },
+        "context": {
+            "triggers": [
+                "Highly critical microservices architecture",
+                "Requirement for PCI-DSS/DORA isolation",
+                "Need to limit the impact of a compromised service"
+            ],
+            "anti_triggers": [
+                "Monolithic applications",
+                "Small clusters with low security risk"
+            ],
+            "preconditions": [
+                "Service discovery and identity configured",
+                "Traffic monitoring for baseline policies"
+            ]
+        },
+        "success_metrics": {
+            "blast_radius_reduction": "High",
+            "inter_service_denials": "Audited",
+            "segmentation_coverage": ">90%"
+        }
+    },
+    "zta_continuous_auth": {
+        "name": "Continuous Authentication & Device Posture",
+        "type": "ZERO_TRUST_ARCHITECTURE",
+        "complexity": 7,
+        "operating_cost": "Medium-High (Tooling + Agent costs)",
+        "risk": "Poor UX if risk scoring is too sensitive / Device agent maintenance",
+        "relationships": {
+            "requires": [
+                "Device management (MDM/EDR)",
+                "Risk-based policy engine"
+            ],
+            "supports": [
+                "byod_security",
+                "anomaly_detection"
+            ]
+        },
+        "context": {
+            "triggers": [
+                "Employees using personal devices (BYOD)",
+                "High risk of session hijacking in sensitive environments",
+                "Need for real-time risk evaluation of every request"
+            ],
+            "anti_triggers": [
+                "Managed corporate devices only (can use standard auth)",
+                "Low risk, low sensitivity data"
+            ],
+            "preconditions": [
+                "Agent-based or browser-based signal collection",
+                "Analytics engine for risk scoring"
+            ]
+        },
+        "success_metrics": {
+            "anomaly_detection_time": "Low",
+            "compromised_device_block_rate": "100%"
+        }
+    },
+    "secret_multi_region_sync": {
+        "name": "Multi-region Secret Sync & DR",
+        "type": "SECRET_MANAGEMENT",
+        "complexity": 9,
+        "operating_cost": "Very High (Replication + DR infra)",
+        "risk": "Split-brain in secret synchronization / Replication latency",
+        "relationships": {
+            "requires": [
+                "Multi-region Vault architecture",
+                "Global KMS / Key management",
+                "Automated failover for secret endpoints"
+            ],
+            "supports": [
+                "disaster_recovery_readiness",
+                "high_availability_secrets"
+            ]
+        },
+        "context": {
+            "triggers": [
+                "Multi-region Active-Active or Active-Passive architectures",
+                "Critical RTO/RPO for identity and access",
+                "Compliance mandates for geographic redundancy"
+            ],
+            "anti_triggers": [
+                "Single region architectures",
+                "High tolerance for secret availability downtime",
+                "Low budget"
+            ],
+            "preconditions": [
+                "Multi-region connectivity (VPC Peering/Transit Gateway)",
+                "Support for cross-region replication in Vault"
+            ]
+        },
+        "success_metrics": {
+            "sync_latency": "< 1s",
+            "ha_availability": "99.999%",
+            "dr_readiness_score": "Elite"
+        }
+    },
+    "crypto_at_rest_envelope": {
+        "name": "Envelope Encryption (KMS)",
+        "type": "CRYPTOGRAPHY_APPLIED",
+        "complexity": 6,
+        "operating_cost": "Medium (KMS usage costs)",
+        "risk": "Key deletion/loss renders data unrecoverable",
+        "relationships": {
+            "requires": [
+                "Managed KMS (AWS KMS, Azure Key Vault)",
+                "IAM Role isolation"
+            ],
+            "supports": [
+                "data_classification",
+                "automatic_rotation"
+            ]
+        },
+        "context": {
+            "triggers": [
+                "Handling PII / GDPR compliance",
+                "Financial data requiring separation of duties",
+                "Need for automatic key rotation every 30-90 days"
+            ],
+            "anti_triggers": [
+                "Low sensitivity log data",
+                "Strict no-Opex budget"
+            ],
+            "preconditions": [
+                "Data classification policy",
+                "Key management policy defined"
+            ]
+        },
+        "success_metrics": {
+            "encryption_coverage_at_rest": "100%",
+            "key_rotation_status": "Success",
+            "compliance_readiness": "High"
+        }
+    },
+    "crypto_in_transit_mtls": {
+        "name": "Mutual TLS (mTLS) for Microservices",
+        "type": "CRYPTOGRAPHY_APPLIED",
+        "complexity": 7,
+        "operating_cost": "Medium-High (Sidecar overhead + CPU)",
+        "risk": "Certificate expiration causing service outages / Complexity in debugging",
+        "relationships": {
+            "requires": [
+                "Service Mesh (Istio, Linkerd) or Centralized CA",
+                "Automatic Cert Rotation"
+            ],
+            "supports": [
+                "zero_trust_networking",
+                "service_identity"
+            ]
+        },
+        "context": {
+            "triggers": [
+                "Zero Trust Architecture adoption",
+                "Highly regulated microservices communication (PSD2/DORA)",
+                "Need to authenticate both client and server automatically"
+            ],
+            "anti_triggers": [
+                "Monolithic applications",
+                "Simple internal tools with no sensitive traffic"
+            ],
+            "preconditions": [
+                "Cluster-wide CA or Service Mesh control plane",
+                "Identity-aware networking"
+            ]
+        },
+        "success_metrics": {
+            "transit_encryption_overhead": "Optimized (< 5ms)",
+            "certificate_auto_rotation_rate": "100%",
+            "security_breach_prevention": "High"
+        }
+    },
+    "crypto_in_use_confidential": {
+        "name": "Confidential Computing (TEE/Enclaves)",
+        "type": "CRYPTOGRAPHY_APPLIED",
+        "complexity": 9,
+        "operating_cost": "Very High (Dedicated hardware/Enclave costs)",
+        "risk": "High code complexity / Vendor lock-in / Major performance hit",
+        "relationships": {
+            "requires": [
+                "HW support (Intel SGX, AWS Nitro Enclaves)",
+                "Attestation service"
+            ],
+            "supports": [
+                "maximum_data_privacy",
+                "multi_party_computation"
+            ]
+        },
+        "context": {
+            "triggers": [
+                "Processing ultra-sensitive financial/health data in use",
+                "ML model training on private data",
+                "Risk of reach > 10x infrastructure cost"
+            ],
+            "anti_triggers": [
+                "Most standard web/SaaS applications",
+                "Low budget / High latency intolerance"
+            ],
+            "preconditions": [
+                "Enclave-compatible application code",
+                "Verified hardware attestation"
+            ]
+        },
+        "success_metrics": {
+            "data_in_use_security": "Elite",
+            "attestation_verification_success": "100%",
+            "breach_damage_reduction": "Maximum"
+        }
+    },
+    "crypto_hsm_dedicated": {
+        "name": "Dedicated HSM for Root Keys",
+        "type": "CRYPTOGRAPHY_APPLIED",
+        "complexity": 8,
+        "operating_cost": "High (Fixed monthly cost per HSM unit)",
+        "risk": "High management overhead / Specialized expertise required",
+        "relationships": {
+            "requires": [
+                "Dedicated Hardware HSM (CloudHSM, Managed HSM)",
+                "FIPS 140-2 Level 3 mandate"
+            ],
+            "supports": [
+                "root_key_protection",
+                "regulatory_hard_mandates"
+            ]
+        },
+        "context": {
+            "triggers": [
+                "Banking / Payment gateway root key requirements",
+                "Strict FIPS 140-2 Level 3 requirements",
+                "Large scale certificate authorities"
+            ],
+            "anti_triggers": [
+                "General enterprise cloud workloads",
+                "Shared KMS is sufficient for risk profile"
+            ],
+            "preconditions": [
+                "Cluster management for HSM",
+                "Hardware-backed policy definition"
+            ]
+        },
+        "success_metrics": {
+            "compliance_fulfillment": "100%",
+            "root_key_isolation": "Physical / Hardware-level",
+            "audit_reliability": "Absolute"
+        }
+    },
+    "tm_stride_quantified": {
+        "name": "STRIDE Quantified (S-T-R-I-D-E)",
+        "type": "THREAT_MODELING_ADVANCED",
+        "complexity": 7,
+        "operating_cost": "Medium (Analysis time + Tooling)",
+        "risk": "Human error in impact estimations / Subjective probability",
+        "relationships": {
+            "requires": [
+                "System architecture diagram",
+                "Data flow mapping"
+            ],
+            "supports": [
+                "security_by_design",
+                "risk_prioritization"
+            ]
+        },
+        "context": {
+            "triggers": [
+                "New complex product feature",
+                "Compliance mandates (SOC2, PCI)",
+                "Need to identify specific threat surfaces per component"
+            ],
+            "anti_triggers": [
+                "Simple prototypes with minimal logic",
+                "Internal tools with no external exposure"
+            ],
+            "preconditions": [
+                "Defined trust boundaries",
+                "Asset classification"
+            ]
+        },
+        "success_metrics": {
+            "threats_identified_per_module": "> 15",
+            "coverage_at_least": [
+                "Spoofing",
+                "Tampering",
+                "Repudiation",
+                "Info Disclosure",
+                "DoS",
+                "Elevation of Privilege"
+            ]
+        }
+    },
+    "tm_attack_tree_economic": {
+        "name": "Economic Attack Trees",
+        "type": "THREAT_MODELING_ADVANCED",
+        "complexity": 8,
+        "operating_cost": "Medium-High",
+        "risk": "Complexity explosion / Outdated trees as infra evolves",
+        "relationships": {
+            "requires": [
+                "Dependency graph",
+                "Attacker profile modeling"
+            ],
+            "supports": [
+                "mitigation_strategy_optimization",
+                "cost_of_attack_balancing"
+            ]
+        },
+        "context": {
+            "triggers": [
+                "Multi-stage attack surface analysis",
+                "Highly interconnected microservices",
+                "Need to identify the 'cheapest' path for an attacker"
+            ],
+            "anti_triggers": [
+                "Monolithic applications with single entry point",
+                "Systems with low interdependence"
+            ],
+            "preconditions": [
+                "Architecture graph",
+                "Network-level isolation diagram"
+            ]
+        },
+        "success_metrics": {
+            "critical_paths_secured": "100%",
+            "cost_to_attack_increase": "Significant"
+        }
+    },
+    "tm_risk_quantification_ale": {
+        "name": "Financial Risk Quantification (ALE/SLE)",
+        "type": "THREAT_MODELING_ADVANCED",
+        "complexity": 9,
+        "operating_cost": "High (Expertise + Data collection)",
+        "risk": "Inaccurate financial data / Overestimation of probabilities",
+        "relationships": {
+            "requires": [
+                "Financial impact data (GDPR fines, reputation cost)",
+                "ARO estimations"
+            ],
+            "supports": [
+                "security_budget_justification",
+                "c_level_reporting"
+            ]
+        },
+        "context": {
+            "triggers": [
+                "Budget priority setting for security investments",
+                "Decision between insurance vs mitigation",
+                "Board-level risk reporting requirements"
+            ],
+            "anti_triggers": [
+                "Projects with negligible financial breach impact",
+                "Very low budget constraints where baseline is only option"
+            ],
+            "preconditions": [
+                "Clarity on SLE (Single Loss Expectancy)",
+                "Clarity on ARO (Annual Rate of Occurrence)"
+            ]
+        },
+        "success_metrics": {
+            "mitigation_roi_calculated": "Yes",
+            "risk_residual_clarity": "High",
+            "annualized_loss_reduction": "> 70%"
+        }
+    },
+    "dora_ict_risk_mgmt": {
+        "name": "DORA ICT Risk Management Framework",
+        "type": "DORA_ICT_RISK_MANAGEMENT",
+        "complexity": 8,
+        "operating_cost": "High (Governance + Compliance overhead)",
+        "risk": "Regulatory non-compliance leading to fines / Operational silos",
+        "relationships": {
+            "requires": [
+                "Formal Governance structure",
+                "Asset Inventory"
+            ],
+            "supports": [
+                "operational_resilience",
+                "regulatory_approval"
+            ]
+        },
+        "context": {
+            "triggers": [
+                "Financial entity operating in EU",
+                "Critical ICT third-party provider",
+                "Need for formalized risk management framework (Art. 6)"
+            ],
+            "anti_triggers": [
+                "Non-regulated sectors",
+                "Non-EU operations with no local footprint"
+            ],
+            "preconditions": [
+                "Management body accountability",
+                "ICT risk policy defined"
+            ]
+        },
+        "success_metrics": {
+            "compliance_readiness_score": "High",
+            "governance_approval_status": "Approved",
+            "asset_visibility": "100%"
+        }
+    },
+    "dora_art8_prevention": {
+        "name": "DORA Protection & Prevention (Art. 8)",
+        "type": "DORA_ICT_RISK_MANAGEMENT",
+        "complexity": 7,
+        "operating_cost": "Medium-High (Implementation of technical controls)",
+        "risk": "Insufficient technical depth / Legacy system incompatibility",
+        "relationships": {
+            "requires": [
+                "Zero Trust Architecture",
+                "Strong Cryptography",
+                "Secret Management"
+            ],
+            "supports": [
+                "data_integrity",
+                "access_control_compliance"
+            ]
+        },
+        "context": {
+            "triggers": [
+                "Need for robust access control and encryption",
+                "Requirement for continuous monitoring of vulnerabilities",
+                "Network segregation mandate"
+            ],
+            "anti_triggers": [
+                "Internal lab environments with no production data"
+            ],
+            "preconditions": [
+                "Identity-aware directory",
+                "Vulnerability management system"
+            ]
+        },
+        "success_metrics": {
+            "protection_coverage_critical_assets": "100%",
+            "vulnerability_remediation_sla_met": "Yes"
+        }
+    },
+    "dora_art10_recovery": {
+        "name": "DORA Response & Recovery (Art. 10)",
+        "type": "DORA_ICT_RISK_MANAGEMENT",
+        "complexity": 9,
+        "operating_cost": "High (Multi-region / HA infrastructure costs)",
+        "risk": "RTO/RPO mismatch with regulatory expectations",
+        "relationships": {
+            "requires": [
+                "Disaster Recovery (Multi-region)",
+                "Automated Backups",
+                "Incident Response Plan"
+            ],
+            "supports": [
+                "business_continuity",
+                "resilience_testing"
+            ]
+        },
+        "context": {
+            "triggers": [
+                "High availability mandates for critical functions",
+                "Need for verified backup restore capabilities",
+                "Periodic resilience testing requirement"
+            ],
+            "anti_triggers": [
+                "Non-critical back-office batch jobs"
+            ],
+            "preconditions": [
+                "Defined RTO/RPO per service",
+                "Multi-site redundancy"
+            ]
+        },
+        "success_metrics": {
+            "recovery_time_actual": "< Defined RTO",
+            "restore_success_rate": "100%",
+            "resilience_test_frequency": "At least annual"
+        }
+    },
+    "dora_art11_major_reporting": {
+        "name": "DORA Incident Reporting (Art. 11-12)",
+        "type": "DORA_ICT_RISK_MANAGEMENT",
+        "complexity": 6,
+        "operating_cost": "Medium (Reporting automation + Legal review)",
+        "risk": "Reporting delays leading to severe regulatory sanctions",
+        "relationships": {
+            "requires": [
+                "Logging & Monitoring",
+                "Incident Classification Engine"
+            ],
+            "supports": [
+                "transparency",
+                "regulatory_trust"
+            ]
+        },
+        "context": {
+            "triggers": [
+                "Detection of major ICT incident",
+                "Mandatory timeline for notification to authorities",
+                "Requirement for root cause analysis report"
+            ],
+            "anti_triggers": [
+                "Minor internal bugs with no client impact"
+            ],
+            "preconditions": [
+                "SIEM/Observability stack integrated",
+                "Legal/Regulatory notification playbooks"
+            ]
+        },
+        "success_metrics": {
+            "notification_time_compliance": "100%",
+            "report_accuracy_grade": "High"
+        }
+    },
+    "tprm_concentration_risk": {
+        "name": "Concentration Risk Assessment",
+        "type": "TPRM_DORA",
+        "complexity": 7,
+        "operating_cost": "Medium (Market analysis + Strategy planning)",
+        "risk": "Systemic failure due to single-vendor dependency (Lock-in)",
+        "relationships": {
+            "requires": [
+                "Multi-cloud strategy",
+                "Agnostic backups"
+            ],
+            "supports": [
+                "systemic_resilience",
+                "regulatory_approval"
+            ]
+        },
+        "context": {
+            "triggers": [
+                "Infrastructure 100% on a single hyperscaler",
+                "Critical SaaS with no viable manual fallback",
+                "Regional concentration of external dependencies"
+            ],
+            "anti_triggers": [
+                "Highly distributed multi-vendor architectures",
+                "Low-impact micro-tools"
+            ],
+            "preconditions": [
+                "Dependency mapping (ICT third-party register)",
+                "Market analysis of alternative providers"
+            ]
+        },
+        "success_metrics": {
+            "concentration_score": "< 60% per provider",
+            "multi_vendor_redundancy_active": "Yes"
+        }
+    },
+    "tprm_exit_strategy": {
+        "name": "Exit Strategy Viability (Art. 28)",
+        "type": "TPRM_DORA",
+        "complexity": 9,
+        "operating_cost": "High (Technical decoupling + Migration testing)",
+        "risk": "Contractual or technical lock-in preventing provider switch",
+        "relationships": {
+            "requires": [
+                "Containerization (K8s)",
+                "Data portability plans",
+                "Contractual exit clauses"
+            ],
+            "supports": [
+                "business_continuity",
+                "risk_mitigation"
+            ]
+        },
+        "context": {
+            "triggers": [
+                "Mandatory DORA requirement for critical ICT services",
+                "Provider termination warning or quality degradation",
+                "M&A activity affecting provider reliability"
+            ],
+            "anti_triggers": [
+                "Internal bespoke systems with no external dependencies"
+            ],
+            "preconditions": [
+                "Defined 'Exit Plan' document",
+                "Estimated Migration Time (EMT) < 6 months"
+            ]
+        },
+        "success_metrics": {
+            "exit_test_successful": "Yes",
+            "data_portability_verified": "Yes",
+            "migration_cost_estimated": "Updated annually"
+        }
+    },
+    "resilience_testing_tlpt": {
+        "name": "Threat-Led Penetration Testing (TLPT)",
+        "type": "OPERATIONAL_RESILIENCE_TESTING",
+        "complexity": 10,
+        "operating_cost": "Very High (External intelligence + Red/Blue team exercises)",
+        "risk": "Operational disruption during testing / Intelligence leaks",
+        "relationships": {
+            "requires": [
+                "Threat Intelligence",
+                "Board participation",
+                "Independent testers"
+            ],
+            "supports": [
+                "regulatory_tlpt_compliance",
+                "extreme_risk_validation"
+            ]
+        },
+        "context": {
+            "triggers": [
+                "Significant financial entity status",
+                "Periodic DORA Art. 26 compliance requirement",
+                "High-impact core function validation"
+            ],
+            "anti_triggers": [
+                "Non-significant entities",
+                "Limited budget projects"
+            ],
+            "preconditions": [
+                "Mature security monitoring (SIEM)",
+                "Full scope definition by Board"
+            ]
+        },
+        "success_metrics": {
+            "critical_function_resilience_verified": "Yes",
+            "remediation_plan_approved_by_board": "Yes",
+            "regulatory_report_accepted": "Yes"
+        }
+    },
+    "resilience_testing_red_team": {
+        "name": "Red Team Adversarial Simulation",
+        "type": "OPERATIONAL_RESILIENCE_TESTING",
+        "complexity": 8,
+        "operating_cost": "High (Expert offensive team)",
+        "risk": "Unexpected system behavior / Security control bypass exposure",
+        "relationships": {
+            "requires": [
+                "Red Team / Purple Team framework",
+                "Incident Response readiness"
+            ],
+            "supports": [
+                "detection_capability_validation",
+                "employee_awareness"
+            ]
+        },
+        "context": {
+            "triggers": [
+                "Need to test detection and containment speed (TTD/TTC)",
+                "Validation of SOC effectiveness",
+                "Preparation for TLPT"
+            ],
+            "anti_triggers": [
+                "Initial baseline security projects"
+            ],
+            "preconditions": [
+                "Documented incident response plan",
+                "Internal 'Blue Team' operational"
+            ]
+        },
+        "success_metrics": {
+            "ttd_improvement": "> 30%",
+            "ttc_improvement": "> 20%",
+            "undiscovered_paths_exposed": "Yes"
+        }
+    },
+    "resilience_scenario_testing": {
+        "name": "Operational Scenario Testing",
+        "type": "OPERATIONAL_RESILIENCE_TESTING",
+        "complexity": 6,
+        "operating_cost": "Medium (Exercise planning + Coordination)",
+        "risk": "Scenario over-simplification / Lack of realism",
+        "relationships": {
+            "requires": [
+                "Business Continuity Plan",
+                "Disaster Recovery Drills"
+            ],
+            "supports": [
+                "operational_resilience_evidence",
+                "gap_identification"
+            ]
+        },
+        "context": {
+            "triggers": [
+                "DORA requirement for all entities (Art. 25)",
+                "Post-incident review recommendation",
+                "New critical service launch"
+            ],
+            "anti_triggers": [
+                "Non-critical back-office processes"
+            ],
+            "preconditions": [
+                "Defined 'critical success factors' for the scenario",
+                "Involvement of business stakeholders"
+            ]
+        },
+        "success_metrics": {
+            "rto_rpo_verified_empirically": "Yes",
+            "operational_dependencies_mapped": "Yes"
+        }
+    },
+    "unified_risk_engine": {
+        "name": "Unified Risk & Resilience Scoring Engine (URRSE)",
+        "type": "UNIFIED_RISK_RESILIENCE_ENGINE",
+        "complexity": 8,
+        "operating_cost": "Medium (Engine maintenance + Data aggregation)",
+        "risk": "Incorrect scoring leading to misallocated investment",
+        "relationships": {
+            "requires": [
+                "Technical Risk Score (TRS)",
+                "Operational Resilience Score (ORS)",
+                "Third-Party Risk Score (TPRS)",
+                "Regulatory Compliance Score (RCS)"
+            ],
+            "supports": [
+                "strategic_decision_making",
+                "board_reporting"
+            ]
+        },
+        "context": {
+            "triggers": [
+                "Quarterly risk review for Board",
+                "Major architectural change assessment",
+                "Budget planning and ROI justification"
+            ],
+            "anti_triggers": [
+                "Small-scale internal tools with no regulatory impact"
+            ],
+            "preconditions": [
+                "Validated input from other DORA pillars",
+                "Defined weighting factors per sector"
+            ]
+        },
+        "success_metrics": {
+            "gri_accuracy_validated": "Yes",
+            "investment_priority_clarity": "High",
+            "board_approval_rate_on_security_budget": "> 80%"
+        }
+    },
+    "financial_exposure_model": {
+        "name": "Consolidated Financial Exposure (ALE_Total)",
+        "type": "UNIFIED_RISK_RESILIENCE_ENGINE",
+        "complexity": 7,
+        "operating_cost": "Low (Automated calculation)",
+        "risk": "Underestimated financial impact of multi-pillar failures",
+        "relationships": {
+            "requires": [
+                "ALE_Technical",
+                "ALE_Operational",
+                "ALE_ThirdParty",
+                "ALE_Regulatory"
+            ],
+            "supports": [
+                "insurance_premium_negotiation",
+                "financial_risk_transfer"
+            ]
+        },
+        "context": {
+            "triggers": [
+                "Need for absolute monetary risk value",
+                "Stress testing scenarios results integration"
+            ],
+            "preconditions": [
+                "Accurate PII/Financial data volume estimation",
+                "Historical incident cost database integration"
+            ]
+        },
+        "formulas": {
+            "ALE_Total": "ALE_Technical + ALE_Operational + ALE_ThirdParty + ALE_Regulatory",
+            "Stress_ALE": "ALE_Total * (1 + TLPT_Failure_Factor)"
+        }
+    },
+    "global_risk_index": {
+        "name": "Global Risk Index (GRI)",
+        "type": "UNIFIED_RISK_RESILIENCE_ENGINE",
+        "complexity": 5,
+        "operating_cost": "Minimum",
+        "risk": "Over-simplification of complex technical risks",
+        "relationships": {
+            "requires": [
+                "Normalised sub-scores"
+            ],
+            "supports": [
+                "executive_communication",
+                "benchmarking"
+            ]
+        },
+        "formula_standard": "GRI = (TRS*0.35) + (ORS*0.25) + (TPRS*0.20) + (RCS*0.20)",
+        "success_metrics": {
+            "risk_trend_visibility": "Clear",
+            "benchmark_alignment": "Industry-standard competitive positioning"
+        }
+    },
+    "saas_resilience_engine": {
+        "name": "Risk & Resilience SaaS Architecture",
+        "type": "SAAS_PRODUCT_ARCHITECTURE",
+        "complexity": 9,
+        "operating_cost": "High (Cloud infra + Specialized DBs + Security compliance)",
+        "risk": "Data leakage in multi-tenant environments / Integration failures",
+        "relationships": {
+            "contains": [
+                "Threat Modeling Module",
+                "Compliance Engine (DORA)",
+                "Third-Party Risk Analyzer",
+                "Financial Quantification Engine"
+            ],
+            "supports": [
+                "b2b_saas_monetization",
+                "automated_risk_reporting"
+            ]
+        },
+        "context": {
+            "triggers": [
+                "B2B SaaS product development",
+                "Scalable risk management platform for financial sector",
+                "Requirement for cloud-native GRC tool"
+            ],
+            "preconditions": [
+                "Multi-region cloud infrastructure",
+                "Strict identity and access management (IAM)"
+            ]
+        },
+        "success_metrics": {
+            "tenant_isolation_verified": "Yes",
+            "integration_coverage": "> 80% (CSP + SIEM + ITSM)",
+            "uptime_sla": "99.9%+"
+        }
+    },
+    "multi_tenant_isolation_strict": {
+        "name": "Strict Multi-tenant Isolation",
+        "type": "SAAS_PRODUCT_ARCHITECTURE",
+        "complexity": 8,
+        "operating_cost": "Medium-High (Compute/DB overhead per tenant)",
+        "risk": "Increased operational complexity / Higher cost per account",
+        "relationships": {
+            "requires": [
+                "KMS Encryption per Tenant",
+                "Network Segregation",
+                "IAM Role Isolation"
+            ],
+            "supports": [
+                "banking_sector_trust",
+                "pci_dora_compliance"
+            ]
+        },
+        "context": {
+            "triggers": [
+                "Handling sensitive banking/financial data in SaaS",
+                "Regulatory requirement for data residency/segregation"
+            ]
+        },
+        "success_metrics": {
+            "cross_tenant_access_tests": "Zero failures",
+            "audit_trail_valid": "Yes"
+        }
+    },
+    "data_stack_hybrid_risk": {
+        "name": "Hybrid Risk Data Strategy",
+        "type": "SAAS_PRODUCT_ARCHITECTURE",
+        "complexity": 7,
+        "operating_cost": "Medium-High (Managing multiple DB technologies)",
+        "risk": "Data consistency across heterogeneous stores",
+        "relationships": {
+            "requires": [
+                "PostgreSQL (Config)",
+                "Neo4j (Graphs/Paths)",
+                "TimescaleDB (Metrics/Logs)"
+            ],
+            "supports": [
+                "fast_attack_path_analysis",
+                "accurate_ale_quantification"
+            ]
+        },
+        "context": {
+            "triggers": [
+                "Need to model complex attack trees (Graph)",
+                "Requirement for high-performance risk trend metrics (Time-series)"
+            ]
+        },
+        "success_metrics": {
+            "graph_query_latency": "< 200ms",
+            "metrics_aggregation_speed": "Real-time / Near real-time"
+        }
+    },
+    "dora_ict_risk_framework_full": {
+        "name": "DORA ICT Risk Management Framework (Art. 6)",
+        "type": "REGULATORY_COMPLIANCE",
+        "complexity": 9,
+        "operating_cost": "High (Governance + Documentation + Continuous testing)",
+        "risk": "Regulatory sanctions / Board accountability failure",
+        "relationships": {
+            "requires": [
+                "Identification",
+                "Protection",
+                "Detection",
+                "Response",
+                "Recovery"
+            ],
+            "supports": [
+                "strategic_resilience",
+                "operational_continuity"
+            ]
+        },
+        "context": {
+            "triggers": [
+                "EU Financial Entity status",
+                "Requirement for board-approved risk strategy",
+                "Audit preparation"
+            ],
+            "preconditions": [
+                "Assigned CISO/CRO roles",
+                "Documented risk-appetite statement"
+            ]
+        },
+        "success_metrics": {
+            "board_approval_obtained": "Yes",
+            "audit_evidence_readiness": "100%",
+            "framework_maturity_level": "Optimized"
+        }
+    },
+    "dora_art7_identification": {
+        "name": "ICT Assets & Functions Identification (Art. 7)",
+        "type": "REGULATORY_COMPLIANCE",
+        "complexity": 7,
+        "operating_cost": "Medium (Inventory maintenance)",
+        "risk": "Undetected shadow IT / Unknown critical dependencies",
+        "relationships": {
+            "requires": [
+                "CMDB",
+                "Dependency Mapping",
+                "Functional Classification"
+            ],
+            "supports": [
+                "impact_analysis",
+                "recovery_prioritisation"
+            ]
+        },
+        "context": {
+            "triggers": [
+                "New asset onboarding",
+                "Architecture review",
+                "Periodic inventory update"
+            ],
+            "preconditions": [
+                "Defined criteria for 'Critical or Important' functions"
+            ]
+        },
+        "success_metrics": {
+            "inventory_accuracy": "99%+",
+            "critical_dependencies_mapped": "100%",
+            "shadow_it_detection_active": "Yes"
+        }
+    },
+    "dora_art9_detection": {
+        "name": "ICT Detection & Anomalies Monitoring (Art. 9)",
+        "type": "REGULATORY_COMPLIANCE",
+        "complexity": 8,
+        "operating_cost": "High (SOC 24/7 + Logging infra)",
+        "risk": "Delayed incident detection / Control silent failure",
+        "relationships": {
+            "requires": [
+                "SIEM",
+                "Log Aggregation",
+                "Baseline behavior"
+            ],
+            "supports": [
+                "incident_containment",
+                "mttd_reduction"
+            ]
+        },
+        "context": {
+            "triggers": [
+                "Unusual traffic patterns",
+                "Access privilege anomalies",
+                "System performance degradation"
+            ]
+        },
+        "success_metrics": {
+            "mttd": "< 1 hour for critical functions",
+            "log_coverage": "100% of critical assets",
+            "false_positive_rate": "< 10%"
+        }
+    },
+    "dora_art10_recovery_advanced": {
+        "name": "ICT Response & Recovery (Art. 10)",
+        "type": "REGULATORY_COMPLIANCE",
+        "complexity": 8,
+        "operating_cost": "High (DR testing + Communication infrastructure)",
+        "risk": "Service interruption beyond RTO / Financial instability",
+        "relationships": {
+            "requires": [
+                "Incident Response Plan",
+                "DR Drills",
+                "Communication Plan"
+            ],
+            "supports": [
+                "operational_resilience",
+                "client_trust"
+            ]
+        },
+        "context": {
+            "triggers": [
+                "Critical incident declaration",
+                "Major infrastructure outage",
+                "Simulated stress test results"
+            ]
+        },
+        "success_metrics": {
+            "rto_attainment_rate": "100%",
+            "rpo_attainment_rate": "100%",
+            "communication_efficacy": "Verified by stakeholders"
+        }
+    },
+    "dora_art11_reporting_auto": {
+        "name": "ICT Incident Reporting (Art. 11-12)",
+        "type": "REGULATORY_COMPLIANCE",
+        "complexity": 6,
+        "operating_cost": "Low (if automated)",
+        "risk": "Regulatory non-compliance due to late notification",
+        "relationships": {
+            "requires": [
+                "Incident Metadata",
+                "Impact Quantification",
+                "Automated Templates"
+            ],
+            "supports": [
+                "transparency",
+                "regulatory_supervision_alignment"
+            ]
+        },
+        "context": {
+            "triggers": [
+                "Major ICT incident detection",
+                "Cross-border impact identified"
+            ]
+        },
+        "success_metrics": {
+            "notification_speed": "< 4 hours (Initial)",
+            "reporting_accuracy": "High",
+            "post_incident_review_completed": "Yes"
+        }
+    },
+    "major_ict_incident": {
+        "name": "Major ICT-related Incident (DORA)",
+        "type": "INCIDENT_MANAGEMENT",
+        "complexity": 8,
+        "operating_cost": "High (Rapid response + Legal + Crisis comms)",
+        "risk": "Fines / License revocation / Severe client impact",
+        "relationships": {
+            "triggered_by": [
+                "Technical failure",
+                "Cyber attack",
+                "Third-party outage"
+            ],
+            "requires": [
+                "regulatory_incident_timeline",
+                "incident_severity_matrix"
+            ]
+        },
+        "context": {
+            "triggers": [
+                "Significant impact on critical functions",
+                "High number of affected clients (> X%)",
+                "Large financial loss (> Y €)",
+                "Cross-border impact in EU"
+            ]
+        },
+        "success_metrics": {
+            "time_to_classify": "< 1 hour",
+            "regulatory_timelines_met": "100%",
+            "reputation_damage_limit": "Verified"
+        }
+    },
+    "regulatory_incident_timeline": {
+        "name": "DORA Regulatory Reporting Timeline",
+        "type": "INCIDENT_MANAGEMENT",
+        "complexity": 5,
+        "operating_cost": "Low-Medium (Orchestration cost)",
+        "risk": "Fines due to deadline failure",
+        "relationships": {
+            "supports": [
+                "compliance_audits",
+                "transparency"
+            ]
+        },
+        "milestones": {
+            "initial_notification": "< 4 hours from classification",
+            "intermediate_report": "~ 24 hours (operational detail)",
+            "final_report": "< 72 hours or upon closure (root cause + final impact)"
+        }
+    },
+    "incident_severity_matrix": {
+        "name": "DORA-aligned Severity Matrix",
+        "type": "INCIDENT_MANAGEMENT",
+        "complexity": 4,
+        "operating_cost": "Low",
+        "relationships": {
+            "supports": [
+                "automatic_classification",
+                "escalation_rules"
+            ]
+        },
+        "levels": {
+            "Sev1_Critical_Major": "Immediate Board/RegulatorEscalation",
+            "Sev2_High": "Functional disruption / Fast MTTR focus",
+            "Sev3_Medium": "Limited impact / Business hours fix",
+            "Sev4_Low": "No service impact / Informational"
+        }
+    },
+    "resilience_testing_advanced": {
+        "name": "Advanced Resilience Testing (DORA Art. 24-27)",
+        "type": "RESILIENCE_TESTING",
+        "complexity": 9,
+        "operating_cost": "High (Environment setup + Tooling + Specialized teams)",
+        "risk": "Operational instability during tests / Side effects in production",
+        "relationships": {
+            "requires": [
+                "Critical Function Identification",
+                "Scope Definition",
+                "Risk Assessment"
+            ],
+            "supports": [
+                "regulatory_tlpt_mandate",
+                "operational_continuity_assurance"
+            ]
+        },
+        "context": {
+            "triggers": [
+                "Periodic compliance requirement",
+                "Significant change in ICT architecture",
+                "Testing of critical functions"
+            ],
+            "preconditions": [
+                "Isolated testing environment",
+                "Approved testing methodology"
+            ]
+        },
+        "success_metrics": {
+            "testing_coverage_of_critical_functions": "100%",
+            "vulnerabilities_identified_and_prioritized": "Yes",
+            "mttd_mttr_validation": "Empirically verified"
+        }
+    },
+    "tiber_eu_framework": {
+        "name": "TIBER-EU Framework (Threat Intelligence-led Ethical Red Teaming)",
+        "type": "TIBER_EU_FRAMEWORK",
+        "complexity": 10,
+        "operating_cost": "Very High (Threat Intel + Red Team + Blue Team coordination)",
+        "risk": "Sensitive data exposure / Uncontrolled service failure",
+        "relationships": {
+            "requires": [
+                "Board commitment",
+                "Independent external testers",
+                "Target Intelligence"
+            ],
+            "supports": [
+                "tlpt_compliance",
+                "extreme_adversary_resilience"
+            ]
+        },
+        "phases": [
+            "Preparation",
+            "Threat Intelligence",
+            "Red Team Testing",
+            "Closure and Remediation"
+        ],
+        "success_metrics": {
+            "intelligence_accuracy": "Verified",
+            "detection_evasion_capability": "Tested",
+            "board_level_reporting_clarity": "High"
+        }
+    },
+    "threat_simulation_scenario": {
+        "name": "Threat Simulation Scenario",
+        "type": "RESILIENCE_TESTING",
+        "complexity": 6,
+        "operating_cost": "Medium",
+        "relationships": {
+            "links_to": [
+                "Incident Management",
+                "Disaster Recovery"
+            ]
+        },
+        "common_scenarios": [
+            "Primary DB Corruption/Loss",
+            "Global MFA Auth Failure",
+            "BGP Route Hijacking / Network Latency Spike",
+            "Coordinated Ransomware Simulation"
+        ],
+        "metrics": [
+            "MTTD (Simulation)",
+            "MTTR (Simulation)",
+            "Data Integrity Verified"
+        ]
+    },
+    "tprm_critical_provider": {
+        "name": "Critical ICT Third-Party Provider (DORA Art. 28-30)",
+        "type": "THIRD_PARTY_RISK",
+        "complexity": 7,
+        "operating_cost": "Medium (Continuous due diligence)",
+        "risk": "Concentration risk / Undetected supply chain failure",
+        "relationships": {
+            "requires": [
+                "Exit Strategy",
+                "Contractual SLAs",
+                "Security Certifications"
+            ],
+            "supports": [
+                "operational_continuity",
+                "regulatory_compliance"
+            ]
+        },
+        "context": {
+            "triggers": [
+                "Provider onboarding",
+                "Annual risk review",
+                "Critical function dependency identified"
+            ]
+        },
+        "success_metrics": {
+            "audit_trail_complete": "Yes",
+            "sla_compliance_rate": "> 99.9%",
+            "exit_strategy_validated": "Yes"
+        }
+    },
+    "tprm_risk_assessment": {
+        "name": "TPRM Risk Assessment Model",
+        "type": "THIRD_PARTY_RISK",
+        "complexity": 6,
+        "operating_cost": "Low-Medium",
+        "relationships": {
+            "calculates": [
+                "Inherent Risk",
+                "Residual Risk"
+            ],
+            "links_to": [
+                "Financial Exposure Model"
+            ]
+        },
+        "criteria": [
+            "Operational visibility",
+            "Data sensitivity (GDPR/Financial)",
+            "Substitution difficulty",
+            "Geographic/Regime risk"
+        ]
+    },
+    "chain_dependency_risk": {
+        "name": "Chained Dependency Risk (Digital Supply Chain)",
+        "type": "THIRD_PARTY_RISK",
+        "complexity": 8,
+        "operating_cost": "High (Deep mapping needed)",
+        "risk": "Invisible systemic failure across service clusters",
+        "relationships": {
+            "monitors": [
+                "Sub-service providers",
+                "Core infrastructure dependencies"
+            ]
+        },
+        "context": {
+            "triggers": [
+                "Incident in shared infrastructure (e.g. major cloud region)",
+                "Security breach in common library or sub-provider"
+            ]
+        },
+        "success_metrics": {
+            "depth_of_mapping": "L3+ (Provider > Sub-provider > Infra)",
+            "alternate_routing_capability": "Verified"
+        }
+    },
+    "dependency_graph_model": {
+        "name": "Dependency Graph Model",
+        "type": "ARCHITECTURAL_MAPPING",
+        "complexity": 8,
+        "operating_cost": "Medium (Initial mapping + Regular sync)",
+        "risk": "Stale data leading to incorrect risk prioritization",
+        "relationships": {
+            "connects": [
+                "Microservices",
+                "Databases",
+                "Infrastructure",
+                "Third-party providers"
+            ],
+            "outputs": [
+                "Critical Item Identification",
+                "SPOF Analysis"
+            ]
+        },
+        "attributes": [
+            "Sync/Async connection type",
+            "Impact Score (0-1)",
+            "Redundancy status"
+        ]
+    },
+    "critical_item_ci": {
+        "name": "Critical Item (CI)",
+        "type": "RESILIENCE_PLANNING",
+        "complexity": 6,
+        "relationships": {
+            "requires": [
+                "High availability",
+                "Redundant pathways",
+                "Continuous monitoring"
+            ],
+            "vulnerable_to": [
+                "Cascading failures",
+                "Concentration risk"
+            ]
+        },
+        "classification_criteria": {
+            "impact_score_threshold": "> 0.75",
+            "business_function_criticality": "Essential"
+        }
+    },
+    "impact_score_metric": {
+        "name": "Dependency Impact Score",
+        "type": "METRIC",
+        "complexity": 5,
+        "definition": "A quantitative value (0-1) representing the probability and severity of business disruption if the dependent node fails.",
+        "calculation_factors": [
+            "Service reachability",
+            "Functional necessity",
+            "Alternative availability"
+        ]
+    },
+    "pseudonymization_strategy": {
+        "name": "Pseudonymization Strategy (GDPR Art. 4.5)",
+        "type": "PRIVACY_PATTERN",
+        "complexity": 5,
+        "operating_cost": "Low-Medium",
+        "risk": "Reversibility via data cross-referencing or key breach",
+        "techniques": [
+            "Tokenization (Random values)",
+            "Salted Hashing (SHA-256 + Unique Salt)",
+            "Encryption (Reversible via KMS)"
+        ],
+        "relationships": {
+            "supports": [
+                "minimization_principle",
+                "regulatory_risk_reduction"
+            ],
+            "not_equivalent_to": "Anonymization"
+        }
+    },
+    "anonymization_advanced": {
+        "name": "Advanced Anonymization (Irreversible)",
+        "type": "PRIVACY_PATTERN",
+        "complexity": 9,
+        "operating_cost": "High (Statistical computation)",
+        "risk": "Information loss vs Re-identification protection",
+        "techniques": [
+            "k-anonymity (Indistinguishable groups)",
+            "l-diversity (Sensitive attribute variety)",
+            "Differential Privacy (Mathematical noise injection)",
+            "Data Aggregation (Statistical summaries)"
+        ],
+        "relationships": {
+            "achieves": "Non-personal data status",
+            "requires": [
+                "Statistical validation",
+                "Irreversibility check"
+            ]
+        }
+    },
+    "data_sensitivity_level": {
+        "name": "Data Sensitivity Level",
+        "type": "ATTRIBUTE",
+        "complexity": 3,
+        "levels": {
+            "Non-PII": "No GDPR constraints",
+            "Standard_PII": "Protected via Pseudonymization",
+            "Special_Category": "High protection (Biometrics, Health, etc.)",
+            "Financial_PII": "Mandatory PCI/DORA alignment"
+        }
+    },
+    "crypto_shredding": {
+        "name": "Crypto-Shredding (KMS Key Destruction)",
+        "type": "SECURE_DELETION",
+        "complexity": 7,
+        "operating_cost": "Medium (KMS overhead)",
+        "risk": "Key loss = total data loss / Key leakage = restoration possible",
+        "mechanisms": [
+            "Per-user or per-tenant encryption keys",
+            "Destruction of key material in KMS (Art. 17 compatibility)",
+            "Hardware Security Module (HSM) enforcement"
+        ],
+        "relationships": {
+            "requires": "per_tenant_encryption",
+            "achieves": "Technical Deletion in Cloud"
+        },
+        "context": {
+            "triggers": [
+                "Public cloud multi-tenant storage",
+                "GDPR 'Right to be Forgotten' requirement",
+                "High-speed permanent erasure need"
+            ],
+            "anti_triggers": [
+                "Legacy on-prem systems without KMS",
+                "Monolithic shared encryption keys"
+            ]
+        }
+    },
+    "automated_ttl_enforcement": {
+        "name": "Automated TTL Lifecycle",
+        "type": "DATA_MANAGEMENT",
+        "complexity": 4,
+        "operating_cost": "Low",
+        "risk": "Misconfiguration leading to premature data loss",
+        "relationships": {
+            "supports": "minimization_principle",
+            "integration": "S3 Lifecycle / DynamoDB TTL / Database Garbage Collection"
+        },
+        "success_metrics": {
+            "retention_accuracy": "100% adherence to legal TTLs",
+            "storage_cost_reduction": "20-40%"
+        }
+    },
+    "immutable_deletion_audit": {
+        "name": "Immutable Deletion Audit Trail",
+        "type": "COMPLIANCE_PATTERN",
+        "complexity": 6,
+        "operating_cost": "Medium",
+        "risk": "Audit log failure during incident",
+        "mechanisms": [
+            "Write-Once-Read-Many (WORM) storage for logs",
+            "Digital signatures on deletion evidence",
+            "KMS-backed audit sealing"
+        ],
+        "success_metrics": {
+            "audit_reliability": "Proof-of-Deletion verifiable by third-party",
+            "regulatory_score": "+30% compliance index"
+        }
+    },
+    "dpia_automated_scoring": {
+        "name": "Automated DPIA Scoring Engine",
+        "type": "COMPLIANCE_PATTERN",
+        "complexity": 5,
+        "operating_cost": "Low",
+        "risk": "False sense of security if triggers are poorly mapped",
+        "functionality": [
+            "Detection of Art. 35 high-risk triggers",
+            "Risk calculation (Likelihood x Impact)",
+            "Automated regulatory reporting export"
+        ],
+        "relationships": {
+            "enforces": "GDPR_Art_35",
+            "triggers": "risk_mitigation_mapping"
+        }
+    },
+    "algorithmic_impact_assessment": {
+        "name": "Algorithmic Impact Assessment",
+        "type": "AI_ETHICS_PATTERN",
+        "complexity": 8,
+        "operating_cost": "High (Expert review + simulation)",
+        "risk": "Hidden bias in black-box models",
+        "mechanisms": [
+            "Bias detection in training sets",
+            "Explainability (XAI) requirements for legal effects",
+            "Human-in-the-loop validation"
+        ],
+        "context": {
+            "triggers": [
+                "Automated scoring for credit or insurance",
+                "Profiling with legal effects",
+                "AI-driven recruitment"
+            ]
+        }
+    },
+    "risk_mitigation_mapping": {
+        "name": "Automated Risk Mitigation Mapping",
+        "type": "COMPLIANCE_PATTERN",
+        "complexity": 4,
+        "operating_cost": "Low",
+        "mechanisms": [
+            "Lookup of high-risk findings to architectural controls",
+            "Automatic injection of mitigation components",
+            "Residual risk quantification logic"
+        ]
+    },
+    "tia_automation": {
+        "name": "Automated Transfer Impact Assessment (TIA)",
+        "type": "COMPLIANCE_PATTERN",
+        "complexity": 6,
+        "operating_cost": "Medium",
+        "risk": "Inaccurate jurisdictional assessment if laws change",
+        "mechanisms": [
+            "Country adequacy database lookup",
+            "Jurisdictional risk scoring",
+            "Assessment of recipient's local surveillance laws"
+        ],
+        "success_metrics": {
+            "legal_readiness": "TIA report available for all non-EEA flows",
+            "compliance_risk_reduction": "High"
+        }
+    },
+    "eu_controlled_kms": {
+        "name": "EU-Controlled Key Management (Sovereign Cloud)",
+        "type": "SECURITY_PATTERN",
+        "complexity": 7,
+        "operating_cost": "High",
+        "risk": "Latency increase due to cross-region key calls",
+        "mechanisms": [
+            "Bring Your Own Key (BYOK) with EU-based HSMs",
+            "External Key Store (XKS) integration",
+            "Strict policy preventing decryption by US-based providers"
+        ],
+        "success_metrics": {
+            "sovereignty_level": "Highest",
+            "schrems_ii_compliance": "Verified"
+        }
+    },
+    "cross_border_tokenization": {
+        "name": "Privacy-Preserving Cross-Border Tokenization",
+        "type": "PRIVACY_PATTERN",
+        "complexity": 8,
+        "operating_cost": "High",
+        "mechanisms": [
+            "De-identification before EEE exit",
+            "Vault-based mapping stored exclusively in EU",
+            "Transparent proxy for encrypted data flows"
+        ],
+        "success_metrics": {
+            "data_exposure_risk": "Near Zero",
+            "adequacy_score": "Maximum"
+        }
+    },
+    "immutable_audit_logging": {
+        "name": "Immutable Regulatory Audit Logging",
+        "type": "COMPLIANCE_PATTERN",
+        "complexity": 6,
+        "operating_cost": "Medium",
+        "mechanisms": [
+            "WORM (Write-Once-Read-Many) storage for logs",
+            "Cryptographic hashing of log chains",
+            "Tamper-proof alerting for log deletion attempts"
+        ],
+        "success_metrics": {
+            "evidence_reliability": "Absolute",
+            "audit_speed": "Regulatory ready in minutes"
+        }
+    },
+    "dpo_evidence_vault": {
+        "name": "DPO Automated Evidence Vault",
+        "type": "GOVERNANCE_PATTERN",
+        "complexity": 5,
+        "operating_cost": "Low",
+        "mechanisms": [
+            "Automated treatment data mapping",
+            "Real-time retention adherence tracking",
+            "Centralized DPIA and TIA document repository"
+        ]
+    },
+    "isolated_financial_segment": {
+        "name": "Isolated Financial Infrastructure Segment",
+        "type": "GOVERNANCE_PATTERN",
+        "complexity": 7,
+        "operating_cost": "Medium",
+        "mechanisms": [
+            "Network isolation for accounting and payment systems",
+            "Strict ingress/egress filtering for financial traffic",
+            "Dedicated audit logging per segment"
+        ],
+        "success_metrics": {
+            "blast_radius": "Restricted",
+            "audit_clarity": "Highest"
+        }
+    },
+    "dual_control_op": {
+        "name": "Dual Control Operations (Two-Man Rule)",
+        "type": "SECURITY_PATTERN",
+        "complexity": 4,
+        "operating_cost": "Medium",
+        "mechanisms": [
+            "Mandatory second-person approval for critical configuration changes",
+            "Segregation of duties (SoD) enforcement",
+            "Verifiable approval trails for every production change"
+        ]
+    },
+    "change_management_governance": {
+        "name": "Automated Technical Change Management",
+        "type": "GOVERNANCE_PATTERN",
+        "complexity": 5,
+        "operating_cost": "Low",
+        "mechanisms": [
+            "GitOps-based production deployment workflows",
+            "Automated rollback plans for every change",
+            "Traceable Board-level evidence for system reliability"
+        ]
+    },
+    "sca_multi_factor": {
+        "name": "Strong Customer Authentication (SCA) Multi-Factor",
+        "type": "SECURITY_PATTERN",
+        "complexity": 6,
+        "operating_cost": "Medium",
+        "mechanisms": [
+            "Possession-based (mobile app, hardware token)",
+            "Knowledge-based (PIN, password)",
+            "Inherence-based (biometrics)",
+            "Mandatory 2-of-3 factor challenge for regulated payments"
+        ]
+    },
+    "dynamic_linking_vault": {
+        "name": "PSD2 Dynamic Linking Cryptographic Vault",
+        "type": "SECURITY_PATTERN",
+        "complexity": 7,
+        "operating_cost": "Medium",
+        "mechanisms": [
+            "Cryptographic binding of amount and beneficiary to authentication code",
+            "Tamper-proof display of transaction details during approval",
+            "Non-repudiation of authorized financial transactions"
+        ]
+    },
+    "3ds2_protocol": {
+        "name": "EMV 3-D Secure 2.0 (3DS2) Protocol",
+        "type": "ARCHITECTURE_PATTERN",
+        "complexity": 5,
+        "operating_cost": "Low",
+        "mechanisms": [
+            "Risk-based authentication flow for ecommerce",
+            "Native mobile authentication support",
+            " frictionless checkout for low-risk transactions"
+        ]
+    },
+    "tra_risk_engine": {
+        "name": "Transaction Risk Analysis (TRA) Engine",
+        "type": "GOVERNANCE_PATTERN",
+        "complexity": 8,
+        "operating_cost": "High",
+        "mechanisms": [
+            "Real-time fraud rate monitoring against regulatory thresholds",
+            "Automated SCA exemption justification (Art. 18 RTS)",
+            "Risk scoring based on device, behavior, and history"
+        ]
+    },
+    "adaptive_authentication": {
+        "name": "Adaptive & Behavioral Authentication",
+        "type": "SECURITY_PATTERN",
+        "complexity": 9,
+        "operating_cost": "High",
+        "mechanisms": [
+            "Behavioral biometrics (typing speed, touch patterns)",
+            "Device fingerprinting and velocity checks",
+            "Elastic challenge levels based on real-time risk scoring"
+        ]
+    },
+    "kyc_automated_biometrics": {
+        "name": "Automated KYC & Biometric Identity Verification",
+        "type": "SECURITY_PATTERN",
+        "complexity": 7,
+        "operating_cost": "Medium",
+        "mechanisms": [
+            "Scanning and OCR for government-issued IDs",
+            "Liveness detection for remote identity proofing",
+            "Biometric matching against extracted facial images",
+            "SEPBLAC-compliant remote onboarding protocols"
+        ]
+    },
+    "ubo_registry_immutable": {
+        "name": "Immutable Ultimate Beneficial Owner (UBO) Registry",
+        "type": "GOVERNANCE_PATTERN",
+        "complexity": 6,
+        "operating_cost": "Low",
+        "mechanisms": [
+            "Trazability of corporate structures > 25% participation",
+            "Immutable storage for UBO identity documents",
+            "10-year document retention for PBC/FT compliance"
+        ]
+    },
+    "transaction_monitoring_realtime": {
+        "name": "Real-Time AML Transaction Monitoring",
+        "type": "SECURITY_PATTERN",
+        "complexity": 8,
+        "operating_cost": "High",
+        "mechanisms": [
+            "Automated detection of smurfing, layering, and structuring",
+            "Real-time scoring against sanctioned country lists",
+            "Risk-based anomaly detection for unusual volume spikes"
+        ]
+    },
+    "aml_rba_engine": {
+        "name": "AML Risk-Based Approach (RBA) Engine",
+        "type": "GOVERNANCE_PATTERN",
+        "complexity": 7,
+        "operating_cost": "Medium",
+        "mechanisms": [
+            "Quantitative scoring of geography, activity, and channel risk",
+            "Automated categorization into Low, Medium, High risk tiers",
+            "Deterministic triggering of Enhanced Due Diligence (EDD)"
+        ]
+    },
+    "sepblac_reporting_connector": {
+        "name": "Automated SEPBLAC Reporting Connector",
+        "type": "GOVERNANCE_PATTERN",
+        "complexity": 9,
+        "operating_cost": "High",
+        "mechanisms": [
+            "Secure channel for Suspicious Activity Report (SAR/ROS) filing",
+            "Automated systematically reported operation logs",
+            "Immutable evidence vault for regulatory inspections"
+        ]
+    },
+    "investor_suitability_hub": {
+        "name": "MiFID II Investor Suitability Hub",
+        "type": "SECURITY_PATTERN",
+        "complexity": 7,
+        "operating_cost": "Medium",
+        "mechanisms": [
+            "Automated suitability/knowledge testing engine",
+            "Real-time investor risk profiling (MiFID II compliant)",
+            "Deterministic portfolio rebalancing based on risk scores",
+            "Algorithmic explainability trails for investment advice"
+        ]
+    },
+    "crowdfunding_escrow_segregation": {
+        "name": "ECSP Crowdfunding Asset Segregation",
+        "type": "GOVERNANCE_PATTERN",
+        "complexity": 6,
+        "operating_cost": "Low",
+        "mechanisms": [
+            "Automated segregation of client funds from platform assets",
+            "Cooling-off period enforcement (4 days) for non-experienced investors",
+            "KIIS document validation and versioning control"
+        ]
+    },
+    "crypto_cold_storage_hsm": {
+        "name": "Hardened Crypto Custody (Cold Storage + HSM)",
+        "type": "SECURITY_PATTERN",
+        "complexity": 9,
+        "operating_cost": "High",
+        "mechanisms": [
+            "Hardware Security Module (HSM) based private key management",
+            "Offline cold storage policy for > 90% of digital assets",
+            "Multi-signature (Multi-sig) approval workflows for withdrawals",
+            "Physical/logical segregation of wallet infrastructure"
+        ]
+    },
+    "mica_governance_framework": {
+        "name": "MiCA Crypto Governance Framework",
+        "type": "GOVERNANCE_PATTERN",
+        "complexity": 8,
+        "operating_cost": "High",
+        "mechanisms": [
+            "Market in Crypto-Assets (MiCA) whitepaper versioning",
+            "CASP (Crypto-Asset Service Provider) procedural alignment",
+            "Prudential requirement monitoring and alerting"
+        ]
+    },
+    "market_abuse_monitoring": {
+        "name": "Real-Time Market Abuse Monitoring",
+        "type": "SECURITY_PATTERN",
+        "complexity": 8,
+        "operating_cost": "Medium",
+        "mechanisms": [
+            "Detection of wash trading, spoofing, and layering",
+            "Algorithmic order flow analysis for suspicious patterns",
+            "Automated alert escalation to CNMV/Regulator connectors"
+        ]
+    }
+}

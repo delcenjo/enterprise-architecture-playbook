@@ -1,0 +1,2180 @@
+{
+    "nodes": {
+        "root": {
+            "question": "Integrated messaging or async communication required?",
+            "options": {
+                "yes": "msg_volume_check",
+                "no": "cache_evaluation"
+            }
+        },
+        "cache_evaluation": {
+            "question": "Performance optimization or cost reduction (Caching) required?",
+            "options": {
+                "yes": "cache_static_check",
+                "no": "consistency_model_assessment"
+            }
+        },
+        "consistency_model_assessment": {
+            "question": "Requirement for high availability/scalability with tolerance for temporary inconsistency?",
+            "options": {
+                "yes": "consistency_dist_check",
+                "no": "tm_evaluation"
+            }
+        },
+        "tm_evaluation": {
+            "question": "Assess system threats / Threat Modeling scenario?",
+            "options": {
+                "yes": "tm_exposure_check",
+                "no": "crypto_evaluation"
+            }
+        },
+        "crypto_evaluation": {
+            "question": "Applied Cryptography / Data Protection scenario?",
+            "options": {
+                "yes": "crypto_data_senstivity",
+                "no": "secret_evaluation"
+            }
+        },
+        "secret_evaluation": {
+            "question": "Secret Management / Credentials Security scenario?",
+            "options": {
+                "yes": "secret_criticality",
+                "no": "zta_evaluation"
+            }
+        },
+        "zta_evaluation": {
+            "question": "Zero Trust Security scenario detected?",
+            "options": {
+                "yes": "zta_criticality",
+                "no": "dr_evaluation"
+            }
+        },
+        "dr_evaluation": {
+            "question": "Disaster Recovery / Business Continuity scenario?",
+            "options": {
+                "yes": "dr_criticality",
+                "no": "finops_evaluation"
+            }
+        },
+        "finops_evaluation": {
+            "question": "Advanced Cloud FinOps / Cost Optimization assessment required?",
+            "options": {
+                "yes": "fo_stability_check",
+                "no": "governance_strategy_assessment"
+            }
+        },
+        "governance_strategy_assessment": {
+            "question": "Cloud Governance / Multi-account strategy assessment required?",
+            "options": {
+                "yes": "gov_multi_team_check",
+                "no": "dora_evaluation"
+            }
+        },
+        "dora_evaluation": {
+            "question": "Is the entity a financial institution in the EU or a critical ICT third-party provider (DORA)?",
+            "options": {
+                "yes": "dora_risk_profile",
+                "no": "service_mesh_evaluation"
+            }
+        },
+        "dora_risk_profile": {
+            "question": "Is the entity a 'Critical ICT Third-Party Provider' (providing cloud/critical services to banks)?",
+            "options": {
+                "yes": "recommend_dora_ict_framework_refinement",
+                "no": "dora_art7_identification_check"
+            }
+        },
+        "dora_art7_identification_check": {
+            "question": "Does the entity have a verified inventory of ICT assets and mapping of critical functions (Art. 7)?",
+            "options": {
+                "yes": "dora_tprm_check",
+                "no": "recommend_dora_art7_gap"
+            }
+        },
+        "dora_tprm_check": {
+            "question": "Does the system depend on external ICT third-party providers (Cloud, SaaS, APIs)?",
+            "options": {
+                "yes": "tprm_criticality_check",
+                "no": "dora_art9_detection_check"
+            }
+        },
+        "dpia_evaluation": {
+            "question": "Is a Data Protection Impact Assessment (Art. 35) mandatory (2+ risk factors or High Risk)?",
+            "options": {
+                "yes": "algorithmic_impact_check",
+                "no": "retention_policy_evaluation"
+            }
+        },
+        "algorithmic_impact_check": {
+            "question": "Does the system perform automated profiling, credit scoring, or AI-driven decisions with legal effects?",
+            "options": {
+                "yes": "recommend_gdpr_algorithmic_assessment",
+                "no": "dpia_new_tech_check"
+            }
+        },
+        "dpia_new_tech_check": {
+            "question": "Does the treatment involve 'New Technologies' or large-scale sensitive data processing?",
+            "options": {
+                "yes": "recommend_gdpr_dpia_automated",
+                "no": "recommend_gdpr_dpia_automated"
+            }
+        },
+        "dora_art9_detection_check": {
+            "question": "Is there a continuous monitoring system (SOC/SIEM) that detects anomalies in critical functions (Art. 9)?",
+            "options": {
+                "yes": "dora_art10_resilience_check",
+                "no": "recommend_dora_art9_gap"
+            }
+        },
+        "tprm_criticality_check": {
+            "question": "Does the provider handle critical data (PII/Financial) or affect a critical business function?",
+            "options": {
+                "yes": "tprm_concentration_check",
+                "no": "recommend_tprm_non_critical"
+            }
+        },
+        "tprm_concentration_check": {
+            "question": "Is there a high dependency on a single vendor (no multi-cloud / no manual fallback)?",
+            "options": {
+                "yes": "tprm_exit_viability_check",
+                "no": "recommend_tprm_standard_control"
+            }
+        },
+        "tprm_exit_viability_check": {
+            "question": "Does the system have a verified Exit Strategy (technical portability + contractual clauses)?",
+            "options": {
+                "yes": "tprm_chained_dependency_check",
+                "no": "recommend_tprm_exit_plan_needed"
+            }
+        },
+        "tprm_chained_dependency_check": {
+            "question": "Are sub-service providers and chained dependencies mapped and evaluated (Art. 28-30)?",
+            "options": {
+                "yes": "recommend_tprm_resilient_vendor",
+                "no": "recommend_tprm_chained_risk_gap"
+            }
+        },
+        "dora_art10_resilience_check": {
+            "question": "Does the system implement a multi-region resilience plan with tested RTO/RPO (Art. 10)?",
+            "options": {
+                "yes": "dora_art11_reporting_check",
+                "no": "recommend_dora_art10_resilience"
+            }
+        },
+        "dora_art11_reporting_check": {
+            "question": "Is there an automated incident reporting and management system for the regulator (Art. 11-12)?",
+            "options": {
+                "yes": "major_incident_management_check",
+                "no": "recommend_dora_art11_gap"
+            }
+        },
+        "major_incident_management_check": {
+            "question": "Does the system implement automatic 'Major' classification and regulatory timers (4h/24h/72h)?",
+            "options": {
+                "yes": "dora_art8_protection_check",
+                "no": "recommend_incident_management_automated"
+            }
+        },
+        "dora_art8_protection_check": {
+            "question": "Are advanced technical controls (Zero Trust, mTLS, Secret Management) implemented (Art. 8)?",
+            "options": {
+                "yes": "resilience_testing_evaluation",
+                "no": "recommend_dora_art8_protection"
+            }
+        },
+        "resilience_testing_evaluation": {
+            "question": "Does the entity require empirical validation of resilience (Operational Resilience Testing)?",
+            "options": {
+                "yes": "resilience_entity_size_check",
+                "no": "urrse_strategic_evaluation"
+            }
+        },
+        "urrse_strategic_evaluation": {
+            "question": "Is targeted investment prioritization (ROI) and board-level risk reporting required?",
+            "options": {
+                "yes": "urrse_priority_check",
+                "no": "saas_product_check"
+            }
+        },
+        "saas_product_check": {
+            "question": "Is the architect designing a B2B SaaS platform for Risk/Resilience (SaaS Blueprint needed)?",
+            "options": {
+                "yes": "saas_tenancy_check",
+                "no": "recommend_dora_full_compliance"
+            }
+        },
+        "saas_tenancy_check": {
+            "question": "Does the target sector (e.g. Banking/Insurance) require strict physical data segregation?",
+            "options": {
+                "yes": "recommend_saas_isolation_strict",
+                "no": "saas_data_complexity_check"
+            }
+        },
+        "saas_data_complexity_check": {
+            "question": "Does the product require complex relationship modeling (Attack Trees, Dependencies)?",
+            "options": {
+                "yes": "recommend_saas_hybrid_stack",
+                "no": "recommend_saas_standard_stack"
+            }
+        },
+        "urrse_priority_check": {
+            "question": "Which risk sub-index is currently identified as the weakest in the architecture?",
+            "options": {
+                "technical": "recommend_urrse_technical_focus",
+                "operational": "recommend_urrse_resilience_focus",
+                "third_party": "recommend_urrse_tprm_focus",
+                "regulatory": "recommend_urrse_compliance_focus"
+            }
+        },
+        "resilience_entity_size_check": {
+            "question": "Is the entity classified as 'Significant' or 'Systemic' by the regulator (DORA TLPT mandate)?",
+            "options": {
+                "yes": "tiber_eu_necessity_check",
+                "no": "resilience_threat_maturity_check"
+            }
+        },
+        "tiber_eu_necessity_check": {
+            "question": "Is targeted threat-led penetration testing (TIBER-EU) required for the critical functions?",
+            "options": {
+                "yes": "recommend_tiber_eu_red_team",
+                "no": "resilience_testing_frequency_check"
+            }
+        },
+        "resilience_testing_frequency_check": {
+            "question": "Is continuous adversarial simulation or automated scenario testing preferred over annual drills?",
+            "options": {
+                "yes": "recommend_continuous_adversarial_simulation",
+                "no": "recommend_resilience_scenario_testing"
+            }
+        },
+        "resilience_threat_maturity_check": {
+            "question": "Does the system have a mature SOC and stable incident response capabilities?",
+            "options": {
+                "yes": "recommend_resilience_red_team",
+                "no": "recommend_resilience_scenario_testing"
+            }
+        },
+        "dependency_mapping_evaluation": {
+            "question": "Does the entity require a visual/quantitative map of service dependencies and Critical Items (CIs)?",
+            "options": {
+                "yes": "ci_identification_check",
+                "no": "service_mesh_evaluation"
+            }
+        },
+        "ci_identification_check": {
+            "question": "Is there a need to automatically flag Critical Items (Impact Score > 0.75) for resilience prioritization?",
+            "options": {
+                "yes": "spof_analysis_check",
+                "no": "service_mesh_evaluation"
+            }
+        },
+        "spof_analysis_check": {
+            "question": "Should the system perform automated SPOF analysis on the L3/L4 dependency chain?",
+            "options": {
+                "yes": "recommend_ci_dependency_map",
+                "no": "service_mesh_evaluation"
+            }
+        },
+        "service_mesh_evaluation": {
+            "question": "Distributed architecture with multiple microservices (>5) and complex communication needs?",
+            "options": {
+                "yes": "sm_security_check",
+                "no": "privacy_context_check"
+            }
+        },
+        "privacy_context_check": {
+            "question": "Does the system handle PII or sensitive data requiring specific GDPR technical alignment?",
+            "options": {
+                "yes": "privacy_environment_check",
+                "no": "standard_blueprint"
+            }
+        },
+        "privacy_environment_check": {
+            "question": "In which environment will the data be used?",
+            "options": {
+                "production": "privacy_prod_check",
+                "analytics_bi": "privacy_analytics_check",
+                "testing_qa": "recommend_gdpr_synthetic_data"
+            }
+        },
+        "privacy_prod_check": {
+            "question": "Is full re-identification necessary for business operations (e.g. customer support, payments)?",
+            "options": {
+                "yes": "recommend_gdpr_pseudonymization",
+                "no": "privacy_analytics_check"
+            }
+        },
+        "privacy_analytics_check": {
+            "question": "Is statistical utility priority over absolute irreversibility (e.g. internal BI vs public release)?",
+            "options": {
+                "yes": "recommend_gdpr_k_anonymity",
+                "no": "recommend_gdpr_differential_privacy"
+            }
+        },
+        "plat_load_check": {
+            "question": "Highly variable workload with unpredictable traffic peaks?",
+            "options": {
+                "yes": "plat_latency_check",
+                "no": "plat_ops_pref_check"
+            }
+        },
+        "plat_latency_check": {
+            "question": "Critical latency requirement (<100ms consistent)?",
+            "options": {
+                "yes": "plat_ops_pref_check",
+                "no": "plat_cost_pref_check"
+            }
+        },
+        "plat_ops_pref_check": {
+            "question": "Team with experience in containers/orchestration (K8s/ECS) and DevOps?",
+            "options": {
+                "yes": "recommend_plat_containers",
+                "no": "plat_cost_pref_check"
+            }
+        },
+        "plat_cost_pref_check": {
+            "question": "Strict cost optimization for pay-per-execution preferred?",
+            "options": {
+                "yes": "recommend_plat_serverless",
+                "no": "scaling_problem"
+            }
+        },
+        "scaling_problem": {
+            "question": "Scaling problem detected?",
+            "options": {
+                "yes": "scale_type",
+                "no": "standard_blueprint"
+            }
+        },
+        "scale_type": {
+            "question": "High read volume vs write volume (>10:1)?",
+            "options": {
+                "yes": "aggregated_reads",
+                "no": "distributed_transactions"
+            }
+        },
+        "aggregated_reads": {
+            "question": "Data is complex or requires aggregation?",
+            "options": {
+                "yes": "recommend_cqrs",
+                "no": "recommend_cache"
+            }
+        },
+        "distributed_transactions": {
+            "question": "Transactions spanned across multiple services?",
+            "options": {
+                "yes": "needs_compensation",
+                "no": "cascading_failures"
+            }
+        },
+        "needs_compensation": {
+            "question": "Need rollback/compensation logic?",
+            "options": {
+                "yes": "recommend_saga",
+                "no": "recommend_2pc"
+            }
+        },
+        "cascading_failures": {
+            "question": "Cascading failures in sync calls detected?",
+            "options": {
+                "yes": "needs_isolation",
+                "no": "audit_required"
+            }
+        },
+        "needs_isolation": {
+            "question": "Is timeout+fallback enough?",
+            "options": {
+                "yes": "recommend_circuit_breaker",
+                "no": "recommend_bulkhead"
+            }
+        },
+        "audit_required": {
+            "question": "Full temporal audit required?",
+            "options": {
+                "yes": "recommend_event_sourcing",
+                "no": "sharding_evaluation"
+            }
+        },
+        "sharding_evaluation": {
+            "question": "Database size > 500GB AND Throughput > 2000 writes/s?",
+            "options": {
+                "yes": "sharding_type",
+                "no": "standard_blueprint"
+            }
+        },
+        "sharding_type": {
+            "question": "Domain is multi-tenant?",
+            "options": {
+                "yes": "recommend_sharding_tenant",
+                "no": "sharding_geo_val"
+            }
+        },
+        "sharding_geo_val": {
+            "question": "Intercontinental latency > 150ms?",
+            "options": {
+                "yes": "recommend_sharding_geo",
+                "no": "sharding_functional_val"
+            }
+        },
+        "sharding_functional_val": {
+            "question": "Clear bounded contexts and different workloads?",
+            "options": {
+                "yes": "recommend_sharding_functional",
+                "no": "sharding_skew_mitigation"
+            }
+        },
+        "sharding_skew_mitigation": {
+            "question": "Write skew / High concentration detected?",
+            "options": {
+                "yes": "recommend_sharding_hotspot",
+                "no": "caching_evaluation"
+            }
+        },
+        "caching_evaluation": {
+            "question": "Read/Write ratio > 5:1?",
+            "options": {
+                "yes": "caching_geo",
+                "no": "standard_blueprint"
+            }
+        },
+        "caching_geo": {
+            "question": "Global user distribution?",
+            "options": {
+                "yes": "recommend_cache_cdn",
+                "no": "caching_db_hot"
+            }
+        },
+        "caching_db_hot": {
+            "question": "DB CPU > 60% with complex queries?",
+            "options": {
+                "yes": "recommend_cache_app",
+                "no": "messaging_evaluation"
+            }
+        },
+        "messaging_evaluation": {
+            "question": "Sync-cascading failures OR High coupling detected?",
+            "options": {
+                "yes": "messaging_latency_tolerance",
+                "no": "standard_blueprint"
+            }
+        },
+        "messaging_latency_tolerance": {
+            "question": "Operation tolerates eventual consistency?",
+            "options": {
+                "yes": "messaging_replay_needed",
+                "no": "standard_blueprint"
+            }
+        },
+        "messaging_replay_needed": {
+            "question": "Need historical replay OR multi-consumer streaming?",
+            "options": {
+                "yes": "recommend_msg_log",
+                "no": "messaging_volume"
+            }
+        },
+        "messaging_volume": {
+            "question": "Simple tasks / Background jobs only?",
+            "options": {
+                "yes": "recommend_msg_queue",
+                "no": "consistency_evaluation"
+            }
+        },
+        "consistency_regional_check": {
+            "question": "Is system Multi-Region Active-Active?",
+            "options": {
+                "yes": "consistency_low_latency_req",
+                "no": "standard_blueprint"
+            }
+        },
+        "consistency_low_latency_req": {
+            "question": "Low latency global writes required?",
+            "options": {
+                "yes": "consistency_conflict_type",
+                "no": "recommend_read_replicas"
+            }
+        },
+        "consistency_conflict_type": {
+            "question": "Domain allows automatic mathematical merge (counters, sets)?",
+            "options": {
+                "yes": "recommend_crdt",
+                "no": "consistency_conflict_detect"
+            }
+        },
+        "consistency_conflict_detect": {
+            "question": "Concurrent writes on same key frequent?",
+            "options": {
+                "yes": "recommend_vector_clocks",
+                "no": "governance_evaluation"
+            }
+        },
+        "governance_evaluation": {
+            "question": "Organization has > 20 team members OR > 1 product?",
+            "options": {
+                "yes": "governance_compliance_check",
+                "no": "standard_blueprint"
+            }
+        },
+        "governance_compliance_check": {
+            "question": "Strict regulatory compliance (PCI/DORA/GDPR) required?",
+            "options": {
+                "yes": "recommend_multi_account_strict",
+                "no": "governance_billing_segmentation"
+            }
+        },
+        "governance_billing_segmentation": {
+            "question": "Need explicit showback/chargeback per project?",
+            "options": {
+                "yes": "recommend_multi_account_standard",
+                "no": "mesh_evaluation"
+            }
+        },
+        "mesh_evaluation": {
+            "question": "Architecture uses Microservices (>1 service)?",
+            "options": {
+                "yes": "mesh_service_count",
+                "no": "standard_blueprint"
+            }
+        },
+        "mesh_service_count": {
+            "question": "Number of interconnected services > 5?",
+            "options": {
+                "yes": "mesh_security_req",
+                "no": "mesh_light_recommend"
+            }
+        },
+        "mesh_security_req": {
+            "question": "Zero-Trust / mTLS security required?",
+            "options": {
+                "yes": "recommend_service_mesh_full",
+                "no": "mesh_progressive_delivery"
+            }
+        },
+        "mesh_progressive_delivery": {
+            "question": "Support for Canary / A-B testing required?",
+            "options": {
+                "yes": "recommend_service_mesh_full",
+                "no": "recommend_service_mesh_base"
+            }
+        },
+        "mesh_light_recommend": {
+            "question": "Basic observability/retries enough?",
+            "options": {
+                "yes": "compute_evaluation",
+                "no": "recommend_service_mesh_base"
+            }
+        },
+        "compute_evaluation": {
+            "question": "Execution duration < 15 minutes AND Stateless?",
+            "options": {
+                "yes": "compute_traffic_type",
+                "no": "recommend_containers_full"
+            }
+        },
+        "compute_traffic_type": {
+            "question": "Traffic is highly intermittent or event-driven?",
+            "options": {
+                "yes": "compute_latency_tolerance",
+                "no": "compute_cost_sensitivity"
+            }
+        },
+        "compute_latency_tolerance": {
+            "question": "Cold start (100-500ms) is acceptable for first hit?",
+            "options": {
+                "yes": "recommend_serverless_base",
+                "no": "recommend_containers_optimized"
+            }
+        },
+        "compute_cost_sensitivity": {
+            "question": "Traffic is constant 24/7 with high volume?",
+            "options": {
+                "yes": "recommend_containers_full",
+                "no": "recommend_serverless_base"
+            }
+        },
+        "finops_predictability": {
+            "question": "Is the usage pattern predictable and constant?",
+            "options": {
+                "yes": "finops_coverage",
+                "no": "finops_batch_tolerance"
+            }
+        },
+        "finops_coverage": {
+            "question": "Is multi-cloud or multi-region coverage required?",
+            "options": {
+                "yes": "recommend_finops_savings_plans",
+                "no": "recommend_finops_ri"
+            }
+        },
+        "finops_batch_tolerance": {
+            "question": "Is the workload batch processing and tolerant to interruptions?",
+            "options": {
+                "yes": "recommend_finops_spot",
+                "no": "finops_criticality"
+            }
+        },
+        "finops_criticality": {
+            "question": "Is the workload critical with high availability requirements?",
+            "options": {
+                "yes": "recommend_finops_rightsizing_conservative",
+                "no": "recommend_finops_spot_agressive"
+            }
+        },
+        "dr_criticality": {
+            "question": "Data loss tolerance (RPO) is zero or mission critical (< 5 min)?",
+            "options": {
+                "yes": "dr_rto_check",
+                "no": "dr_budget_check"
+            }
+        },
+        "dr_rto_check": {
+            "question": "Recovery time objective (RTO) must be < 15 min with global active routing?",
+            "options": {
+                "yes": "dr_finops_sync",
+                "no": "recommend_dr_active_passive"
+            }
+        },
+        "dr_finops_sync": {
+            "question": "Is the 2x+ infrastructure cost justified by SLA/FinOps analysis?",
+            "options": {
+                "yes": "recommend_dr_active_active",
+                "no": "recommend_dr_active_passive"
+            }
+        },
+        "dr_budget_check": {
+            "question": "Is there a strict budget limit or low tolerance for infra redundancy cost?",
+            "options": {
+                "yes": "recommend_dr_backup_restore",
+                "no": "dr_compliance_check"
+            }
+        },
+        "dr_compliance_check": {
+            "question": "Requirement for strict regulatory compliance (DORA/GDPR) or deep auditing?",
+            "options": {
+                "yes": "recommend_dr_active_passive",
+                "no": "recommend_dr_backup_restore"
+            }
+        },
+        "zta_criticality": {
+            "question": "Is the application critical or handles highly sensitive data?",
+            "options": {
+                "yes": "zta_external_access",
+                "no": "recommend_zta_foundational"
+            }
+        },
+        "zta_external_access": {
+            "question": "Does the scenario involve external users or remote contractors?",
+            "options": {
+                "yes": "recommend_zta_identity_proxy",
+                "no": "zta_internal_criticality"
+            }
+        },
+        "zta_internal_criticality": {
+            "question": "Strict internal service isolation and blast radius reduction required?",
+            "options": {
+                "yes": "recommend_zta_micro_segmentation",
+                "no": "zta_byod_check"
+            }
+        },
+        "zta_byod_check": {
+            "question": "Are employees using personal devices (BYOD) or unmanaged endpoints?",
+            "options": {
+                "yes": "recommend_zta_continuous_auth",
+                "no": "recommend_zta_adaptive"
+            }
+        },
+        "zta_ux_priority": {
+            "question": "Is user experience/low friction a high priority over maximum lockout?",
+            "options": {
+                "yes": "recommend_zta_adaptive",
+                "no": "recommend_zta_strict"
+            }
+        },
+        "secret_criticality": {
+            "question": "Is the secret highly critical for production or regulated environments (PII, Financial)?",
+            "options": {
+                "yes": "secret_sharing_check",
+                "no": "recommend_secret_standard"
+            }
+        },
+        "secret_sharing_check": {
+            "question": "Is the secret shared among multiple services requiring fine-grained leasing/expiration?",
+            "options": {
+                "yes": "recommend_secret_leasing",
+                "no": "secret_dr_check"
+            }
+        },
+        "secret_dr_check": {
+            "question": "Does the system require multi-region high availability/DR for secrets?",
+            "options": {
+                "yes": "recommend_secret_multi_region",
+                "no": "recommend_secret_centralized"
+            }
+        },
+        "crypto_data_sensitivity": {
+            "question": "Data classification: Does it handle ultra-sensitive (Health/Root Keys) or regulated (PII/Banking) data?",
+            "options": {
+                "ultra": "crypto_in_use_check",
+                "regulated": "crypto_in_transit_check",
+                "standard": "recommend_crypto_foundational"
+            }
+        },
+        "crypto_in_transit_check": {
+            "question": "Is the architecture microservices-based requiring service-to-service authentication (mTLS)?",
+            "options": {
+                "yes": "recommend_crypto_mtls",
+                "no": "crypto_at_rest_check"
+            }
+        },
+        "crypto_at_rest_check": {
+            "question": "Is high-assurance key storage (HSM) required by banking/FIPS mandates?",
+            "options": {
+                "yes": "recommend_crypto_hsm",
+                "no": "recommend_crypto_envelope"
+            }
+        },
+        "crypto_in_use_check": {
+            "question": "Is the cost of a data breach > 10x infrastructure cost, justifying Confidential Computing?",
+            "options": {
+                "yes": "recommend_crypto_confidential",
+                "no": "crypto_at_rest_check"
+            }
+        },
+        "tm_exposure_check": {
+            "question": "Is the system exposed to external users or handles critical financial/PII data?",
+            "options": {
+                "yes": "tm_financial_quantification",
+                "no": "recommend_tm_stride"
+            }
+        },
+        "tm_financial_quantification": {
+            "question": "Is the estimated Single Loss Expectancy (SLE) > 1M€ or is it a regulated sector (Fintech/Health)?",
+            "options": {
+                "yes": "tm_dist_arch_check_economic",
+                "no": "recommend_tm_stride_quantified"
+            }
+        },
+        "tm_dist_arch_check_economic": {
+            "question": "Does the architecture have high complexity or multiple microservices with interdependencies?",
+            "options": {
+                "yes": "recommend_tm_attack_tree_economic",
+                "no": "recommend_tm_risk_ale"
+            }
+        },
+        "cache_static_check": {
+            "question": "Is there a requirement for global delivery of static content?",
+            "options": {
+                "yes": "recommend_cache_cdn",
+                "no": "cache_edge_check"
+            }
+        },
+        "cache_edge_check": {
+            "question": "Is minimal latency near the user (Edge) required for dynamic data?",
+            "options": {
+                "yes": "recommend_cache_edge",
+                "no": "cache_app_check"
+            }
+        },
+        "cache_app_check": {
+            "question": "Is there repetitive application logic or microservice hotspots?",
+            "options": {
+                "yes": "recommend_cache_app",
+                "no": "cache_db_check"
+            }
+        },
+        "cache_db_check": {
+            "question": "Are there repetitive database queries or complex aggregations?",
+            "options": {
+                "yes": "recommend_cache_db",
+                "no": "recommend_no_cache_needed"
+            }
+        },
+        "msg_volume_check": {
+            "question": "Is the expected message volume high (>10k msg/s) or requires strict ordering?",
+            "options": {
+                "yes": "recommend_msg_kafka",
+                "no": "msg_routing_check"
+            }
+        },
+        "msg_routing_check": {
+            "question": "Requires fine-grained routing (exchanges) or message priority?",
+            "options": {
+                "yes": "recommend_msg_rabbitmq",
+                "no": "msg_managed_check"
+            }
+        },
+        "msg_managed_check": {
+            "question": "Is a fully managed/serverless solution with zero maintenance required?",
+            "options": {
+                "yes": "recommend_msg_sqs",
+                "no": "msg_criticality_check"
+            }
+        },
+        "msg_criticality_check": {
+            "question": "Are messages highly critical with zero tolerance for loss?",
+            "options": {
+                "yes": "recommend_msg_managed_resilient",
+                "no": "recommend_msg_simple"
+            }
+        },
+        "consistency_dist_check": {
+            "question": "Are data replicated across multiple nodes or regions requiring conflict detection?",
+            "options": {
+                "yes": "consistency_auto_merge_check",
+                "no": "recommend_ec_lww"
+            }
+        },
+        "consistency_auto_merge_check": {
+            "question": "Can conflicts be reconciled automatically using business logic or data types?",
+            "options": {
+                "yes": "consistency_history_check",
+                "no": "recommend_ec_compensating"
+            }
+        },
+        "consistency_history_check": {
+            "question": "Is a complete history of changes/audit required for reconciliation?",
+            "options": {
+                "yes": "recommend_ec_event_sourcing",
+                "no": "consistency_crdt_check"
+            }
+        },
+        "consistency_crdt_check": {
+            "question": "Use specific data types (counters, sets) that support coordinate-free merges?",
+            "options": {
+                "yes": "recommend_ec_crdts",
+                "no": "recommend_ec_vector_clocks"
+            }
+        },
+        "gov_multi_team_check": {
+            "question": "Organization with multiple independent teams or products?",
+            "options": {
+                "yes": "gov_audit_check",
+                "no": "gov_chargeback_simple_check"
+            }
+        },
+        "gov_audit_check": {
+            "question": "Requirement for independent auditing per business unit/product?",
+            "options": {
+                "yes": "gov_compliance_check",
+                "no": "recommend_ma_product_isolation"
+            }
+        },
+        "gov_chargeback_simple_check": {
+            "question": "Is precise chargeback/showback needed despite being a small team?",
+            "options": {
+                "yes": "recommend_ma_product_isolation",
+                "no": "recommend_ma_single_tagging"
+            }
+        },
+        "gov_compliance_check": {
+            "question": "High compliance mandate (Fintech/Healthcare) or Multi-region DR required?",
+            "options": {
+                "yes": "recommend_ma_landing_zone",
+                "no": "recommend_ma_full_env_isolation"
+            }
+        },
+        "sm_security_check": {
+            "question": "Requirement for mTLS / strong service-to-service authentication?",
+            "options": {
+                "yes": "sm_traffic_ops_check",
+                "no": "sm_observability_check"
+            }
+        },
+        "sm_observability_check": {
+            "question": "Need for deep observability, custom metrics, and distributed tracing?",
+            "options": {
+                "yes": "sm_traffic_ops_check",
+                "no": "recommend_sm_mtls_only"
+            }
+        },
+        "sm_traffic_ops_check": {
+            "question": "Requirement for advanced traffic routing (Canary, Splitting) or Mesh-level resiliencia (Circuit Breaker)?",
+            "options": {
+                "yes": "sm_performance_priority",
+                "no": "recommend_sm_mtls_only"
+            }
+        },
+        "sm_performance_priority": {
+            "question": "Is performance/low overhead more critical than having an extensive feature set (WASM, Lua)?",
+            "options": {
+                "yes": "recommend_sm_linkerd",
+                "no": "recommend_sm_istio"
+            }
+        },
+        "fo_stability_check": {
+            "question": "Workload is stable > 6 months and highly predictable?",
+            "options": {
+                "yes": "fo_utilization_check",
+                "no": "fo_spot_suitability_check"
+            }
+        },
+        "fo_utilization_check": {
+            "question": "Resource utilization is consistently below 50% CPU/Mem?",
+            "options": {
+                "yes": "recommend_fo_rightsizing_ri",
+                "no": "recommend_fo_reserved_savings"
+            }
+        },
+        "fo_spot_suitability_check": {
+            "question": "Application is fault-tolerant or consists of batch/background jobs?",
+            "options": {
+                "yes": "recommend_fo_spot",
+                "no": "plat_load_check"
+            }
+        },
+        "retention_policy_evaluation": {
+            "question": "Are there complex retention mandates or competing legal requirements (e.g., GDPR vs AML)?",
+            "options": {
+                "yes": "retention_conflict_check",
+                "no": "recommend_gdpr_ttl_enforcement"
+            }
+        },
+        "retention_conflict_check": {
+            "question": "Does the system require segmented storage to handle different legal bases for data retention?",
+            "options": {
+                "yes": "recommend_gdpr_segmented_retention",
+                "no": "recommend_gdpr_ttl_enforcement"
+            }
+        },
+        "deletion_mechanism_evaluation": {
+            "question": "Is a deterministic, immutable proof of deletion or crypto-shredding required?",
+            "options": {
+                "yes": "recommend_gdpr_crypto_shredding",
+                "no": "recommend_gdpr_standard_deletion"
+            }
+        },
+        "cross_border_evaluation": {
+            "question": "Does the architecture involve data transfers outside the EEA?",
+            "options": {
+                "yes": "adequacy_check",
+                "no": "recommend_standard_lockdown"
+            }
+        },
+        "adequacy_check": {
+            "question": "Does the destination country have an EU Adequacy Decision (Art. 45)?",
+            "options": {
+                "yes": "recommend_adequacy_monitor",
+                "no": "tia_requirement_check"
+            }
+        },
+        "tia_requirement_check": {
+            "question": "Is a Transfer Impact Assessment (TIA) required due to jurisdictional risk?",
+            "options": {
+                "yes": "supplementary_measures_check",
+                "no": "recommend_scc_standard"
+            }
+        },
+        "supplementary_measures_check": {
+            "question": "Are supplementary technical measures (e.g., EU-controlled KMS) mandatory?",
+            "options": {
+                "yes": "recommend_eu_controlled_encryption",
+                "no": "recommend_scc_standard"
+            }
+        },
+        "audit_readiness_evaluation": {
+            "question": "Is the system subject to strict regulatory oversight (DORA, High-Risk GDPR)?",
+            "options": {
+                "yes": "immutable_logging_requirement",
+                "no": "recommend_standard_logging"
+            }
+        },
+        "immutable_logging_requirement": {
+            "question": "Does the DPO require tamper-proof evidence for critical treatment logs?",
+            "options": {
+                "yes": "recommend_immutable_audit",
+                "no": "recommend_standard_logging"
+            }
+        },
+        "bde_supervised_check": {
+            "question": "Is the entity supervisada por el Banco de España (Circular 4/2017)?",
+            "options": {
+                "yes": "financial_integrity_requirement",
+                "no": "root"
+            }
+        },
+        "financial_integrity_requirement": {
+            "question": "Does the system manage accounting or payment data requiring strict internal control?",
+            "options": {
+                "yes": "dual_control_requirement",
+                "no": "bde_change_mgmt_check"
+            }
+        },
+        "dual_control_requirement": {
+            "question": "Does the Board require the two-man rule (dual control) for critical financial operations?",
+            "options": {
+                "yes": "recommend_bde_dual_control",
+                "no": "recommend_bde_isolated_segment"
+            }
+        },
+        "bde_change_mgmt_check": {
+            "question": "Does the entity require automated change management for operational risk control?",
+            "options": {
+                "yes": "recommend_bde_change_mgmt",
+                "no": "psd2_scope_check"
+            }
+        },
+        "psd2_scope_check": {
+            "question": "Is the system in scope of PSD2 (Payment Services Directive 2)?",
+            "options": {
+                "yes": "sca_requirement_check",
+                "no": "root"
+            }
+        },
+        "sca_requirement_check": {
+            "question": "Does the system process electronic payments requiring SCA (Strong Customer Authentication)?",
+            "options": {
+                "yes": "exemption_evaluation",
+                "no": "recommend_3ds2_base"
+            }
+        },
+        "exemption_evaluation": {
+            "question": "Is the transaction eligible for SCA exemptions (Low Value, TRA, Trusted)?",
+            "options": {
+                "yes": "recommend_tra_engine",
+                "no": "recommend_sca_full"
+            }
+        },
+        "aml_scope_check": {
+            "question": "Is the system in scope of Anti-Money Laundering (AML) regulations (Ley 10/2010)?",
+            "options": {
+                "yes": "kyc_method_evaluation",
+                "no": "root"
+            }
+        },
+        "kyc_method_evaluation": {
+            "question": "Is remote onboarding enabled requiring biometric verification?",
+            "options": {
+                "yes": "recommend_kyc_biometrics",
+                "no": "is_ubo_registry_needed"
+            }
+        },
+        "is_ubo_registry_needed": {
+            "question": "Does the system onboard corporate entities requiring UBO identification?",
+            "options": {
+                "yes": "recommend_ubo_registry",
+                "no": "aml_monitoring_check"
+            }
+        },
+        "aml_monitoring_check": {
+            "question": "Does the system handle financial transactions requiring AML monitoring?",
+            "options": {
+                "yes": "recommend_aml_monitoring",
+                "no": "recommend_aml_rba"
+            }
+        },
+        "cnmv_scope_check": {
+            "question": "Is the system in scope of CNMV market supervision (Crowdfunding, Roboadvisor, Crypto)?",
+            "options": {
+                "yes": "investment_type_evaluation",
+                "no": "root"
+            }
+        },
+        "investment_type_evaluation": {
+            "question": "What is the primary investment activity?",
+            "options": {
+                "crowdfunding": "recommend_crowdfunding_segregation",
+                "roboadvisor": "recommend_suitability_hub",
+                "crypto": "crypto_custody_evaluation"
+            }
+        },
+        "crypto_custody_evaluation": {
+            "question": "Does the CASP provider hold client private keys?",
+            "options": {
+                "yes": "recommend_crypto_hsm",
+                "no": "recommend_mica_governance"
+            }
+        }
+    },
+    "leaves": {
+        "recommend_serverless_base": {
+            "pattern_id": "serverless_compute",
+            "confidence_factors": [
+                "event_driven",
+                "cost_variable",
+                "stateless"
+            ]
+        },
+        "recommend_containers_full": {
+            "pattern_id": "container_compute",
+            "confidence_factors": [
+                "long_running",
+                "full_control",
+                "high_constant_traffic"
+            ]
+        },
+        "recommend_containers_optimized": {
+            "pattern_id": "container_compute",
+            "confidence_factors": [
+                "low_latency_requirement",
+                "predictable_performance"
+            ]
+        },
+        "recommend_service_mesh_full": {
+            "pattern_id": "service_mesh",
+            "confidence_factors": [
+                "high_service_count",
+                "mtls_protection",
+                "canary_delivery"
+            ]
+        },
+        "recommend_service_mesh_base": {
+            "pattern_id": "service_mesh",
+            "confidence_factors": [
+                "microservices_scale",
+                "observability_req"
+            ]
+        },
+        "recommend_multi_account_strict": {
+            "pattern_id": "multi_account",
+            "confidence_factors": [
+                "high_governance_need",
+                "compliance_enforcement",
+                "scp_required"
+            ]
+        },
+        "recommend_multi_account_standard": {
+            "pattern_id": "multi_account",
+            "confidence_factors": [
+                "billing_segmentation",
+                "operational_isolation"
+            ]
+        },
+        "recommend_eventual_base": {
+            "pattern_id": "eventually_consistent",
+            "confidence_factors": [
+                "multi_region_active_active",
+                "latency_critical"
+            ]
+        },
+        "recommend_vector_clocks": {
+            "pattern_id": "vector_clocks",
+            "confidence_factors": [
+                "conflict_detection_required",
+                "peer_to_peer"
+            ]
+        },
+        "recommend_crdt": {
+            "pattern_id": "crdt_convergence",
+            "confidence_factors": [
+                "automatic_convergence",
+                "collaborative_work"
+            ]
+        },
+        "recommend_read_replicas": {
+            "pattern_id": "cache_db",
+            "confidence_factors": [
+                "global_reads_active_active_writes_no"
+            ]
+        },
+        "recommend_msg_queue": {
+            "pattern_id": "msg_queue",
+            "confidence_factors": [
+                "background_tasks",
+                "simple_decoupling"
+            ]
+        },
+        "recommend_msg_log": {
+            "pattern_id": "msg_log",
+            "confidence_factors": [
+                "event_streaming",
+                "historical_replay",
+                "high_throughput"
+            ]
+        },
+        "recommend_sharding_tenant": {
+            "pattern_id": "sharding_tenant",
+            "confidence_factors": [
+                "db_size_limit",
+                "write_throughput_limit",
+                "multi_tenant_domain"
+            ]
+        },
+        "recommend_sharding_geo": {
+            "pattern_id": "sharding_geo",
+            "confidence_factors": [
+                "db_size_limit",
+                "geo_latency_limit"
+            ]
+        },
+        "recommend_sharding_functional": {
+            "pattern_id": "sharding_functional",
+            "confidence_factors": [
+                "db_size_limit",
+                "workload_segregation"
+            ]
+        },
+        "recommend_sharding_hotspot": {
+            "pattern_id": "sharding_hotspot",
+            "confidence_factors": [
+                "write_skew_detected"
+            ]
+        },
+        "recommend_cqrs": {
+            "pattern_id": "cqrs",
+            "confidence_factors": [
+                "read_write_ratio",
+                "data_complexity"
+            ]
+        },
+        "recommend_cache": {
+            "pattern_id": "redis_cache",
+            "confidence_factors": [
+                "read_write_ratio"
+            ]
+        },
+        "recommend_saga": {
+            "pattern_id": "saga",
+            "confidence_factors": [
+                "distributed_tx",
+                "compensation_required"
+            ]
+        },
+        "recommend_2pc": {
+            "pattern_id": "2pc",
+            "confidence_factors": [
+                "distributed_tx",
+                "low_latency_req"
+            ]
+        },
+        "recommend_circuit_breaker": {
+            "pattern_id": "circuit_breaker",
+            "confidence_factors": [
+                "sync_failures"
+            ]
+        },
+        "recommend_bulkhead": {
+            "pattern_id": "bulkhead",
+            "confidence_factors": [
+                "sync_failures",
+                "resource_starvation"
+            ]
+        },
+        "recommend_event_sourcing": {
+            "pattern_id": "event_sourcing",
+            "confidence_factors": [
+                "audit_full",
+                "temporal_queries"
+            ]
+        },
+        "recommend_finops_savings_plans": {
+            "pattern_id": "finops_savings_plans",
+            "confidence_factors": [
+                "predictable_growth",
+                "multi_region_or_cloud"
+            ]
+        },
+        "recommend_finops_ri": {
+            "pattern_id": "finops_reserved_instances",
+            "confidence_factors": [
+                "predictable_constant_usage",
+                "single_provider"
+            ]
+        },
+        "recommend_finops_spot": {
+            "pattern_id": "finops_spot_instances",
+            "confidence_factors": [
+                "batch_processing",
+                "interruption_tolerant"
+            ]
+        },
+        "recommend_finops_rightsizing_conservative": {
+            "pattern_id": "finops_rightsizing",
+            "confidence_factors": [
+                "critical_workload",
+                "unpredictable_usage"
+            ]
+        },
+        "recommend_finops_spot_agressive": {
+            "pattern_id": "finops_spot_instances",
+            "confidence_factors": [
+                "non_critical_workload",
+                "unpredictable_usage",
+                "agressive_rightsizing"
+            ]
+        },
+        "recommend_dr_active_active": {
+            "pattern_id": "dr_active_active",
+            "confidence_factors": [
+                "mission_critical_rpo_rto",
+                "global_concurrent_users",
+                "high_budget_tolerance"
+            ]
+        },
+        "recommend_dr_active_passive": {
+            "pattern_id": "dr_active_passive",
+            "confidence_factors": [
+                "internal_critical_app",
+                "rto_1h_tolerance",
+                "cost_awareness"
+            ]
+        },
+        "recommend_dr_backup_restore": {
+            "pattern_id": "dr_backup_restore",
+            "confidence_factors": [
+                "cost_optimization_priority",
+                "high_rto_tolerance",
+                "pilot_light_fallback"
+            ]
+        },
+        "recommend_zta_strict": {
+            "pattern_id": "zta_strict",
+            "confidence_factors": [
+                "extreme_security_requirement",
+                "compliance_driven",
+                "remote_access_risk"
+            ]
+        },
+        "recommend_zta_adaptive": {
+            "pattern_id": "zta_adaptive",
+            "confidence_factors": [
+                "corporate_ux_balance",
+                "contextual_access_need",
+                "dynamic_workforce"
+            ]
+        },
+        "recommend_zta_foundational": {
+            "pattern_id": "zta_foundational",
+            "confidence_factors": [
+                "basic_compliance_need",
+                "resource_constraints",
+                "initial_security_baseline"
+            ]
+        },
+        "recommend_zta_identity_proxy": {
+            "pattern_id": "zta_identity_proxy",
+            "confidence_factors": [
+                "external_remote_access",
+                "mfa_enforcement_critical",
+                "context_aware_auth"
+            ]
+        },
+        "recommend_zta_micro_segmentation": {
+            "pattern_id": "zta_micro_segmentation",
+            "confidence_factors": [
+                "microservices_blast_radius",
+                "regulatory_isolation_mandate",
+                "lateral_movement_risk"
+            ]
+        },
+        "recommend_zta_continuous_auth": {
+            "pattern_id": "zta_continuous_auth",
+            "confidence_factors": [
+                "byod_threat_surface",
+                "realtime_risk_assessment",
+                "endpoint_posture_critical"
+            ]
+        },
+        "recommend_secret_centralized": {
+            "pattern_id": "secret_vault_centralized",
+            "confidence_factors": [
+                "production_criticality",
+                "compliance_mandate",
+                "strict_auditing",
+                "automatic_rotation_enabled"
+            ]
+        },
+        "recommend_secret_leasing": {
+            "pattern_id": "secret_leasing_expiration",
+            "confidence_factors": [
+                "shared_secret_leaks_prevention",
+                "temporary_access_tokens",
+                "microservices_dynamic_needs"
+            ]
+        },
+        "recommend_secret_multi_region": {
+            "pattern_id": "secret_multi_region_sync",
+            "confidence_factors": [
+                "global_ha_requirements",
+                "dr_failover_criticality",
+                "cross_region_identity_sync"
+            ]
+        },
+        "recommend_secret_standard": {
+            "pattern_id": "secret_vault_standard",
+            "confidence_factors": [
+                "startup_scale",
+                "low_complexity_requirement",
+                "single_cloud_focus"
+            ]
+        },
+        "recommend_crypto_envelope": {
+            "pattern_id": "crypto_at_rest_envelope",
+            "confidence_factors": [
+                "pii_data_protection",
+                "kms_managed_rotation",
+                "gdpr_compliance"
+            ]
+        },
+        "recommend_crypto_mtls": {
+            "pattern_id": "crypto_in_transit_mtls",
+            "confidence_factors": [
+                "zero_trust_networking",
+                "microservices_security",
+                "psd2_dora_compliance"
+            ]
+        },
+        "recommend_crypto_confidential": {
+            "pattern_id": "crypto_in_use_confidential",
+            "confidence_factors": [
+                "breach_risk_roi",
+                "ultra_sensitive_compute",
+                "high_assurance_mandate"
+            ]
+        },
+        "recommend_crypto_hsm": {
+            "pattern_id": "crypto_hsm_dedicated",
+            "confidence_factors": [
+                "banking_root_keys",
+                "fips_140_level_3",
+                "hardware_isolation_mandate"
+            ]
+        },
+        "recommend_crypto_foundational": {
+            "pattern_id": "crypto_foundational_sec",
+            "confidence_factors": [
+                "baseline_security_req",
+                "startup_velocity_priority",
+                "managed_infra_defaults"
+            ]
+        },
+        "recommend_tm_stride_quantified": {
+            "pattern_id": "tm_stride_quantified",
+            "confidence_factors": [
+                "structural_threat_identification",
+                "regulatory_compliance_mandatory",
+                "component_level_analysis"
+            ]
+        },
+        "recommend_tm_attack_tree_economic": {
+            "pattern_id": "tm_attack_tree_economic",
+            "confidence_factors": [
+                "complex_dependency_risk",
+                "attacker_cost_modeling",
+                "multi_stage_breach_prevention"
+            ]
+        },
+        "recommend_tm_risk_ale": {
+            "pattern_id": "tm_risk_quantification_ale",
+            "confidence_factors": [
+                "security_budget_justification",
+                "c_level_risk_visibility",
+                "ale_calculation_requirement"
+            ]
+        },
+        "recommend_tm_stride": {
+            "pattern_id": "tm_stride",
+            "confidence_factors": [
+                "standard_security_review",
+                "baseline_threat_mapping"
+            ]
+        },
+        "recommend_cache_cdn": {
+            "pattern_id": "cache_static_global",
+            "confidence_factors": [
+                "global_audience",
+                "static_content_dominance",
+                "egress_cost_sensitivity"
+            ]
+        },
+        "recommend_cache_edge": {
+            "pattern_id": "cache_static_global",
+            "confidence_factors": [
+                "ultra_low_latency_requirement",
+                "regional_presence",
+                "edge_computing_affinity"
+            ]
+        },
+        "recommend_cache_app": {
+            "pattern_id": "cache_app_memory",
+            "confidence_factors": [
+                "hotspot_detection",
+                "repetitive_logic_results",
+                "throughput_bottleneck"
+            ]
+        },
+        "recommend_cache_db": {
+            "pattern_id": "cache_db_materialized",
+            "confidence_factors": [
+                "analytical_query_load",
+                "complex_aggregation_hotspots",
+                "read_heavy_db"
+            ]
+        },
+        "recommend_no_cache_needed": {
+            "pattern_id": "standard_blueprint",
+            "confidence_factors": [
+                "low_traffic_volume",
+                "high_data_volatility",
+                "consistency_priority"
+            ]
+        },
+        "recommend_msg_kafka": {
+            "pattern_id": "msg_bus_kafka",
+            "confidence_factors": [
+                "high_volume_events",
+                "strict_ordering_requirement",
+                "exactly_once_priority"
+            ]
+        },
+        "recommend_msg_rabbitmq": {
+            "pattern_id": "msg_broker_rabbitmq",
+            "confidence_factors": [
+                "complex_routing_logic",
+                "priority_queue_requirement",
+                "legacy_connectivity"
+            ]
+        },
+        "recommend_msg_sqs": {
+            "pattern_id": "msg_queue_sqs",
+            "confidence_factors": [
+                "serverless_affinity",
+                "zero_ops_priority",
+                "variable_traffic_handling"
+            ]
+        },
+        "recommend_msg_managed_resilient": {
+            "pattern_id": "msg_queue_sqs",
+            "confidence_factors": [
+                "high_reliability_requirement",
+                "managed_retry_policies",
+                "dlq_mandate"
+            ]
+        },
+        "recommend_msg_simple": {
+            "pattern_id": "standard_blueprint",
+            "confidence_factors": [
+                "low_complexity_async",
+                "direct_service_invocation",
+                "minimal_messaging_need"
+            ]
+        },
+        "recommend_ec_lww": {
+            "pattern_id": "ec_lww",
+            "confidence_factors": [
+                "low_data_criticality",
+                "stateless_workloads",
+                "simple_replication_needs"
+            ]
+        },
+        "recommend_ec_compensating": {
+            "pattern_id": "ec_vector_clocks",
+            "confidence_factors": [
+                "manual_intervention_possible",
+                "complex_conflict_scenarios",
+                "compensating_action_support"
+            ]
+        },
+        "recommend_ec_event_sourcing": {
+            "pattern_id": "event_sourcing",
+            "confidence_factors": [
+                "audit_requirement",
+                "full_history_needed",
+                "complex_state_reconstruction"
+            ]
+        },
+        "recommend_ec_crdts": {
+            "pattern_id": "ec_crdts",
+            "confidence_factors": [
+                "collaborative_data",
+                "distributed_counters_sets",
+                "merge_automation_priority"
+            ]
+        },
+        "recommend_ec_vector_clocks": {
+            "pattern_id": "ec_vector_clocks",
+            "confidence_factors": [
+                "causal_ordering_needs",
+                "concurrent_update_detection",
+                "distributed_sync_requirement"
+            ]
+        },
+        "recommend_ma_landing_zone": {
+            "pattern_id": "ma_landing_zone_scp",
+            "confidence_factors": [
+                "enterprise_scale",
+                "automated_guardrail_requirement",
+                "high_compliance_mandate"
+            ]
+        },
+        "recommend_ma_full_env_isolation": {
+            "pattern_id": "ma_full_env_isolation",
+            "confidence_factors": [
+                "hard_isolation_requirement",
+                "regulatory_audit_focus",
+                "env_parity_priority"
+            ]
+        },
+        "recommend_ma_product_isolation": {
+            "pattern_id": "ma_product_isolation",
+            "confidence_factors": [
+                "multi_team_decoupling",
+                "accurate_chargeback_needs",
+                "blast_radius_containment"
+            ]
+        },
+        "recommend_ma_single_tagging": {
+            "pattern_id": "ma_single_tagging",
+            "confidence_factors": [
+                "small_team_efficiency",
+                "low_operational_overhead",
+                "single_product_focus"
+            ]
+        },
+        "recommend_sm_istio": {
+            "pattern_id": "sm_full_istio",
+            "confidence_factors": [
+                "advanced_routing_needed",
+                "enterprise_scale_complexity",
+                "deep_observability_priority"
+            ]
+        },
+        "recommend_sm_linkerd": {
+            "pattern_id": "sm_linkerd_light",
+            "confidence_factors": [
+                "performance_first_approach",
+                "operational_simplicity_needed",
+                "standard_observability_sufficient"
+            ]
+        },
+        "recommend_sm_mtls_only": {
+            "pattern_id": "sm_mtls_only",
+            "confidence_factors": [
+                "security_compliance_focus",
+                "medium_service_count",
+                "reduced_operational_capacity"
+            ]
+        },
+        "recommend_plat_serverless": {
+            "pattern_id": "plat_serverless_lambda",
+            "confidence_factors": [
+                "unpredictable_scaling_needs",
+                "pay_per_execution_cost",
+                "reduced_devops_overhead"
+            ]
+        },
+        "recommend_plat_containers": {
+            "pattern_id": "plat_containers_k8s",
+            "confidence_factors": [
+                "consistent_low_latency",
+                "full_runtime_control",
+                "inter_service_mesh_integration"
+            ]
+        },
+        "recommend_fo_reserved_savings": {
+            "pattern_id": "fo_reserved_savings",
+            "confidence_factors": [
+                "stable_long_term_workload",
+                "high_commitment_discount",
+                "predictable_finance_ops"
+            ]
+        },
+        "recommend_fo_rightsizing_ri": {
+            "pattern_id": "fo_dynamic_rightsizing",
+            "confidence_factors": [
+                "underutilized_resources_detected",
+                "cost_efficiency_priority",
+                "dynamic_scaling_capability"
+            ]
+        },
+        "recommend_fo_spot": {
+            "pattern_id": "fo_spot_instances",
+            "confidence_factors": [
+                "fault_tolerant_workload",
+                "high_cost_reduction_impact",
+                "suitable_for_batch_processing"
+            ]
+        },
+        "recommend_fo_showback": {
+            "pattern_id": "fo_showback_chargeback",
+            "confidence_factors": [
+                "multi_team_accountability",
+                "tagging_governance_maturity",
+                "unit_economics_reporting"
+            ]
+        },
+        "recommend_dora_ict_framework": {
+            "pattern_id": "dora_ict_risk_mgmt",
+            "confidence_factors": [
+                "financial_sector_compliance",
+                "governance_accountability_required",
+                "ict_risk_policy_mandate"
+            ]
+        },
+        "recommend_dora_art10_resilience": {
+            "pattern_id": "dora_art10_recovery",
+            "confidence_factors": [
+                "critical_function_resilience",
+                "rto_rpo_regulatory_alignment",
+                "multi_region_failover_required"
+            ]
+        },
+        "recommend_dora_art8_protection": {
+            "pattern_id": "dora_art8_prevention",
+            "confidence_factors": [
+                "advanced_access_control_need",
+                "strong_cryptography_mandate",
+                "network_segregation_required"
+            ]
+        },
+        "recommend_dora_full_compliance": {
+            "pattern_id": "dora_ict_risk_mgmt",
+            "confidence_factors": [
+                "full_resilience_operational_readiness",
+                "major_incident_reporting_compliance",
+                "integrated_ict_risk_framework"
+            ]
+        },
+        "recommend_tprm_non_critical": {
+            "pattern_id": "tprm_critical_provider",
+            "confidence_factors": [
+                "low_operational_impact",
+                "baseline_due_diligence",
+                "non_sensitive_data_handling"
+            ]
+        },
+        "recommend_tprm_standard_control": {
+            "pattern_id": "tprm_critical_provider",
+            "confidence_factors": [
+                "contractual_alignment_dora",
+                "monitored_external_dependency",
+                "standard_due_diligence_audit"
+            ]
+        },
+        "recommend_tprm_resilient_vendor": {
+            "pattern_id": "tprm_critical_provider",
+            "confidence_factors": [
+                "multi_vendor_redundancy",
+                "agnostic_architecture_enabled",
+                "systemic_risk_mitigated",
+                "exit_strategy_verified"
+            ]
+        },
+        "recommend_tprm_exit_plan_needed": {
+            "pattern_id": "tprm_exit_strategy",
+            "confidence_factors": [
+                "concentration_risk_detected",
+                "technical_lockin_identified",
+                "regulatory_exit_mandate"
+            ]
+        },
+        "recommend_resilience_tlpt": {
+            "pattern_id": "resilience_testing_advanced",
+            "confidence_factors": [
+                "significant_entity_status",
+                "high_critical_function_exposure",
+                "mandatory_regulatory_validation"
+            ]
+        },
+        "recommend_resilience_red_team": {
+            "pattern_id": "tiber_eu_framework",
+            "confidence_factors": [
+                "mature_soc_presence",
+                "need_for_adversarial_validation",
+                "continuous_improvement_focus"
+            ]
+        },
+        "recommend_resilience_scenario_testing": {
+            "pattern_id": "threat_simulation_scenario",
+            "confidence_factors": [
+                "theoretical_validation_need",
+                "non_systemic_entity",
+                "budget_optimized_testing"
+            ]
+        },
+        "recommend_urrse_technical_focus": {
+            "pattern_id": "unified_risk_engine",
+            "confidence_factors": [
+                "critical_technical_debt",
+                "security_control_gaps",
+                "high_technical_risk_index"
+            ]
+        },
+        "recommend_urrse_resilience_focus": {
+            "pattern_id": "unified_risk_engine",
+            "confidence_factors": [
+                "resilience_testing_failures",
+                "rto_rpo_non_compliance",
+                "high_operational_risk_index"
+            ]
+        },
+        "recommend_urrse_tprm_focus": {
+            "pattern_id": "unified_risk_engine",
+            "confidence_factors": [
+                "supply_chain_concentration",
+                "lack_of_exit_strategies",
+                "high_third_party_risk_index"
+            ]
+        },
+        "recommend_urrse_compliance_focus": {
+            "pattern_id": "unified_risk_engine",
+            "confidence_factors": [
+                "regulatory_evidence_gaps",
+                "dora_mandate_urgency",
+                "high_compliance_risk_index"
+            ]
+        },
+        "recommend_saas_isolation_strict": {
+            "pattern_id": "multi_tenant_isolation_strict",
+            "confidence_factors": [
+                "financial_sector_compliance",
+                "high_data_sensitivity",
+                "regulatory_segregation_mandate"
+            ]
+        },
+        "recommend_saas_hybrid_stack": {
+            "pattern_id": "data_stack_hybrid_risk",
+            "confidence_factors": [
+                "graph_based_threat_modeling",
+                "time_series_metrics_requirement",
+                "complex_dependency_mapping"
+            ]
+        },
+        "recommend_saas_standard_stack": {
+            "pattern_id": "saas_resilience_engine",
+            "confidence_factors": [
+                "b2b_saas_foundational_design",
+                "standard_relational_data",
+                "rapid_mvp_requirement"
+            ]
+        },
+        "recommend_dora_ict_framework_refinement": {
+            "pattern_id": "dora_ict_risk_framework_full",
+            "confidence_factors": [
+                "mandatory_regulatory_alignment",
+                "board_oversight_required",
+                "critical_provider_status"
+            ]
+        },
+        "recommend_dora_art7_gap": {
+            "pattern_id": "dora_art7_identification",
+            "confidence_factors": [
+                "lack_of_asset_inventory",
+                "undefined_critical_functions",
+                "compliance_risk_high"
+            ]
+        },
+        "recommend_dora_art9_gap": {
+            "pattern_id": "dora_art9_detection",
+            "confidence_factors": [
+                "insufficient_logging_soc",
+                "unmonitored_critical_paths",
+                "regulatory_detection_failure"
+            ]
+        },
+        "recommend_dora_art11_gap": {
+            "pattern_id": "dora_art11_reporting_auto",
+            "confidence_factors": [
+                "manual_reporting_latency",
+                "regulatory_timeline_risk",
+                "automated_compliance_need"
+            ]
+        },
+        "recommend_incident_management_automated": {
+            "pattern_id": "major_ict_incident",
+            "confidence_factors": [
+                "critical_classification_latency",
+                "regulatory_timer_failure_risk",
+                "need_for_automated_playbooks"
+            ]
+        },
+        "recommend_tiber_eu_red_team": {
+            "pattern_id": "tiber_eu_framework",
+            "confidence_factors": [
+                "systemic_risk_entity",
+                "advanced_adversary_simulation_need",
+                "tlpt_mandate_compliance"
+            ]
+        },
+        "recommend_continuous_adversarial_simulation": {
+            "pattern_id": "resilience_testing_advanced",
+            "confidence_factors": [
+                "high_maturity_soc",
+                "need_for_real_time_resilience_validation",
+                "automated_adversary_emulation"
+            ]
+        },
+        "recommend_tprm_chained_risk_gap": {
+            "pattern_id": "chain_dependency_risk",
+            "confidence_factors": [
+                "unknown_sub_provider_exposure",
+                "lack_of_L3_dependency_mapping",
+                "potential_hidden_concentration_risk"
+            ]
+        },
+        "recommend_ci_dependency_map": {
+            "pattern_id": "dependency_graph_model",
+            "confidence_factors": [
+                "complex_service_interdependencies",
+                "need_for_ci_prioritization",
+                "spof_visibility_requirement"
+            ]
+        },
+        "recommend_gdpr_pseudonymization": {
+            "pattern_id": "pseudonymization_strategy",
+            "confidence_factors": [
+                "production_data_access_needed",
+                "reversible_privacy_requirement",
+                "regulatory_risk_mitigation"
+            ]
+        },
+        "recommend_gdpr_anonymization": {
+            "pattern_id": "anonymization_advanced",
+            "confidence_factors": [
+                "irreversibility_priority",
+                "third_party_sharing",
+                "gdpr_exit_strategy"
+            ]
+        },
+        "recommend_gdpr_k_anonymity": {
+            "pattern_id": "anonymization_advanced",
+            "confidence_factors": [
+                "statistical_utility_high",
+                "internal_analytical_utility_needed",
+                "batch_processing_vulnerability"
+            ]
+        },
+        "recommend_gdpr_differential_privacy": {
+            "pattern_id": "anonymization_advanced",
+            "confidence_factors": [
+                "extreme_reidentification_protection",
+                "public_data_sharing_risk",
+                "mathematical_privacy_guarantees"
+            ]
+        },
+        "recommend_gdpr_synthetic_data": {
+            "pattern_id": "anonymization_advanced",
+            "confidence_factors": [
+                "zero_pii_testing_policy",
+                "safe_qa_environment_needed",
+                "high_fidelity_test_data"
+            ]
+        },
+        "recommend_gdpr_crypto_shredding": {
+            "pattern_id": "crypto_shredding",
+            "confidence_factors": [
+                "right_to_be_forgotten_mandate",
+                "cloud_hardware_abstraction",
+                "high_assurance_deletion"
+            ]
+        },
+        "recommend_gdpr_ttl_enforcement": {
+            "pattern_id": "automated_ttl_enforcement",
+            "confidence_factors": [
+                "minimization_principle",
+                "storage_cost_optimization",
+                "lifecycle_automation_need"
+            ]
+        },
+        "recommend_gdpr_segmented_retention": {
+            "pattern_id": "automated_ttl_enforcement",
+            "confidence_factors": [
+                "legal_conflict_resolution",
+                "aml_gdpr_balancing",
+                "multi_purpose_data_handling"
+            ]
+        },
+        "recommend_gdpr_standard_deletion": {
+            "pattern_id": "automated_ttl_enforcement",
+            "confidence_factors": [
+                "standard_minimization_need",
+                "low_audit_complexity",
+                "non_critical_data_purge"
+            ]
+        },
+        "recommend_gdpr_dpia_automated": {
+            "pattern_id": "dpia_automated_scoring",
+            "confidence_factors": [
+                "mandatory_art35_assessment",
+                "high_risk_data_processing",
+                "regulatory_compliance_mandate"
+            ]
+        },
+        "recommend_gdpr_algorithmic_assessment": {
+            "pattern_id": "algorithmic_impact_assessment",
+            "confidence_factors": [
+                "automated_decision_making",
+                "ai_ethics_audit_requirement",
+                "profiling_with_legal_effects"
+            ]
+        },
+        "recommend_standard_lockdown": {
+            "pattern_id": "standard_blueprint",
+            "confidence_factors": [
+                "eu_data_residency",
+                "no_international_flows"
+            ]
+        },
+        "recommend_adequacy_monitor": {
+            "pattern_id": "tia_automation",
+            "confidence_factors": [
+                "adequate_jurisdiction",
+                "ongoing_monitoring"
+            ]
+        },
+        "recommend_scc_standard": {
+            "pattern_id": "tia_automation",
+            "confidence_factors": [
+                "non_adequate_jurisdiction",
+                "scc_required"
+            ]
+        },
+        "recommend_eu_controlled_encryption": {
+            "pattern_id": "eu_controlled_kms",
+            "confidence_factors": [
+                "high_jurisdictional_risk",
+                "schrems_ii_mitigation",
+                "sovereign_keys"
+            ]
+        },
+        "recommend_immutable_audit": {
+            "pattern_id": "immutable_audit_logging",
+            "confidence_factors": [
+                "dora_compliance_mandate",
+                "high_assurance_evidence",
+                "tamper_proof_audit_trail"
+            ]
+        },
+        "recommend_bde_isolated_segment": {
+            "pattern_id": "isolated_financial_segment",
+            "confidence_factors": [
+                "bde_4_2017_compliance",
+                "financial_data_isolation",
+                "operational_risk_mitigation"
+            ]
+        },
+        "recommend_bde_dual_control": {
+            "pattern_id": "dual_control_op",
+            "confidence_factors": [
+                "segregation_of_duties_mandate",
+                "critical_operation_protection",
+                "board_level_accountability"
+            ]
+        },
+        "recommend_bde_change_mgmt": {
+            "pattern_id": "change_management_governance",
+            "confidence_factors": [
+                "system_reliability_requirement",
+                "traceable_deployment_history",
+                "rollback_guarantee"
+            ]
+        },
+        "recommend_sca_full": {
+            "pattern_id": "sca_multi_factor",
+            "confidence_factors": [
+                "psd2_compliance_mandate",
+                "rts_sca_requirement",
+                "high_fraud_prevention_need"
+            ]
+        },
+        "recommend_tra_engine": {
+            "pattern_id": "tra_risk_engine",
+            "confidence_factors": [
+                "frictionless_checkout_priority",
+                "low_fraud_rate_track_record",
+                "transaction_risk_analysis_mandate"
+            ]
+        },
+        "recommend_3ds2_base": {
+            "pattern_id": "3ds2_protocol",
+            "confidence_factors": [
+                "ecommerce_flow_optimization",
+                "frictionless_auth_need",
+                "mobile_native_support"
+            ]
+        },
+        "recommend_dynamic_linking": {
+            "pattern_id": "dynamic_linking_vault",
+            "confidence_factors": [
+                "remote_payment_integrity",
+                "mitm_risk_mitigation",
+                "psd2_dynamic_linking_mandate"
+            ]
+        },
+        "recommend_kyc_biometrics": {
+            "pattern_id": "kyc_automated_biometrics",
+            "confidence_factors": [
+                "remote_onboarding_compliance",
+                "sepblac_identity_verification_mandate",
+                "fraud_prevention_at_onboarding"
+            ]
+        },
+        "recommend_ubo_registry": {
+            "pattern_id": "ubo_registry_immutable",
+            "confidence_factors": [
+                "corporate_customer_onboarding",
+                "ultimate_beneficial_owner_traceability",
+                "ley_10_2010_compliance"
+            ]
+        },
+        "recommend_aml_monitoring": {
+            "pattern_id": "transaction_monitoring_realtime",
+            "confidence_factors": [
+                "financial_transaction_monitoring_mandate",
+                "atypical_operation_detection",
+                "aml_continuous_supervision"
+            ]
+        },
+        "recommend_aml_rba": {
+            "pattern_id": "aml_rba_engine",
+            "confidence_factors": [
+                "risk_based_approach_mandate",
+                "customer_risk_categorization",
+                "regulatory_proportionality"
+            ]
+        },
+        "recommend_sepblac_connector": {
+            "pattern_id": "sepblac_reporting_connector",
+            "confidence_factors": [
+                "regulatory_reporting_automation",
+                "suspicious_activity_reporting",
+                "sepblac_readiness"
+            ]
+        },
+        "recommend_suitability_hub": {
+            "pattern_id": "investor_suitability_hub",
+            "confidence_factors": [
+                "mifid_ii_compliance_mandate",
+                "investor_protection_automation",
+                "algorithmic_explainability_requirement"
+            ]
+        },
+        "recommend_crowdfunding_segregation": {
+            "pattern_id": "crowdfunding_escrow_segregation",
+            "confidence_factors": [
+                "ecsp_regulation_compliance",
+                "investor_cooling_off_protection",
+                "asset_segregation_requirement"
+            ]
+        },
+        "recommend_mica_custody": {
+            "pattern_id": "crypto_cold_storage_hsm",
+            "confidence_factors": [
+                "high_assurance_crypto_custody",
+                "mica_hardened_security_mandate",
+                "private_key_segregation"
+            ]
+        },
+        "recommend_mica_governance": {
+            "pattern_id": "mica_governance_framework",
+            "confidence_factors": [
+                "crypto_asset_service_provider_regulation",
+                "regulated_whitepaper_versioning",
+                "mica_procedural_alignment"
+            ]
+        },
+        "recommend_market_abuse_monitoring": {
+            "pattern_id": "market_abuse_monitoring",
+            "confidence_factors": [
+                "cnmv_market_integrity_mandate",
+                "wash_trading_detection",
+                "suspicious_order_flow_analysis"
+            ]
+        },
+        "recommend_standard_logging": {
+            "pattern_id": "standard_blueprint",
+            "confidence_factors": [
+                "low_governance_risk",
+                "standard_operational_visibility"
+            ]
+        }
+    }
+}
