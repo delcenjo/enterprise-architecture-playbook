@@ -1,0 +1,125 @@
+{
+    "AML_LEY_10_2010": {
+        "name": "AML/PBC Ley 10/2010 (España)",
+        "type": "AML",
+        "level": "National",
+        "requirements": [
+            "Formal client identification (KYC)",
+            "Ultimate Beneficial Owner (UBO) identification",
+            "Real-time transaction monitoring",
+            "Suspicious Activity Reporting (SAR/ROS) to SEPBLAC",
+            "10-year immutable document retention"
+        ],
+        "metrics": [
+            "kyc_completion_rate",
+            "transaction_monitoring_latency",
+            "alert_false_positive_ratio"
+        ],
+        "risk_associated": "High",
+        "relationships": {
+            "complements": [
+                "GDPR",
+                "PSD2",
+                "MiCA"
+            ],
+            "conflicts": [
+                "GDPR_Minimization"
+            ]
+        }
+    },
+    "PSD2_SCA": {
+        "name": "PSD2 Strong Customer Authentication (EU)",
+        "type": "Payments",
+        "level": "European",
+        "requirements": [
+            "Multi-factor authentication (2 of 3)",
+            "Dynamic linking for transactions",
+            "Transaction Risk Analysis (TRA) for exemptions",
+            "Open Banking API security enforcement"
+        ],
+        "metrics": [
+            "sca_success_rate",
+            "fraud_rate_tra_threshold",
+            "api_availability_uptime"
+        ],
+        "risk_associated": "High",
+        "relationships": {
+            "requires": [
+                "AML_LEY_10_2010"
+            ],
+            "complements": [
+                "DORA"
+            ]
+        }
+    },
+    "MiFID_II": {
+        "name": "MiFID II Investor Protection (EU)",
+        "type": "Inversor",
+        "level": "European",
+        "requirements": [
+            "Investor categorization (Retail vs Professional)",
+            "Suitability and knowledge tests",
+            "Algorithmic explainability for advisor engines",
+            "Best execution policy documentation"
+        ],
+        "metrics": [
+            "suitability_pass_rate",
+            "rebalancing_trail_integrity",
+            "investor_risk_divergence"
+        ],
+        "risk_associated": "Medium",
+        "relationships": {
+            "complements": [
+                "GDPR",
+                "AML_LEY_10_2010"
+            ]
+        }
+    },
+    "MiCA_CASP": {
+        "name": "MiCA Crypto Asset Service Provider (EU)",
+        "type": "Cripto",
+        "level": "European",
+        "requirements": [
+            "CASP authorization and capital requirements",
+            "Secured asset custody (HSM/Cold Storage)",
+            "Market abuse monitoring and reporting",
+            "Regulated Whitepaper publication"
+        ],
+        "metrics": [
+            "cold_storage_balance_ratio",
+            "hsms_availability",
+            "market_abuse_alert_speed"
+        ],
+        "risk_associated": "Very High",
+        "relationships": {
+            "requires": [
+                "AML_LEY_10_2010"
+            ],
+            "complements": [
+                "GDPR"
+            ]
+        }
+    },
+    "GDPR_EU": {
+        "name": "GDPR General Data Protection Regulation (EU)",
+        "type": "Data",
+        "level": "European",
+        "requirements": [
+            "Data minimization and purpose limitation",
+            "User rights management (ARCO-POL)",
+            "Privacy by Design and Default",
+            "Data protection impact assessments (DPIA)"
+        ],
+        "metrics": [
+            "encryption_coverage_ratio",
+            "dsar_response_time",
+            "pii_data_leakage_events"
+        ],
+        "risk_associated": "Very High",
+        "relationships": {
+            "conflicts": [
+                "AML_10_Year_Retention"
+            ]
+        }
+    }
+}

@@ -1,0 +1,48 @@
+[
+    {
+        "case_id": "aml_large_tx_2025",
+        "normativa_aplicada": "AML_LEY_10_2010",
+        "context": {
+            "volumen_tx": "15,000€/day",
+            "tipo_cliente": "Corporativo",
+            "high_risk_jurisdiction": false
+        },
+        "acciones": [
+            "KYC documentation refresh",
+            "UBO verification completed",
+            "Manual alert review for PEP detection"
+        ],
+        "resultados": {
+            "riesgo_residual": "Medium",
+            "tiempo_respuesta": "4h",
+            "audit_trail": "Verified"
+        },
+        "lecciones": [
+            "Automating recurring corporate alerts reduce risk to Low",
+            "Direct API connection to UBO registry is critical"
+        ]
+    },
+    {
+        "case_id": "crypto_hack_response_mica",
+        "normativa_aplicada": "MiCA_CASP",
+        "context": {
+            "event": "Suspected Hot Wallet leakage",
+            "protocol": "Ethereum Bridge",
+            "assets_affected": "High"
+        },
+        "acciones": [
+            "Automated cold storage sweep",
+            "Incident reporting to CNMV within 24h",
+            "Private key rotation triggered"
+        ],
+        "resultados": {
+            "riesgo_residual": "High",
+            "loss_contained": "95%",
+            "regulatory_status": "Cooperating"
+        },
+        "lecciones": [
+            "HSM-based withdrawal limits are the last line of defense",
+            "DORA incident taxonomy should be used for CNMV reporting"
+        ]
+    }
+]

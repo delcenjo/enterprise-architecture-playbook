@@ -1,0 +1,105 @@
+{
+    "root": {
+        "question": "Initialize compliance evaluation?",
+        "options": {
+            "start": "residency_check"
+        }
+    },
+    "residency_check": {
+        "question": "Are customers resident in the EU/Spain?",
+        "options": {
+            "yes": "gdpr_aml_base",
+            "no": "aml_global"
+        }
+    },
+    "gdpr_aml_base": {
+        "question": "Apply EU-Base (GDPR + AML)?",
+        "options": {
+            "yes": "transaction_threshold_check"
+        }
+    },
+    "transaction_threshold_check": {
+        "question": "Average transaction value > 1,000€?",
+        "options": {
+            "yes": "high_scrutiny_audit",
+            "no": "standard_monitoring"
+        }
+    },
+    "high_scrutiny_audit": {
+        "question": "Proceed to asset-specific checks?",
+        "options": {
+            "yes": "asset_class_evaluation"
+        }
+    },
+    "standard_monitoring": {
+        "question": "Proceed to asset-specific checks?",
+        "options": {
+            "yes": "asset_class_evaluation"
+        }
+    },
+    "asset_class_evaluation": {
+        "question": "Identify asset types involved?",
+        "options": {
+            "fiat_payments": "leaf_psd2_aml",
+            "investments_retail": "leaf_mifid_aml",
+            "crypto_assets": "leaf_mica_aml",
+            "multi_asset": "leaf_full_reg_stack"
+        }
+    },
+    "leaves": {
+        "leaf_psd2_aml": {
+            "compliance_indices": [
+                "AML_LEY_10_2010",
+                "PSD2_SCA",
+                "GDPR_EU"
+            ],
+            "base_score": 85,
+            "actions": [
+                "Enable SCA",
+                "KYC Biometrics",
+                "10y Retention"
+            ]
+        },
+        "leaf_mifid_aml": {
+            "compliance_indices": [
+                "AML_LEY_10_2010",
+                "MiFID_II",
+                "GDPR_EU"
+            ],
+            "base_score": 80,
+            "actions": [
+                "Suitability Test",
+                "Investor Profiling",
+                "KYC"
+            ]
+        },
+        "leaf_mica_aml": {
+            "compliance_indices": [
+                "AML_LEY_10_2010",
+                "MiCA_CASP",
+                "GDPR_EU"
+            ],
+            "base_score": 75,
+            "actions": [
+                "Custody Segregation",
+                "HSM Hardening",
+                "SAR Reporting"
+            ]
+        },
+        "leaf_full_reg_stack": {
+            "compliance_indices": [
+                "AML_LEY_10_2010",
+                "PSD2_SCA",
+                "MiFID_II",
+                "MiCA_CASP",
+                "GDPR_EU"
+            ],
+            "base_score": 60,
+            "actions": [
+                "Unified Compliance Engine",
+                "DPO Oversight",
+                "Institutional Hub"
+            ]
+        }
+    }
+}

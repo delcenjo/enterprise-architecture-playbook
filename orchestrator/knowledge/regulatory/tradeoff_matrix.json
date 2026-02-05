@@ -1,0 +1,37 @@
+{
+    "AML_LEY_10_2010": {
+        "infra_cost": "Medium",
+        "operational_cost": "High",
+        "ux_impact": "Medium",
+        "breach_risk": "Muy Alto",
+        "optimization_strategy": "Automate KYC to reduce op-cost without increasing risk"
+    },
+    "PSD2_SCA": {
+        "infra_cost": "Medium",
+        "operational_cost": "Medium",
+        "ux_impact": "High",
+        "breach_risk": "Alto",
+        "optimization_strategy": "Leverage TRA exemptions to restore UX excellence"
+    },
+    "MiFID_II": {
+        "infra_cost": "Low",
+        "operational_cost": "High",
+        "ux_impact": "High",
+        "breach_risk": "Alto",
+        "optimization_strategy": "Embed test into onboarding UI to avoid bounce"
+    },
+    "MiCA_CASP": {
+        "infra_cost": "High",
+        "operational_cost": "Medium",
+        "ux_impact": "Medium",
+        "breach_risk": "Muy Alto",
+        "optimization_strategy": "Shared HSM infrastructure for scalability"
+    },
+    "GDPR_EU": {
+        "infra_cost": "Medium",
+        "operational_cost": "Medium",
+        "ux_impact": "Low",
+        "breach_risk": "Muy Alto",
+        "optimization_strategy": "Immutable logging for compliance without user friction"
+    }
+}
