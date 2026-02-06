@@ -1,0 +1,20 @@
+{
+    "Metrics": {
+        "complejidad": "Media",
+        "coste_mensual": 500,
+        "riesgo_no_implementar": "Alto",
+        "impacto_diagnostico": "Rápida detección de errores"
+    },
+    "Logs": {
+        "complejidad": "Alta",
+        "coste_mensual": 700,
+        "riesgo_no_implementar": "Alto",
+        "impacto_diagnostico": "Auditoría + debugging"
+    },
+    "Traces": {
+        "complejidad": "Media-Alta",
+        "coste_mensual": 400,
+        "riesgo_no_implementar": "Medio",
+        "impacto_diagnostico": "Identificación de dependencias"
+    }
+}

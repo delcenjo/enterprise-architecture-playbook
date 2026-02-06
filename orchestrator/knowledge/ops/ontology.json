@@ -1,0 +1,71 @@
+{
+    "Metrics": {
+        "pilar": "Metrics",
+        "descripcion": "Recolecta datos numéricos de performance en tiempo real (CPU, memoria, requests)",
+        "herramientas": [
+            "Prometheus",
+            "Grafana"
+        ],
+        "cobertura": "Aplicación + Infraestructura",
+        "frecuencia": "15s polling interval",
+        "coste_estimado": 500,
+        "riesgo_no_impl": "High",
+        "metricas_clave": [
+            "CPU usage %",
+            "Memory usage MB",
+            "Request latency ms",
+            "Error rate %"
+        ],
+        "dependencias": [
+            "Exporter configurado",
+            "Endpoints instrumentados"
+        ]
+    },
+    "Logs": {
+        "pilar": "Logs",
+        "descripcion": "Recolecta y centraliza logs de sistemas y aplicaciones para análisis y debugging",
+        "herramientas": [
+            "ELK",
+            "Loki",
+            "Fluentd",
+            "Filebeat"
+        ],
+        "cobertura": "Infraestructura + Aplicación",
+        "frecuencia": "Streaming en tiempo real",
+        "coste_estimado": 700,
+        "riesgo_no_impl": "High",
+        "metricas_clave": [
+            "Error count",
+            "Warning count",
+            "Log volume GB/day"
+        ],
+        "dependencias": [
+            "Agentes de log",
+            "Retención definida",
+            "Parsing rules"
+        ]
+    },
+    "Traces": {
+        "pilar": "Traces",
+        "descripcion": "Seguimiento de requests distribuidas para analizar latencia y dependencia entre servicios",
+        "herramientas": [
+            "Jaeger",
+            "Tempo",
+            "OpenTelemetry"
+        ],
+        "cobertura": "End-to-End",
+        "frecuencia": "Tail-based sampling (1-10% por defecto)",
+        "coste_estimado": 400,
+        "riesgo_no_impl": "Medium",
+        "metricas_clave": [
+            "Trace duration ms",
+            "Span count",
+            "Error spans"
+        ],
+        "dependencias": [
+            "Instrumentación de código",
+            "Propagación context",
+            "Sampling config"
+        ]
+    }
+}
