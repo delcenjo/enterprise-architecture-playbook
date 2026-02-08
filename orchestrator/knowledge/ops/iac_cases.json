@@ -1,0 +1,27 @@
+{
+    "cases": [
+        {
+            "id": "ecommerce_platform_2024",
+            "customer": "RetailMax",
+            "scenario": {
+                "stack": "AWS Multi-account (Network, Compute, SQL, Storage)",
+                "environments": "dev, staging, prod"
+            },
+            "implementation": {
+                "tool": "Terraform",
+                "state": "S3 + DynamoDB locking",
+                "modules": "Hierarchical (VPC -> EKS -> RDS)",
+                "validation": "Terratest for network connectivity"
+            },
+            "results": {
+                "consistency": "100% environment alignment",
+                "deployment_speed": "50% reduction in setup time",
+                "incidents": "Zero config-related production outages"
+            },
+            "lessons": [
+                "Drift detection is critical to prevent 'snowflakes' in production.",
+                "Remote state locking is non-negotiable for team environments."
+            ]
+        }
+    ]
+}

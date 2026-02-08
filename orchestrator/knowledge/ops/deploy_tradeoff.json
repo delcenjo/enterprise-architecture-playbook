@@ -1,0 +1,25 @@
+{
+    "matrix": [
+        {
+            "strategy": "Blue-Green",
+            "complexity": "Medium",
+            "cost": "High",
+            "risk": "Low",
+            "benefit": "Zero downtime, instant rollback."
+        },
+        {
+            "strategy": "Canary",
+            "complexity": "High",
+            "cost": "Medium",
+            "risk": "Medium",
+            "benefit": "Early error detection, limited blast radius."
+        },
+        {
+            "strategy": "Feature Flags",
+            "complexity": "Medium",
+            "cost": "Low",
+            "risk": "Low-Medium",
+            "benefit": "Real-time control, A/B testing capability."
+        }
+    ]
+}

@@ -1,0 +1,66 @@
+{
+    "nodes": {
+        "root": {
+            "question": "Is zero-downtime a critical requirement for every deployment?",
+            "options": {
+                "yes": "scale_check",
+                "no": "canary_check"
+            }
+        },
+        "scale_check": {
+            "question": "Is the infrastructure cost of maintaining a double environment (Blue-Green) acceptable?",
+            "options": {
+                "yes": "recommend_blue_green",
+                "no": "canary_check"
+            }
+        },
+        "canary_check": {
+            "question": "Do you need to validate the release with a small subset of real users before full rollout?",
+            "options": {
+                "yes": "recommend_canary",
+                "no": "feature_flag_check"
+            }
+        },
+        "feature_flag_check": {
+            "question": "Do you need to toggle features dynamically for specific user segments (A/B testing)?",
+            "options": {
+                "yes": "recommend_feature_flags",
+                "no": "recommend_standard_rolling"
+            }
+        }
+    },
+    "leaves": {
+        "recommend_blue_green": {
+            "strategy": "Blue-Green Deployment",
+            "reasoning": "Priority is zero-downtime and instant rollback with double-environment safety.",
+            "pillars": [
+                "Environment Mirroring",
+                "DNS/LoadBalancer Switching"
+            ]
+        },
+        "recommend_canary": {
+            "strategy": "Canary Deployment",
+            "reasoning": "Priority is limiting blast radius and early detection of errors in production.",
+            "pillars": [
+                "Traffic Splitting",
+                "Automated Canary Analysis"
+            ]
+        },
+        "recommend_feature_flags": {
+            "strategy": "Feature Flags / Dark Launches",
+            "reasoning": "Priority is decoupling code shipping from feature activation and targeted testing.",
+            "pillars": [
+                "Feature Management",
+                "Gradual Rollout"
+            ]
+        },
+        "recommend_standard_rolling": {
+            "strategy": "Standard Rolling Update",
+            "reasoning": "Appropriate for applications with moderate downtime tolerance or low complexity.",
+            "pillars": [
+                "Kubernetes Deployment",
+                "Health Checks"
+            ]
+        }
+    }
+}

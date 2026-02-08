@@ -1,0 +1,60 @@
+{
+    "nodes": {
+        "root": {
+            "question": "Is your infrastructure complex, multi-account, or multi-region?",
+            "options": {
+                "yes": "terraform_mandate",
+                "no": "language_preference_check"
+            }
+        },
+        "terraform_mandate": {
+            "question": "Is industry-standard state management and drift detection a priority?",
+            "options": {
+                "yes": "recommend_terraform_enterprise",
+                "no": "language_preference_check"
+            }
+        },
+        "language_preference_check": {
+            "question": "Does your team prefer using general programming languages (Python, TS) over HCL?",
+            "options": {
+                "yes": "recommend_pulumi_cdk",
+                "no": "recommend_terraform_basic"
+            }
+        },
+        "testing_requirement": {
+            "question": "Is automated infrastructure testing (unit/integration) mandatory?",
+            "options": {
+                "yes": "add_terratest_logic",
+                "no": "standard_iac"
+            }
+        }
+    },
+    "leaves": {
+        "recommend_terraform_enterprise": {
+            "strategy": "Modular Terraform (Enterprise Stack)",
+            "reasoning": "High complexity requires robust state locking, modularity, and established drift detection.",
+            "pillars": [
+                "Terraform Modules",
+                "Remote State (S3/DynamoDB)",
+                "Drift Detection"
+            ]
+        },
+        "recommend_pulumi_cdk": {
+            "strategy": "Cloud Native IaC (Pulumi/CDK)",
+            "reasoning": "Team preference for general languages enables easier unit testing and logic-heavy infra.",
+            "pillars": [
+                "Pulumi/CDK",
+                "Unit Testing",
+                "Dev-centric workflows"
+            ]
+        },
+        "recommend_terraform_basic": {
+            "strategy": "Standard Terraform",
+            "reasoning": "Proven industry standard for declarative infrastructure with low learning curve.",
+            "pillars": [
+                "Terraform",
+                "Local/Remote State"
+            ]
+        }
+    }
+}

@@ -1,0 +1,47 @@
+{
+    "DeploymentStrategies": {
+        "concepto": "Estrategias de despliegue continuo",
+        "descripcion": "Métodos para actualizar aplicaciones minimizando riesgo y downtime.",
+        "tipos": {
+            "BlueGreen": {
+                "objetivo": "Alternar tráfico entre dos entornos idénticos.",
+                "beneficios": [
+                    "Downtime casi 0",
+                    "Rollback inmediato"
+                ],
+                "riesgos": [
+                    "Coste infraestructura doble",
+                    "Sincronización de datos persistentes"
+                ]
+            },
+            "Canary": {
+                "objetivo": "Rollout gradual a un subset de usuarios.",
+                "beneficios": [
+                    "Detección temprana de errores",
+                    "Blast radius limitado"
+                ],
+                "riesgos": [
+                    "Complejidad en monitoreo",
+                    "Gestión de tráfico por porcentaje"
+                ]
+            },
+            "FeatureFlags": {
+                "objetivo": "Desacoplar despliegue de activación de features.",
+                "beneficios": [
+                    "Testing A/B",
+                    "Rollout controlado por usuario"
+                ],
+                "riesgos": [
+                    "Deuda técnica si no se limpian",
+                    "Complejidad lógica en código"
+                ]
+            }
+        },
+        "herramientas_comunes": [
+            "ArgoCD",
+            "LaunchDarkly",
+            "Flagger",
+            "Spinnaker"
+        ]
+    }
+}

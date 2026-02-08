@@ -1,0 +1,68 @@
+{
+    "nodes": {
+        "root": {
+            "question": "Is your infrastructure defined as Code (IaC) and declarative?",
+            "options": {
+                "yes": "deployment_frequency_check",
+                "no": "recommend_prepare_iac"
+            }
+        },
+        "deployment_frequency_check": {
+            "question": "Do you perform frequent deployments (>1 per day)?",
+            "options": {
+                "yes": "multi_cluster_check",
+                "no": "audit_requirement_check"
+            }
+        },
+        "multi_cluster_check": {
+            "question": "Do you manage multiple clusters or environments?",
+            "options": {
+                "yes": "recommend_gitops_argocd",
+                "no": "audit_requirement_check"
+            }
+        },
+        "audit_requirement_check": {
+            "question": "Is a strict audit trail of infrastructure changes mandatory?",
+            "options": {
+                "yes": "recommend_gitops_flux",
+                "no": "recommend_standard_cicd"
+            }
+        }
+    },
+    "leaves": {
+        "recommend_prepare_iac": {
+            "strategy": "Prepare IaC First",
+            "reasoning": "GitOps requires a declarative state (Terraform/Helm) to function.",
+            "pillars": [
+                "IaC Adoption",
+                "Git Branching Strategy"
+            ]
+        },
+        "recommend_gitops_argocd": {
+            "strategy": "GitOps with ArgoCD (Full Sync)",
+            "reasoning": "High frequency and multi-cluster complexity require robust drift detection and UI visibility.",
+            "pillars": [
+                "ArgoCD",
+                "Drift Detection",
+                "Automated Sync"
+            ]
+        },
+        "recommend_gitops_flux": {
+            "strategy": "GitOps with Flux (Lightweight)",
+            "reasoning": "Focus on consistency and auditability with a minimalist, Kubernetes-native approach.",
+            "pillars": [
+                "Flux",
+                "Git Source Controller",
+                "Audit Trail"
+            ]
+        },
+        "recommend_standard_cicd": {
+            "strategy": "Standard CI/CD + IaC",
+            "reasoning": "GitOps might be overkill for low-frequency, single-environment deployments.",
+            "pillars": [
+                "GitHub Actions/GitLab CI",
+                "IaC Pipelines"
+            ]
+        }
+    }
+}

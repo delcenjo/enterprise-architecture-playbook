@@ -1,0 +1,25 @@
+{
+    "matrix": [
+        {
+            "tool": "Terraform",
+            "language": "HCL (Declarative)",
+            "ecosystem": "Largest",
+            "state_control": "Excellent",
+            "best_for": "Platform engineering, multi-cloud complexity"
+        },
+        {
+            "tool": "Pulumi/CDK",
+            "language": "Procedural (Python, TS, etc.)",
+            "ecosystem": "Growing / Dev-centric",
+            "state_control": "Good",
+            "best_for": "Developers managing their own infra"
+        },
+        {
+            "tool": "Manual / Scripts",
+            "language": "Bash / Console",
+            "ecosystem": "N/A",
+            "state_control": "None",
+            "best_for": "Exploration, ephemeral lab experiments"
+        }
+    ]
+}
