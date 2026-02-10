@@ -1,0 +1,84 @@
+{
+    "root": {
+        "question": "Initialize SRE evaluation?",
+        "options": {
+            "start": "business_criticality_check"
+        }
+    },
+    "business_criticality_check": {
+        "question": "Is the system business critical?",
+        "options": {
+            "yes": "recommend_strict_slo",
+            "no": "recommend_moderate_slo"
+        }
+    },
+    "recommend_strict_slo": {
+        "question": "Does it have external clients with contracts?",
+        "options": {
+            "yes": "leaf_strict_slo_sla",
+            "no": "leaf_strict_slo_internal"
+        }
+    },
+    "recommend_moderate_slo": {
+        "question": "Requires proactive alerting?",
+        "options": {
+            "yes": "leaf_moderate_slo_alerting",
+            "no": "leaf_basic_metrics"
+        }
+    },
+    "leaves": {
+        "leaf_strict_slo_sla": {
+            "slo_target": 99.95,
+            "sla_active": true,
+            "slis": [
+                "Latency",
+                "Availability",
+                "Error_Rate"
+            ],
+            "features": [
+                "Burn Rate Alerts",
+                "Error Budgets",
+                "Contractual Monitoring"
+            ],
+            "reasoning": "High criticality and external commitments mandate elite-level reliability (Tier 0)."
+        },
+        "leaf_strict_slo_internal": {
+            "slo_target": 99.9,
+            "sla_active": false,
+            "slis": [
+                "Latency",
+                "Availability",
+                "Error_Rate"
+            ],
+            "features": [
+                "Burn Rate Alerts",
+                "Error Budgets"
+            ],
+            "reasoning": "Internal business critical systems require high reliability but no formal SLA penalties."
+        },
+        "leaf_moderate_slo_alerting": {
+            "slo_target": 99.0,
+            "sla_active": false,
+            "slis": [
+                "Latency",
+                "Availability"
+            ],
+            "features": [
+                "Basic Alerts",
+                "Weekly Reports"
+            ],
+            "reasoning": "Standard systems needing proactive maintenance but allowing higher error tolerance."
+        },
+        "leaf_basic_metrics": {
+            "slo_target": 95.0,
+            "sla_active": false,
+            "slis": [
+                "Availability"
+            ],
+            "features": [
+                "Reporting Only"
+            ],
+            "reasoning": "Non-critical development or staging environments requiring basic uptime tracking."
+        }
+    }
+}

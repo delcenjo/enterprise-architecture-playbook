@@ -1,0 +1,26 @@
+{
+    "cases": [
+        {
+            "id": "payment_microservices_latency_2023",
+            "customer": "FinPay",
+            "scenario": {
+                "services": 12,
+                "load": "1M daily requests",
+                "problem": "Intermittent latency spikes in checkout flow."
+            },
+            "solution": {
+                "sampling": "Tail-based",
+                "tooling": "OpenTelemetry + Jaeger + Tempo",
+                "config": "Capture all traces > 500ms or with error status."
+            },
+            "results": {
+                "latency_reduction": "35% (p99 improvement)",
+                "proactive_detection": "15 issues identified before user impact"
+            },
+            "lessons": [
+                "Tail-based sampling is essential for debugging p99 latency.",
+                "Frontend trace context must propagate to deep backend database spans."
+            ]
+        }
+    ]
+}

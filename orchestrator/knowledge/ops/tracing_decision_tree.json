@@ -1,0 +1,77 @@
+{
+    "nodes": {
+        "root": {
+            "question": "Does the system use a distributed architecture (microservices/serverless)?",
+            "options": {
+                "yes": "issue_pattern_check",
+                "no": "recommend_tracing_not_critical"
+            }
+        },
+        "issue_pattern_check": {
+            "question": "Detecting intermittent latency spikes or rare errors in metrics?",
+            "options": {
+                "yes": "tail_sampling_check",
+                "no": "resource_constraint_check"
+            }
+        },
+        "tail_sampling_check": {
+            "question": "Is the infrastructure budget sufficient for advanced trace analysis buffering?",
+            "options": {
+                "yes": "recommend_tail_based_tracing_full",
+                "no": "recommend_probabilistic_tracing_standard"
+            }
+        },
+        "resource_constraint_check": {
+            "question": "Is the system under high load (>1k rps) with strict cost constraints?",
+            "options": {
+                "yes": "recommend_head_based_tracing_lean",
+                "no": "recommend_probabilistic_tracing_standard"
+            }
+        },
+        "financial_correlation_check": {
+            "question": "Is there a need to correlate technical latency with financial loss (SLO/SLA impact)?",
+            "options": {
+                "yes": "recommend_tracing_with_slo_integration",
+                "no": "recommend_tracing_debug_only"
+            }
+        }
+    },
+    "leaves": {
+        "recommend_tracing_not_critical": {
+            "strategy": "Minimal/None",
+            "sampling": "0%",
+            "reasoning": "Monolithic or single-service systems focus on logs and basic metrics.",
+            "pillars": [
+                "Logs",
+                "Metrics"
+            ]
+        },
+        "recommend_tail_based_tracing_full": {
+            "strategy": "Tail-based Sampling",
+            "sampling": "100% Buffered / 5% Stored (focused on anomalies)",
+            "reasoning": "Intermittent issues require analyzing the complete context of failed/slow requests.",
+            "pillars": [
+                "Traces",
+                "Logs",
+                "Metrics"
+            ]
+        },
+        "recommend_probabilistic_tracing_standard": {
+            "strategy": "Probabilistic Sampling",
+            "sampling": "1-5%",
+            "reasoning": "Standard distributed observability for performance baselining.",
+            "pillars": [
+                "Traces",
+                "Metrics"
+            ]
+        },
+        "recommend_head_based_tracing_lean": {
+            "strategy": "Head-based Sampling",
+            "sampling": "0.1-1%",
+            "reasoning": "High volume requires aggressive sampling to control overhead and storage costs.",
+            "pillars": [
+                "Traces"
+            ]
+        }
+    }
+}

@@ -1,0 +1,37 @@
+[
+    {
+        "case_id": "fintech_payment_latency_2023",
+        "cliente": "FinPay",
+        "slis": [
+            "Request latency < 100ms",
+            "Error rate < 0.1%"
+        ],
+        "slos": [
+            "Availability 99.95% mensual"
+        ],
+        "sla": [
+            "Contrato con penalización financiera si availability < 99.9%"
+        ],
+        "problema_original": {
+            "descripcion": "Pagos intermitentes lentos durante peak hours",
+            "impacto": "Quejas de usuarios y pérdida de revenue"
+        },
+        "implementacion": {
+            "duracion": "1 mes",
+            "dificultad": "Media",
+            "acciones": [
+                "Definir SLIs clave",
+                "Alertas de burn rate",
+                "Dashboards en Grafana"
+            ]
+        },
+        "resultados": {
+            "cumplimiento_slo_post": "99.96%",
+            "alertas_proactivas": "5 incidencias detectadas y mitigadas antes de afectar clientes"
+        },
+        "lecciones_aprendidas": [
+            "Burn rate alerts permiten acción temprana",
+            "SLIs deben ser medibles y instrumentados desde inicio"
+        ]
+    }
+]

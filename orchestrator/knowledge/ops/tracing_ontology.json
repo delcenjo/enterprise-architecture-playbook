@@ -1,0 +1,46 @@
+{
+    "DistributedTracing": {
+        "concepto": "Distributed Tracing",
+        "descripcion": "Seguimiento de solicitudes a través de múltiples servicios para analizar performance y errores.",
+        "componentes": {
+            "Trace": "Secuencia completa de operaciones de una solicitud.",
+            "Span": "Unidad individual de trabajo (segmento del trace).",
+            "ContextPropagation": "Traspaso de metadata entre servicios.",
+            "Sampling": "Decisión de captura de datos para balancear visibilidad y coste."
+        },
+        "estrategias_sampling": {
+            "probabilistic": {
+                "nombre": "Probabilistic Sampling",
+                "descripcion": "Muestra aleatoria del X% de las peticiones.",
+                "uso_recomendado": "Entornos con carga estable y predecible."
+            },
+            "head_based": {
+                "nombre": "Head-based Sampling",
+                "descripcion": "La decisión de muestreo se toma al inicio del trace.",
+                "uso_recomendado": "Control de volumen de datos en la entrada."
+            },
+            "tail_based": {
+                "nombre": "Tail-based Sampling",
+                "descripcion": "La decisión se toma tras completar el trace, permitiendo filtrar anomalías.",
+                "uso_recomendado": "Diagnóstico de latencias intermitentes y errores raros."
+            }
+        },
+        "metricas_clave": [
+            "Span Latency",
+            "Error Rate per Span",
+            "Critical Path Duration",
+            "p95/p99 Tail Latency"
+        ],
+        "herramientas": [
+            "Jaeger",
+            "Tempo",
+            "OpenTelemetry (OTel)",
+            "Honeycomb"
+        ],
+        "beneficios": [
+            "Identificación de cuellos de botella",
+            "Visualización de dependencias circulares",
+            "Reducción de MTTR (Mean Time To Resolution)"
+        ]
+    }
+}
