@@ -1,0 +1,25 @@
+{
+    "matrix": [
+        {
+            "tool": "k6 (Grafana)",
+            "language": "JavaScript",
+            "concurrency": "High",
+            "ci_cd": "Native/Cloud",
+            "best_for": "Developers, CI/CD pipelines, modern microservices"
+        },
+        {
+            "tool": "Gatling",
+            "language": "Scala/Java/Kotlin",
+            "concurrency": "Extreme",
+            "ci_cd": "Good",
+            "best_for": "High-throughput enterprise APIs, detailed graphical reports"
+        },
+        {
+            "tool": "JMeter",
+            "language": "GUI / XML (Java)",
+            "concurrency": "Medium",
+            "ci_cd": "Fair",
+            "best_for": "Legacy protocols (SOAP, JDBC), non-coding testers"
+        }
+    ]
+}

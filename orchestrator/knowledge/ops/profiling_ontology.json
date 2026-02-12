@@ -1,0 +1,27 @@
+{
+    "Profiling": {
+        "concepto": "Análisis profundo del comportamiento interno de la aplicación e infraestructura.",
+        "descripcion": "Identificación de cuellos de botella mediante instrumentación y sampling a bajo nivel.",
+        "tipos_de_profiling": {
+            "CPU": "Identifica funciones o métodos que consumen más ciclos de procesador.",
+            "Memory": "Detecta fugas de memoria, objetos retenidos y uso ineficiente del heap/stack.",
+            "IO": "Evalúa latencias y throughput de disco, red y bases de datos."
+        },
+        "herramientas": [
+            "Perf",
+            "Py-Spy",
+            "Java Flight Recorder",
+            "VisualVM",
+            "eBPF Tracers"
+        ],
+        "tecnicas": {
+            "FlameGraphs": "Visualización jerárquica del consumo de CPU por stack trace.",
+            "HeapDumps": "Captura del estado de la memoria para análisis de retención de objetos.",
+            "Sampling": "Recolección periódica de métricas con bajo overhead (apto para prod)."
+        },
+        "riesgos": [
+            "Sobrecarga del sistema al ejecutar profiler completo en producción",
+            "Interpretación incorrecta de FlameGraphs sin contexto de carga"
+        ]
+    }
+}

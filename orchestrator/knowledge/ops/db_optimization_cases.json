@@ -1,0 +1,27 @@
+{
+    "cases": [
+        {
+            "id": "fintech_transactions_2023",
+            "customer": "FastPay",
+            "scenario": {
+                "stack": "Microservicios Python, PostgreSQL",
+                "load": "200k transacciones diarias, 5000 QPS base",
+                "problem": "Latencia alta y picos de 120ms wait time en consultas de balances (reporting)"
+            },
+            "implementation": {
+                "analytics": "EXPLAIN ANALYZE reveló Full Index Scans costosos.",
+                "indexing": "Índice composite (account_id, date) creado en tabla 'transactions'. Índice covering (account_id, last_update) en 'balances'.",
+                "pooling": "Configurado PgBouncer (max_connections: 50, timeout: 5s)."
+            },
+            "results": {
+                "latency": "Avg query latency bajó de 20ms a 5ms.",
+                "throughput": "Incrementado de 5000 a 8000 QPS continuos sin saturación.",
+                "wait_time": "Lock wait time reducido drásticamente de 120ms a <10ms."
+            },
+            "lessons": [
+                "Los índices Covering eliminan el viaje adicional a la tabla base, acelerando dramáticamente las lecturas pesadas.",
+                "El Connection Pooling protege a la base de datos de 'conexiones en estampida' generadas por auto-scaling de lambdas o workers."
+            ]
+        }
+    ]
+}

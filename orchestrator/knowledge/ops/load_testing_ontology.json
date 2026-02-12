@@ -1,0 +1,24 @@
+{
+    "LoadTesting": {
+        "concepto": "Evaluación del comportamiento del sistema bajo carga simulada.",
+        "descripcion": "Identificación de límites, cuellos de botella y estabilidad bajo concurrencia.",
+        "tipos_de_prueba": {
+            "Load": "Evaluar desempeño bajo carga normal esperada.",
+            "Stress": "Evaluar límites del sistema más allá de lo normal.",
+            "Spike": "Evaluar reacción a incrementos súbitos de tráfico.",
+            "Soak": "Evaluar estabilidad bajo carga constante por largos periodos."
+        },
+        "herramientas": [
+            "k6",
+            "Gatling",
+            "JMeter",
+            "Locust"
+        ],
+        "metricas_clave": {
+            "Throughput": "Solicitudes por segundo (RPS).",
+            "Latencia": "Tiempos de respuesta (p95, p99).",
+            "ErrorRate": "Porcentaje de fallos bajo carga.",
+            "Saturation": "Uso de recursos (CPU, Memoria)."
+        }
+    }
+}

@@ -1,0 +1,71 @@
+{
+    "nodes": {
+        "root": {
+            "question": "What is the primary objective of the performance test?",
+            "options": {
+                "detect_limits": "is_it_sudden_spike",
+                "ensure_stability": "soak_test_check",
+                "ci_cd_validation": "recommend_k6_load"
+            }
+        },
+        "is_it_sudden_spike": {
+            "question": "Is the traffic expected to increase suddenly (e.g., flash sales, marketing spikes)?",
+            "options": {
+                "yes": "recommend_spike_stress",
+                "no": "recommend_stress_only"
+            }
+        },
+        "soak_test_check": {
+            "question": "Are you concerned about memory leaks or resource degradation over time?",
+            "options": {
+                "yes": "recommend_soak_test",
+                "no": "recommend_standard_load"
+            }
+        }
+    },
+    "leaves": {
+        "recommend_spike_stress": {
+            "strategy": "Spike & Stress Testing (Gatling/k6)",
+            "reasoning": "High-risk traffic bursts require validation of scaling efficiency and safety limits.",
+            "pillars": [
+                "Spike Test",
+                "Stress Test",
+                "Auto-scaling validation"
+            ]
+        },
+        "recommend_stress_only": {
+            "strategy": "Standard Stress Testing",
+            "reasoning": "Determining the absolute breaking point of infrastructure.",
+            "pillars": [
+                "Stress Test",
+                "Resource saturation monitoring"
+            ]
+        },
+        "recommend_soak_test": {
+            "strategy": "Longevity/Soak Testing",
+            "reasoning": "Critical systems require validation of stable resource usage over 12h-24h cycles.",
+            "pillars": [
+                "Soak Test",
+                "Memory leak detection",
+                "DB connection pool stability"
+            ]
+        },
+        "recommend_k6_load": {
+            "strategy": "CI/CD Integrated Load Testing (k6)",
+            "reasoning": "Automated performance gates in pipelines prevent regressions.",
+            "pillars": [
+                "Load Test",
+                "p95/p99 Thresholds",
+                "Automated regressions"
+            ]
+        },
+        "recommend_standard_load": {
+            "strategy": "Standard Load Testing",
+            "reasoning": "Baseline validation of response times under normal user load.",
+            "pillars": [
+                "Load Test",
+                "Response time profiling"
+            ]
+        }
+    }
+}

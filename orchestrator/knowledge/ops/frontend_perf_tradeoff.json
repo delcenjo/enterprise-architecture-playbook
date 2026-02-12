@@ -1,0 +1,40 @@
+{
+    "matrix": [
+        {
+            "strategy": "Server-Side Rendering (SSR)",
+            "lcp_impact": "High (+1s improvement)",
+            "fid_impact": "Negative (-20ms regression possible due to hydration cost)",
+            "bundle_impact": "Increases",
+            "complexity": "High (Requires Node.js server/Edge compute)",
+            "infra_cost": "Medium-High",
+            "best_for": "SEO-heavy, content-driven sites (Media, Ecommerce)"
+        },
+        {
+            "strategy": "Lazy Loading (Images/Comps)",
+            "lcp_impact": "Medium (+0.5s improvement)",
+            "fid_impact": "Neutral",
+            "bundle_impact": "Reduces Initial (-50KB)",
+            "complexity": "Medium",
+            "infra_cost": "Low",
+            "best_for": "Long scrolling pages with heavy media"
+        },
+        {
+            "strategy": "Code Splitting",
+            "lcp_impact": "High (+0.7s improvement due to less JS parsing)",
+            "fid_impact": "Positive (+10ms improvement)",
+            "bundle_impact": "Massively Reduces Initial (-200KB+)",
+            "complexity": "Medium",
+            "infra_cost": "Low",
+            "best_for": "Large SPA monolithic architectures"
+        },
+        {
+            "strategy": "Web Workers Offloading",
+            "lcp_impact": "Neutral",
+            "fid_impact": "High (+50ms improvement)",
+            "bundle_impact": "Slightly Increases (+20KB for orchestration)",
+            "complexity": "High",
+            "infra_cost": "Low",
+            "best_for": "Data processing, complex charting, cryptographic JS tasks"
+        }
+    ]
+}

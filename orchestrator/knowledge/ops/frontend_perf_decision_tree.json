@@ -1,0 +1,58 @@
+{
+    "nodes": {
+        "root": {
+            "question": "What is the primary frontend bottleneck?",
+            "options": {
+                "high_lcp": "ssr_vs_lazy_check",
+                "high_fid": "recommend_code_splitting",
+                "large_bundle": "recommend_code_splitting",
+                "high_cls": "recommend_layout_stability"
+            }
+        },
+        "ssr_vs_lazy_check": {
+            "question": "Is SEO and immediate first render (LCP) critical for a large-scale public application?",
+            "options": {
+                "yes": "recommend_ssr_edge",
+                "no": "recommend_lazy_load_cdn"
+            }
+        }
+    },
+    "leaves": {
+        "recommend_lazy_load_cdn": {
+            "strategy": "Lazy Loading & CDN Edge Caching",
+            "reasoning": "High LCP on SPAs can often be fixed by deferring non-critical assets (images beneath the fold, heavy third-party scripts) and pushing static entry points to a CDN.",
+            "pillars": [
+                "Image Compression (WebP/AVIF)",
+                "Lazy Loading",
+                "CDN Caching"
+            ]
+        },
+        "recommend_ssr_edge": {
+            "strategy": "Server-Side Rendering (SSR) & Edge Compute",
+            "reasoning": "For large-scale, SEO-critical applications, SSR shifts the rendering cost to the server, dramatically improving LCP at the cost of infrastructure overhead.",
+            "pillars": [
+                "Next.js/Nuxt.js SSR",
+                "Edge Functions (Vercel/Cloudfront)",
+                "Streaming HTML"
+            ]
+        },
+        "recommend_code_splitting": {
+            "strategy": "Code Splitting & Main Thread Offloading",
+            "reasoning": "High FID (>100ms) or huge bundles (>200KB) indicate blockages on the Main Thread. Critical JavaScript needs to be split by route, and heavy compute moved to Web Workers.",
+            "pillars": [
+                "Route-level Code Splitting",
+                "Tree-shaking",
+                "Web Workers"
+            ]
+        },
+        "recommend_layout_stability": {
+            "strategy": "Layout Stability Overhaul",
+            "reasoning": "High CLS indicates images/iframes loading without dimensions or web fonts causing FOUT/FOIT. Pre-allocating aspect ratios is required.",
+            "pillars": [
+                "CSS Aspect Ratio",
+                "Font Subsetting & Preload",
+                "Min-height Reservations"
+            ]
+        }
+    }
+}

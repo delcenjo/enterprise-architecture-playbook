@@ -1,0 +1,26 @@
+{
+    "cases": [
+        {
+            "id": "fintech_api_2023",
+            "customer": "FinPay",
+            "scenario": {
+                "stack": "Microservices, Lambda, RDS",
+                "load": "50k concurrent users simulated"
+            },
+            "implementation": {
+                "tool": "k6",
+                "scenarios": "Simulated real-world user paths + Spike tests (10x load in 2min)",
+                "ci_cd": "GitLab CI integration with performance thresholds"
+            },
+            "results": {
+                "throughput": "48k req/s achieved",
+                "latency": "120ms avg (250ms p95)",
+                "bottlenecks": "Identified RDS locking issues during spikes"
+            },
+            "lessons": [
+                "Always monitor database connection pools during spike tests.",
+                "Simulating realistic user 'think time' improves accuracy of resource impact."
+            ]
+        }
+    ]
+}

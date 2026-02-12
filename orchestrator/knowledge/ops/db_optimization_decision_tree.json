@@ -1,0 +1,57 @@
+{
+    "nodes": {
+        "root": {
+            "question": "What is the primary database performance symptom?",
+            "options": {
+                "high_latency": "query_type_check",
+                "connection_timeouts": "recommend_pooling",
+                "deadlocks": "recommend_lock_review"
+            }
+        },
+        "query_type_check": {
+            "question": "Are the slow queries primarily reporting/aggregation over multiple columns, or single-record lookups?",
+            "options": {
+                "reporting": "recommend_composite_indexing",
+                "single_lookup": "recommend_query_plan_analysis"
+            }
+        }
+    },
+    "leaves": {
+        "recommend_composite_indexing": {
+            "strategy": "Composite & Covering Index Optimization",
+            "reasoning": "High-latency reporting queries require multi-column indexes to prevent full table scans and avoid hitting heap-files (Covering Index).",
+            "pillars": [
+                "Composite Indexes",
+                "Covering Indexes",
+                "Partitioning Analysis"
+            ]
+        },
+        "recommend_query_plan_analysis": {
+            "strategy": "Query Plan Analysis (EXPLAIN)",
+            "reasoning": "Standard lookup latency usually implies missing single-column indexes, suboptimal ORM generation, or stale statistics.",
+            "pillars": [
+                "EXPLAIN ANALYZE",
+                "ORM Query Tuning",
+                "Statistics Update"
+            ]
+        },
+        "recommend_pooling": {
+            "strategy": "Connection Pooling & PgBouncer/Proxy",
+            "reasoning": "Timeouts under high concurrency indicate connection exhaustion. A pooler absorbs spikes and reuses connections efficiently.",
+            "pillars": [
+                "Connection Pooling (PgBouncer/RDS Proxy)",
+                "Max Connection Tuning",
+                "Idle Timeout Config"
+            ]
+        },
+        "recommend_lock_review": {
+            "strategy": "Transaction & Lock Review",
+            "reasoning": "Deadlocks imply conflicting transaction orders or overly strict isolation levels. Requires application-level transaction redesign.",
+            "pillars": [
+                "Isolation Level Tuning",
+                "Transaction Scope Reduction",
+                "Row-Level Locks Analysis"
+            ]
+        }
+    }
+}
