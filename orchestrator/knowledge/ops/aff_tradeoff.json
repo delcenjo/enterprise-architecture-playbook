@@ -1,0 +1,31 @@
+{
+    "matrix": [
+        {
+            "strategy": "Manual Architecture Reviews (No AFF)",
+            "coverage": "Approx 50% (Human error, missed edge cases)",
+            "time_impact": "High (Requires hours of Architect time per PR/Release)",
+            "scalability": "Extremely Low (Architects become a strict bottleneck)",
+            "violation_risk": "Medium-High (Rules are easily forgotten or ignored)",
+            "tech_debt_impact": "Medium",
+            "best_for": "Small monolithic projects or early startups without defined architectures."
+        },
+        {
+            "strategy": "Partial Automated AFF (Core Constraints)",
+            "coverage": "75% (Focuses only on highly critical rules)",
+            "time_impact": "Medium (Requires some initial script/ArchUnit setup)",
+            "scalability": "Medium (Covers the basics, but nuanced rules still require humans)",
+            "violation_risk": "Low (Protects the system from catastrophic coupling)",
+            "tech_debt_impact": "High Positive (Prevents the worst drift)",
+            "best_for": "Transitioning mid-sized enterprises moving towards microservices."
+        },
+        {
+            "strategy": "Full Automated AFF (Continuous Architecture)",
+            "coverage": "95%+ (Checks layers, dependencies, modularity on every commit)",
+            "time_impact": "Low in daily dev, High initial setup cost",
+            "scalability": "Infinite (Pipeline runs universally)",
+            "violation_risk": "Very Low (The architecture is strictly self-enforcing)",
+            "tech_debt_impact": "Very High Positive (Keeps Drift Rate near 0%)",
+            "best_for": "Mature Enterprise ecosystems, heavy compliance environments, massive microservice fleets."
+        }
+    ]
+}

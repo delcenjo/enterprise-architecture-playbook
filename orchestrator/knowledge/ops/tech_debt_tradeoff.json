@@ -1,0 +1,31 @@
+{
+    "matrix": [
+        {
+            "strategy": "Immediate Dedicated Refactoring (Sprints/Freeze)",
+            "effort_cost": "High (Short-term)",
+            "error_risk": "Low (Long-term stability gained)",
+            "velocity_impact": "Stops entirely for 1-3 sprints (Maximal immediate impact)",
+            "business_benefit": "High (Recovers lost velocity and unlocks major roadmap features)",
+            "investor_priority": "High (Resolves foundational platform risks)",
+            "best_for": "System in crisis, SQALE < 4, high revenue impact outages."
+        },
+        {
+            "strategy": "Incremental / Boy-Scout Refactoring",
+            "effort_cost": "Medium (Spread out over time)",
+            "error_risk": "Medium (Refactoring while modifying features carries regression risk)",
+            "velocity_impact": "Slows releases slightly (e.g., 20% capacity penalty per sprint)",
+            "business_benefit": "Medium (Prevents debt from worsening while delivering value)",
+            "investor_priority": "Medium (Shows disciplined engineering culture)",
+            "best_for": "Manageable debt, Code Climate 2-3, stable but aging systems."
+        },
+        {
+            "strategy": "Ignore Debt Temporarily (MVP Mode)",
+            "effort_cost": "Low (Short-term)",
+            "error_risk": "High (Security and regression risks compound rapidly)",
+            "velocity_impact": "Maximized short-term, but collapses entirely in the long-term (The 'Debt Cliff')",
+            "business_benefit": "Low/Negative (Only valid if chasing critical first-to-market survival)",
+            "investor_priority": "Low (Seen as poor technical management unless explicitly a throwaway prototype)",
+            "best_for": "Y-Combinator MVPs, Throwaway prototypes, Proofs of Concept (POCs)."
+        }
+    ]
+}

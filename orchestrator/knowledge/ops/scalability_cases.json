@@ -1,0 +1,29 @@
+{
+    "cases": [
+        {
+            "id": "ecommerce_peak_sales_2023",
+            "customer": "RetailGlobal",
+            "scenario": {
+                "stack": "20 Microservices, Event-Driven Architecture",
+                "problem": "Preparing for Black Friday where traffic spikes were predicted to reach 12k req/s. Current architecture had never been tested beyond 8k req/s. Initial load testing showed sporadic p99 latencies spiking to 8s causing checkout timeouts."
+            },
+            "implementation": {
+                "mathematical_modeling": "Applied M/M/c queuing theory models using Prometheus telemetry. Discovered the bottleneck was specifically the CPU saturation of the Inventory Service causing massive queue pile-ups.",
+                "architectural_adaptation": "Implemented the Bulkhead pattern to isolate the Inventory Service connection pool from the primary Checkout flow. Deployed horizontal pod auto-scaling specifically targeted at Inventory CPU metrics.",
+                "proactive_capacity": "Pre-warmed caches and provisioned additional read-replicas for product catalogs 24 hours prior to the event."
+            },
+            "results": {
+                "throughput_max": "System safely handled a sustained peak of 15k req/s without cascading degradation.",
+                "latency_p99": "Stable at 1.8s (well within the theoretical SLA of 2s).",
+                "bottleneck_resolution": "Inventory Service queues never exceeded critical thresholds."
+            },
+            "lessons": [
+                "Queuing theory mathematics (Little's Law) accurately predict non-linear latency explosions before they happen.",
+                "Bulkheads protect revenue-critical flows (checkout) from being destroyed by non-critical downstream saturation."
+            ],
+            "anti_patterns": [
+                "Scaling everything uniformly just by 'throwing hardware at it' is massively expensive and often fails if the underlying data bottleneck isn't resolved."
+            ]
+        }
+    ]
+}

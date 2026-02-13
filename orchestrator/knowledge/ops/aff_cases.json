@@ -1,0 +1,29 @@
+{
+    "cases": [
+        {
+            "id": "fintech_platform_2022",
+            "customer": "BankingNexus",
+            "scenario": {
+                "stack": "15 Microservices, CQRS + Event Sourcing pattern",
+                "problem": "Architectural Drift. After 1 year of rapid feature development, teams started bypassing the Event Bus to make direct synchronous REST calls between microservices to save time, tightly coupling the system and leading to cascading failures."
+            },
+            "implementation": {
+                "fitness_functions": "Introduced ArchUnit (Java) tests into the main CI/CD pipeline.",
+                "constraints_applied": "1. UI Layer cannot access Repositories directly. 2. Services must use the highly-available Event Bus for cross-domain communication, not synchronous HTTP. 3. Zero cyclic dependencies among packages.",
+                "remediation": "The initial run flagged 3 out of 15 services violating the Event Bus constraint. A refactoring sprint was prioritized to replace synchronous calls with async events."
+            },
+            "results": {
+                "compliance_score": "Improved from 82% to 98%.",
+                "drift_rate": "Reduced effectively to 0% for core constraints.",
+                "reliability": "Cascading timeouts between services were eliminated, as services became correctly decoupled."
+            },
+            "lessons": [
+                "If an architecture rule is not enforced by code (a fitness function) in the pipeline, it will eventually be broken by a developer under deadline pressure.",
+                "Automated architectural governance is the only way to scale microservices safely."
+            ],
+            "anti_patterns": [
+                "Wiki-based architecture: Documenting how the system *should* work in a Wiki, but having no mechanism to verify if the code actually reflects it."
+            ]
+        }
+    ]
+}

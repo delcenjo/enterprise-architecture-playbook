@@ -1,0 +1,29 @@
+{
+    "cases": [
+        {
+            "id": "ecommerce_platform_2023",
+            "customer": "BuyFast Inc.",
+            "scenario": {
+                "stack": "12 Microservices (Java + Node.js)",
+                "problem": "Average merge time stretched to 8 hours due to massive PRs (400-800 LOC) and purely manual review processes. High defect density reaching production because manual reviewers missed complex logic bugs due to cognitive overload."
+            },
+            "implementation": {
+                "automation": "Integrated SonarQube with GitHub Actions. Configured strict Quality Gates (minimum 80% coverage on new code, zero critical vulnerabilities, A-rating maintainability).",
+                "process_change": "Enforced a strict maximum PR size policy (Max 400 LOC changed). Larger feature branches were mandated to be broken down.",
+                "human_focus": "Eliminated 'nit-picking' during manual reviews; reviewers were trained to trust the linter/SonarQube and focus solely on architecture and business edge-cases."
+            },
+            "results": {
+                "merge_time": "Reduced from 8 hours to 4 hours average.",
+                "defect_density": "Dropped from 0.5 bugs/KLOC to 0.2 bugs/KLOC.",
+                "coverage": "Global test coverage increased from 70% to 85% driven by the Quality Gates."
+            },
+            "lessons": [
+                "Human reviewers should never check for things a machine can check (formatting, missed variables, standard coverage).",
+                "Rejecting massive PRs early is better than struggling through a multi-day review cycle that ultimately approves flawed code."
+            ],
+            "anti_patterns": [
+                "Overriding failing Quality Gates to 'meet a deadline' immediately translates into un-costed Technical Debt and future production incidents."
+            ]
+        }
+    ]
+}

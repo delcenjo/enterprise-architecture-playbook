@@ -1,0 +1,61 @@
+{
+    "nodes": {
+        "root": {
+            "question": "What is the primary constraint identified in the scalability profile?",
+            "options": {
+                "high_predictive_traffic": "recommend_proactive_scaling",
+                "queue_saturation": "recommend_bulkhead_pattern",
+                "cpu_io_saturation": "recommend_vertical_horizontal",
+                "latency_breach": "recommend_cqrs_caching",
+                "healthy_metrics": "recommend_continuous_monitoring"
+            }
+        }
+    },
+    "leaves": {
+        "recommend_proactive_scaling": {
+            "strategy": "Proactive Scaling Plan (Auto-Scaling / Reservations)",
+            "reasoning": "Predicted traffic models exceed 90% of current operational capacity. To prevent outages during incoming peak events, initiate proactive horizontal auto-scaling triggers, warm up caches, and potentially secure Reserved Instances/Spot Fleets to manage cloud costs effectively.",
+            "pillars": [
+                "Horizontal Auto-Scaling",
+                "Pre-Warming Caches",
+                "Cloud Cost Optimization"
+            ]
+        },
+        "recommend_bulkhead_pattern": {
+            "strategy": "Bulkhead & Throttling Mitigation",
+            "reasoning": "Critical queue lengths are expanding rapidly, indicating upstream services are overwhelming a downstream bottleneck, risking cascading failures. Implement Bulkhead patterns (resource isolation) and active Rate Limiting/Circuit Breakers to shed load and protect core system viability.",
+            "pillars": [
+                "Bulkhead Pattern",
+                "Circuit Breakers",
+                "Load Shedding / Rate Limiting"
+            ]
+        },
+        "recommend_vertical_horizontal": {
+            "strategy": "Elastic Horizontal/Vertical Scaling",
+            "reasoning": "Compute (CPU) or Data (I/O) saturation is persistently >80%. If the workload is stateless, execute horizontal scaling (adding pods/nodes). If the workload is stateful or relies on intense monolithic processing, execute immediate vertical scaling (larger instance types/IOPS).",
+            "pillars": [
+                "Stateless Horizontal Scaling",
+                "Stateful Vertical Profiling",
+                "Resource Allocation"
+            ]
+        },
+        "recommend_cqrs_caching": {
+            "strategy": "CQRS & Multi-Level Caching",
+            "reasoning": "The 99th percentile (p99) latency SLA is being breached despite having available compute resources. The data access pattern is the bottleneck. Implement Command Query Responsibility Segregation (CQRS) to separate read/write data models, and deploy aggressive Redis/Memcached read-through caching.",
+            "pillars": [
+                "CQRS Architecture",
+                "Distributed Caching",
+                "Read Replica Scaling"
+            ]
+        },
+        "recommend_continuous_monitoring": {
+            "strategy": "Continuous Base Monitoring",
+            "reasoning": "Current traffic is well within safe thresholds (<70%), queues are clear, and SLAs are met. The architecture is stable. No structural intervention is required; continue standard telemetry monitoring.",
+            "pillars": [
+                "baseline Telemetry",
+                "Cost Maintenance",
+                "SLA Observability"
+            ]
+        }
+    }
+}

@@ -1,0 +1,30 @@
+{
+    "cases": [
+        {
+            "id": "fintech_payment_platform_2023",
+            "customer": "PayGlobal",
+            "scenario": {
+                "stack": "Java/Spring Boot Monolith, 1.2M LOC",
+                "problem": "Release delays (from 2/week to 1/month) due to regression bugs. Code Climate score dropped to 1.5, Test Coverage at 55%. Cyclomatic complexity in the payment routing engine peaked at 22."
+            },
+            "implementation": {
+                "refactor_strategy": "Dedicated Tech Debt Sprints. The routing engine was isolated using the Strangler Fig pattern into a microservice.",
+                "testing_strategy": "Introduced mandatory coverage gates in CI/CD (>80% required for new code). Comprehensive E2E tests added to the legacy monolith boundary.",
+                "documentation": "Documented the updated bounded-contexts using C4 model."
+            },
+            "results": {
+                "sqale": "Improved from 3 to 7",
+                "code_climate": "1.5 -> 3.5 (B Grade)",
+                "coverage": "55% -> 82%",
+                "release_cadence": "Restored to 3 releases per week with zero severity-1 rollbacks in Q4."
+            },
+            "lessons": [
+                "Incremental refactoring (Strangler Fig) is far less risky and more sustainable than attempting a complete \"Big Bang\" rewrite of a critical financial monolith.",
+                "Automated metrics (SonarQube) in the CI pipeline prevent the re-accumulation of debt by blocking bad PRs automatically."
+            ],
+            "anti_patterns": [
+                "Ignoring debt for business pressure: 'We will fix it later'. Accumulation of debt creates a compound interest effect, making future modernization exponentially more expensive."
+            ]
+        }
+    ]
+}

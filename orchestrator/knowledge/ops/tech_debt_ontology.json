@@ -1,0 +1,24 @@
+{
+    "TechnicalDebt": {
+        "concepto": "Cuantificación y gestión de las deficiencias técnicas acumuladas en un proyecto de software.",
+        "descripcion": "Busca medir y priorizar el esfuerzo necesario para corregir problemas de código, diseño arquitectónico o falta de pruebas, balanceando el coste técnico con el impacto en negocio (velocity y revenue).",
+        "areas_clave": {
+            "CodeDebt": "Problemas a nivel de código fuente: code smells, duplicación, falta de estándares de linting.",
+            "DesignDebt": "Problemas de arquitectura: alto acoplamiento, baja cohesión, violaciones de principios SOLID.",
+            "TestDebt": "Falta de cobertura de pruebas automatizadas (Unit, Integration, E2E) que aumenta el riesgo de regresiones.",
+            "DocumentationDebt": "Ausencia o desactualización de documentación crítica para el onboarding y mantenimiento operativo."
+        },
+        "metricas_clave": {
+            "SQALE_Index": "Metodología estándar para evaluar la deuda técnica. Un índice inferior a 4 indica un coste de remediación crítico e inasumible a corto plazo.",
+            "Code_Climate": "Puntuación heurística de la mantenibilidad del código (A=4, F=0). Valores < 2 indican alto riesgo de errores.",
+            "Test_Coverage": "Porcentaje de líneas de código cubiertas por tests. < 60% es una bandera roja en entornos empresariales.",
+            "Cyclomatic_Complexity": "Número de caminos independientes en el código. > 15 por módulo o función sugiere necesidad inminente de refactorización.",
+            "TechnicalDebtRatio": "Estimación del coste (tiempo/esfuerzo) para solucionar la deuda vs el coste total de desarrollar el sistema desde cero."
+        },
+        "riesgos": [
+            "Ralentización severa en el Time to Market (TTM) de nuevas features debido a la dificultad de modificar código acoplado.",
+            "Incremento exponencial en el coste de corrección de bugs en producción (Bug Fixing Cost).",
+            "Burnout de los equipos de ingeniería debido al mantenimiento de sistemas heredados frágiles."
+        ]
+    }
+}
