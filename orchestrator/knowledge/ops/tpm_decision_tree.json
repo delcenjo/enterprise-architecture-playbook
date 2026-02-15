@@ -1,0 +1,61 @@
+{
+    "nodes": {
+        "root": {
+            "question": "What is the primary constraint or characteristic of the feature set?",
+            "options": {
+                "regulatory_blockers": "recommend_blocker_resolution",
+                "resource_constrained": "recommend_effort_reprioritization",
+                "financial_impact": "recommend_rice_model",
+                "innovative": "recommend_kano_model",
+                "missing_metrics": "recommend_moscow_model"
+            }
+        }
+    },
+    "leaves": {
+        "recommend_blocker_resolution": {
+            "strategy": "Halt & Resolve Hard Dependencies",
+            "reasoning": "The features face critical regulatory/compliance blockers or hard architectural dependencies. These constraints must override all strategic frameworks (RICE/MoSCoW). Suspend roadmap delivery until these hard blocks are sequenced as 'Must-Do' engineering spikes.",
+            "pillars": [
+                "Compliance Override",
+                "Dependency Sequencing",
+                "Risk Mitigation"
+            ]
+        },
+        "recommend_effort_reprioritization": {
+            "strategy": "Aggressive Resource Constraint Adjustment",
+            "reasoning": "The team lacks the capacity to deliver the current roadmap. Do not use abstract scoring. Force-rank the backlog by severely weighting the 'Effort' denominator in RICE, or immediately drop 'Should-Haves' from the MoSCoW scope to protect the core MVP.",
+            "pillars": [
+                "Scope Cutting",
+                "Effort-Weighted RICE",
+                "MVP Protection"
+            ]
+        },
+        "recommend_rice_model": {
+            "strategy": "RICE Quantitative Prioritization",
+            "reasoning": "The features have clear, measurable financial metrics and predictable development costs. Apply the RICE formula (Reach x Impact x Confidence / Effort) to generate an objective, highly defensible numeric ranking to justify roadmap slots to C-Level stakeholders.",
+            "pillars": [
+                "Data-Driven Scoring",
+                "ROI Maximization",
+                "Confidence Weighting"
+            ]
+        },
+        "recommend_kano_model": {
+            "strategy": "Kano Innovation Modeling",
+            "reasoning": "The backlog contains highly innovative or surprising features intended to differentiate the product. Apply the Kano model to classify features into Excitement (delighters), Performance (linear gains), and Basic (expected) to balance the roadmap between maintaining parity and disrupting the market.",
+            "pillars": [
+                "Market Disruption",
+                "User Delight",
+                "Competitive Differentiation"
+            ]
+        },
+        "recommend_moscow_model": {
+            "strategy": "MoSCoW Qualitative Classification",
+            "reasoning": "The feature set lacks hard financial metrics, or decisions must be made rapidly to define an MVP boundary. Use MoSCoW to force strict qualitative categorization (Must, Should, Could, Won't) to resolve stakeholder ambiguity and agree on a baseline delivery scope.",
+            "pillars": [
+                "MVP Definition",
+                "Rapid Consensus",
+                "Scope Boundary"
+            ]
+        }
+    }
+}

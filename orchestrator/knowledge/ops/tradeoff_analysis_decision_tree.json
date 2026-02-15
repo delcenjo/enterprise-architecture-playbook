@@ -1,0 +1,61 @@
+{
+    "nodes": {
+        "root": {
+            "question": "What is the primary operational context for this strategic decision?",
+            "options": {
+                "core_business_time_critical": "recommend_intentional_tech_debt",
+                "non_core_saas_available": "recommend_buy_saas",
+                "core_long_term_critical": "recommend_internal_build",
+                "non_core_budget_constrained": "recommend_outsourcing_buy_minimum",
+                "balanced_standard": "recommend_standard_evaluation"
+            }
+        }
+    },
+    "leaves": {
+        "recommend_intentional_tech_debt": {
+            "strategy": "Accept Intentional Technical Debt (Optimize for Speed)",
+            "reasoning": "The feature is core to the business but the time-to-market window is aggressively short. Proceed with building internally but explicitly accept strategic technical debt. Bypass ideal architecture in favor of a rapid 'dirty' MVP, but mathematically account for the refactoring cost in the next quarter's roadmap.",
+            "pillars": [
+                "Speed Prioritization",
+                "Documented Tech Debt",
+                "MVP Tactical Execution"
+            ]
+        },
+        "recommend_buy_saas": {
+            "strategy": "Buy / License SaaS Solution",
+            "reasoning": "The required capability is undifferentiated heavy lifting (not a core competitive advantage) and mature, external SaaS alternatives exist. Do not waste internal engineering talent building commodity software. Optimize for speed and predictable operational cost by purchasing the solution.",
+            "pillars": [
+                "OPEX Optimization",
+                "Zero Internal Dev Effort",
+                "Vendor Evaluation"
+            ]
+        },
+        "recommend_internal_build": {
+            "strategy": "Execute Full Internal Build",
+            "reasoning": "The system is deeply intertwined with the company's core strategic advantage. Long-term maintenance, absolute control, and data flexibility are critical. Despite the high initial cost and slower time-to-market, executing a robust internal build with high quality standards is the only defensible option.",
+            "pillars": [
+                "Quality & Control",
+                "Core Competency Focus",
+                "High Internal Investment"
+            ]
+        },
+        "recommend_outsourcing_buy_minimum": {
+            "strategy": "Strategic Outsourcing / Minimum Viable SaaS",
+            "reasoning": "The component is non-core and the organization is under strict budget constraints. Full SaaS solutions might be too expensive long-term, and internal builds require too much manpower. Opt for targeted outsourcing of the specific module or selecting the cheapest possible partial-SaaS tier.",
+            "pillars": [
+                "Cost Containment",
+                "Non-Core Delegation",
+                "Strict Procurement"
+            ]
+        },
+        "recommend_standard_evaluation": {
+            "strategy": "Standard Trade-off Matrix Evaluation",
+            "reasoning": "The context does not strongly tilt toward extreme speed, extreme cost-cutting, or absolute control. Proceed with a standard TCO (Total Cost of Ownership) analysis evaluating build vs. buy over a 3-year horizon.",
+            "pillars": [
+                "TCO Analysis",
+                "Balanced Lifecycle Planning",
+                "Standard Engineering Flow"
+            ]
+        }
+    }
+}

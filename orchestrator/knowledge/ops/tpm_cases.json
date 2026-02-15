@@ -1,0 +1,28 @@
+{
+    "cases": [
+        {
+            "id": "fintech_dashboard_2023",
+            "customer": "NeoBank Global",
+            "scenario": {
+                "stack": "React Dashboard, Node.js API",
+                "problem": "Product team had 2 major epics competing for Q3: 'Realtime Payment Notifications' vs 'Advanced Wealth Analytics Dashboard'. Stakeholders were split and arguing based on personal preference."
+            },
+            "implementation": {
+                "framework": "Implemented strict RICE scoring to depersonalize the decision.",
+                "feature_1": "Notifications: Reach (500k), Impact (3 - Massive, drives immediate retention), Confidence (90%), Effort (5 weeks). RICE = 270.",
+                "feature_2": "Analytics: Reach (50k active wealthy users), Impact (2 - High), Confidence (80%), Effort (8 weeks). RICE = 10."
+            },
+            "results": {
+                "decision": "Notifications were prioritized instantly as they delivered 27x more systemic value per unit of effort.",
+                "stakeholder_alignment": "Debate ended immediately once the math was visualized. Analytics was pushed to Q4."
+            },
+            "lessons": [
+                "Math democratizes product management. RICE scores remove ego from the roadmap.",
+                "High effort combined with low reach will destroy a feature's priority, even if the absolute impact for a few users is high."
+            ],
+            "anti_patterns": [
+                "Using RICE exactly like a binding contract. A score of 401 vs 400 is statistically identical; use the score to group priorities (High/Med/Low), not to enforce a totalitarian top-down sequence."
+            ]
+        }
+    ]
+}

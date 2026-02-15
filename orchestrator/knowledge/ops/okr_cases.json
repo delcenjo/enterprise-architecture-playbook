@@ -1,0 +1,29 @@
+{
+    "cases": [
+        {
+            "id": "fintech_ci_cd_q1_2024",
+            "customer": "FinServe Dynamics",
+            "scenario": {
+                "stack": "Kubernetes, GitLab CI, Python/Go",
+                "problem": "Releases took 3 weeks due to manual QA gates. Developers were frustrated, and the business was losing ground to faster competitors. CTO demanded faster time-to-market without compromising security."
+            },
+            "implementation": {
+                "objective": "Transform the CI/CD pipeline from a bottleneck into a competitive advantage.",
+                "kr_1": "Increase Deployment Frequency from 1 per month to 2 per week.",
+                "kr_2": "Reduce Lead Time for Changes from 21 days to < 48 hours.",
+                "kr_3": "Maintain Change Failure Rate below 2%."
+            },
+            "results": {
+                "automation": "Implemented aggressive automated testing and isolated canary deployments.",
+                "business_impact": "By Q2, the team deployed daily. The business launched three new loan products months ahead of schedule."
+            },
+            "lessons": [
+                "You cannot improve what you don't measure. Establishing the DORA baseline was the critical first step before any engineering work.",
+                "Pairing speed (Deployment Frequency) with a quality constraint (Failure Rate < 2%) prevents reckless behavior."
+            ],
+            "anti_patterns": [
+                "Setting an OKR to 'Implement Kubernetes'. Tools are not objectives. The objective is what the tool enables (e.g., scalability, deployment speed)."
+            ]
+        }
+    ]
+}

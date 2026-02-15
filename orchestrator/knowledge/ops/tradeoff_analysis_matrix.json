@@ -1,0 +1,36 @@
+{
+    "matrix": [
+        {
+            "strategy": "Internal Build (Robust)",
+            "speed": "Low (Slowest path to production)",
+            "quality": "High (Tailored specifically to internal bounds)",
+            "initial_cost": "Very High (Requires engineering salaries/focus)",
+            "flexibility": "Very High (Absolute control over roadmap)",
+            "operational_risk": "Medium (Requires internal maintenance and on-call)"
+        },
+        {
+            "strategy": "External SaaS / Buy",
+            "speed": "Very High (Immediate provisioning)",
+            "quality": "Medium (Battle-tested, but generalized for mass market)",
+            "initial_cost": "Low/Medium (Shifts CAPEX to OPEX)",
+            "flexibility": "Low/Medium (Restricted to vendor's public APIs and limits)",
+            "operational_risk": "High (Vendor lock-in, external outages)"
+        },
+        {
+            "strategy": "Intentional Tech Debt (MVP)",
+            "speed": "High (Bypasses architectural rigor for speed)",
+            "quality": "Low (Temporarily fragile by design)",
+            "initial_cost": "Low (Minimal initial investment)",
+            "flexibility": "Medium (Easy to pivot early, hard to pivot later)",
+            "operational_risk": "High (Will break under scale if not paid down rapidly)"
+        },
+        {
+            "strategy": "Outsourcing (Staff Augmentation)",
+            "speed": "Medium (Requires onboarding time)",
+            "quality": "Variable (Dependent on agency/staff quality)",
+            "initial_cost": "Medium (Cheaper than internal, higher than SaaS)",
+            "flexibility": "High (Elastics teams)",
+            "operational_risk": "Medium (Knowledge transfer risks)"
+        }
+    ]
+}

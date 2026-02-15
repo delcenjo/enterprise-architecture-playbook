@@ -1,0 +1,22 @@
+{
+    "TechnicalProductManagement": {
+        "concepto": "Disciplina en la intersección de la ingeniería, el negocio y el diseño, enfocada en maximizar el ROI del esfuerzo de desarrollo mediante la priorización sistémica.",
+        "descripcion": "Proporciona frameworks estructurados para decidir qué construir primero, balanceando impacto financiero, esfuerzo técnico y riesgo.",
+        "areas_clave": {
+            "Framework_RICE": "Reach, Impact, Confidence, Effort. Ideal para priorización algorítmica y cuantitativa cuando hay datos claros.",
+            "Framework_MoSCoW": "Must-have, Should-have, Could-have, Won't-have. Ideal para negociaciones de alcance y MVPs urgentes.",
+            "Framework_Kano": "Basic, Performance, Excitement. Ideal para clasificar features según la reacción y expectativa del usuario final."
+        },
+        "metricas_clave": {
+            "Reach": "Personas / usuarios / eventos afectados por un feature en un período de tiempo.",
+            "Impact": "Aumento masivo (3), Alto (2), Medio (1), Bajo (0.5), Mínimo (0.25) en el objetivo (ingresos, retención).",
+            "Confidence": "Certeza en las estimaciones (Alta = 100%, Media = 80%, Baja = 50%).",
+            "Effort": "Semanas-persona o sprints requeridos para el diseño, desarrollo y pruebas."
+        },
+        "riesgos": [
+            "Priorización por HiPPO (Highest Paid Person's Opinion) en lugar de datos.",
+            "Ignorar la deuda técnica y los constraints regulatorios al diseñar el roadmap visible.",
+            "Parálisis por análisis al intentar asignar puntuaciones RICE exactas a iniciativas altamente ambiguas."
+        ]
+    }
+}

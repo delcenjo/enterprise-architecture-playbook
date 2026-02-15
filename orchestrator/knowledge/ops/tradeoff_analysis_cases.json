@@ -1,0 +1,28 @@
+{
+    "cases": [
+        {
+            "id": "fintech_api_gateway_2023",
+            "customer": "PayFlow Europe",
+            "scenario": {
+                "stack": "Microservices, Kong vs Custom Node.js Gateway",
+                "problem": "Organization needed a highly scalable API Gateway to handle multi-tenant routing, rate limiting, and mTLS. Engineering wanted to build a custom solution from scratch in Go/Node to maintain 'total flexibility'. Business wanted it live in 6 weeks."
+            },
+            "implementation": {
+                "tradeoff_analysis": "Ran a direct Build vs Buy evaluation.",
+                "build_option": "Cost: $250k (developer time). Speed: 14 weeks. Quality: High context, but untested scale. Flexibility: Absolute.",
+                "buy_option": "Kong Enterprise. Cost: $40k/year. Speed: 3 weeks. Quality: Battle-tested. Flexibility: High, but restricted by plugin ecosystem."
+            },
+            "results": {
+                "decision": "Opted for the 'Buy' strategy (Kong).",
+                "business_impact": "Saved 11 weeks of time-to-market. The internal engineering team (12 engineers) was redirected to build the core fraud-detection engine, which was the actual competitive advantage."
+            },
+            "lessons": [
+                "Never build what you can buy if it doesn't give you a direct market advantage over competitors. API Gateways are commodity infrastructure.",
+                "Engineers inherently bias towards 'Build'. Technical Product Management must force the TCO (Total Cost of Ownership) conversation to save the business from reinventing the wheel."
+            ],
+            "anti_patterns": [
+                "Not It Here (NIH) Syndrome: The belief that external tools are inherently inferior to internal code."
+            ]
+        }
+    ]
+}
