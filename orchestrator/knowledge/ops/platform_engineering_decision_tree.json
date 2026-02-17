@@ -1,0 +1,51 @@
+{
+    "nodes": {
+        "root": {
+            "question": "What is the team structure, stack complexity, and operational constraint profile?",
+            "options": {
+                "large_team_multi_stack": "recommend_idp_multi_template",
+                "high_compliance_regulated": "recommend_idp_policy_enforcement",
+                "high_onboarding_hypergrowth": "recommend_idp_automated_onboarding",
+                "small_team_standard_needs": "recommend_base_docs_scripts"
+            }
+        }
+    },
+    "leaves": {
+        "recommend_idp_multi_template": {
+            "strategy": "Deploy Full IDP + Multi-Stack Golden Paths",
+            "reasoning": "The engineering organization has scaled past 5 developers across multiple squads and tech stacks. Manual configuration is causing severe cognitive load and configuration drift. An Internal Developer Platform (e.g., Backstage) with localized Golden Paths for each language is required to guarantee autonomy.",
+            "pillars": [
+                "Centralized Service Catalog",
+                "Language-Specific Templates",
+                "Standardized CI/CD Integrations"
+            ]
+        },
+        "recommend_idp_policy_enforcement": {
+            "strategy": "Security-First IDP with Policy Enforcement",
+            "reasoning": "The environment operates under strict regulatory compliance (finance, healthcare). The IDP must not just facilitate code creation, but actively enforce security controls. Golden Paths must hardcode Mandatory Scanning (SAST/DAST) and compliance checks, disabling non-compliant pipelines by default.",
+            "pillars": [
+                "Automated Security Controls",
+                "Compliance-as-Code",
+                "Restricted Golden Paths"
+            ]
+        },
+        "recommend_idp_automated_onboarding": {
+            "strategy": "IDP Optimized for Rapid Onboarding (Hypergrowth)",
+            "reasoning": "The immediate bottleneck is a high frequency of new hires attempting to become productive. The Platform Engineering focus must squarely target 'Time-to-10th-Commit'. Implement interactive documentation, automated access provisioning, and 'One-Click' local environment setups within the IDP.",
+            "pillars": [
+                "Automated Provisioning",
+                "Interactive Documentation",
+                "DevEnvironment Abstraction"
+            ]
+        },
+        "recommend_base_docs_scripts": {
+            "strategy": "Base Documentation & Automation Scripts",
+            "reasoning": "The team is small or the project is highly experimental with a unified tech stack. Investing in a full IDP (like Backstage) is premature optimization and an anti-pattern. Rely on a strictly maintained central README, standard Makefiles, and a single standardized CI pipeline.",
+            "pillars": [
+                "README-Driven Development",
+                "Bash/Make Automation",
+                "Single Pipeline Standard"
+            ]
+        }
+    }
+}

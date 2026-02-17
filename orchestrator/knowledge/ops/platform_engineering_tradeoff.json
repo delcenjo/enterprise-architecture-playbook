@@ -1,0 +1,22 @@
+{
+    "matrix": [
+        {
+            "strategy": "Full IDP + Golden Paths",
+            "development_speed": "High (Rapid bootstrapping for all new services)",
+            "quality": "High (Standardized templates ensure base compliance)",
+            "initial_cost": "Medium-High (Requires dedicated platform engineers to build and maintain)",
+            "flexibility": "Medium-High (Can accommodate new stacks, but requires platform team effort)",
+            "scalability": "Very High (Scales perfectly across 50+ engineers)",
+            "error_risk": "Low (Misconfigurations are caught in template design, not at runtime)"
+        },
+        {
+            "strategy": "Standard Documentation & Simple Scripts",
+            "development_speed": "Medium-Low (Developers must read and execute manual steps)",
+            "quality": "Medium (Highly reliant on individual developer discipline and code review)",
+            "initial_cost": "Very Low (Just writing markdown and basic bash)",
+            "flexibility": "Very High (Developers can manually change anything locally)",
+            "scalability": "Low (Breaks down when team crosses 5-10 people due to cognitive drift)",
+            "error_risk": "Medium-High (Manual steps lead to human error during setup)"
+        }
+    ]
+}

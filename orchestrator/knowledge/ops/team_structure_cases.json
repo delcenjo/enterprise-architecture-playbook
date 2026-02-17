@@ -1,0 +1,18 @@
+{
+    "cases": [
+        {
+            "id": "startup_scaling_2024",
+            "context": "A SaaS startup grew from 8 to 25 engineers in 6 months after a Series A.",
+            "previous_state": "Maintained a single flat engineering team. Deployment frequency plummeted due to merge conflicts and lack of clear ownership over distinct product areas.",
+            "applied_solution": "Transitioned to `Stream-Aligned + Early Platform`. Divided into 3 stream-aligned product squads and assigned 2 senior engineers to standardize the terraform modules and CI pipelines (Early Platform).",
+            "results": "Deployment frequency recovered to 3x/day. Cognitive load on individual engineers dropped as they no longer manually maintained infrastructure."
+        },
+        {
+            "id": "fintech_platform_2025",
+            "context": "A neobank with 150 engineers running the 'Spotify Model'.",
+            "previous_state": "High autonomy led to 5 different programming languages and 12 different ways of deploying to AWS. Security audits were failing. Cross-team collaboration was blocked by architectural mismatch.",
+            "applied_solution": "Implemented `Compliance-Enforced Platform`. Stripped infrastructural autonomy from squads. Mandated consumption of a centralized Internal Developer Platform (IDP) that automatically handled SOC2 logging and mTLS.",
+            "results": "Architectural drift reduced to zero on new services. Security audits passed automatically due to Compliance-as-Code constraints built into the platform."
+        }
+    ]
+}

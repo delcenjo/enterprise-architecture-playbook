@@ -1,0 +1,21 @@
+{
+    "SeniorEvaluation": {
+        "concepto": "Framework analítico para evaluar la madurez de ingeniería de un candidato, diferenciando verdaderos diseñadores de sistemas de 'falsos seniors' basados puramente en años de experiencia.",
+        "descripcion": "El objetivo es evitar contrataciones que parezcan sólidas en código pero que generen deuda técnica por falta de visión sistémica o debilidades comunicativas.",
+        "dimensiones_clave": {
+            "System_Design_Capability": "Densidad de conocimientos en arquitectura distribuida. Identificación de cuellos de botella, escalabilidad, degradación elegante y observabilidad (SLAs/SLOs, p99 latency).",
+            "Execution_and_Code_Quality": "No se trata de algoritmos complejos, sino de código legible, modular, fácil de testear, que considera edge cases y restricciones desde el inicio.",
+            "Decision_Making_Tradeoffs": "Capacidad de justificar por qué NO hacer algo. Preferir simplicidad sobre micro-optimizaciones prematuras. Evaluaciones Build vs Buy.",
+            "Behavioral_Maturity": "Ownership. Capacidad de admitir errores ('¿Cuándo tomaste una mala decisión técnica?'). Pensamiento sistémico y gestión de conflictos interpersonales."
+        },
+        "anti_patterns": {
+            "El_Falso_Senior": "10 años repitiendo el primer año de experiencia. Construye features sin pensar en cómo afectan al sistema general.",
+            "El_Micro_Optimizador": "Empieza a escribir código sin aclarar requerimientos. Se obsesiona con rendimiento a bajo nivel olvidando el diseño global.",
+            "El_Infalible": "Afirma que sus proyectos nunca han tenido incidentes graves o culpa siempre a factores externos."
+        },
+        "impacto_arquitectonico": [
+            "Contratar verdaderos seniors incrementa la Deployment Frequency, reduce el MTTR y alinea puramente la tecnología al roadmap de producto.",
+            "Contratar falsos seniors resulta en arquitecturas espagueti, dependencias circulares y necesidad de reescrituras a los 2 años."
+        ]
+    }
+}

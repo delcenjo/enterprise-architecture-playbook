@@ -1,0 +1,34 @@
+{
+    "cases": [
+        {
+            "id": "backend_senior_candidate_2025",
+            "role": "Senior Backend Engineer",
+            "scores": {
+                "system_design": 4.7,
+                "coding": 4.0,
+                "behavioral": 4.5,
+                "tradeoffs": 4.6,
+                "communication": 4.2,
+                "product_thinking": 3.5
+            },
+            "evaluator_notes": "Candidate correctly identified database bottlenecks in the system design without prompting. Calculated rough traffic estimates. During behavioral, openly discussed a caching incident they caused and how they improved the deployment pipeline afterward.",
+            "calculated_score": 4.405,
+            "decision": "Hire - Solid Senior (4.4)"
+        },
+        {
+            "id": "false_senior_candidate_2025",
+            "role": "Senior Fullstack Engineer (10 YOE)",
+            "scores": {
+                "system_design": 2.5,
+                "coding": 4.8,
+                "behavioral": 3.0,
+                "tradeoffs": 2.0,
+                "communication": 3.5,
+                "product_thinking": 3.0
+            },
+            "evaluator_notes": "Aced the LeetCode hard problem in 15 minutes. However, during system design, they completely ignored network latency and failure modes. Proposed a massive monolith for a highly distributed requirement because 'it's faster'. Claimed no major incidents in 10 years.",
+            "calculated_score": 3.33,
+            "decision": "Reject for Senior (Mid+ Disguised) (3.33)"
+        }
+    ]
+}

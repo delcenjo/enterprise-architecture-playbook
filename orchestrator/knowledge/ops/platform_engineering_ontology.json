@@ -1,0 +1,22 @@
+{
+    "PlatformEngineering": {
+        "concepto": "Disciplina de diseñar y construir toolchains y flujos de trabajo que habiliten el auto-servicio para los equipos de ingeniería de software en la era cloud-native.",
+        "descripcion": "Trata la plataforma interna como un producto, donde los usuarios son los desarrolladores. El objetivo es reducir la carga cognitiva, estandarizar buenas prácticas y acelerar el time-to-market sin sacrificar seguridad ni compliance.",
+        "componentes_clave": {
+            "Internal_Developer_Platform_IDP": "Portal centralizado (ej. Backstage) que abstrae la complejidad de la infraestructura. Actúa como el catálogo único de servicios, documentación y scaffolding de proyectos.",
+            "Golden_Paths": "Plantillas y guías pre-configuradas y opinadas (opinionated) que representan la 'forma recomendada' de construir y desplegar software en la empresa. Minimizan fricción si se siguen, pero permiten desvíos justificados.",
+            "Tooling_Integrations": "Estandarización invisible de herramientas de CI/CD, Observabilidad, y Security Scans directamente en los repositorios generados por la IDP."
+        },
+        "metricas_de_exito": {
+            "Time_to_Onboard": "Tiempo promedio desde que un desarrollador entra hasta su primer commit en producción. Mide efectividad de la documentación y abstracción.",
+            "Deployment_Frequency": "Tasa de despliegues exitosos. Directamente impactada por la reducción de fricción en los pipelines estandarizados.",
+            "Error_Rate": "Incidentes derivados de configuraciones manuales o falta de compliance. Reducido por el enforcement automático en Golden Paths.",
+            "Developer_Happiness": "Métrica cualitativa (eNPS o encuestas) sobre la experiencia de desarrollo (DevEx)."
+        },
+        "riesgos": [
+            "Crear una IDP desconectada de los problemas reales de los desarrolladores (construir por construir).",
+            "Sobrecarga de rigidez: Golden Paths tan restrictivos que paralizan la innovación y obligan a los equipos a buscar 'shadow IT'.",
+            "Implementar Platform Engineering en equipos demasiado pequeños donde un par de scripts de bash y un README serían suficientes."
+        ]
+    }
+}

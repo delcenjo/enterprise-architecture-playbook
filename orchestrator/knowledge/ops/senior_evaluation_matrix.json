@@ -1,0 +1,28 @@
+{
+    "weights": {
+        "system_design": {
+            "weight": 0.35,
+            "description": "35% - The true separator. Evaluates architectural vision, scalability, fault tolerance, and observability integration."
+        },
+        "coding_execution": {
+            "weight": 0.20,
+            "description": "20% - Focuses on readability, modularity, edge-case coverage, and requirement gathering before typing."
+        },
+        "tradeoff_reasoning": {
+            "weight": 0.15,
+            "description": "15% - Capability to map technical solutions to business reality (Build vs Buy, intentional debt)."
+        },
+        "behavioral_maturity": {
+            "weight": 0.15,
+            "description": "15% - Ownership, conflict resolution, and self-awareness of past failures."
+        },
+        "communication": {
+            "weight": 0.10,
+            "description": "10% - Clarity of thought, ability to explain complex concepts simply to non-technical stakeholders."
+        },
+        "product_thinking": {
+            "weight": 0.05,
+            "description": "5% - Understanding of the end-user and metrics-driven development."
+        }
+    }
+}
