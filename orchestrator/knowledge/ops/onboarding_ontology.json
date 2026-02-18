@@ -1,0 +1,61 @@
+{
+    "domain": "Developer Onboarding & Productivity",
+    "version": "1.0",
+    "description": "Ontology defining the metrics, stages, and structural requirements for effective Time-to-Productivity in Engineering teams.",
+    "concepts": [
+        {
+            "id": "DEVELOPER_ONBOARDING",
+            "name": "Developer Onboarding",
+            "type": "Core Dimension",
+            "description": "The structured process of integrating a new software engineer into a team, maximizing their autonomy and speed to independent delivery.",
+            "related_to": [
+                "TTFC",
+                "TTFP",
+                "BUDDY_SYSTEM",
+                "GOLDEN_RULE_SETUP"
+            ]
+        },
+        {
+            "id": "TTFC",
+            "name": "Time to First Commit",
+            "type": "Metric",
+            "description": "The time elapsed from day 1 until the developer's first meaningful commit merges to master/main. Target: < 3 days."
+        },
+        {
+            "id": "TTFP",
+            "name": "Time to First Production PR",
+            "type": "Metric",
+            "description": "The time elapsed until the developer independently pushes a production-ready Pull Request. Target: < 10 days."
+        },
+        {
+            "id": "GOLDEN_RULE_SETUP",
+            "name": "Golden Rule Setup",
+            "type": "Prerequisite",
+            "description": "The principle that a new developer should be able to run the entire system locally or in a DevContainer in under 1 hour."
+        },
+        {
+            "id": "BUDDY_SYSTEM",
+            "name": "Structured Buddy System",
+            "type": "Practice",
+            "description": "Pairing the new hire with an experienced engineer. Must include structured sessions, checklists, and bidirectional feedback; not just 'ask me anything'."
+        },
+        {
+            "id": "CONTEXTUAL_IMMERSION",
+            "name": "Contextual Immersion",
+            "type": "Phase",
+            "description": "Weeks 1-2. Focus on architecture overview, logging, deployment procedures, and fixing real but controlled bugs."
+        },
+        {
+            "id": "SIMULATED_SENIORITY",
+            "name": "Simulated Seniority",
+            "type": "Phase",
+            "description": "Week 4. Testing autonomy through medium-sized features, architectural defenses, and critical retro feedback. Validates hiring success."
+        },
+        {
+            "id": "FRICTION_HEATMAP",
+            "name": "Friction Heatmap",
+            "type": "Advanced Metric",
+            "description": "Analyzing PR friction rates and modular confusion to dynamically upgrade documentation for future onboardings."
+        }
+    ]
+}

@@ -1,0 +1,72 @@
+{
+    "nodes": [
+        {
+            "id": "root",
+            "question": "Does the engineering team exceed 40 developers, indicating a mature or enterprise environment?",
+            "type": "condition",
+            "condition": "profile.team_structure_profile.total_developers > 40",
+            "yes": "check_advanced_metrics",
+            "no": "check_startup_onboarding"
+        },
+        {
+            "id": "check_startup_onboarding",
+            "question": "Is the team completely new or under 10 developers?",
+            "type": "condition",
+            "condition": "profile.team_structure_profile.total_developers < 10",
+            "yes": "basic_startup_onboarding",
+            "no": "standard_agile_onboarding"
+        },
+        {
+            "id": "check_advanced_metrics",
+            "question": "Does the team have a dedicated Platform Team (Platform Maturity)?",
+            "type": "condition",
+            "condition": "profile.team_structure_profile.platform_maturity == 'mature'",
+            "yes": "data_driven_onboarding",
+            "no": "standard_enterprise_onboarding"
+        },
+        {
+            "id": "basic_startup_onboarding",
+            "type": "recommendation",
+            "recommendation": "Lean Developer Immersion",
+            "rationale": "For startups under 10 developers, heavy onboarding dashboards are overkill. Focus purely on the 'Golden Rule' (setup < 1 hour via Docker/DevContainers), a visible 30-day roadmap, and pairing with a Senior for immediate TTFC (< 3 days).",
+            "key_metrics": [
+                "TTFC < 3 Days",
+                "Golden Rule Setup",
+                "Ad-Hoc Buddy Pairing"
+            ]
+        },
+        {
+            "id": "standard_agile_onboarding",
+            "type": "recommendation",
+            "recommendation": "Structured 30-Day Mentorship",
+            "rationale": "For teams between 10-40 developers, tribal knowledge becomes a severe bottleneck. Implement a strict 4-week structured plan (Context, Deep Dive, Guided Autonomy, Simulated Seniority) with a formalized Buddy System (2 sessions/week).",
+            "key_metrics": [
+                "TTFC < 3 Days",
+                "TTFP < 10 Days",
+                "Formalized Buddy Sessions"
+            ]
+        },
+        {
+            "id": "standard_enterprise_onboarding",
+            "type": "recommendation",
+            "recommendation": "Standardized Enterprise Onboarding",
+            "rationale": "With >40 devs but no formal Platform team, onboarding must be heavily documented to survive scale. Mandate up-to-date ADRs, centralized logging walkthroughs, and strict Quality Gates to block low-quality PRs from overwhelmed newcomers.",
+            "key_metrics": [
+                "TTFP < 10 Days",
+                "Quality Gate Pass Rate",
+                "Mandatory Architecture Overviews"
+            ]
+        },
+        {
+            "id": "data_driven_onboarding",
+            "type": "recommendation",
+            "recommendation": "Data-Driven Platform Onboarding",
+            "rationale": "For mature platform organizations, onboarding is a measurable product. Implement automated TTFC/TTFP tracking, Friction Surveys, and Heatmaps of PR rejection rates to continuously refactor the onboarding docs and internal developer portals.",
+            "key_metrics": [
+                "Automated TTFC/TTFP Dashboards",
+                "Friction Heatmaps",
+                "Self-Serve IDP Integration"
+            ]
+        }
+    ]
+}

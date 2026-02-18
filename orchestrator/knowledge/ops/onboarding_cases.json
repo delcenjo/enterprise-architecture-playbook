@@ -1,0 +1,30 @@
+[
+    {
+        "case_id": "startup_onboarding_success",
+        "context": "A lean 8-developer startup needs to onboard two new full-stack engineers context switching quickly.",
+        "approach": "Golden Rule Setup: Local environment spins up in Docker in 30 minutes. New hires pair with the CTO on day 2 to deploy a tiny CSS fix to production (TTFC < 2 days).",
+        "outcome": "Immediate psychological safety and velocity. No complex 30-day plan needed due to extreme proximity.",
+        "applicability": "total_developers < 10"
+    },
+    {
+        "case_id": "agile_scaleup_friction",
+        "context": "A 25-developer team grew fast. New hires are taking 45 days to become autonomous because documentation is outdated and seniors are too busy.",
+        "approach": "Implement the 'Structured 30-Day Mentorship'. Mandate 2 buddy sessions per week, assign a controlled production bug in Week 1, and a medium feature requiring architectural design in Week 4.",
+        "outcome": "Simulated Seniority in week 4 proves independence. TTFP drops to 8 days. True autonomy reached by day 25.",
+        "applicability": "10 <= total_developers <= 40"
+    },
+    {
+        "case_id": "enterprise_tribal_knowledge",
+        "context": "A 100-developer traditional enterprise has massive 'tribal knowledge'. Onboarding consists of 'read this wiki' which is 2 years out of date.",
+        "approach": "Standardized Enterprise Onboarding. Force strict Quality Gates to prevent overwhelmed juniors from breaking builds. Mandate centralized logging architecture overviews within the first 3 days.",
+        "outcome": "Protects the codebase via CI/CD gates while forcing the organization to update 100% of ADRs. Onboarding becomes safer.",
+        "applicability": "total_developers > 40 AND platform_maturity != 'mature'"
+    },
+    {
+        "case_id": "mature_platform_data",
+        "context": "A 60-developer modern SaaS with a dedicated platform team wants to optimize the developer experience.",
+        "approach": "Data-Driven Onboarding. Instrument GitHub and JIRA to automatically track TTFC and TTFP. Deploy Friction Surveys in week 2. Analyze PR friction heatmaps to identify confusing modules.",
+        "outcome": "Treats onboarding as a distinct Product. Continuous IDP refinement reduces onboarding time by 40% year-over-year.",
+        "applicability": "total_developers > 40 AND platform_maturity == 'mature'"
+    }
+]
