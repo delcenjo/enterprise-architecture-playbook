@@ -1,0 +1,109 @@
+{
+    "nodes": [
+        {
+            "id": "root",
+            "question": "What is the LTV/CAC ratio for this business?",
+            "type": "condition",
+            "condition": "ltv_cac_ratio",
+            "branches": {
+                "dead": "ltv_cac_dead",
+                "mediocre": "check_payback",
+                "healthy": "check_payback",
+                "over_optimized": "under_investing_growth"
+            }
+        },
+        {
+            "id": "check_payback",
+            "question": "What is the CAC Payback Period in months?",
+            "type": "condition",
+            "condition": "payback_months",
+            "branches": {
+                "excellent": "efficient_unit_economics",
+                "acceptable": "monitor_and_optimize",
+                "dangerous": "restructure_acquisition",
+                "unsustainable": "survival_mode"
+            }
+        },
+        {
+            "id": "ltv_cac_dead",
+            "type": "recommendation",
+            "recommendation": "Unit Economics Crisis — Immediate Intervention",
+            "rationale": "LTV/CAC below 1.0 means you spend more acquiring customers than they'll ever return. This is a business-model-level failure, not a marketing optimization problem. Freeze paid acquisition. Reassess pricing, churn, and product-market fit before spending another euro.",
+            "actions": [
+                "Freeze all paid acquisition",
+                "Reassess pricing model",
+                "Analyze churn root causes",
+                "Validate product-market fit",
+                "Calculate honest blended vs paid CAC"
+            ],
+            "severity": "critical"
+        },
+        {
+            "id": "under_investing_growth",
+            "type": "recommendation",
+            "recommendation": "Growth Under-Investment Warning",
+            "rationale": "LTV/CAC above 5 with slow growth indicates over-optimization. You have healthy margins but you're leaving growth on the table. Competitors with worse unit economics but faster growth will capture the market. Increase acquisition spend strategically.",
+            "actions": [
+                "Increase paid acquisition budget by 30-50%",
+                "Test new acquisition channels",
+                "Consider enterprise sales team expansion",
+                "Evaluate market share vs competitors"
+            ],
+            "severity": "warning"
+        },
+        {
+            "id": "efficient_unit_economics",
+            "type": "recommendation",
+            "recommendation": "Healthy Unit Economics — Scale Confidently",
+            "rationale": "LTV/CAC is healthy and Payback Period is under 12 months. This is fundraising-ready economics. Focus on scaling acquisition channels while maintaining efficiency. Monitor segmented CAC to ensure no channel is masking inefficiency.",
+            "actions": [
+                "Scale current acquisition channels",
+                "Implement segmented CAC tracking per channel/country",
+                "Present to investors with confidence",
+                "Monitor for CAC inflation as you scale"
+            ],
+            "severity": "healthy"
+        },
+        {
+            "id": "monitor_and_optimize",
+            "type": "recommendation",
+            "recommendation": "Acceptable Economics — Optimize Actively",
+            "rationale": "Payback Period between 12-18 months is tolerable for early-stage or enterprise SaaS, but requires active optimization. Focus on improving gross margin (reduce infrastructure costs), reducing sales cycle length, and increasing ARPU through upsells.",
+            "actions": [
+                "Optimize cloud costs to improve gross margin",
+                "Reduce sales cycle with better qualification",
+                "Implement upsell/cross-sell programs",
+                "Track paid-only CAC separately from blended"
+            ],
+            "severity": "moderate"
+        },
+        {
+            "id": "restructure_acquisition",
+            "type": "recommendation",
+            "recommendation": "Dangerous Payback — Restructure Acquisition Strategy",
+            "rationale": "18+ month payback burns cash dangerously. If churn is above 5% monthly, you may never recover CAC on many customers. Shift from high-CAC enterprise sales to product-led growth. Consider whether your pricing is too low for your sales motion.",
+            "actions": [
+                "Audit full CAC including hidden costs (salaries, commissions)",
+                "Evaluate product-led growth to reduce sales-assisted CAC",
+                "Increase pricing if value justifies it",
+                "Cut unprofitable acquisition channels immediately",
+                "Calculate churn-adjusted LTV honestly"
+            ],
+            "severity": "high"
+        },
+        {
+            "id": "survival_mode",
+            "type": "recommendation",
+            "recommendation": "Unsustainable Economics — Survival Protocol",
+            "rationale": "24+ month payback with limited cash runway is existential. You are burning money on customers who may churn before ever becoming profitable. This is not a marketing problem — this is a business model problem requiring immediate CEO/Board intervention.",
+            "actions": [
+                "Immediate freeze on all paid acquisition",
+                "Emergency pricing review (likely underpriced)",
+                "Focus exclusively on organic/referral acquisition",
+                "Renegotiate all vendor contracts to cut COGS",
+                "Present honest unit economics to board/investors"
+            ],
+            "severity": "critical"
+        }
+    ]
+}

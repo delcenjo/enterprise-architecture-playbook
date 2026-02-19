@@ -1,0 +1,100 @@
+{
+    "domain": "Advanced LTV & Revenue Dynamics",
+    "version": "1.0",
+    "description": "Ontology for VP Finance-level LTV modeling: dynamic LTV with cohort decay, churn prediction signals, expansion revenue models (NRR), and the finance-architecture intersection.",
+    "concepts": [
+        {
+            "id": "DYNAMIC_LTV",
+            "name": "Dynamic Lifetime Value",
+            "type": "Core Metric",
+            "formula": "Sum(Revenue_t × Margin_t × P(retention_t)) for t=1..n",
+            "description": "Unlike static LTV (ARPU × Lifetime × Margin), dynamic LTV accounts for variable churn rates per period, expansion revenue after month 6-12, and margin evolution. Cohort analysis is mandatory.",
+            "related_to": [
+                "NRR",
+                "COHORT_ANALYSIS",
+                "CHURN_PREDICTION"
+            ]
+        },
+        {
+            "id": "STATIC_LTV",
+            "name": "Static Lifetime Value (Dangerous Simplification)",
+            "type": "Anti-Pattern",
+            "formula": "ARPU × Average_Lifetime × Gross_Margin",
+            "description": "Assumes constant churn, constant revenue, zero expansion. Acceptable only for MVP-stage estimates. Dangerous for fundraising or strategic decisions."
+        },
+        {
+            "id": "NRR",
+            "name": "Net Revenue Retention",
+            "type": "Core Metric",
+            "formula": "(Starting_Revenue - Churn_Revenue + Expansion_Revenue) / Starting_Revenue × 100",
+            "description": "The single most important SaaS metric. NRR > 100% means you grow without acquiring new customers. Elite SaaS: 115-130%. Mediocre: 90-100%. Dying: < 90%.",
+            "benchmarks": {
+                "elite": "> 130% (Snowflake, Twilio peak)",
+                "excellent": "115-130%",
+                "good": "100-115%",
+                "mediocre": "90-100%",
+                "dying": "< 90%"
+            }
+        },
+        {
+            "id": "CHURN_PREDICTION",
+            "name": "Churn Prediction Model",
+            "type": "Predictive Capability",
+            "description": "Mature companies don't say 'we have 5% churn'. They say 'this customer has 72% probability of churn in 90 days'. This changes how you allocate retention resources.",
+            "input_signals": {
+                "product_usage": [
+                    "Logins per week",
+                    "Core feature usage",
+                    "Time to aha moment",
+                    "Team adoption %"
+                ],
+                "financial_behavior": [
+                    "Payment delays",
+                    "Recent downgrades",
+                    "Usage decrease (usage-based)"
+                ],
+                "relational_signals": [
+                    "Negative support tickets",
+                    "Low NPS",
+                    "Decision-maker changes"
+                ],
+                "structural": [
+                    "Company size",
+                    "Industry",
+                    "Average ticket",
+                    "Time since onboarding"
+                ]
+            },
+            "techniques": [
+                "Logistic Regression (baseline)",
+                "Random Forest",
+                "XGBoost",
+                "Cox Proportional Hazards (Survival Analysis)",
+                "Bayesian lifetime models"
+            ]
+        },
+        {
+            "id": "EXPANSION_REVENUE",
+            "name": "Expansion Revenue",
+            "type": "Growth Lever",
+            "description": "Revenue increase from existing customers through upsells, cross-sells, and usage growth. The true multiplier — you can have high churn and still grow if expansion compensates (Negative Net Revenue Churn).",
+            "models": {
+                "seat_based": "More users → more revenue. Natural in B2B. Risk: if no internal adoption, massive churn.",
+                "usage_based": "Pay per consumption (API calls, storage). Organic expansion but unpredictable revenue.",
+                "tiered_upgrade": "Basic → Pro → Enterprise. Clear upsell path but needs real feature gap."
+            }
+        },
+        {
+            "id": "COHORT_ANALYSIS",
+            "name": "Cohort Analysis",
+            "type": "Analytical Framework",
+            "description": "Mandatory investor-level analysis. Track retention, ARPU evolution, and expansion by monthly cohort. Weak startup: retention curve falls fast, never stabilizes. Strong startup: small initial drop, then plateau. The plateau defines real LTV."
+        },
+        {
+            "id": "CHURN_ARCHITECTURE_LINK",
+            "name": "Churn-Architecture Intersection",
+            "type": "Strategic Insight",
+            "description": "Churn in first 30 days = onboarding/UX problem (V65). Churn after 6 months = lack of expansion value. Expansion depends on usage intensity = architecture must support cheap scalability. Low margin from infrastructure = LTV collapses. Finance and architecture are inseparable."
+        }
+    ]
+}

@@ -1,0 +1,66 @@
+{
+    "nodes": {
+        "root": {
+            "question": "Is the project critical or regulated (Fintech, Healthtech, Gov)?",
+            "options": {
+                "yes": "slsa_requirement",
+                "no": "dependency_check"
+            }
+        },
+        "slsa_requirement": {
+            "question": "Do you require high traceability and build integrity (Level 3+)?",
+            "options": {
+                "yes": "recommend_full_supply_chain",
+                "no": "dependency_check"
+            }
+        },
+        "dependency_check": {
+            "question": "Does the project rely heavily on third-party libraries?",
+            "options": {
+                "yes": "recommend_sbom_scanning",
+                "no": "cloud_native_check"
+            }
+        },
+        "cloud_native_check": {
+            "question": "Are you deploying in a multi-cloud or hybrid environment?",
+            "options": {
+                "yes": "recommend_signing_only",
+                "no": "recommend_basic_scanning"
+            }
+        }
+    },
+    "leaves": {
+        "recommend_full_supply_chain": {
+            "strategy": "Full Supply Chain Protection (SLSA L3)",
+            "reasoning": "High criticality and regulatory requirements mandate full SBOM, signing, and deep scanning.",
+            "pillars": [
+                "SBOM (CycloneDX)",
+                "Artifact Signing (cosign)",
+                "Dependency Scanning (Snyk)"
+            ]
+        },
+        "recommend_sbom_scanning": {
+            "strategy": "SBOM & Dependency Scanning",
+            "reasoning": "High dependency usage requires automated inventory and vulnerability detection.",
+            "pillars": [
+                "SBOM",
+                "Dependency Scanning"
+            ]
+        },
+        "recommend_signing_only": {
+            "strategy": "Artifact Signing & Continuous Scans",
+            "reasoning": "Multi-cloud deployments require integrity verification during transport and runtime.",
+            "pillars": [
+                "Artifact Signing",
+                "Image Scanning"
+            ]
+        },
+        "recommend_basic_scanning": {
+            "strategy": "Basic Dependency Scanning",
+            "reasoning": "Standard security baseline for lower criticality systems.",
+            "pillars": [
+                "Basic Scanning (Dependabot/Trivy)"
+            ]
+        }
+    }
+}

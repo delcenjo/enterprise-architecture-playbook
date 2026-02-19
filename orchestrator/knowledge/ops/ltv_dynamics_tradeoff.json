@@ -1,0 +1,47 @@
+{
+    "dimensions": [
+        "Expansion Model",
+        "Revenue Predictability",
+        "Architecture Cost Impact",
+        "NRR Potential",
+        "Investor Signal"
+    ],
+    "patterns": [
+        {
+            "name": "Seat-Based Expansion",
+            "expansion_model": "More users → more revenue",
+            "predictability": "High (contracted seats)",
+            "architecture_cost": "Linear (each user = compute + storage)",
+            "nrr_potential": "Moderate (100-115%)",
+            "investor_signal": "Good (predictable growth path)",
+            "risk": "Low utilization → downsizing at renewal. If only buyer uses it, one champion departure = churn."
+        },
+        {
+            "name": "Usage-Based Expansion",
+            "expansion_model": "Pay per consumption (API calls, storage, compute)",
+            "predictability": "Low (volatile month-to-month)",
+            "architecture_cost": "CRITICAL — marginal cost must approach zero. Cloud cost per unit IS the margin.",
+            "nrr_potential": "Very High (115-140%)",
+            "investor_signal": "Strong (organic growth without sales effort)",
+            "risk": "Revenue unpredictability. Economic downturns compress usage. Architecture inefficiency kills margin."
+        },
+        {
+            "name": "Tiered Upgrade",
+            "expansion_model": "Basic → Pro → Enterprise plans",
+            "predictability": "Medium (depends on upgrade conversion rates)",
+            "architecture_cost": "Low (feature flags, not infra scaling)",
+            "nrr_potential": "Moderate (105-120%)",
+            "investor_signal": "Good (clear monetization ladder)",
+            "risk": "If feature gap between tiers is cosmetic, upgrade rates stall. Requires constant feature innovation at higher tiers."
+        },
+        {
+            "name": "No Expansion Model",
+            "expansion_model": "None — flat revenue per customer",
+            "predictability": "High but capped",
+            "architecture_cost": "Irrelevant (no growth pressure)",
+            "nrr_potential": "Capped at 100% (best case = zero churn)",
+            "investor_signal": "Weak (no growth flywheel, LTV has hard ceiling)",
+            "risk": "Every cohort flatlines. Growth ONLY from new customer acquisition. CAC dependency is lethal."
+        }
+    ]
+}

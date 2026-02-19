@@ -1,0 +1,57 @@
+[
+    {
+        "case_id": "saas_b2b_healthy",
+        "context": "B2B SaaS with 25 new customers/month, €100k total sales+marketing spend, €300/month ARPU, 80% gross margin.",
+        "calculation": {
+            "cac": 4000,
+            "monthly_gross_margin_per_customer": 240,
+            "payback_months": 16.7,
+            "ltv_at_36_months": 8640,
+            "ltv_cac_ratio": 2.16
+        },
+        "diagnosis": "Mediocre LTV/CAC with dangerous payback. The business works but barely. Needs pricing increase or sales cycle optimization.",
+        "applicability": "B2B SaaS with moderate ARPU and sales-assisted motion"
+    },
+    {
+        "case_id": "enterprise_high_cac_high_ltv",
+        "context": "Enterprise software selling to banks. CAC €12,000 per customer. ARPU €5,000/month. 85% gross margin. Average retention: 4 years.",
+        "calculation": {
+            "cac": 12000,
+            "monthly_gross_margin_per_customer": 4250,
+            "payback_months": 2.8,
+            "ltv_at_48_months": 204000,
+            "ltv_cac_ratio": 17.0
+        },
+        "diagnosis": "Extremely healthy unit economics despite high CAC. Payback under 3 months. LTV/CAC > 5 suggests possible under-investment in growth. Should aggressively scale enterprise sales team.",
+        "applicability": "Enterprise B2B with high ACV and long retention"
+    },
+    {
+        "case_id": "smb_low_cac_high_churn",
+        "context": "SMB SaaS with self-serve signup. CAC €800 (mostly paid ads). ARPU €49/month. 75% gross margin. Monthly churn: 8%.",
+        "calculation": {
+            "cac": 800,
+            "monthly_gross_margin_per_customer": 36.75,
+            "payback_months": 21.8,
+            "average_lifetime_months": 12.5,
+            "ltv": 459,
+            "ltv_cac_ratio": 0.57
+        },
+        "diagnosis": "DEAD. LTV/CAC below 1.0. Every customer acquired is a net loss. The 8% monthly churn means average customer life is only 12.5 months — they churn before ever repaying CAC. Immediate freeze on paid acquisition. Fix retention before spending another euro on ads.",
+        "applicability": "SMB SaaS with high churn and low ARPU"
+    },
+    {
+        "case_id": "fintech_startup_fundraising",
+        "context": "Fintech startup preparing Series A. Blended CAC reported as €1,500 but 60% of customers come organically. Paid-only CAC is €3,750. ARPU €200/month. 70% gross margin.",
+        "calculation": {
+            "cac_blended": 1500,
+            "cac_paid_only": 3750,
+            "monthly_gross_margin_per_customer": 140,
+            "payback_blended": 10.7,
+            "payback_paid_only": 26.8,
+            "ltv_cac_ratio_blended": 3.36,
+            "ltv_cac_ratio_paid_only": 1.34
+        },
+        "diagnosis": "Classic self-deception. Blended CAC looks healthy (3.36x) but paid-only CAC is unsustainable (26.8 months payback). If organic growth slows — which it always does — the real economics are mediocre. Must present both numbers honestly to investors.",
+        "applicability": "Startup mixing organic and paid acquisition metrics"
+    }
+]

@@ -1,0 +1,25 @@
+{
+    "matrix": [
+        {
+            "depth": "Full Protection",
+            "complexity": "High",
+            "cost": "Medium",
+            "safety": "Maximum",
+            "overhead": "Significant (Build time)"
+        },
+        {
+            "depth": "SBOM & Scans",
+            "complexity": "Medium",
+            "cost": "Low-Medium",
+            "safety": "High",
+            "overhead": "Moderate"
+        },
+        {
+            "depth": "Basic Scanning",
+            "complexity": "Low",
+            "cost": "Free/Low",
+            "safety": "Medium",
+            "overhead": "Minimal"
+        }
+    ]
+}

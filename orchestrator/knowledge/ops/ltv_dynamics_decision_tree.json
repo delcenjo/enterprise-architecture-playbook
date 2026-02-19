@@ -1,0 +1,175 @@
+{
+    "nodes": [
+        {
+            "id": "root",
+            "question": "What is the Net Revenue Retention (NRR)?",
+            "type": "condition",
+            "condition": "nrr_pct",
+            "branches": {
+                "dying": "revenue_contraction_crisis",
+                "mediocre": "check_churn_stage",
+                "good": "check_expansion_model",
+                "excellent": "check_expansion_model",
+                "elite": "scale_expansion_engine"
+            }
+        },
+        {
+            "id": "check_churn_stage",
+            "question": "When does churn primarily occur?",
+            "type": "condition",
+            "condition": "churn_stage",
+            "branches": {
+                "early": "onboarding_churn_fix",
+                "mid": "value_delivery_gap",
+                "late": "expansion_deficit"
+            }
+        },
+        {
+            "id": "check_expansion_model",
+            "question": "What is the primary expansion revenue model?",
+            "type": "condition",
+            "condition": "expansion_model",
+            "branches": {
+                "seat_based": "optimize_seat_adoption",
+                "usage_based": "optimize_usage_scaling",
+                "tiered": "optimize_upgrade_path",
+                "none": "implement_expansion_strategy"
+            }
+        },
+        {
+            "id": "revenue_contraction_crisis",
+            "type": "recommendation",
+            "recommendation": "Revenue Contraction Crisis — Retention Emergency",
+            "rationale": "NRR below 90% means the business is shrinking from within. Every cohort degrades faster than new customers can replace them. This is terminal without intervention. Focus 100% of product and engineering on retention before any growth spending.",
+            "actions": [
+                "Freeze feature development for new customers",
+                "Implement churn prediction model (even logistic regression baseline)",
+                "Segment churned customers by reason — product gap, pricing, competitor",
+                "Deploy customer success team to at-risk accounts",
+                "Run cohort survival analysis to find where the curve breaks"
+            ],
+            "severity": "critical",
+            "architecture_impact": "Invest in observability (user behavior tracking) and onboarding infrastructure before any new features"
+        },
+        {
+            "id": "onboarding_churn_fix",
+            "type": "recommendation",
+            "recommendation": "Early Churn — Onboarding & Time-to-Value Problem",
+            "rationale": "Churn concentrated in the first 30-60 days signals failure to deliver the 'aha moment'. The customer never understood the value. This is NOT a product problem — it's an activation problem. Connects directly to V65 Developer Onboarding principles applied to customers.",
+            "actions": [
+                "Map time-to-value and reduce it by 50%",
+                "Implement guided onboarding flows",
+                "Track activation metrics (core feature used within 48hrs)",
+                "Deploy automated health scores for first 30 days",
+                "Assign CSM for high-value accounts during first 60 days"
+            ],
+            "severity": "high",
+            "architecture_impact": "Invest in product analytics infrastructure and in-app guidance systems"
+        },
+        {
+            "id": "value_delivery_gap",
+            "type": "recommendation",
+            "recommendation": "Mid-Stage Churn — Value Plateau Detected",
+            "rationale": "Customers survive onboarding but leave at 3-6 months. They got initial value but hit a ceiling. Need to deliver incremental value through integrations, advanced features, or workflow expansion. The product solved the initial problem but doesn't grow with the customer.",
+            "actions": [
+                "Analyze feature usage decay curves",
+                "Build integration ecosystem (API, marketplace)",
+                "Implement usage-based triggers for feature discovery",
+                "Create advanced feature adoption campaigns",
+                "Consider tiered pricing to unlock growth path"
+            ],
+            "severity": "moderate",
+            "architecture_impact": "Invest in API platform, extensibility, and integration infrastructure"
+        },
+        {
+            "id": "expansion_deficit",
+            "type": "recommendation",
+            "recommendation": "Late Churn — Missing Expansion Revenue Model",
+            "rationale": "Customers retain for 6+ months but eventually leave because there's no growth path. Revenue per customer is flat. Need to implement expansion mechanics: seat-based growth, usage-based pricing, or tiered upgrades. Without expansion, LTV has a hard ceiling.",
+            "actions": [
+                "Evaluate seat-based vs usage-based vs tiered upgrade model",
+                "Implement billing infrastructure for expansion revenue",
+                "Track Net Revenue Retention per cohort",
+                "Design upsell triggers based on usage patterns",
+                "Model expansion revenue impact on LTV"
+            ],
+            "severity": "moderate",
+            "architecture_impact": "Invest in metering infrastructure, billing flexibility, and multi-tier architecture"
+        },
+        {
+            "id": "optimize_seat_adoption",
+            "type": "recommendation",
+            "recommendation": "Seat-Based Expansion — Maximize Internal Adoption",
+            "rationale": "Seat-based expansion is natural in B2B but requires internal champion strategy. If only 20% of purchased seats are active, a reorg or champion departure triggers massive churn. Focus on making the product indispensable to entire teams, not just the buyer.",
+            "actions": [
+                "Track seat utilization rate (active/purchased)",
+                "Implement team collaboration features to drive adoption",
+                "Create admin dashboards showing team ROI",
+                "Alert CSM when seat utilization drops below 60%",
+                "Model expansion based on department-level rollout potential"
+            ],
+            "severity": "healthy",
+            "architecture_impact": "Invest in multi-user collaboration features, RBAC, and team analytics"
+        },
+        {
+            "id": "optimize_usage_scaling",
+            "type": "recommendation",
+            "recommendation": "Usage-Based Expansion — Architecture Must Scale Cheaply",
+            "rationale": "Usage-based models create organic expansion but require infrastructure that scales with near-zero marginal cost. If cloud costs grow linearly with usage, margin collapses and LTV degrades. Architecture directly determines whether this model is viable.",
+            "actions": [
+                "Implement real-time usage metering and billing",
+                "Optimize cloud cost per unit of usage (critical path)",
+                "Build usage forecasting for revenue predictability",
+                "Create usage alerts and growth nudges",
+                "Model gross margin at different usage scales"
+            ],
+            "severity": "healthy",
+            "architecture_impact": "CRITICAL: Invest in auto-scaling, caching layers, CDN, and cost-efficient compute. Cloud cost per transaction IS your margin."
+        },
+        {
+            "id": "optimize_upgrade_path",
+            "type": "recommendation",
+            "recommendation": "Tiered Expansion — Clear Value Differentiation Required",
+            "rationale": "Tiered upgrade works only if there's a real feature gap between tiers that customers perceive as valuable. If Basic and Pro are too similar, upgrade rates stall. Need clear 'aha' features that unlock at each tier, ideally tied to business outcomes.",
+            "actions": [
+                "Audit feature gap between tiers — is it real or cosmetic?",
+                "Track trial/usage of locked features",
+                "Implement in-app upgrade prompts based on usage hitting tier limits",
+                "A/B test pricing page and tier positioning",
+                "Model upgrade rates by segment and cohort"
+            ],
+            "severity": "healthy",
+            "architecture_impact": "Invest in feature flagging infrastructure and flexible entitlement systems"
+        },
+        {
+            "id": "implement_expansion_strategy",
+            "type": "recommendation",
+            "recommendation": "No Expansion Model — Implement One Immediately",
+            "rationale": "Without any expansion revenue model, LTV is capped at initial contract value. Every cohort flatlines. This is the most common reason good-retention companies stall at growth. Choose a model based on product type: seats for collaboration tools, usage for infrastructure, tiers for feature-rich platforms.",
+            "actions": [
+                "Evaluate which expansion model fits: seat/usage/tiered",
+                "Research competitor pricing and expansion mechanics",
+                "Prototype billing changes in staging",
+                "Model NRR impact of each option",
+                "Launch with smallest viable expansion mechanic"
+            ],
+            "severity": "high",
+            "architecture_impact": "Build metering, entitlement management, and flexible billing from scratch"
+        },
+        {
+            "id": "scale_expansion_engine",
+            "type": "recommendation",
+            "recommendation": "Elite Revenue Engine — Protect and Scale",
+            "rationale": "NRR above 130% is world-class. The business grows from within faster than most companies grow from acquisition. Protect this engine ruthlessly. Don't break what works. Focus engineering on reducing marginal cost per customer and expanding internationally.",
+            "actions": [
+                "Document and protect the expansion flywheel",
+                "Reduce cloud cost per unit to expand gross margin",
+                "Segment expansion sources (seats vs usage vs upgrades)",
+                "Build predictive models for expansion timing",
+                "Invest in international expansion where unit economics replicate"
+            ],
+            "severity": "healthy",
+            "architecture_impact": "Invest in multi-region deployment, cost optimization, and scalability to protect margins at scale"
+        }
+    ]
+}
