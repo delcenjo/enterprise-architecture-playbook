@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ client_name }} - Enterprise Dash</title>
+    <!-- Tailwind CSS loaded from CDN for single-file portability without build tools -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js for interactive visualizations -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #f8fafc; }
+        .glass-panel { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+    </style>
+</head>
+<body class="min-h-screen p-8">
+    
+    <header class="flex justify-between items-center mb-10 border-b border-slate-700 pb-5">
+        <div>
+            <h1 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-400">
+                Cloud Strategy Simulator
+            </h1>
+            <p class="text-slate-400 mt-1">Interactive Board for {{ client_name }}</p>
+        </div>
+        <div class="px-4 py-2 bg-blue-600/20 text-blue-400 rounded-full text-sm font-medium border border-blue-500/30">
+            Status: Analysis Complete
+        </div>
+    </header>
+
+    <main class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- Controls Column -->
+        <div class="lg:col-span-1 space-y-6">
+            <div class="glass-panel p-6 rounded-2xl">
+                <h3 class="text-lg font-medium mb-4">Simulation Parameters</h3>
+                
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm text-slate-400 mb-2">Migration Timeline (Months)</label>
+                        <input type="range" id="timelineInput" min="3" max="24" value="6" class="w-full accent-blue-500">
+                        <div class="flex justify-between text-xs text-slate-500 mt-1"><span id="timelineVal">6m</span></div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm text-slate-400 mb-2">Optimization Strategy</label>
+                        <select id="strategySelect" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-sm focus:ring-blue-500 focus:border-blue-500">
+                            <option value="0.2">Conservative (20% Savings)</option>
+                            <option value="0.45" selected>Moderate (45% Savings)</option>
+                            <option value="0.7">Aggressive (70% Savings)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TCO Summary Widget -->
+            <div class="glass-panel p-6 rounded-2xl bg-gradient-to-br from-indigo-900/50 to-slate-800/50 border-indigo-500/30">
+                <h4 class="text-sm font-medium text-indigo-300 mb-1">Projected 3rd-Year Savings</h4>
+                <div class="text-3xl font-bold mt-2">$<span id="savingsValue">{{ simulation.metrics.savings_3yr | round(0) }}</span></div>
+                <div class="flex items-center text-sm font-medium text-emerald-400 mt-2">
+                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                    <span id="roiValue">{{ simulation.metrics.roi_pct }}</span>% ROI
+                </div>
+            </div>
+            
+            <div class="glass-panel p-6 rounded-2xl">
+                <h3 class="text-lg font-medium mb-2">Strategic Metrics</h3>
+                <div class="flex justify-between text-sm mb-1"><span>Company Size:</span> <span>{{ sections[0].metadata.company_size if sections and sections[0].metadata else 'N/A' }} users</span></div>
+                <div class="flex justify-between text-sm mb-1"><span>NPV (3yr):</span> <span class="text-emerald-400">${{ simulation.npv }}</span></div>
+                <div class="flex justify-between text-sm"><span>Payback Period:</span> <span class="text-blue-400">{{ simulation.payback_period_months }} months</span></div>
+            </div>
+        </div>
+
+        <!-- Charts Column -->
+        <div class="lg:col-span-2 space-y-6">
+            <div class="glass-panel p-6 rounded-2xl">
+                <h3 class="text-lg font-medium mb-6">Cashflow Projection</h3>
+                <div class="h-80 w-full relative">
+                    <canvas id="cashflowChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script id="simulation-data" type="application/json">
+        {{ simulation.cashflow_series | tojson }}
+    </script>
+
+    <script>
+        // Interactivity JS
+        const range = document.getElementById('timelineInput');
+        const val = document.getElementById('timelineVal');
+        const savingsEl = document.getElementById('savingsValue');
+        
+        const rawSeries = JSON.parse(document.getElementById('simulation-data').textContent);
+        
+        range.addEventListener('input', (e) => {
+            val.textContent = e.target.value + 'm';
+        });
+
+        // Initialize Chart.js
+        const ctx = document.getElementById('cashflowChart').getContext('2d');
+        const labels = rawSeries.map(s => s.period);
+        const onpremData = rawSeries.map(s => s.onprem / 1000);
+        const cloudData = rawSeries.map(s => s.cloud / 1000);
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'On-Premise (Baseline)',
+                        data: onpremData,
+                        borderColor: '#94a3b8',
+                        borderDash: [5, 5],
+                        backgroundColor: 'transparent',
+                        tension: 0.4
+                    },
+                    {
+                        label: 'Cloud Native (Simulated)',
+                        data: cloudData,
+                        borderColor: '#60a5fa',
+                        backgroundColor: 'rgba(96, 165, 250, 0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { labels: { color: '#cbd5e1' } }
+                },
+                scales: {
+                    y: { 
+                        grid: { color: 'rgba(51, 65, 85, 0.5)' }, 
+                        ticks: { color: '#94a3b8', callback: function(value) { return '$' + value + 'k'; } } 
+                    },
+                    x: { grid: { color: 'rgba(51, 65, 85, 0.5)' }, ticks: { color: '#94a3b8' } }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

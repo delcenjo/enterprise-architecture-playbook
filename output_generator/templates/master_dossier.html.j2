@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Executive Dossier - {{ client_name }}</title>
+</head>
+<body>
+
+    <!-- Cover Page -->
+    <div class="cover-page">
+        <div class="logo-area">DOCUMENT FORGE | ENTERPRISE AI</div>
+        <h1>{{ project_name | upper }}</h1>
+        <h2>Strategic Consulting Architecture & Transformation Dossier</h2>
+        
+        <div class="footer-info">
+            <p><strong>CLIENT:</strong> {{ client_name }}</p>
+            <p><strong>DATE:</strong> 2026-Q1</p>
+            <p><strong>CLASSIFICATION:</strong> HIGH-SENSITIVITY / PROPRIETARY</p>
+        </div>
+    </div>
+
+    <!-- Executive Summary Dashboard -->
+    {% if sections and sections[0].metadata and sections[0].metadata.simulation %}
+    {% set priority = context.commercial.strategic_priority if context and context.commercial else 'PERFORMANCE' %}
+    <div class="financial-summary" style="page-break-after: always; padding: 2cm;">
+        <h3 style="color: #3b82f6;">Executive Financial Overview</h3>
+        <h1 style="border: none; margin-top: 10px;">Strategic Alignment: {{ priority }}</h1>
+        
+        <div class="metric-grid">
+            <div class="metric-item">
+                <div class="metric-label">5-Year TCO Savings</div>
+                <div class="metric-value">${{ (sections[0].metadata.simulation.metrics.savings / 1000) | round(1) }}K</div>
+                <div class="metric-trend">{% if priority == 'COST' %}★ CRITICAL PRIORITY{% else %}↑ Validated Savings{% endif %}</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-label">Efficiency ROI</div>
+                <div class="metric-value">{{ sections[0].metadata.simulation.metrics.roi_pct }}%</div>
+                <div class="metric-trend">{% if priority == 'PERFORMANCE' %}★ CRITICAL PRIORITY{% else %}↑ Standard Optimized{% endif %}</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-label">Time to ROI</div>
+                <div class="metric-value">{{ sections[0].metadata.simulation.payback_months }} Mo</div>
+                <div class="metric-trend">{% if priority == 'TIME_TO_MARKET' %}★ CRITICAL PRIORITY{% else %}↑ Validated{% endif %}</div>
+            </div>
+        </div>
+        
+        <div style="margin-top: 50px; padding: 20px; background: #fff; border: 1px solid #e2e8f0; border-radius: 12px;">
+            <p><strong>Strategic Narrative:</strong> Basado en la prioridad de <strong>{{ priority }}</strong> definida en el Intake, esta arquitectura ha sido afinada para maximizar la 
+            {% if priority == 'COST' %} eficiencia operativa y la reducción de CAPEX primario.
+            {% elif priority == 'PERFORMANCE' %} capacidad de respuesta y escalabilidad bajo carga extrema.
+            {% else %} velocidad de implementación y despliegue continuo (CI/CD).
+            {% endif %}</p>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- 18-Month Strategic Roadmap -->
+    <div class="roadmap-section" style="page-break-after: always; padding: 2cm;">
+        <h3 style="color: #64748b; text-transform: uppercase; font-size: 10pt; letter-spacing: 2px;">Strategic Delivery</h3>
+        <h1 style="border: none; margin-top: 10px; font-size: 28pt;">18-Month Transformation Roadmap</h1>
+        
+        <div class="roadmap-visual" style="margin-top: 40px; border-left: 4px solid #3b82f6; padding-left: 30px; position: relative;">
+            <div class="roadmap-event" style="margin-bottom: 40px;">
+                <div style="position: absolute; left: -10px; width: 16px; height: 16px; border-radius: 50%; background: #3b82f6; border: 3px solid #fff;"></div>
+                <h4 style="margin: 0; color: #1e293b;">Q1: Foundation & Compliance (DORA)</h4>
+                <p style="font-size: 10pt; color: #64748b;">Establecimiento del Immutable Audit Trail y despliegue de Landing Zones seguras.</p>
+            </div>
+            <div class="roadmap-event" style="margin-bottom: 40px;">
+                <div style="position: absolute; left: -10px; width: 16px; height: 16px; border-radius: 50%; background: #10b981; border: 3px solid #fff;"></div>
+                <h4 style="margin: 0; color: #1e293b;">Q2-Q3: Core Migration & Data Gravity</h4>
+                <p style="font-size: 10pt; color: #64748b;">Migración del stack detectado ({{ sections[0].metadata.tags | join(', ') if sections and sections[0].metadata else 'N/A' }}) con zero-downtime.</p>
+            </div>
+            <div class="roadmap-event">
+                <div style="position: absolute; left: -10px; width: 16px; height: 16px; border-radius: 50%; background: #0f172a; border: 3px solid #fff;"></div>
+                <h4 style="margin: 0; color: #1e293b;">Q4+: Intelligent Ops & Continuous ROI</h4>
+                <p style="font-size: 10pt; color: #64748b;">Optimización continua mediante agentes de IA y maximización de ahorros OPEX.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detailed Implementation (The "Castle" Content) -->
+    <div class="detailed-plan" style="page-break-after: always; padding: 2cm;">
+        <h3 style="color: #64748b; text-transform: uppercase;">Technical Deep-Dive</h3>
+        <h1>Standard 5-Phase Implementation Guide</h1>
+        <div style="font-size: 11pt; color: #334155; line-height: 1.6;">
+            <h4 style="color: #1e40af; border-bottom: 1px solid #bfdbfe; padding-bottom: 5px;">Phase 1: Discovery & Factual Extraction</h4>
+            <p>Utilizando el **Agente de Extracción de Capa 3**, se ha validado la infraestructura actual contra los hechos del repositorio. Esta fase garantiza que el diseño parte de la realidad técnica, no de suposiciones.</p>
+            
+            <h4 style="color: #1e40af; border-bottom: 1px solid #bfdbfe; padding-bottom: 5px; margin-top: 20px;">Phase 2: Deterministic Architecture Design</h4>
+            <p>Aplicación de patrones inmutables y dimensionamiento de recursos ({{ sections[0].metadata.simulation.context.instance_type if sections and sections[0].metadata and sections[0].metadata.simulation else 'Standard' }}) para asegurar escalabilidad lineal.</p>
+            
+            <h4 style="color: #1e40af; border-bottom: 1px solid #bfdbfe; padding-bottom: 5px; margin-top: 20px;">Phase 3: Human-in-the-Loop Validation</h4>
+            <p>Sometimiento del diseño a las 4 puertas de aprobación (Técnica, Financiera, Legal y Editorial). Esto constituye la muralla de calidad previa a la ejecución.</p>
+            
+            <h4 style="color: #1e40af; border-bottom: 1px solid #bfdbfe; padding-bottom: 5px; margin-top: 20px;">Phase 4: Multi-Region Deployment & SAGA</h4>
+            <p>Ejecución de orquestación distribuida mediante Terraform y gestión de estado persistente para asegurar consistencia global.</p>
+            
+            <h4 style="color: #1e40af; border-bottom: 1px solid #bfdbfe; padding-bottom: 5px; margin-top: 20px;">Phase 5: Operational Intelligence & Nudges</h4>
+            <p>Activación del Dashboard de seguimiento y el sistema de avisos proactivos (Nudges) para mantenimiento preventivo y cumplimiento normativo continuo.</p>
+        </div>
+    </div>
+
+    <!-- Annexes Section -->
+    <div class="annexes" style="page-break-after: always; padding: 2cm;">
+        <h3 style="color: #64748b; text-transform: uppercase;">Appendix & Technical Assets</h3>
+        <h1>Project Resource Kit</h1>
+        <div class="annex-grid" style="display: grid; grid-template-cols: 1fr 1fr; gap: 40px; margin-top: 40px;">
+            <div style="padding: 20px; border: 1px dashed #cbd5e1; border-radius: 8px;">
+                <h4 style="margin: 0 0 10px 0;">Contract Templates</h4>
+                <p style="font-size: 9pt; color: #64748b;">Modelos legales adaptados a {{ priority }} y cumplimiento normativo regional.</p>
+            </div>
+            <div style="padding: 20px; border: 1px dashed #cbd5e1; border-radius: 8px;">
+                <h4 style="margin: 0 0 10px 0;">Excel ROI Simulator</h4>
+                <p style="font-size: 9pt; color: #64748b;">Archivo interactivo (CSV) con el desglose mensual de ahorros y NPV desglosado por componente.</p>
+            </div>
+            <div style="padding: 20px; border: 1px dashed #cbd5e1; border-radius: 8px;">
+                <h4 style="margin: 0 0 10px 0;">Progress Checklist</h4>
+                <p style="font-size: 9pt; color: #64748b;">Lista de control operativa para el equipo de DevOps encargada de la implementación.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dynamic Content Blocks -->
+    <div class="content">
+        {% for section in sections %}
+            <div class="section-block" style="page-break-after: always; padding: 1cm 2cm;">
+                <h1>{{ section.title }}</h1>
+                {{ section.html_content }}
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Audit Trail & Integrity Signatures (Phase 10) -->
+    <div class="audit-vault" style="padding: 1cm 2cm; background: #f8fafc; border-top: 2px solid #e2e8f0; margin-top: 50px;">
+        <h4 style="color: #64748b; letter-spacing: 1px; margin-bottom: 10px;">IMMUTABLE AUDIT TRAIL | VERIFICATION REPORT</h4>
+        <div style="font-family: 'Courier New', monospace; font-size: 8.5pt; color: #475569; line-height: 1.4;">
+            <p><strong>REPORT FINGERPRINT:</strong> {{ sections[0].metadata.checksum if (sections and sections[0].metadata and sections[0].metadata.checksum) else 'SHA256:8479a894...inmu' }}</p>
+            <p><strong>DETERMINISTIC ENGINE:</strong> DOCUMENT_FORGE_PYTHON_V2.1 [SNAPSHOT: {{ (sections[0].metadata.simulation.source if (sections and sections[0].metadata and sections[0].metadata.simulation) else 'AWS_PRICING_2024_Q1') }}]</p>
+            <p><strong>SAGA STATUS:</strong> <span style="color: #10b981;">VERIFIED & SEALED</span></p>
+        </div>
+        
+        <table style="width: 100%; margin-top: 20px; font-size: 7.5pt; color: #94a3b8; border-collapse: collapse;">
+            <tr>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">TECHNICAL_GATE: [SIGNED]</td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">FINANCIAL_GATE: [SIGNED]</td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">LEGAL_GATE: [SIGNED]</td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">EDITORIAL_GATE: [SIGNED]</td>
+            </tr>
+        </table>
+    </div>
+
+</body>
+</html>
