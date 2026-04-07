@@ -1,0 +1,32 @@
+{
+    "GitOps": {
+        "concepto": "Gestión de infraestructura y despliegues declarativos con Git.",
+        "descripcion": "Git como única fuente de verdad para el estado deseado del sistema.",
+        "componentes": {
+            "RepositorioGit": "Donde reside la declaración del estado deseado.",
+            "ControladorGitOps": "Agente que reconcilia el estado real con el deseado.",
+            "DriftDetection": "Identificación de desviaciones entre el cluster y Git.",
+            "AutomatedSync": "Aplicación automática de cambios aprobados en Git."
+        },
+        "beneficios": [
+            "Consistencia entre entornos",
+            "Auditoría nativa basada en commits",
+            "Rollbacks seguros y rápidos"
+        ],
+        "herramientas": [
+            "ArgoCD",
+            "Flux",
+            "Terraform Cloud",
+            "Atlantis"
+        ],
+        "metricas_clave": [
+            "Sync Frequency",
+            "Drift Time",
+            "Mean Time to Recovery (MTTR)"
+        ],
+        "riesgos": [
+            "Complejidad de gestión de secretos",
+            "Dependencia de conectividad con Git"
+        ]
+    }
+}

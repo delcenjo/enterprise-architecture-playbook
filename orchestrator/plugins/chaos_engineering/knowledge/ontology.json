@@ -1,0 +1,34 @@
+{
+    "ChaosEngineering": {
+        "concepto": "Chaos Engineering",
+        "descripcion": "Práctica de introducir fallos controlados para validar la resiliencia del sistema.",
+        "componentes": {
+            "GameDays": "Simulaciones planificadas de fallos en entornos reales o controlados.",
+            "FailureInjection": "Inyección deliberada de errores (CPU, latencia, red).",
+            "BlastRadius": "Alcance e impacto controlado de un experimento de caos.",
+            "Monitoring": "Observación de métricas de salud (Steady State) durante el experimento."
+        },
+        "objetivos": [
+            "Validar resiliencia ante fallos reales",
+            "Identificar Single Points of Failure (SPOF)",
+            "Mejorar MTTR y procedimientos de mitigación"
+        ],
+        "metricas_clave": [
+            "MTTR (Mean Time To Recovery)",
+            "Error Rate under failure",
+            "Recovery speed",
+            "Blast radius coverage"
+        ],
+        "herramientas": [
+            "Gremlin",
+            "LitmusChaos",
+            "Chaos Mesh",
+            "AWS FIS"
+        ],
+        "dependencias": [
+            "Observability complete",
+            "SLIs/SLOs defined"
+        ],
+        "impacto_financiero": "Ahorro por reducción de downtime y pérdida de reputación."
+    }
+}

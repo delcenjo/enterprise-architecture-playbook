@@ -1,0 +1,31 @@
+{
+    "matrix": [
+        {
+            "strategy": "Purely Manual Review",
+            "effort_cost": "High (consumes expensive Senior Engineering time)",
+            "time_per_pr": "Medium-High (depends on availability)",
+            "error_risk": "Low (if reviewed by experts) / High (if reviewers are fatigued/junior)",
+            "scalability": "Very Low (linear bottleneck)",
+            "tech_debt_impact": "Medium (inconsistent rule application)",
+            "best_for": "Highly complex domain logic, cryptographic implementations, core architecture changes."
+        },
+        {
+            "strategy": "Purely Automated Review (CI/CD Gates)",
+            "effort_cost": "Low (after initial setup)",
+            "time_per_pr": "Extremely Fast (minutes)",
+            "error_risk": "Medium (Catches syntax/coverage, but misses logic/business flaws)",
+            "scalability": "Infinite",
+            "tech_debt_impact": "Low (prevents standard smells from entering)",
+            "best_for": "Formatting, linting, dependency vulnerability scanning, standard test validation."
+        },
+        {
+            "strategy": "Hybrid Review (Recommended)",
+            "effort_cost": "Medium",
+            "time_per_pr": "Medium (Automated gate must pass first, followed by focused human review)",
+            "error_risk": "Extremely Low (Machine catches syntax, Human catches logic)",
+            "scalability": "High",
+            "tech_debt_impact": "High Positive (prevents degradation consistently)",
+            "best_for": "Standard enterprise software development at scale."
+        }
+    ]
+}

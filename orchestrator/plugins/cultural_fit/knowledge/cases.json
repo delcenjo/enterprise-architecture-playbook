@@ -1,0 +1,34 @@
+{
+    "cases": [
+        {
+            "id": "toxic_rockstar_2025",
+            "role": "Lead Architect",
+            "scores": {
+                "ownership": 2.5,
+                "conflict_handling": 2.0,
+                "feedback_receptivity": 1.5,
+                "collaboration": 2.0,
+                "transparency": 3.0,
+                "learning_agility": 4.5
+            },
+            "evaluator_notes": "Technically flawless. Found edge cases immediately in the coding test. However, during the behavioral interview, when asked about a past failure, they blamed 'incompetent product managers'. When the interviewer challenged a design choice, the candidate became visibly agitated and condescending.",
+            "calculated_score": 2.375,
+            "decision": "Reject - High Friction Risk (2.375)"
+        },
+        {
+            "id": "structural_multiplier_2025",
+            "role": "Staff Engineer",
+            "scores": {
+                "ownership": 5.0,
+                "conflict_handling": 4.8,
+                "feedback_receptivity": 4.5,
+                "collaboration": 4.5,
+                "transparency": 4.8,
+                "learning_agility": 4.2
+            },
+            "evaluator_notes": "Very strong. Unprompted, brought up an incident where a migration they led took down production for 20 minutes. Explicitly stated 'I didn't account for lock contention.' Detailed the exact post-mortem steps and how they updated the internal Golden Paths so no junior dev could make the same mistake.",
+            "calculated_score": 4.68,
+            "decision": "Hire - Cultural Multiplier (4.68)"
+        }
+    ]
+}

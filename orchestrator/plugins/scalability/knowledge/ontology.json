@@ -1,0 +1,22 @@
+{
+    "ScalabilityAnalysis": {
+        "concepto": "Evaluación matemática y arquitectónica de los límites de un sistema y su comportamiento bajo incremento de carga.",
+        "descripcion": "Utiliza modelos de Performance Engineering y Teoría de Colas para predecir cuándo y cómo un sistema fallará, recomendando patrones de mitigación proactiva y estrategias de dimensionamiento.",
+        "areas_clave": {
+            "CapacityPlanning": "Estimación proactiva de los recursos necesarios para absorber el tráfico proyectado.",
+            "QueuingTheory": "Modelado matemático (Little's Law, M/M/c) para entender cómo los tiempos de espera explotan cuando la utilización de un componente se acerca al 100%.",
+            "BottleneckDetection": "Identificación de los eslabones más débiles en la cadena de procesamiento (CPU, RAM, red, IOPS de la DB)."
+        },
+        "metricas_clave": {
+            "Throughput": "Cantidad de trabajo procesado por unidad de tiempo (ej. requests per second, transactions per second).",
+            "Latency_SLAs": "Tiempos de respuesta requeridos en percentiles críticos (p95, p99) según los contratos de nivel de servicio.",
+            "Resource_Saturation": "Porcentaje de utilización de un componente crítico. Superior al 80-85% suele generar crecimiento exponencial de colas.",
+            "Queue_Length": "Número de peticiones esperando a ser procesadas. Colas largas = degradación de experiencia de usuario y riesgo de Timeouts locales."
+        },
+        "riesgos": [
+            "Degradación en cascada: Un servicio saturado agota los connection pools de sus llamantes, haciendo caer el sistema entero.",
+            "Sobre-aprovisionamiento: Pagar altos costes cloud por servidores infrautilizados (baja densidad).",
+            "Latencia terminal: Sistemas que aparentemente funcionan ('HTTP 200 OK') pero son inusables debido a tiempos de respuesta de varios segundos."
+        ]
+    }
+}

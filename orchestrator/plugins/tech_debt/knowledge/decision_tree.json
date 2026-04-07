@@ -1,0 +1,67 @@
+{
+    "nodes": {
+        "root": {
+            "question": "What is the primary technical debt risk factor detected?",
+            "options": {
+                "critical_debt": "business_impact_check",
+                "high_complexity": "recommend_module_split",
+                "low_coverage": "recommend_testing_sprint",
+                "manageable_debt": "recommend_incremental_refactor"
+            }
+        },
+        "business_impact_check": {
+            "question": "Is this technical debt significantly blocking critical business features or causing severe production incidents?",
+            "options": {
+                "yes": "recommend_immediate_refactor_cto",
+                "no": "recommend_immediate_refactor_sprint"
+            }
+        }
+    },
+    "leaves": {
+        "recommend_immediate_refactor_cto": {
+            "strategy": "Strategic Refactoring Freeze (Escalate to CTO)",
+            "reasoning": "SQALE < 4 or Code Climate < 2 combined with high business impact. The platform is unstable and blocking revenue. Escalate to executive leadership to freeze feature development and allocate budget for a full architectural rewrite or major refactoring program.",
+            "pillars": [
+                "Feature Freeze",
+                "Executive Escalation",
+                "Architecture Redesign"
+            ]
+        },
+        "recommend_immediate_refactor_sprint": {
+            "strategy": "Dedicated Tech Debt Sprint",
+            "reasoning": "Debt is critically high (SQALE < 4), but not yet a C-level crisis. Allocate minimum 1-2 dedicated engineering sprints strictly for remediation (Pair programming, resolving Code Smells, reducing couplings) before resuming roadmap.",
+            "pillars": [
+                "Dedicated Sprints",
+                "Pair Programming",
+                "Strict QA Gates"
+            ]
+        },
+        "recommend_module_split": {
+            "strategy": "Domain/Module Splitting (Strangler Fig)",
+            "reasoning": "Cyclomatic complexity is dangerously high (>15). The logic within monolithic modules is too intertwined. Recommend applying the Strangler Fig pattern or bounded contexts to break apart the complex services.",
+            "pillars": [
+                "Domain-Driven Design (DDD)",
+                "Strangler Fig Pattern",
+                "Logic Simplification"
+            ]
+        },
+        "recommend_testing_sprint": {
+            "strategy": "Automated Testing & Coverage Remediation",
+            "reasoning": "Test coverage is dangerously low (< 60%). The risk of regression prevents safe refactoring. Immediately prioritize adding Unit and E2E tests to critical paths before attempting logic changes.",
+            "pillars": [
+                "TDD Implementation",
+                "E2E Cypress/Playwright",
+                "CI/CD Coverage Gates"
+            ]
+        },
+        "recommend_incremental_refactor": {
+            "strategy": "Incremental Boy-Scout Refactoring",
+            "reasoning": "Debt exists but is manageable. Adopt the 'Boy Scout Rule': allocate 20% of every sprint to tech debt and leave code cleaner than found during standard feature work.",
+            "pillars": [
+                "Boy-Scout Rule",
+                "20% Debt Budget",
+                "Linting & SonarQube Tracking"
+            ]
+        }
+    }
+}

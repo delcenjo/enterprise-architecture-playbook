@@ -1,0 +1,26 @@
+{
+    "cases": [
+        {
+            "id": "ecommerce_backend_2023",
+            "customer": "ShopNow",
+            "scenario": {
+                "stack": "Microservicios Java, PostgreSQL, Redis",
+                "problem": "Latencia alta y consumo de memoria creciente bajo carga."
+            },
+            "implementation": {
+                "tools": "Java Flight Recorder (CPU) + VisualVM (Memory)",
+                "techniques": "Generación de FlameGraphs y análisis de Heap Dumps en Staging",
+                "load": "Simulado 100k concurrent users"
+            },
+            "results": {
+                "cpu_hotspots": "CheckoutService.processPayment (35% CPU)",
+                "memory_leaks": "CartCache reteniendo objetos expirados >1h",
+                "action_taken": "Optimized loops and fixed cache eviction policy."
+            },
+            "lessons": [
+                "FlameGraphs provide immediate visual consensus on where CPU time is spent.",
+                "Profiling without realistic load often misses the actual bottlenecks."
+            ]
+        }
+    ]
+}

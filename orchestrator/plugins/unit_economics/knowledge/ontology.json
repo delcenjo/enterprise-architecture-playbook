@@ -1,0 +1,87 @@
+{
+    "domain": "Unit Economics & Customer Acquisition Cost",
+    "version": "1.0",
+    "description": "Ontology for deterministic analysis of CAC, Payback Period, LTV/CAC ratio, and segmented acquisition economics. A CTO who doesn't understand CAC decides architecture without understanding margins.",
+    "concepts": [
+        {
+            "id": "CAC",
+            "name": "Customer Acquisition Cost",
+            "type": "Core Metric",
+            "formula": "(Total Marketing Spend + Total Sales Spend) / New Paying Customers",
+            "description": "The total cost to acquire one paying customer. Must include: salaries (marketing + sales), commissions, tools (CRM, HubSpot), content, events, agencies, demos, SDRs, paid ads, marketing automation. Must NOT include: support, product, infrastructure.",
+            "related_to": [
+                "PAYBACK_PERIOD",
+                "LTV_CAC_RATIO",
+                "SEGMENTED_CAC"
+            ]
+        },
+        {
+            "id": "PAYBACK_PERIOD",
+            "name": "CAC Payback Period",
+            "type": "Health Metric",
+            "formula": "CAC / (Monthly Revenue per Customer * Gross Margin %)",
+            "description": "Months to recover the investment in acquiring a customer. Excellent: < 12 months. Acceptable: 12-18. Dangerous: > 18. Unsustainable: > 24.",
+            "benchmarks": {
+                "excellent": "< 12 months",
+                "acceptable": "12-18 months",
+                "dangerous": "> 18 months",
+                "unsustainable": "> 24 months"
+            }
+        },
+        {
+            "id": "LTV_CAC_RATIO",
+            "name": "Lifetime Value to CAC Ratio",
+            "type": "Investor Metric",
+            "formula": "LTV / CAC",
+            "description": "The ratio investors actually examine. Below 1 = dead. 1-3 = mediocre. 3-5 = healthy. > 5 = either brilliant or under-investing in growth.",
+            "benchmarks": {
+                "dead": "< 1",
+                "mediocre": "1-3",
+                "healthy": "3-5",
+                "over_optimized": "> 5 (check growth rate)"
+            }
+        },
+        {
+            "id": "SEGMENTED_CAC",
+            "name": "Segmented CAC Analysis",
+            "type": "Advanced Metric",
+            "description": "CAC must be measured per channel, per industry, per country, and per customer size. Enterprise may have CAC 12k but LTV 120k. SMB may have CAC 800 but brutal churn."
+        },
+        {
+            "id": "GROSS_MARGIN",
+            "name": "Gross Margin",
+            "type": "Financial Metric",
+            "formula": "(Revenue - COGS) / Revenue * 100",
+            "description": "The percentage of revenue remaining after direct costs. SaaS target: 70-85%. Below 60% signals infrastructure inefficiency or pricing problems."
+        },
+        {
+            "id": "BLENDED_VS_PAID_CAC",
+            "name": "Blended vs Paid CAC",
+            "type": "Diagnostic Metric",
+            "description": "Founders often report blended CAC (mixing organic + paid). Paid-only CAC is always higher and more honest. Must separate to avoid self-deception."
+        },
+        {
+            "id": "CAC_INCLUSION_CHECKLIST",
+            "name": "CAC Cost Inclusion Checklist",
+            "type": "Validation Rule",
+            "must_include": [
+                "Marketing team salaries",
+                "Sales team salaries",
+                "Sales commissions",
+                "CRM / Marketing tools (HubSpot, Salesforce)",
+                "Content production costs",
+                "Events and sponsorships",
+                "External agency fees",
+                "Demo / trial infrastructure costs",
+                "SDR team costs",
+                "Marketing automation platform",
+                "Paid advertising spend"
+            ],
+            "must_exclude": [
+                "Customer support costs",
+                "Product development costs",
+                "General infrastructure costs"
+            ]
+        }
+    ]
+}

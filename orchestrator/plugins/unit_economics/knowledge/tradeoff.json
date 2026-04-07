@@ -1,0 +1,47 @@
+{
+    "dimensions": [
+        "CAC Level",
+        "Payback Period",
+        "LTV/CAC Ratio",
+        "Growth Velocity",
+        "Investor Readiness"
+    ],
+    "patterns": [
+        {
+            "name": "B2C High Volume",
+            "cac": "Low (€5-50)",
+            "payback": "Fast (1-3 months)",
+            "ltv_cac": "Variable (2-4x)",
+            "growth": "High (volume-driven)",
+            "investor_readiness": "Medium (need to prove retention)",
+            "risk": "Sensitive to ad cost inflation and platform dependency (Meta, Google)"
+        },
+        {
+            "name": "B2B SMB Self-Serve",
+            "cac": "Low-Medium (€200-1500)",
+            "payback": "Moderate (6-15 months)",
+            "ltv_cac": "Healthy if churn < 3% monthly (3-5x)",
+            "growth": "Medium (product-led)",
+            "investor_readiness": "Good (scalable if churn controlled)",
+            "risk": "Churn kills LTV. CAC looks good but net revenue retention is the real metric."
+        },
+        {
+            "name": "B2B Mid-Market Sales-Assisted",
+            "cac": "Medium-High (€2000-8000)",
+            "payback": "Slow (12-18 months)",
+            "ltv_cac": "Healthy (3-5x) if retention > 90% annual",
+            "growth": "Moderate (sales-bottlenecked)",
+            "investor_readiness": "Strong (predictable pipeline)",
+            "risk": "Sales cycle length and commission structures can inflate real CAC beyond reported."
+        },
+        {
+            "name": "Enterprise Sales-Led",
+            "cac": "Very High (€10,000-50,000+)",
+            "payback": "Variable (2-24 months depending on ACV)",
+            "ltv_cac": "Excellent (5-20x) with multi-year contracts",
+            "growth": "Slow (relationship-driven)",
+            "investor_readiness": "Very Strong (high ACV, predictable revenue)",
+            "risk": "Concentration risk. Losing 1-2 enterprise clients can destroy unit economics."
+        }
+    ]
+}

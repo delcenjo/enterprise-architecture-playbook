@@ -1,0 +1,26 @@
+{
+    "cases": [
+        {
+            "id": "fintech_k8s_gitops_2024",
+            "customer": "FinPay",
+            "scenario": {
+                "clusters": 5,
+                "deployments": "3-5 daily",
+                "stack": "Kubernetes + Helm + Terraform"
+            },
+            "implementation": {
+                "tool": "ArgoCD",
+                "drift_monitoring": "Enabled with alerts",
+                "sync_policy": "Automated with self-heal"
+            },
+            "results": {
+                "consistency": "100% across environments",
+                "release_speed": "3x faster than manual pipes"
+            },
+            "lessons": [
+                "Drift detection is the killer feature for regulatory compliance (BdE/PSD2).",
+                "Separate infrastructure repos from application repos to avoid CI/CD loops."
+            ]
+        }
+    ]
+}

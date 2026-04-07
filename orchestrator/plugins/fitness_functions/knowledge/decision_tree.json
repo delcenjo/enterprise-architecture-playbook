@@ -1,0 +1,71 @@
+{
+    "nodes": {
+        "root": {
+            "question": "What is the primary architectural state or trigger?",
+            "options": {
+                "critical_violations": "recommend_block_escalate",
+                "broad_blast_radius": "recommend_full_aff",
+                "high_drift": "recommend_refactor_plan",
+                "low_compliance": "recommend_risk_report",
+                "modularity_violation": "recommend_alert_team",
+                "healthy_state": "recommend_partial_checks"
+            }
+        }
+    },
+    "leaves": {
+        "recommend_block_escalate": {
+            "strategy": "Block Merge & Architect Escalation",
+            "reasoning": "A critical architectural constraint (e.g., Domain layer depending on Web/UI layer, or a microservice directly querying another's database) has been violated. The pipeline must hard-block the merge to prevent structural degradation, escalating immediately to the Principal/Chief Architect.",
+            "pillars": [
+                "Hard Merge Block",
+                "Principal Architect Review",
+                "Constraint Enforcement"
+            ]
+        },
+        "recommend_full_aff": {
+            "strategy": "Execute Full Suite of Fitness Functions",
+            "reasoning": "The current change modifies more than 5 distinct services or modules at once. This broad blast radius suggests cross-cutting changes or tight coupling. The system must run the full, exhaustive suite of dynamic and static fitness functions before approving.",
+            "pillars": [
+                "Full Suite Execution",
+                "Cross-Cutting Context Review",
+                "Coupling Analysis"
+            ]
+        },
+        "recommend_refactor_plan": {
+            "strategy": "Architectural Refactor Mandate",
+            "reasoning": "The Architectural Drift Rate has exceeded 10%. The deployed code is significantly diverging from the intended blueprint (e.g., unintended dependencies creeping in). Mandate an architectural refactoring sprint to realign the codebase with the defined models.",
+            "pillars": [
+                "Drift Remediation",
+                "Model Realignment",
+                "Dedicated Refactor"
+            ]
+        },
+        "recommend_risk_report": {
+            "strategy": "Generate Automated Risk Report",
+            "reasoning": "The overall Architectural Compliance Score has dropped below 80%. While not an immediate blocking crisis, the structural integrity is weakening. Generate a detailed risk report highlighting failing constraints to prioritize in the upcoming PI/Sprint planning.",
+            "pillars": [
+                "Risk Documentation",
+                "Sprint Prioritization",
+                "Trend Analysis"
+            ]
+        },
+        "recommend_alert_team": {
+            "strategy": "Asynchronous Modularity Alert",
+            "reasoning": "A minor modularity violation was detected (e.g., slightly elevated cyclic dependency). Do not block the release, but alert the responsible squad to address the coupling before it hardens into severe technical debt.",
+            "pillars": [
+                "Squad Alerting",
+                "Async Remediation",
+                "Debt Tracking"
+            ]
+        },
+        "recommend_partial_checks": {
+            "strategy": "Execute Partial / Quick Constraints",
+            "reasoning": "The change is localized, the compliance score is high, and drift is minimal. Execute only the fast, partial fitness checks in the CI pipeline to maintain velocity while ensuring basic constraints are met.",
+            "pillars": [
+                "Fast Pipeline Checks",
+                "High Development Velocity",
+                "Continuous Validation"
+            ]
+        }
+    }
+}

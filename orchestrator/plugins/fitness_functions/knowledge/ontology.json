@@ -1,0 +1,22 @@
+{
+    "ArchitecturalFitnessFunctions": {
+        "concepto": "Mecanismos automatizados (o semi-automatizados) para evaluar objetivamente qué tan bien una arquitectura de software se alinea con sus requerimientos y restricciones de diseño a lo largo del tiempo.",
+        "descripcion": "Garantiza que la evolución continua del código no degrade la integridad arquitectónica (p. ej., microservicios que se acoplan en un monolito distribuido).",
+        "areas_clave": {
+            "Constraints": "Reglas estrictas e inamovibles (ej. la Capa de Dominio no puede depender de la Capa de Infraestructura).",
+            "Metrics": "Mediciones continuas (ej. tiempo de respuesta, acoplamiento aférente/eférente, tamaño del bundle).",
+            "PatternAdherence": "Evaluación de qué tan bien una implementación sigue un patrón prescrito (ej. CQRS, Event-Driven)."
+        },
+        "metricas_clave": {
+            "Drift_Rate": "Porcentaje de desviación entre la arquitectura actual en código y la arquitectura definida/documentada.",
+            "Compliance_Score": "Puntuación de 0 a 100 que refleja el porcentaje de constraints arquitectónicos que se cumplen.",
+            "Modularity_Violations": "Cantidad de dependencias cíclicas, llamadas directas a BBDD saltando servicios, o rupturas de bounded contexts.",
+            "Services_Modified": "El 'blast radius' o alcance de un cambio en un PR. Modificar muchos servicios simultáneamente sugiere alto acoplamiento."
+        },
+        "riesgos": [
+            "Creación de un 'Big Ball of Mud' si las reglas de arquitectura solo existen en diagramas y no se verifican en código.",
+            "Deuda técnica invisible que paraliza la velocidad de los equipos cuando los límites de los microservicios se rompen.",
+            "Acoplamiento accidental que hace imposible escalar componentes independientemente."
+        ]
+    }
+}

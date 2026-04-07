@@ -1,0 +1,61 @@
+{
+    "nodes": {
+        "root": {
+            "question": "What is the primary condition of the code review pipeline?",
+            "options": {
+                "no_ci": "recommend_manual_and_automate",
+                "gates_failing": "recommend_block_merge",
+                "critical_violations": "recommend_escalate_senior",
+                "massive_pr": "recommend_split_pr",
+                "passing_healthy": "recommend_hybrid_scale"
+            }
+        }
+    },
+    "leaves": {
+        "recommend_manual_and_automate": {
+            "strategy": "Strict Manual Review & CI Automation Plan",
+            "reasoning": "The repository lacks automated CI/CD tools (SonarQube, linters). All PRs must undergo strict manual peer review by senior developers. Immediately plan to implement a static analysis pipeline to prevent technical debt.",
+            "pillars": [
+                "Strict Peer Review",
+                "CI/CD Pipeline Setup",
+                "Static Analysis Integration"
+            ]
+        },
+        "recommend_block_merge": {
+            "strategy": "Block Merge (Resolve Quality Gates)",
+            "reasoning": "Automated Quality Gates (coverage drops, massive smells) are failing. The PR is fundamentally flawed against team standards. The merge must be blocked dynamically in the SCM (GitHub/GitLab) until the author resolves the issues.",
+            "pillars": [
+                "Dynamic Merge Blocking",
+                "Author Remediation",
+                "Quality Gate Enforcement"
+            ]
+        },
+        "recommend_escalate_senior": {
+            "strategy": "Senior Escalation & Security Audit",
+            "reasoning": "Critical violations (security flaws or catastrophic bugs) were detected by static analysis or peer review. The PR merge must be blocked and escalated immediately to a Staff/Senior Engineer or SecOps for a deep audit.",
+            "pillars": [
+                "Merge Blocked",
+                "Staff Engineer Audit",
+                "SecOps Notification"
+            ]
+        },
+        "recommend_split_pr": {
+            "strategy": "PR Splitting & Parallel Review",
+            "reasoning": "The Pull Request exceeds 500 Lines of Code. Cognitive load makes manual review ineffective, turning it into a rubber-stamp. The PR must be rejected and the author must split it into smaller, logically independent modular PRs.",
+            "pillars": [
+                "Reject PR (Too Large)",
+                "Modular Branching",
+                "Parallel Reviewing"
+            ]
+        },
+        "recommend_hybrid_scale": {
+            "strategy": "Continuous Hybrid Review",
+            "reasoning": "The PR size is manageable, CI/CD is active, and no critical gates are failing. Proceed with a standard hybrid process: trust the automated pipeline for formatting/coverage/syntax, allowing human reviewers to focus solely on business logic and architecture.",
+            "pillars": [
+                "Automated Syntax Validation",
+                "Human Architectural Review",
+                "Continuous Merging"
+            ]
+        }
+    }
+}

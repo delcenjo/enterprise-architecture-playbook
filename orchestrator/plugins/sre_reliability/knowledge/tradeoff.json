@@ -1,0 +1,20 @@
+{
+    "SLI": {
+        "complejidad": "Media",
+        "coste_implementacion": "200€/mes",
+        "riesgo_no_implementar": "Alto",
+        "beneficio": "Métricas precisas de performance"
+    },
+    "SLO": {
+        "complejidad": "Media",
+        "coste_implementacion": "300€/mes",
+        "riesgo_no_implementar": "Medio",
+        "beneficio": "Objetivos internos claros, predicción de incidentes"
+    },
+    "SLA": {
+        "complejidad": "Alta",
+        "coste_implementacion": "500€/mes",
+        "riesgo_no_implementar": "Alto",
+        "beneficio": "Cumplimiento contractual, mitigación de riesgos legales"
+    }
+}

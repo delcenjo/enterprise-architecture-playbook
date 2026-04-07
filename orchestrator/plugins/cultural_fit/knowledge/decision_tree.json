@@ -1,0 +1,55 @@
+{
+    "nodes": {
+        "root": {
+            "question": "Evaluate the weighted behavioral score across Ownership, Conflict Handling, Feedback Receptivity, Collaboration, Transparency, and Learning.",
+            "options": {
+                "score_high_friction": "recommend_high_friction_reject",
+                "score_moderate_risk": "recommend_moderate_risk",
+                "score_solid_fit": "recommend_solid_fit",
+                "score_multiplier": "recommend_cultural_multiplier"
+            }
+        }
+    },
+    "leaves": {
+        "recommend_cultural_multiplier": {
+            "strategy": "Hire - Cultural Multiplier",
+            "reasoning": "The candidate scored >= 4.5. They display exceptional humility alongside deep technical knowledge. They readily admit past mistakes with concrete learnings and navigate technical conflicts using data rather than ego. This profile lowers systemic friction and elevates the entire team structure.",
+            "pillars": [
+                "Extreme Ownership",
+                "Objective Conflict Resolution",
+                "Radical Receptivity"
+            ],
+            "score_boundary": ">= 4.5"
+        },
+        "recommend_solid_fit": {
+            "strategy": "Hire - Solid Cultural Fit",
+            "reasoning": "The candidate scored between 4.0 and 4.49. They show healthy accountability, collaborate well, and handle stress appropriately. They pass the 'No Brilliant Jerks' rule comfortably and will integrate smoothly into existing squads.",
+            "pillars": [
+                "Accountable Execution",
+                "Team-First Nuance",
+                "Healthy Communication"
+            ],
+            "score_boundary": "4.0 - 4.49"
+        },
+        "recommend_moderate_risk": {
+            "strategy": "Caution - Moderate Friction Risk",
+            "reasoning": "The candidate scored between 3.5 and 3.99. While not overtly toxic, they exhibited signs of avoiding conflict, defensiveness during feedback, or slight 'hero engineer' tendencies. Hiring requires a strong engineering manager to actively coach and monitor behavior.",
+            "pillars": [
+                "Requires Active Mentoring",
+                "Potential Bottleneck Risk",
+                "Monitor PR Interactions"
+            ],
+            "score_boundary": "3.5 - 3.99"
+        },
+        "recommend_high_friction_reject": {
+            "strategy": "Strong Reject - Systemic Toxicity Risk",
+            "reasoning": "The candidate scored < 3.5. Serious behavioral red flags detected: deflecting blame, aggressive/dismissive responses to technical challenges, or intense cynicism. Even if technically brilliant, they will actively destroy team velocity and psychological safety.",
+            "pillars": [
+                "Brilliant Jerk Anti-Pattern",
+                "Blame-Shifting Detected",
+                "Ego-Driven Bottleneck"
+            ],
+            "score_boundary": "< 3.5"
+        }
+    }
+}

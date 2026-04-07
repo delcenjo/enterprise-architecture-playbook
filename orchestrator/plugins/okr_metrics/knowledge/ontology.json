@@ -1,0 +1,22 @@
+{
+    "TechnicalOKRs": {
+        "concepto": "Framework de gestión estratégica que conecta el trabajo técnico diario (despliegues, refactores, monitorización) con los objetivos de negocio y la calidad del producto.",
+        "descripcion": "Estandariza la forma en que los equipos de ingeniería miden su propio rendimiento, utilizando DORA metrics y otros KPIs para justificar inversiones técnicas ante el C-Level.",
+        "areas_clave": {
+            "DORAMetrics": "Estándar de facto para medir el rendimiento de DevOps (Despliegues, Lead Time, MTTR, Tasa de Fallo).",
+            "CodeQuality": "Métricas proxy para mantenibilidad a largo plazo (Cobertura, Complejidad, Deuda Técnica).",
+            "StrategicAlignment": "El proceso de asegurar que cada OKR técnico sirva directa o indirectamente a un OKR de producto o ingresos."
+        },
+        "metricas_clave": {
+            "Deployment_Frequency": "Frecuencia con la que el código se despliega a producción de forma exitosa. Mide agilidad.",
+            "Lead_Time_for_Changes": "Tiempo desde que el código se hace commit hasta que corre en producción. Mide velocidad de la cadena de valor.",
+            "MTTR": "Mean Time to Recovery. Tiempo promedio para restaurar un servicio tras un fallo. Mide resiliencia.",
+            "Change_Failure_Rate": "Porcentaje de despliegues que causan fallos en producción. Mide calidad y estabilidad de la automatización."
+        },
+        "riesgos": [
+            "Medir vanidad: OKRs centrados en \"número de story points completados\" en lugar de valor entregado.",
+            "Desconexión del negocio: OKRs técnicos perfectos pero que los usuarios finales no experimentan como mejoras.",
+            "Falta de baselines: Intentar mejorar métricas DORA sin tener instrumentación confiable inicial."
+        ]
+    }
+}

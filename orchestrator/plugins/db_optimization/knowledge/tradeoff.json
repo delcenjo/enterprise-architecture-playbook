@@ -1,0 +1,32 @@
+{
+    "matrix": [
+        {
+            "strategy": "Composite / Covering Index",
+            "complexity": "High",
+            "overhead": "Write Degradation",
+            "risk": "Medium (Storage footprint)",
+            "best_for": "Heavy read aggregations / Reporting"
+        },
+        {
+            "strategy": "Connection Pooling (Proxy)",
+            "complexity": "Medium",
+            "overhead": "Low (Network Hop)",
+            "risk": "Low",
+            "best_for": "Stateless horizontal scaling / Serverless spikes"
+        },
+        {
+            "strategy": "Transaction Isolation Lowering",
+            "complexity": "High",
+            "overhead": "N/A",
+            "risk": "High (Data inconsistency - Phantom reads)",
+            "best_for": "Resolving extreme deadlock contention when absolute consistency is not strictly required"
+        },
+        {
+            "strategy": "Query Plan Analysis",
+            "complexity": "Medium",
+            "overhead": "N/A",
+            "risk": "Low",
+            "best_for": "Standard performance optimization sprint"
+        }
+    ]
+}

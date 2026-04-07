@@ -1,0 +1,23 @@
+{
+    "FrontendPerformance": {
+        "concepto": "Optimización del rendimiento percibido por el usuario y los tiempos de carga en interfaces web.",
+        "descripcion": "Busca mejorar las métricas de Core Web Vitals (LCP, FID, CLS), reducir el peso de red (bundle size) y optimizar la ruta crítica de renderizado (Critical Rendering Path).",
+        "areas_clave": {
+            "CoreWebVitals": "Métricas clave de UX: Largest Contentful Paint (LCP), First Input Delay (FID) / Interaction to Next Paint (INP), y Cumulative Layout Shift (CLS).",
+            "BundleOptimization": "Técnicas como Code Splitting, Tree-shaking, y compresión (Brotli/Gzip) para reducir el JS inicial.",
+            "RenderingStrategies": "Client-Side Rendering (CSR), Server-Side Rendering (SSR), Incremental Static Regeneration (ISR) y sus trade-offs.",
+            "ResourceDelivery": "Lazy loading de imágenes/scripts, Edge Caching vía CDN, y preloading de recursos críticos."
+        },
+        "metricas_clave": {
+            "LCP": "Tiempo hasta que se renderiza el bloque de contenido principal (<2.5s es óptimo).",
+            "FID": "Tiempo desde primera interacción hasta que el thread principal responde (<100ms es óptimo).",
+            "CLS": "Medida de cambios inesperados en el layout (<0.1 es óptimo).",
+            "BundleSize": "Tamaño del JavaScript/CSS inicial requerido para interacción (<200KB por ruta idealmente)."
+        },
+        "riesgos": [
+            "SSR excesivo aumenta los costes de infraestructura y el TTFB (Time to First Byte).",
+            "Third-party scripts pesados bloquean el Main Thread degradando severamente el FID/INP.",
+            "Falta de pre-calculo de espacios para ads/imágenes destruye el CLS provocando mala puntuación SEO."
+        ]
+    }
+}

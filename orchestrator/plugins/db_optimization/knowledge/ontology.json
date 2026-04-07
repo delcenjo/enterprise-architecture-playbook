@@ -1,0 +1,22 @@
+{
+    "DatabaseOptimization": {
+        "concepto": "Mejora del rendimiento de bases de datos a nivel de consultas, índices y conexiones.",
+        "descripcion": "Busca reducir latencias de consulta, optimizar throughput y prevenir bloqueos o bottlenecks de I/O en la base de datos.",
+        "areas_clave": {
+            "QueryPlans": "Análisis de ejecución (EXPLAIN ANALYZE) para detectar full scans y joins costosos.",
+            "IndexingStrategies": "Selección de índices (B-tree, hash, composite, covering) balanceando lecturas/escrituras.",
+            "ConnectionPooling": "Gestión de conexiones concurrentes para evitar la saturación de RAM/CPU en el DB Host.",
+            "LockManagement": "Supervisión de isolation levels y row/table locks para evitar deadlocks."
+        },
+        "metricas_clave": {
+            "Latency": "Tiempo de respuesta promedio y p99 de las queries.",
+            "Throughput": "Queries por segundo (QPS).",
+            "CacheHitRatio": "Porcentaje de lecturas resueltas desde buffer cache.",
+            "LockWaitTime": "Tiempo que las transacciones esperan para obtener un bloqueo."
+        },
+        "riesgos": [
+            "Índices cruzados o excesivos provocan una degradación masiva en el throughput de escritura.",
+            "Pools de conexión configurados al máximo causan contención en el Hypervisor/OS del servidor de DB."
+        ]
+    }
+}

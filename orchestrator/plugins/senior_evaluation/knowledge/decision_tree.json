@@ -1,0 +1,55 @@
+{
+    "nodes": {
+        "root": {
+            "question": "Evaluate the weighted score across System Design, Coding, Behavioral, Trade-offs, Communication, and Product dimensions.",
+            "options": {
+                "score_critical_reject": "recommend_reject",
+                "score_mid_disguised": "recommend_mid_disguised",
+                "score_solid_senior": "recommend_solid_senior",
+                "score_staff_potential": "recommend_strong_senior"
+            }
+        }
+    },
+    "leaves": {
+        "recommend_strong_senior": {
+            "strategy": "Hire - Strong Senior (Staff Potential)",
+            "reasoning": "The candidate achieved a weighted score of 4.5+. They demonstrated phenomenal System Design depth (SLA/SLO calculation, failure mode anticipation) and extreme behavioral maturity. They are a structural multiplier for the team.",
+            "pillars": [
+                "System Design Excellence",
+                "Behavioral Maturity",
+                "Trade-off Mastery"
+            ],
+            "score_boundary": ">= 4.5"
+        },
+        "recommend_solid_senior": {
+            "strategy": "Hire - Solid Senior",
+            "reasoning": "The candidate achieved a weighted score between 3.8 and 4.4. They passed the system design thresholds safely, write clean, maintainable code, and showed accountability during the behavioral interview. Good cultural and technical fit.",
+            "pillars": [
+                "Clean Architecture",
+                "Strong Execution",
+                "Accountability"
+            ],
+            "score_boundary": "3.8 - 4.4"
+        },
+        "recommend_mid_disguised": {
+            "strategy": "Reject for Senior (Mid+ Level Disguised)",
+            "reasoning": "The candidate scored between 3.2 and 3.7. While their coding skills are likely very strong, they failed to demonstrate deep systemic thinking, struggled to articulate non-functional trade-offs, or lacked ownership of past failures. Do not hire for senior structural roles.",
+            "pillars": [
+                "False Senior Pattern",
+                "Feature over System Focus",
+                "Limited Trade-off Vision"
+            ],
+            "score_boundary": "3.2 - 3.7"
+        },
+        "recommend_reject": {
+            "strategy": "Strong Reject",
+            "reasoning": "The candidate scored below 3.2. There were significant red flags in either technical depth (jumping straight to code without requirements) or behavioral maturity (lack of self-awareness, deflecting blame).",
+            "pillars": [
+                "Behavioral Red Flags",
+                "Poor Architectural Grasp",
+                "Cowboy Coding Pattern"
+            ],
+            "score_boundary": "< 3.2"
+        }
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "TradeoffAnalysis": {
+        "concepto": "Framework analítico para tomar decisiones arquitectónicas conscientes, evaluando el equilibrio entre velocidad de entrega, calidad estructural, coste financiero y flexibilidad futura.",
+        "descripcion": "Evita el anti-patrón de 'quererlo todo perfecto y rápido', forzando a los equipos de ingeniería a priorizar métricas y justificar compromisos técnicos mediante el análisis del impacto a largo plazo.",
+        "dimensiones": {
+            "Speed": "Rapidez con la que una solución (feature, sistema) puede llegar a producción. Mide el time-to-market.",
+            "Quality": "Nivel de excelencia ingenieril (tests, mantenibilidad, baja deuda técnica, resiliencia).",
+            "Cost": "Gasto financiero asociado: CAPEX (desarrollo interno) y OPEX (licencias SaaS, infraestructura).",
+            "Flexibility": "Grado en que la solución permite pivotar, adaptarse o ser modificada en el futuro sin reescrituras completas."
+        },
+        "estrategias_clave": {
+            "Build_vs_Buy": "Decisión entre desarrollar una solución in-house (Control/Flexibility) vs adquirir un SaaS maduro (Speed/Predictable Cost).",
+            "Intentional_Tech_Debt": "Tomar un atajo técnico consciente para capturar una ventana de mercado crítica, asumiendo el coste futuro de refactorización.",
+            "Strategic_Outsourcing": "Delegar el desarrollo de componentes 'no-core' a terceros para enfocar el talento interno en diferenciadores de negocio."
+        },
+        "riesgos": [
+            "Deuda técnica accidental: Tomar atajos por incompetencia, no por estrategia.",
+            "Over-engineering: Construir sistemas hiper-flexibles para casos de uso que nunca ocurrirán, quemando presupuesto.",
+            "Vendor Lock-in: Depender de un SaaS para un componente 'core' del modelo de negocio, perdiendo control estratégico."
+        ]
+    }
+}

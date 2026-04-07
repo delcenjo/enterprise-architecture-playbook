@@ -1,0 +1,62 @@
+{
+    "Latency": {
+        "concepto": "SLI",
+        "descripcion": "Proporción de requests que cumplen el tiempo máximo de respuesta aceptable",
+        "formula": "requests <= 100ms / total_requests * 100",
+        "unidad": "%",
+        "target_default": 99.9,
+        "error_budget_default": 0.1,
+        "burn_rate_alert": 2.0,
+        "impacto_no_cumplimiento": "Degradación de experiencia de usuario, riesgo de penalización contractual",
+        "dependencias": [
+            "Metrics",
+            "Logs"
+        ],
+        "frecuencia_monitoreo": "1m"
+    },
+    "Availability": {
+        "concepto": "SLO",
+        "descripcion": "Objetivo de disponibilidad mensual del sistema",
+        "formula": "uptime / total_time * 100",
+        "unidad": "%",
+        "target_default": 99.95,
+        "error_budget_default": 0.05,
+        "burn_rate_alert": 1.5,
+        "impacto_no_cumplimiento": "Penalizaciones contractuales, pérdida de confianza de cliente",
+        "dependencias": [
+            "Metrics",
+            "Traces"
+        ],
+        "frecuencia_monitoreo": "5m"
+    },
+    "Contractual_SLA": {
+        "concepto": "SLA",
+        "descripcion": "Acuerdo formal con cliente sobre nivel de servicio",
+        "formula": "Basado en SLOs acordados",
+        "unidad": "%",
+        "target_default": 99.9,
+        "error_budget_default": 0.1,
+        "burn_rate_alert": 2.0,
+        "impacto_no_cumplimiento": "Compensación financiera al cliente",
+        "dependencias": [
+            "SLOs",
+            "Reports"
+        ],
+        "frecuencia_monitoreo": "Automático según contrato"
+    },
+    "Error_Rate": {
+        "concepto": "SLI",
+        "descripcion": "Proporción de requests que resultan en error",
+        "formula": "error_requests / total_requests * 100",
+        "unidad": "%",
+        "target_default": 0.1,
+        "error_budget_default": 0.1,
+        "burn_rate_alert": 2.0,
+        "impacto_no_cumplimiento": "Fallo sistémico, pérdida de integridad de datos",
+        "dependencias": [
+            "Metrics",
+            "Logs"
+        ],
+        "frecuencia_monitoreo": "1m"
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "matrix": [
+        {
+            "approach": "ArgoCD",
+            "complexity": "High",
+            "visibility": "Excellent (UI)",
+            "drift_handling": "Active / Self-Heal",
+            "best_for": "Large microservices architectures"
+        },
+        {
+            "approach": "Flux",
+            "complexity": "Medium",
+            "visibility": "Minimal (CLI/Git)",
+            "drift_handling": "Passive / Sync",
+            "best_for": "Kubernetes-native minimalist setups"
+        },
+        {
+            "approach": "Manual CI/CD + IaC",
+            "complexity": "Low",
+            "visibility": "Pipeline-based",
+            "drift_handling": "None (Manual check)",
+            "best_for": "Simple single-region monoliths"
+        }
+    ]
+}

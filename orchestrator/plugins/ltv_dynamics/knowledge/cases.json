@@ -1,0 +1,58 @@
+[
+    {
+        "case_id": "elite_nrr_usage_based",
+        "context": "Cloud infrastructure SaaS with usage-based pricing. 200 enterprise customers. NRR 128%. Monthly churn 1.5% but expansion from usage growth compensates 3x.",
+        "calculation": {
+            "starting_cohort_revenue": 500000,
+            "annual_churn_revenue": 90000,
+            "annual_expansion_revenue": 230000,
+            "nrr_pct": 128,
+            "static_ltv": 2333333,
+            "dynamic_ltv_with_expansion": 4266667
+        },
+        "diagnosis": "Elite revenue engine. Dynamic LTV is 1.8x higher than static LTV because expansion compounds. Architecture must scale cheaply — cloud cost per transaction IS the margin. Protect the flywheel.",
+        "applicability": "Usage-based B2B SaaS with strong product-market fit"
+    },
+    {
+        "case_id": "early_churn_startup",
+        "context": "B2B SaaS startup. 500 customers. 60% of churn happens in first 45 days. ARPU €199/month. Monthly churn 7% blended, but 15% in month 1 and 3% after month 3.",
+        "calculation": {
+            "blended_monthly_churn": 7.0,
+            "month_1_churn": 15.0,
+            "post_month_3_churn": 3.0,
+            "static_ltv_blended": 1990,
+            "dynamic_ltv_corrected": 3316,
+            "nrr_pct": 88
+        },
+        "diagnosis": "Classic onboarding failure. Static LTV using blended churn is misleadingly low. The real LTV for retained customers (past month 3) is significantly higher. Fix activation, not product. 60% of churn is preventable.",
+        "applicability": "Early-stage B2B SaaS with activation problems"
+    },
+    {
+        "case_id": "flat_cohorts_no_expansion",
+        "context": "Mid-market SaaS with tiered pricing but <5% upgrade rate. 1000 customers. NRR 97%. Churn is low (2%/month) but zero expansion. Every cohort flatlines.",
+        "calculation": {
+            "monthly_churn_pct": 2.0,
+            "expansion_pct": 0.5,
+            "nrr_pct": 97,
+            "avg_lifetime_months": 50,
+            "ltv_static": 35000,
+            "ltv_with_expansion_potential": 52500,
+            "missed_expansion_revenue_annual": 420000
+        },
+        "diagnosis": "The product retains but doesn't grow. Feature gap between tiers is cosmetic — customers don't see a reason to upgrade. Need real 'unlock' features tied to business outcomes. Missing €420k/year in expansion revenue.",
+        "applicability": "Mid-market SaaS with good retention but no expansion mechanics"
+    },
+    {
+        "case_id": "seat_based_adoption_failure",
+        "context": "Collaboration tool sold seat-based to enterprises. Average deal: 50 seats purchased. Only 12 seats active (24% utilization). NRR 92% — customers downsizing at renewal.",
+        "calculation": {
+            "seats_purchased_avg": 50,
+            "seats_active_avg": 12,
+            "utilization_pct": 24,
+            "nrr_pct": 92,
+            "at_risk_revenue_pct": 60
+        },
+        "diagnosis": "Seat-based model failing because internal adoption never happened. 60% of revenue at risk of downsizing. Product isn't indispensable to teams — only the buyer uses it. Need team collaboration features and admin ROI dashboards immediately.",
+        "applicability": "Seat-based B2B with low internal adoption"
+    }
+]

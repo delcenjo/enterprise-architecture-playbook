@@ -1,0 +1,23 @@
+{
+    "InfrastructureAsCode": {
+        "concepto": "Definición, despliegue y gestión de infraestructura mediante código automatizado.",
+        "descripcion": "Versionamiento y reproducibilidad de infraestructura física o virtual.",
+        "componentes": {
+            "StateManagement": "Seguimiento del estado de los recursos desplegados (ej. Terraform state).",
+            "DriftDetection": "Identificación de cambios manuales fuera del código.",
+            "Modularization": "Uso de bloques reutilizables de infraestructura.",
+            "IaCTesting": "Validación automática de configuraciones (ej. Terratest)."
+        },
+        "herramientas": [
+            "Terraform",
+            "Pulumi",
+            "AWS CDK",
+            "Crossplane"
+        ],
+        "beneficios": [
+            "Reproducibilidad total de entornos",
+            "Eliminación de errores humanos por configuración manual",
+            "Auditoría y trazabilidad vía Git"
+        ]
+    }
+}

@@ -747,7 +747,7 @@
             }
         },
         "tm_financial_quantification": {
-            "question": "Is the estimated Single Loss Expectancy (SLE) > 1M€ or is it a regulated sector (Fintech/Health)?",
+            "question": "Is the estimated Single Loss Expectancy (SLE) > 1M\u20ac or is it a regulated sector (Fintech/Health)?",
             "options": {
                 "yes": "tm_dist_arch_check_economic",
                 "no": "recommend_tm_stride_quantified"
@@ -985,7 +985,7 @@
             }
         },
         "bde_supervised_check": {
-            "question": "Is the entity supervisada por el Banco de España (Circular 4/2017)?",
+            "question": "Is the entity supervisada por el Banco de Espa\u00f1a (Circular 4/2017)?",
             "options": {
                 "yes": "financial_integrity_requirement",
                 "no": "root"
@@ -1081,6 +1081,69 @@
             "options": {
                 "yes": "recommend_crypto_hsm",
                 "no": "recommend_mica_governance"
+            }
+        },
+        "sca_dynamic_linking_evaluation": {
+            "question": "Does the transaction volume/risk require cryptographic dynamic binding of amount and payee?",
+            "options": {
+                "yes": "recommend_dynamic_linking",
+                "no": "root"
+            }
+        },
+        "aml_reporting_check": {
+            "question": "Is automated SAR/ROS reporting to SEPBLAC required for the entity?",
+            "options": {
+                "yes": "recommend_sepblac_connector",
+                "no": "root"
+            }
+        },
+        "cnmv_custody_evaluation": {
+            "question": "Does the CASP provide custody of private keys mandated by MiCA?",
+            "options": {
+                "yes": "recommend_mica_custody",
+                "no": "root"
+            }
+        },
+        "cnmv_market_abuse_check": {
+            "question": "Does the investment platform require automated detection of market manipulation?",
+            "options": {
+                "yes": "recommend_market_abuse_monitoring",
+                "no": "root"
+            }
+        },
+        "gdpr_anonymization_evaluation": {
+            "question": "Does the environment require absolute statistical irreversibility (Anonymization)?",
+            "options": {
+                "yes": "recommend_gdpr_anonymization",
+                "no": "root"
+            }
+        },
+        "aml_rba_evaluation": {
+            "question": "Does the sector require a formal Risk-Based Approach evaluation for client tiers?",
+            "options": {
+                "yes": "recommend_aml_rba",
+                "no": "root"
+            }
+        },
+        "db_optimization": {
+            "question": "Does the database require transactional auditing and lock analysis?",
+            "options": {
+                "yes": "recommend_db_lock_reviews",
+                "no": "root"
+            }
+        },
+        "observability_full": {
+            "question": "Does the system require a full observability stack (tracing + logs + metrics)?",
+            "options": {
+                "yes": "recommend_observability_suite",
+                "no": "root"
+            }
+        },
+        "reliability_check": {
+            "question": "Does the system have critical SLA requirements requiring SRE patterns?",
+            "options": {
+                "yes": "recommend_sre_reliability",
+                "no": "root"
             }
         }
     },
@@ -2174,6 +2237,30 @@
             "confidence_factors": [
                 "low_governance_risk",
                 "standard_operational_visibility"
+            ]
+        },
+        "recommend_db_lock_reviews": {
+            "pattern_id": "db_lock_analysis",
+            "confidence_factors": [
+                "transactional_integrity",
+                "bde_compliance",
+                "deadlock_prevention"
+            ]
+        },
+        "recommend_observability_suite": {
+            "pattern_id": "full_observability_stack",
+            "confidence_factors": [
+                "distributed_tracing",
+                "log_aggregation",
+                "metric_scraping"
+            ]
+        },
+        "recommend_sre_reliability": {
+            "pattern_id": "sre_reliability_patterns",
+            "confidence_factors": [
+                "sla_enforcement",
+                "error_budgets",
+                "incident_automation"
             ]
         }
     }

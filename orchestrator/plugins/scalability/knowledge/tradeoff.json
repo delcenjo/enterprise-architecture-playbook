@@ -1,0 +1,40 @@
+{
+    "matrix": [
+        {
+            "strategy": "No Scaling (Baseline)",
+            "p99_latency_impact": "High (Rapid degradation under load)",
+            "cloud_cost": "Low (Fixed baseline)",
+            "complexity": "Low",
+            "resilience": "Very Low (Susceptible to cascading failure)",
+            "time_to_implement": "None (Status Quo)",
+            "best_for": "Staging environments, internal low-traffic tools."
+        },
+        {
+            "strategy": "Horizontal Scaling (HPA)",
+            "p99_latency_impact": "Medium (Improves processing, but doesn't fix DB bottlenecks)",
+            "cloud_cost": "Medium (Scales dynamically with traffic)",
+            "complexity": "Medium (Requires stateless architecture)",
+            "resilience": "Medium (Handles node failures well)",
+            "time_to_implement": "2-3 weeks (if state needs refactoring)",
+            "best_for": "Stateless microservices, web servers, API Gateways."
+        },
+        {
+            "strategy": "Vertical Scaling",
+            "p99_latency_impact": "Low (Immediate raw performance boost)",
+            "cloud_cost": "High (Exponential cost for larger instances)",
+            "complexity": "Low (Just a configuration/reboot change)",
+            "resilience": "Medium (Still a single point of failure within that node)",
+            "time_to_implement": "1 week (Testing + Deployment)",
+            "best_for": "Legacy monolithic databases, stateful legacy applications."
+        },
+        {
+            "strategy": "Architectural Patterns (CQRS/Bulkhead)",
+            "p99_latency_impact": "Very Low (Optimizes read paths and isolates failures)",
+            "cloud_cost": "Medium (Requires extra infrastructure like Kafka/Redis but optimizes compute)",
+            "complexity": "High (Requires asynchronous thinking and eventual consistency)",
+            "resilience": "Very High (Architecturally defends against cascading failure)",
+            "time_to_implement": "2-4 months (Major Engineering Initiative)",
+            "best_for": "Massive scale enterprise systems facing hard data bottlenecks."
+        }
+    ]
+}

@@ -1,0 +1,30 @@
+{
+    "cases": [
+        {
+            "id": "fintech_idp_2024",
+            "customer": "NeoBank Global",
+            "scenario": {
+                "stack": "Java/Spring Boot, React, AWS",
+                "team": "12 Developers across 3 distinct product squads.",
+                "problem": "It took 15 days to onboard a new developer because infrastructure access, repository creation, and CI/CD setup were manual processes owned by a single overloaded DevOps engineer. Consistency was poor, resulting in security vulnerabilities slipping into production."
+            },
+            "implementation": {
+                "solution": "Built an Internal Developer Platform using Spotify's Backstage. Integrated Terraform templates.",
+                "golden_paths": "Created two strict 'Golden Paths': One for Spring Boot microservices, one for React frontends. Both automatically injected Datadog tracking and SonarQube scans.",
+                "timeframe": "2 months to initial rollout."
+            },
+            "results": {
+                "time_to_onboard": "Reduced from 15 days to 3 days.",
+                "deployment_frequency": "Increased from 2/month to 8/month per squad.",
+                "error_rate": "Configuration-related incidents dropped by 50% due to standardized IaC generation."
+            },
+            "lessons": [
+                "Golden Paths don't just speed up development; they are the most effective way to organically enforce security policies across a growing engineering team.",
+                "Platform Engineering is a product management function. You must 'sell' the Golden Paths to the developers by making them the easiest route to production."
+            ],
+            "anti_patterns": [
+                "Mandating the Platform. Good Golden Paths are adopted voluntarily because they save developers time. If you have to force them, they are too restrictive."
+            ]
+        }
+    ]
+}

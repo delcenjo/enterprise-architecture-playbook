@@ -1,0 +1,28 @@
+{
+    "weights": {
+        "ownership": {
+            "weight": 0.25,
+            "description": "25% - The cornerstone. Does the candidate take extreme ownership of failures, or do they default to victimhood and blame-shifting?"
+        },
+        "conflict_handling": {
+            "weight": 0.20,
+            "description": "20% - Evaluates the ability to engage in hardcore technical disagreements without damaging interpersonal relationships."
+        },
+        "feedback_receptivity": {
+            "weight": 0.20,
+            "description": "20% - Measures the immediate reaction to being challenged or proven wrong. Defensiveness is a major red flag."
+        },
+        "collaboration": {
+            "weight": 0.15,
+            "description": "15% - The 'Hero' versus 'System Builder' test. Inclination to mentor, document, and leave the codebase better than they found it."
+        },
+        "transparency": {
+            "weight": 0.10,
+            "description": "10% - Honesty about technical limitations, debt, and personal knowledge gaps."
+        },
+        "learning_agility": {
+            "weight": 0.10,
+            "description": "10% - Velocity of adaptation. Not just learning new syntax, but unlearning outdated dogmas."
+        }
+    }
+}

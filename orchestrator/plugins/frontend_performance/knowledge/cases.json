@@ -1,0 +1,28 @@
+{
+    "cases": [
+        {
+            "id": "ecommerce_homepage_2024",
+            "customer": "ShopStream",
+            "scenario": {
+                "stack": "React SPA, CloudFront",
+                "load": "1M usuarios mensuales",
+                "problem": "Caída en conversiones móvil. Métricas iniciales: LCP 3.2s, FID 120ms, CLS 0.15, Bundle Inicial 450KB."
+            },
+            "implementation": {
+                "lcp_fix": "Compresión de imágenes a WebP y Lazy-load estricto de carruseles 'below the fold'.",
+                "fid_bundle_fix": "Implementado Code Splitting a nivel de ruta (React.lazy). Deferred third-party trackers.",
+                "cls_fix": "CSS 'aspect-ratio' definido preventivamente para banners y listados de producto. Preload de tipografías críticas."
+            },
+            "results": {
+                "lcp": "3.2s -> 2.1s (Mejora SEO notable)",
+                "fid": "120ms -> 90ms (Sin bloqueos)",
+                "cls": "0.15 -> 0.08 (Layout estable)",
+                "bundle": "450KB -> 180KB en la ruta crítica."
+            },
+            "lessons": [
+                "Priorizar siempre los recursos 'Above the Fold' (Critical Path). Lo que no se ve inicialmente, no debe cargarse inicialmente.",
+                "Las métricas de Core Web Vitals deben medirse siempre en 'Field Data' (datos reales de usuario Chrome UX), nunca confiar en 'Lab Data' de dev-tools locales de gama alta."
+            ]
+        }
+    ]
+}

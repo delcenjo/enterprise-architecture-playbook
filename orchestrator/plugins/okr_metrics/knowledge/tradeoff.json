@@ -1,0 +1,28 @@
+{
+    "matrix": [
+        {
+            "objective": "Delivery Speed (Deployment Freq / Lead Time)",
+            "primary_risk": "Can increase Failure Rate if automation is incomplete.",
+            "primary_benefit": "Massive reduction in Time-to-Market; faster feedback loops.",
+            "priority_context": "High when the business is too slow to react to competitors."
+        },
+        {
+            "objective": "Reliability (MTTR / Failure Rate)",
+            "primary_risk": "Requires significant infrastructure/monitoring investment; slows down raw speed.",
+            "primary_benefit": "Prevents catastrophic downtime; builds user trust.",
+            "priority_context": "Critical after a major outage or when scaling enterprise contracts."
+        },
+        {
+            "objective": "Code Quality (Coverage / Debt)",
+            "primary_risk": "High build overhead; difficult to quantify direct revenue impact.",
+            "primary_benefit": "Reduces future maintenance costs; lowers bug rates over time.",
+            "priority_context": "Medium priority, often balanced with new feature development."
+        },
+        {
+            "objective": "Direct Feature Delivery",
+            "primary_risk": "Accumulates technical debt if done in isolation.",
+            "primary_benefit": "Directly impacts revenue and user acquisition.",
+            "priority_context": "Always active, but must be constrained by the other three technical OKRs."
+        }
+    ]
+}

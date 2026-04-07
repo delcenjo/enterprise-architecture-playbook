@@ -1,0 +1,25 @@
+{
+    "CulturalFitAssessment": {
+        "concepto": "Sistema para cuantificar el riesgo sistémico humano en un candidato. Se aleja del concepto de 'clon simpático' para enfocarse en madurez emocional, accountability y manejo del conflicto en entornos de alta presión.",
+        "descripcion": "La premisa central es que la cultura no es un conjunto de valores abstractos, sino el comportamiento observable promedio del equipo cuando las cosas salen mal. Un mal fit cultural incrementa la latencia de las decisiones y la deuda técnica.",
+        "dimensiones_clave": {
+            "Ownership_and_Accountability": "Responsabilidad total sobre el código y sus fallos. Ausencia de victimismo. Uso del 'yo' para asumir errores y el 'nosotros' para atribuir éxitos.",
+            "Conflict_Handling": "Capacidad funcional para entrar en desacuerdos técnicos intensos sin llevarlo al terreno personal. Buscar la verdad objetiva (datos) en lugar de la victoria del ego.",
+            "Feedback_Receptivity": "Agilidad para incorporar críticas sin ponerse a la defensiva. Capacidad para decir 'tienes razón, me equivoqué'.",
+            "Collaboration_Style": "Balance entre autonomía individual y escalabilidad estructural. Documentar, mentorear y pensar en el bienestar de la codebase a futuro.",
+            "Risk_Tolerance": "Capacidad de tomar decisiones con datos incompletos y tolerar la ambigüedad inherente al crecimiento de un sistema.",
+            "Communication_Transparency": "Flujo de información sin sesgos ni ocultamientos técnicos. Hablar claro sobre la deuda técnica."
+        },
+        "riesgos_y_fricciones": {
+            "El_Senior_Egocentrico": "Brillante técnicamente pero destruye la moral del equipo. Impone decisiones, no escucha. Su conocimiento genera dependencias tóxicas.",
+            "El_Evitador_de_Conflictos": "Evita conversaciones difíciles. Acumula resentimiento y permite que malas decisiones de arquitectura pasen a producción por no discutir.",
+            "El_Heroe_Individual": "Salva el día constantemente pero se niega a crear documentación o pipelines estandarizados. Inescalable.",
+            "El_Cinico": "Actitud tóxica pasiva. Desmotiva a los juniors y paraliza la adopción de nuevas tecnologías."
+        },
+        "impacto_organizacional": [
+            "Fricción cultural eleva el MTTR porque el 'blame game' (buscar culpables) reemplaza al 'post-mortem' objetivo.",
+            "Reduce la Deployment Frequency por bloqueos de ego en las Pull Requests.",
+            "Acelera la rotación del verdadero talento top-tier."
+        ]
+    }
+}

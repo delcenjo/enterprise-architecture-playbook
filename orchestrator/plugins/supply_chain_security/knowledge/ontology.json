@@ -1,0 +1,24 @@
+{
+    "SupplyChainSecurity": {
+        "concepto": "Seguridad del pipeline de software y componentes externos.",
+        "descripcion": "Asegura la integridad y procedencia de artefactos y dependencias.",
+        "componentes": {
+            "SBOM": "Software Bill of Materials - Inventario detallado de dependencias.",
+            "SLSA": "Supply-chain Levels for Software Artifacts - Framework de confianza.",
+            "ArtifactSigning": "Firma digital de artefactos para garantizar integridad.",
+            "DependencyScanning": "Escaneo automatizado de vulnerabilidades en librerías."
+        },
+        "herramientas": [
+            "cosign",
+            "Snyk",
+            "Trivy",
+            "CycloneDX",
+            "GitHub Advanced Security"
+        ],
+        "beneficios": [
+            "Prevención de ataques de inyección de código en dependencias",
+            "Cumplimiento de normativas de seguridad (NIST, ISO)",
+            "Trazabilidad completa desde el código hasta el despliegue"
+        ]
+    }
+}

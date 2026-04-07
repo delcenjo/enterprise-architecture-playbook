@@ -1,0 +1,77 @@
+{
+    "root": {
+        "question": "Initialize observability evaluation?",
+        "options": {
+            "start": "high_criticality_check"
+        }
+    },
+    "high_criticality_check": {
+        "question": "Is the system high criticality?",
+        "options": {
+            "yes": "recommend_all_pillars",
+            "no": "distributed_check"
+        }
+    },
+    "distributed_check": {
+        "question": "Is it a distributed system (Microservices)?",
+        "options": {
+            "yes": "recommend_metrics_logs_traces",
+            "no": "regulatory_check"
+        }
+    },
+    "regulatory_check": {
+        "question": "Are there regulatory requirements (GDPR/Audit)?",
+        "options": {
+            "yes": "recommend_metrics_logs_centralized",
+            "no": "recommend_metrics_logs_basic"
+        }
+    },
+    "leaves": {
+        "recommend_all_pillars": {
+            "pillars": [
+                "Metrics",
+                "Logs",
+                "Traces"
+            ],
+            "features": [
+                "Alertas proactivas",
+                "Full SLIs/SLOs",
+                "Contextual tracing"
+            ],
+            "reasoning": "High criticality mandates full visibility across all dimensions."
+        },
+        "recommend_metrics_logs_traces": {
+            "pillars": [
+                "Metrics",
+                "Logs",
+                "Traces"
+            ],
+            "features": [
+                "Distributed tracing",
+                "Centralized logging"
+            ],
+            "reasoning": "Distributed systems require tracing to identify cross-service latency."
+        },
+        "recommend_metrics_logs_centralized": {
+            "pillars": [
+                "Metrics",
+                "Logs"
+            ],
+            "features": [
+                "Secure log retention",
+                "Audit trails"
+            ],
+            "reasoning": "Regulatory compliance mandates secure and centralized logging."
+        },
+        "recommend_metrics_logs_basic": {
+            "pillars": [
+                "Metrics",
+                "Logs"
+            ],
+            "features": [
+                "Standard dashboards"
+            ],
+            "reasoning": "Standard observability baseline for non-critical monolithic systems."
+        }
+    }
+}

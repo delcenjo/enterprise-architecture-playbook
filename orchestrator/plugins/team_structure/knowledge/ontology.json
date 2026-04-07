@@ -1,0 +1,20 @@
+{
+    "TeamStructureTopology": {
+        "concepto": "Diseño organizativo técnico enfocado en alinear la estructura de los equipos con el flujo de valor (Conway's Law) y minimizar la carga cognitiva (Cognitive Load) para maximizar la velocidad y consistencia.",
+        "descripcion": "Evitar copiar modelos estáticos (como el 'Spotify Model' puro) sin entender el contexto. El objetivo es estructurar equipos según el headcount, la madurez del producto y los requisitos regulatorios.",
+        "modelos_organizativos": {
+            "Stream_Aligned_Teams": "Equipos alineados con el flujo de valor de extremo a extremo (ej. 'Onboarding', no 'Backend'). Minimizan handoffs y optimizan la entrega de features.",
+            "Platform_Teams": "Equipos creados para reducir la carga cognitiva de los Stream-Aligned Teams proporcionando APIs, herramientas de CI/CD, infraestructura y 'Golden Paths' como un producto interno.",
+            "Enabling_Teams": "Expertos técnicos que ayudan a los Stream-Aligned Teams a adoptar nuevas tecnologías o prácticas (ej. equipo de transición a Kubernetes) por un tiempo limitado.",
+            "Complicated_Subsystem_Teams": "Equipos dedicados a un componente altamente complejo que requiere conocimiento súper especializado (ej. motor de renderizado de video en tiempo real)."
+        },
+        "dimensiones_clave": {
+            "Cognitive_Load": "La limitación humana de cuánto contexto puede mantener un equipo (dominio de negocio + infraestructura + seguridad + tooling). Excederlo degrada la calidad drásticamente.",
+            "Autonomy_vs_Alignment": "Equilibrio entre equipos decidiendo su stack de forma autónoma versus alineación técnica para evitar fragmentación y deuda técnica inmanejable."
+        },
+        "anti_patterns": {
+            "Spotify_Model_Religion": "Copiar Squads y Tribes arbitrariamente en empresas de 20 personas, creando silos prematuros y arquitecturas divergentes (Technical Drift).",
+            "Platform_as_Ticket_Desk": "Un Platform Team que funciona respondiendo tickets de Jira en lugar de ofrecer self-service APIs, convirtiéndose en el mayor cuello de botella de la empresa."
+        }
+    }
+}

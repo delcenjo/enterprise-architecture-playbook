@@ -1,0 +1,86 @@
+{
+    "nodes": {
+        "root": {
+            "question": "Is the system distributed or mission-critical?",
+            "options": {
+                "yes": "team_maturity_check",
+                "no": "recommend_traditional_testing"
+            }
+        },
+        "team_maturity_check": {
+            "question": "Is the operations team experienced with controlled failure handling?",
+            "options": {
+                "yes": "experiment_goal_check",
+                "no": "recommend_staging_simulation"
+            }
+        },
+        "experiment_goal_check": {
+            "question": "What is the primary goal of the chaos experiment?",
+            "options": {
+                "validate_resilience": "risk_tolerance_check",
+                "financial_impact": "recommend_chaos_financial_analysis",
+                "team_training": "recommend_gameday_simulation"
+            }
+        },
+        "risk_tolerance_check": {
+            "question": "Is the organization's risk tolerance for production experiments high?",
+            "options": {
+                "yes": "recommend_production_failure_injection",
+                "no": "recommend_staging_failure_injection"
+            }
+        }
+    },
+    "leaves": {
+        "recommend_traditional_testing": {
+            "strategy": "Traditional Testing Only",
+            "scope": "Unit/Integration",
+            "reasoning": "Low architectural complexity doesn't justify chaos overhead.",
+            "pillars": [
+                "QA"
+            ]
+        },
+        "recommend_staging_simulation": {
+            "strategy": "Simulation in Staging",
+            "scope": "Staging Environment",
+            "reasoning": "Team needs training before affecting real infrastructure.",
+            "pillars": [
+                "Staging Chaos",
+                "Observability"
+            ]
+        },
+        "recommend_gameday_simulation": {
+            "strategy": "Monthly GameDays",
+            "scope": "Staging/Controlled Production",
+            "reasoning": "Standard approach for team coordination and resilience validation.",
+            "pillars": [
+                "GameDays",
+                "Playbook Validation"
+            ]
+        },
+        "recommend_staging_failure_injection": {
+            "strategy": "Controlled Failure Injection (Staging)",
+            "scope": "Isolated Nodes",
+            "reasoning": "Validation of recovery logic without production risk.",
+            "pillars": [
+                "Staging Failure Injection"
+            ]
+        },
+        "recommend_production_failure_injection": {
+            "strategy": "Production Failure Injection",
+            "scope": "Limited Blast Radius (Subset of traffic)",
+            "reasoning": "Highest fidelity validation for mission-critical systems.",
+            "pillars": [
+                "Production Chaos",
+                "Automated Rollback"
+            ]
+        },
+        "recommend_chaos_financial_analysis": {
+            "strategy": "Financial Impact Simulation",
+            "scope": "Core Transaction Paths",
+            "reasoning": "Focus on correlating downtime with direct revenue loss.",
+            "pillars": [
+                "Downtime Cost Analysis"
+            ]
+        }
+    }
+}

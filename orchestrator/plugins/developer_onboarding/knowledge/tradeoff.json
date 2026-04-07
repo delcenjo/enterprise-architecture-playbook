@@ -1,0 +1,43 @@
+{
+    "dimensions": [
+        "Time to First Commit (TTFC)",
+        "Time to Autonomous PR (TTFP)",
+        "Senior Developer Overhead",
+        "Framework Standardization",
+        "Architectural Safety"
+    ],
+    "patterns": [
+        {
+            "name": "Lean Startup Onboarding",
+            "ttfc": "Very Fast (< 2 days)",
+            "ttfp": "Fast (< 7 days)",
+            "overhead": "Medium (Direct Pairing)",
+            "standardization": "Low (Tribal Knowledge prevails)",
+            "safety": "Low (Relies on pair programming, fewer automated gates)"
+        },
+        {
+            "name": "Standard Agile Mentorship",
+            "ttfc": "Fast (< 3 days)",
+            "ttfp": "Moderate (< 15 days)",
+            "overhead": "High (Mandatory 2x week buddy sessions)",
+            "standardization": "Medium (Some docs exist, but mentorship bridges gaps)",
+            "safety": "Medium (Buddy reviews all PRs initially)"
+        },
+        {
+            "name": "Regulated Enterprise Onboarding",
+            "ttfc": "Slow (> 5 days for access)",
+            "ttfp": "Slow (> 30 days due to compliance)",
+            "overhead": "Low (Heavily documented, less pairing)",
+            "standardization": "High (Strict wikis, ADRs)",
+            "safety": "High (Strict CI gates, required testing)"
+        },
+        {
+            "name": "Data-Driven Platform Onboarding",
+            "ttfc": "Fast (< 3 days automatically)",
+            "ttfp": "Fast (< 10 days)",
+            "overhead": "Very Low (Self-serve IDP minimizes human bottleneck)",
+            "standardization": "Very High (Golden paths enforced by platform)",
+            "safety": "High (Platform limits blast radius natively)"
+        }
+    ]
+}

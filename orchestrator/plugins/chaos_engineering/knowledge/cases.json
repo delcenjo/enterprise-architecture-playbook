@@ -1,0 +1,27 @@
+{
+    "cases": [
+        {
+            "id": "payment_pipeline_resilience_2023",
+            "customer": "FinPay",
+            "scenario": {
+                "services": 12,
+                "users": "500k daily",
+                "problem": "Latency spikes during peak hours causing partial outages."
+            },
+            "implementation": {
+                "frequency": "Monthly GameDays",
+                "injection": "CPU Spike in Payment Microservice",
+                "blast_radius": "1 node per zone",
+                "monitoring": "Prometheus/Grafana + OpenTelemetry"
+            },
+            "results": {
+                "mttr_improvement": "From 30m to 5m",
+                "error_rate_reduction": "0.5% to 0.1% during controlled failure"
+            },
+            "lessons": [
+                "Start with small blast radius to avoid cascading failures.",
+                "Automated playbooks/runbooks are critical for speed of recovery."
+            ]
+        }
+    ]
+}

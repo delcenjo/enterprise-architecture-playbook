@@ -1,0 +1,25 @@
+{
+    "tradeoffs": [
+        {
+            "pattern": "Pure Autonomy (Spotify Model Clone)",
+            "deployment_frequency": "High Initial (degrades over time)",
+            "architectural_consistency": "Low (High Technical Drift)",
+            "cognitive_load": "High (Teams manage own infra/security)",
+            "scalability": "Medium (Breaks down > 50 devs without platform)"
+        },
+        {
+            "pattern": "Stream-Aligned + Mature Platform",
+            "deployment_frequency": "High Sustainable",
+            "architectural_consistency": "High (Enforced via Golden Paths)",
+            "cognitive_load": "Low (Domain focus only)",
+            "scalability": "High (Platform scales independently)"
+        },
+        {
+            "pattern": "Classic Component Teams (Frontend/Backend/DB Teams)",
+            "deployment_frequency": "Low (Requires massive handoffs)",
+            "architectural_consistency": "High",
+            "cognitive_load": "Low",
+            "scalability": "Low (Creates severe bottlenecks)"
+        }
+    ]
+}

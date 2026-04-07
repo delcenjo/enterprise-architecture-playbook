@@ -1,0 +1,25 @@
+{
+    "matrix": [
+        {
+            "strategy": "Probabilistic",
+            "complexity": "Low",
+            "cost": "Low",
+            "anomaly_coverage": "Low",
+            "primary_benefit": "Performance baselining without overhead."
+        },
+        {
+            "strategy": "Head-based",
+            "complexity": "Medium",
+            "cost": "Medium",
+            "anomaly_coverage": "Medium",
+            "primary_benefit": "Predictable volume control."
+        },
+        {
+            "strategy": "Tail-based",
+            "complexity": "High",
+            "cost": "High",
+            "anomaly_coverage": "High",
+            "primary_benefit": "Deep diagnostic of intermittent/critical failures."
+        }
+    ]
+}

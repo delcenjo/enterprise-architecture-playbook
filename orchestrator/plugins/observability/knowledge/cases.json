@@ -1,0 +1,39 @@
+[
+    {
+        "case_id": "ecommerce_observabilidad_2024",
+        "cliente": "E-ComX",
+        "pilares_implementados": [
+            "Metrics",
+            "Logs",
+            "Traces"
+        ],
+        "herramientas": [
+            "Prometheus",
+            "Grafana",
+            "ELK",
+            "Jaeger"
+        ],
+        "problema_original": {
+            "descripcion": "Caídas intermitentes en microservicios sin causa clara",
+            "impacto": "10h downtime/mes, 5k€ pérdida directa"
+        },
+        "implementacion": {
+            "duracion": "2 meses",
+            "dificultad": "Media-Alta",
+            "acciones": [
+                "Instrumentación completa",
+                "Dashboards SLIs/SLOs",
+                "Alertas en Grafana"
+            ]
+        },
+        "resultados": {
+            "downtime_post": "1h/mes",
+            "tiempo_diagnostico": "30min vs 3h previo",
+            "coste_operativo": "+15% (infra y storage)"
+        },
+        "lecciones_aprendidas": [
+            "Instrumentar desde inicio evita errores de arquitectura no visibles",
+            "Traces ayudan a detectar dependencias ocultas"
+        ]
+    }
+]

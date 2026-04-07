@@ -1,0 +1,61 @@
+{
+    "nodes": {
+        "root": {
+            "question": "What is the most critical operational constraint or strategic goal currently identified?",
+            "options": {
+                "high_failure_rate_or_mttr": "recommend_reliability_focus",
+                "low_deployment_frequency": "recommend_speed_focus",
+                "strategic_business_goal": "recommend_strategic_alignment",
+                "quality_degradation": "recommend_quality_focus",
+                "stable_metrics": "recommend_operational_maintenance"
+            }
+        }
+    },
+    "leaves": {
+        "recommend_reliability_focus": {
+            "strategy": "Reliability & Resilience OKRs",
+            "reasoning": "The system is exhibiting high Change Failure Rates or unacceptable Mean Time to Recovery (MTTR). The primary objective for this cycle must mathematically prioritize stabilizing the platform over delivering new features.",
+            "pillars": [
+                "MTTR Reduction",
+                "Change Failure Rate Validation",
+                "Automated Rollbacks"
+            ]
+        },
+        "recommend_speed_focus": {
+            "strategy": "Delivery Speed & Flow OKRs",
+            "reasoning": "Deployment frequency is dangerously low and Lead Time for Changes spans weeks instead of hours. The pipeline is bottlenecked. The focus must be on CI/CD optimization and breaking down batch sizes.",
+            "pillars": [
+                "Deployment Frequency",
+                "Lead Time Reduction",
+                "Batch Size Minimization"
+            ]
+        },
+        "recommend_strategic_alignment": {
+            "strategy": "Strategic Business Alignment OKRs",
+            "reasoning": "A major corporate strategic goal is active (e.g., market expansion, user growth). Technical OKRs must be explicitly mapped to support these product goals, emphasizing feature flags, scalability, or new market compliance.",
+            "pillars": [
+                "Business-Mapped Technical KRs",
+                "Feature Flagging",
+                "A/B Testing Infrastructure"
+            ]
+        },
+        "recommend_quality_focus": {
+            "strategy": "Code Quality & Debt Reduction OKRs",
+            "reasoning": "While DORA metrics might be acceptable, underlying code quality is degrading (high cognitive complexity, low coverage). Set OKRs to refactor critical paths and establish strict automated quality gates.",
+            "pillars": [
+                "Test Coverage Minimums",
+                "Complexity Reduction",
+                "Linting Standards"
+            ]
+        },
+        "recommend_operational_maintenance": {
+            "strategy": "Operational Consistency OKRs",
+            "reasoning": "All operational metrics (DORA, Quality) are stable and within target ranges. The OKR focus should be maintaining current excellence and minor optimizations in cloud costs or developer experience.",
+            "pillars": [
+                "FinOps Optimization",
+                "Developer Satisfaction",
+                "Baseline Maintenance"
+            ]
+        }
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "cases": [
+        {
+            "id": "ecommerce_canary_2024",
+            "customer": "ShopFast",
+            "scenario": {
+                "users": "2M daily",
+                "stack": "Kubernetes + React",
+                "goal": "Weekly releases without affecting global conversions."
+            },
+            "implementation": {
+                "strategy": "Canary",
+                "percentage": "5% initial",
+                "monitoring": "Prometheus/Grafana with automated rollback"
+            },
+            "results": {
+                "speed": "15 min vs 1h full deploy",
+                "incidents_captured": "2 minor bugs detected in canary phase"
+            },
+            "lessons": [
+                "Automated rollback on error rate spikes is mandatory.",
+                "Canary analysis should include business metrics (conversion rate), not just tech metrics."
+            ]
+        }
+    ]
+}

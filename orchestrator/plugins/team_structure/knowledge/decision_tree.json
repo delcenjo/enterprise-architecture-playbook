@@ -1,0 +1,55 @@
+{
+    "nodes": {
+        "root": {
+            "question": "Assess the organizational context based on total developer headcount and compliance/regulatory requirements.",
+            "options": {
+                "high_regulation_scale": "recommend_regulated_platform",
+                "high_scale_low_regulation": "recommend_mature_platform_stream",
+                "mid_scale_transition": "recommend_stream_aligned_transition",
+                "small_scale_startup": "recommend_flat_generalist"
+            }
+        }
+    },
+    "leaves": {
+        "recommend_flat_generalist": {
+            "strategy": "Flat/Generalist Structure (<10 Devs)",
+            "reasoning": "With under 10 developers, prioritizing communication speed over structural boundaries is critical. Adding 'Squads' or a 'Platform Team' at this stage creates artificial silos, unnecessary overhead, and slows down product-market fit iteration. Keep it flat.",
+            "pillars": [
+                "High Cohesion",
+                "Zero Handoffs",
+                "No Formal Platform"
+            ],
+            "target_headcount": "< 10"
+        },
+        "recommend_stream_aligned_transition": {
+            "strategy": "Stream-Aligned + Early Platform Setup (10-40 Devs)",
+            "reasoning": "Between 10 and 40 developers, communication breaks down if kept flat. Transition to Stream-Aligned teams focused on business value. Crucially, begin forming an implicit/early Platform Team (1-2 devs) to standardize CI/CD and prevent tech stack fragmentation.",
+            "pillars": [
+                "Value-Stream Focus",
+                "Golden Path Prototypes",
+                "Cognitive Load Awareness"
+            ],
+            "target_headcount": "10 - 40"
+        },
+        "recommend_mature_platform_stream": {
+            "strategy": "Mature Platform as a Product + Autonomous Streams (>40 Devs)",
+            "reasoning": "At 40+ developers, cognitive load and architectural drift become massive risks. You must establish a dedicated Platform Team treating internal developers as customers (Platform-as-a-Product) offering self-service Golden Paths. Stream-aligned teams consume the platform to maintain high Deployment Frequency.",
+            "pillars": [
+                "Self-Service Platform",
+                "Minimized Cognitive Load",
+                "High Deployment Frequency"
+            ],
+            "target_headcount": "> 40 (Low/Medium Reg)"
+        },
+        "recommend_regulated_platform": {
+            "strategy": "Compliance-Enforced Platform + Stream Teams (>40 Devs, High Regulation)",
+            "reasoning": "Scaling in a highly regulated environment (Fintech, Healthcare) requires the Platform Team to embed Compliance-as-Code (automated SAST/DAST, audit logging, access controls) into the Golden Paths. Teams maintain autonomy only within the boundaries of the pre-approved platform abstractions.",
+            "pillars": [
+                "Compliance-as-Code Platform",
+                "Regulated Golden Paths",
+                "Automated Audit Trails"
+            ],
+            "target_headcount": "> 40 (High Reg)"
+        }
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "matrix": [
+        {
+            "strategy": "GameDays in Staging",
+            "complexity": "Medium",
+            "cost": "Low",
+            "risk": "Low",
+            "primary_benefit": "Safe team training and basic validation."
+        },
+        {
+            "strategy": "Failure Injection (Limited)",
+            "complexity": "High",
+            "cost": "Medium",
+            "risk": "Medium",
+            "primary_benefit": "Validation of specific recovery mechanisms."
+        },
+        {
+            "strategy": "Broad Production Chaos",
+            "complexity": "Very High",
+            "cost": "High",
+            "risk": "High",
+            "primary_benefit": "Discovery of complex, hidden architectural failures."
+        }
+    ]
+}

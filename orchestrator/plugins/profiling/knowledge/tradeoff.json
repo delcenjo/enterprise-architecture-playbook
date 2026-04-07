@@ -1,0 +1,25 @@
+{
+    "matrix": [
+        {
+            "strategy": "Deep CPU Profiling (Instrumentation)",
+            "complexity": "Medium",
+            "overhead": "High (10-30%)",
+            "safety": "Staging Only",
+            "best_for": "Finding exact method-level bottlenecks"
+        },
+        {
+            "strategy": "Continuous Profiling (eBPF/Sampling)",
+            "complexity": "High",
+            "overhead": "Low (<1%)",
+            "safety": "Production Safe",
+            "best_for": "Always-on fleet-wide observability"
+        },
+        {
+            "strategy": "Heap Dumps (Memory)",
+            "complexity": "Medium",
+            "overhead": "Extreme (Pauses JVM/Process)",
+            "safety": "Staging / Isolated Instances",
+            "best_for": "Diagnosing severe memory leaks"
+        }
+    ]
+}

@@ -1,0 +1,65 @@
+{
+    "nodes": {
+        "root": {
+            "question": "What primary symptom needs deep investigation?",
+            "options": {
+                "high_latency": "cpu_or_io_check",
+                "increasing_memory": "recommend_memory_profiling",
+                "general_slowness": "cpu_or_io_check"
+            }
+        },
+        "cpu_or_io_check": {
+            "question": "Does the system rely heavily on external connections/databases (I/O bound) or complex calculations (CPU bound)?",
+            "options": {
+                "cpu_bound": "production_safety_check",
+                "io_bound": "recommend_io_profiling",
+                "unknown": "production_safety_check"
+            }
+        },
+        "production_safety_check": {
+            "question": "Are you profiling directly in a live production environment?",
+            "options": {
+                "yes": "recommend_lightweight_cpu",
+                "no": "recommend_deep_cpu"
+            }
+        }
+    },
+    "leaves": {
+        "recommend_memory_profiling": {
+            "strategy": "Memory Profiling & Heap Analysis",
+            "reasoning": "Constant memory growth indicates object retention leaks. Requires deep heap dump analysis.",
+            "pillars": [
+                "Heap Dumps",
+                "GC Pause Analysis",
+                "Object allocation tracking"
+            ]
+        },
+        "recommend_io_profiling": {
+            "strategy": "I/O & Network Profiling",
+            "reasoning": "Latency in data-heavy apps often stems from inefficient queries, slow disk I/O, or connection saturation.",
+            "pillars": [
+                "Query Tracing",
+                "Network Latency Profiling",
+                "eBPF I/O Tracers"
+            ]
+        },
+        "recommend_lightweight_cpu": {
+            "strategy": "Lightweight Sampling Profiling (Continuous)",
+            "reasoning": "Production environments require sampling profilers (e.g., eBPF/Perf) with <1% overhead to avoid degradation.",
+            "pillars": [
+                "Continuous Profiling",
+                "FlameGraphs",
+                "eBPF Sampling"
+            ]
+        },
+        "recommend_deep_cpu": {
+            "strategy": "Deep CPU Profiling (FlameGraphs)",
+            "reasoning": "Isolated environments allow for full instrumentation to detect complex method-level CPU bottlenecks.",
+            "pillars": [
+                "Full Instrumentation",
+                "Java Flight Recorder / Py-Spy",
+                "FlameGraphs"
+            ]
+        }
+    }
+}

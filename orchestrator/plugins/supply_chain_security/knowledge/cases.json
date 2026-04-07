@@ -1,0 +1,26 @@
+{
+    "cases": [
+        {
+            "id": "fintech_payment_pipeline_2024",
+            "customer": "PaySecure",
+            "scenario": {
+                "apps": "Node.js Microservices",
+                "deps": "50+ critical libs",
+                "compliance": "PSD2/GDPR"
+            },
+            "implementation": {
+                "sbom": "CycloneDX integration",
+                "signing": "cosign for all images",
+                "scans": "Snyk + Trivy automated in CI/CD"
+            },
+            "results": {
+                "vulnerabilities": "12 high/critical detected and patched",
+                "audit": "Clean report for external auditors"
+            },
+            "lessons": [
+                "Scan early in the dev phase to avoid production blockers.",
+                "Version-pinning is essential for reproducible Slack compliance."
+            ]
+        }
+    ]
+}

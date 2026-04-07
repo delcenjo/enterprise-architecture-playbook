@@ -1,0 +1,36 @@
+{
+    "matrix": [
+        {
+            "strategy": "Ad-Hoc (HiPPO)",
+            "precision": "Zero (Based on intuition or volume)",
+            "speed": "Fastest",
+            "stakeholder_alignment": "Low (Generates resentment from engineering)",
+            "roi_optimization": "Extremely Poor",
+            "best_for": "Literally nothing beyond a 2-person garage startup."
+        },
+        {
+            "strategy": "MoSCoW Method",
+            "precision": "Low (Qualitative buckets)",
+            "speed": "Fast (Can be done in a 2-hour workshop)",
+            "stakeholder_alignment": "Medium (Forces hard conversations on 'Must' vs 'Should')",
+            "roi_optimization": "Medium (Ensures baseline delivery, ignores nuance)",
+            "best_for": "Defining strict MVP boundaries under severe time pressure."
+        },
+        {
+            "strategy": "RICE Scoring",
+            "precision": "High (Quantitative math)",
+            "speed": "Slow (Requires data gathering for Impact/Reach)",
+            "stakeholder_alignment": "Very High (Math is objective)",
+            "roi_optimization": "Excellent (Maximizes value per unit of engineering effort)",
+            "best_for": "Mature product organizations optimizing high-traffic feature backlogs."
+        },
+        {
+            "strategy": "Kano Model",
+            "precision": "Medium (Based on psychological expectation)",
+            "speed": "Medium (Requires user interviews/surveys)",
+            "stakeholder_alignment": "High (Aligns team on strategic intent)",
+            "roi_optimization": "Variable (Sometimes disruption costs money initially)",
+            "best_for": "Startup pivot phases or established products needing a UX refresh to fight churn."
+        }
+    ]
+}

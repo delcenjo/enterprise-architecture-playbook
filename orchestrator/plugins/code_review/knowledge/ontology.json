@@ -1,0 +1,22 @@
+{
+    "CodeReview": {
+        "concepto": "Proceso sistemático de inspección y evaluación del código fuente antes de su integración en la rama principal.",
+        "descripcion": "Busca asegurar que el código cumple con los estándares de calidad corporativos, tiene cobertura de pruebas adecuada y no introduce vulnerabilidades de seguridad ni deuda técnica severa.",
+        "areas_clave": {
+            "ReviewTypes": "Estrategias de revisión: Manual (Peer Review), Automatizada (Análisis estático en CI/CD), Híbrida (Ambos).",
+            "QualityGates": "Condiciones booleanas estrictas (e.g., SonarQube) que determinan si el código es aceptable para ser fusionado.",
+            "PRMetrics": "Métricas que definen la salud de una Pull Request: LOC (Lines of Code), tiempo de revisión, y densidad de defectos."
+        },
+        "metricas_clave": {
+            "PR_Size_LOC": "Tamaño de la Pull Request en líneas de código. > 500 LOC reduce dramáticamente la efectividad de la revisión manual.",
+            "Quality_Gates_Passing": "Estado de las validaciones automáticas. Si fallan, el código no está listo para producción.",
+            "Critical_Violations": "Cantidad de bugs de severidad alta o vulnerabilidades bloqueantes detectadas (0 aceptable).",
+            "Coverage_Delta": "Cambio en el porcentaje de cobertura de código. Una PR no debería reducir la cobertura global."
+        },
+        "riesgos": [
+            "PRs masivas ocultando deuda técnica o vulnerabilidades debido a la fatiga del revisor.",
+            "Falta de automatización (solo revisión manual) que crea cuellos de botella en el ciclo de entrega (Release Delays).",
+            "Ignorar reportes de análisis estático resultando en incidentes en producción."
+        ]
+    }
+}
