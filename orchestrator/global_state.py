@@ -337,6 +337,13 @@ class GlobalState(BaseModel):
     requirements: Dict[str, Any] = {}
     traffic_profile: TrafficProfile = Field(default_factory=TrafficProfile)
     data_profile: DataProfile = Field(default_factory=DataProfile)
+    
+    # Computed Metrics (Layer 2 pre-processing)
+    runtime_metrics: Dict[str, Any] = {}
+
+    # Plugin Results (Layer 2 — dynamic)
+    pillar_results: Dict[str, Any] = {}
+    
     tech_debt_profile: TechDebtProfile = Field(default_factory=TechDebtProfile) # New: V53 Technical Debt metrics
     code_review_profile: CodeReviewProfile = Field(default_factory=CodeReviewProfile) # New: V54 Code Review metrics
     arch_fitness_profile: ArchFitnessProfile = Field(default_factory=ArchFitnessProfile) # New: V55 AFF metrics

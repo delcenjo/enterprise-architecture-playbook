@@ -89,7 +89,7 @@ class TestPSD2SCA(unittest.TestCase):
             "business_type": "E-COMMERCE_LOGISTICS",
             "payment_operations_enabled": False
         }
-        self.engine.run()
+        self.engine.run_layer_2()
         
         self.assertFalse(self.state.psd2_compliance.sca_required)
         self.assertEqual(self.state.psd2_compliance.exemption_applied, "None")
