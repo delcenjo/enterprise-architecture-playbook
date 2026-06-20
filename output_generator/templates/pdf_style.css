@@ -1,9 +1,9 @@
-/* Document Forge - Ultra-Premium Consulting Style (The Cathedral Upgrage) */
+/* Report styles */
 @page {
     size: A4;
     margin: 2cm;
     @bottom-right {
-        content: "Document Forge Proprietary | Page " counter(page);
+        content: "Page " counter(page);
         font-family: 'Inter', 'Helvetica', sans-serif;
         font-size: 8pt;
         color: #94a3b8;

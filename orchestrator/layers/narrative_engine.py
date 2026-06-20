@@ -60,7 +60,7 @@ class NarrativeEngine:
         if not self.state.is_frozen:
             raise ValueError("State must be FROZEN before generating report.")
 
-        logger.info(f"🎨 Forging Premium Dossier using Hybrid Intelligence ({self.provider})...")
+        logger.info(f"Forging Premium Dossier using Hybrid Intelligence ({self.provider})...")
 
         # 1. Generate Intelligent Narratives (API or Fallback)
         narratives = await self._get_intelligent_narratives()
@@ -78,7 +78,7 @@ class NarrativeEngine:
 
         pdf_path = os.path.join(self.assets_dir, "premium_report.pdf")
         if HAS_WEASYPRINT:
-            logger.info("📄 Exporting High-Res PDF (300dpi)...")
+            logger.info("Exporting High-Res PDF (300dpi)...")
             HTML(string=html_content, base_url=self.assets_dir).write_pdf(pdf_path)
         else:
             pdf_path = None
@@ -95,7 +95,7 @@ class NarrativeEngine:
         cache_file = os.path.join(self.cache_dir, f"narrative_{cache_key}.json")
 
         if self.cache_enabled and os.path.exists(cache_file):
-            logger.info("🚀 Reusing cached narrative from .cache/")
+            logger.info("Reusing cached narrative from .cache/")
             with open(cache_file, 'r') as f:
                 return json.load(f)
 
@@ -123,8 +123,8 @@ class NarrativeEngine:
             elif self.provider == "openai" and HAS_OPENAI and os.getenv("OPENAI_API_KEY"):
                 return await self._call_openai(prompt)
         except Exception as e:
-            logger.error(f"❌ Premium LLM Call Failed ({self.provider}): {e}")
-            logger.info("🔄 Falling back to Deterministic Template Narrative...")
+            logger.error(f"Premium LLM Call Failed ({self.provider}): {e}")
+            logger.info("Falling back to Deterministic Template Narrative...")
 
         return self._generate_fallback_narrative()
 

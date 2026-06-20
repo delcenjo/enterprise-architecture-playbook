@@ -25,7 +25,7 @@ class VisualEngine:
             self.theme = {"primary": "#0A192F", "secondary": "#E8EAF6", "accent": "#1769FF", "compute_color": "#F8FAFC", "data_color": "#F1F5F9", "network_color": "#F8FAFC", "text": "#0F172A"}
 
     def run_layer_4(self):
-        logger.info("🎨 Starting Layer 4: High-Fidelity Visual Generation...")
+        logger.info("Starting Layer 4: High-Fidelity Visual Generation...")
         self._generate_deep_arch_diagram()
         self._generate_financial_chart()
         self._generate_load_curve()

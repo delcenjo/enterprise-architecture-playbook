@@ -20,7 +20,7 @@ class TestGDPRRetentionPillar(unittest.TestCase):
         """
         Test 1: Crypto-Shredding - Triggered by GDPR + Critical Sensitivity.
         """
-        print("\n🧪 Test 1: Crypto-Shredding & KMS Injection")
+        print("\nTest 1: Crypto-Shredding & KMS Injection")
         self.state.compliance_profile.frameworks = ["GDPR"]
         self.state.data_profile.sensitivity = "critical"
         self.state.raw_input["business_type"] = "FINTECH" # Should trigger deletion_proof -> crypto_shredding
@@ -38,13 +38,13 @@ class TestGDPRRetentionPillar(unittest.TestCase):
         # Verify Deletion Audit injection
         audit_node = next((c for c in self.state.architecture.components if "Deletion Proof" in c['name']), None)
         self.assertIsNotNone(audit_node)
-        print("✅ Correctly recommended Crypto-Shredding and injected security components.")
+        print("Correctly recommended Crypto-Shredding and injected security components.")
 
     def test_02_retention_conflict_resolution(self):
         """
         Test 2: Retention Conflict - FINTECH environment should show segmented policies.
         """
-        print("\n🧪 Test 2: Retention Conflict (GDPR vs AML)")
+        print("\nTest 2: Retention Conflict (GDPR vs AML)")
         self.state.compliance_profile.frameworks = ["GDPR", "AML"] # Conflict trigger
         self.state.raw_input["business_type"] = "FINTECH"
         
@@ -60,13 +60,13 @@ class TestGDPRRetentionPillar(unittest.TestCase):
         pattern_ids = [p['id'] for p in self.state.architecture.enterprise_patterns]
         # In our tree, conflict check leads to recommend_gdpr_segmented_retention -> automated_ttl_enforcement id
         self.assertIn("automated_ttl_enforcement", pattern_ids)
-        print("✅ Successfully resolved retention conflicts with segmented policies.")
+        print("Successfully resolved retention conflicts with segmented policies.")
 
     def test_03_standard_ttl_enforcement(self):
         """
         Test 3: Standard TTL - Recommended for GDPR SaaS.
         """
-        print("\n🧪 Test 3: Standard TTL Enforcement")
+        print("\nTest 3: Standard TTL Enforcement")
         self.state.compliance_profile.frameworks = ["GDPR"]
         self.state.raw_input["business_type"] = "SAAS"
         self.state.data_profile.sensitivity = "medium" # Not critical -> no shredding needed by default
@@ -76,7 +76,7 @@ class TestGDPRRetentionPillar(unittest.TestCase):
         pattern_ids = [p['id'] for p in self.state.architecture.enterprise_patterns]
         self.assertIn("automated_ttl_enforcement", pattern_ids)
         self.assertNotIn("crypto_shredding", pattern_ids)
-        print("✅ Recommended standard TTL for non-critical SaaS environment.")
+        print("Recommended standard TTL for non-critical SaaS environment.")
 
 if __name__ == "__main__":
     unittest.main()

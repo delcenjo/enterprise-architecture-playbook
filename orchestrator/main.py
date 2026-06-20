@@ -11,7 +11,7 @@ from datetime import datetime
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-app = FastAPI(title="Orchestrator Fortress (Immutable Audit Trail)", version="2.0.0")
+app = FastAPI(title="Architecture Orchestrator", version="2.0.0")
 
 app.add_middleware(
     CORSMiddleware,

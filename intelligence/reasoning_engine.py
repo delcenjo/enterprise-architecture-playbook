@@ -5,7 +5,7 @@ import litellm
 
 logger = logging.getLogger(__name__)
 
-# Usamos un modelo de alta capacidad para la Catedral
+# Default high-capability model; override via LLM_MODEL
 DEFAULT_MODEL = os.environ.get("LLM_MODEL", "gpt-4o")
 
 class SectionGenerator:

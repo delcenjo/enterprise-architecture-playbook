@@ -323,9 +323,9 @@ export default function DocumentForgeApp() {
           </div>
           <div>
             <h1 className="text-2xl font-bold tracking-tight bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">
-              DOCUMENT FORGE
+              Architecture Playbook
             </h1>
-            <p className="text-xs text-slate-500 font-medium tracking-[0.2em] uppercase">AI Architect Agent</p>
+            <p className="text-xs text-slate-500 font-medium tracking-[0.2em] uppercase">Architecture Decision Engine</p>
           </div>
         </div>
 
@@ -674,7 +674,7 @@ export default function DocumentForgeApp() {
       )}
 
       <footer className="mt-24 pt-8 border-t border-slate-800/50 max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-slate-500 text-xs font-medium uppercase tracking-[0.2em]">
-        <span>© 2026 DOCUMENT FORGE ENTERPRISE</span>
+        <span>© 2026</span>
         <span className="bg-slate-900 px-3 py-1 rounded">God Mode Enabled</span>
         <div className="flex gap-4">
           <span className="hover:text-white cursor-pointer transition-colors">Documentation</span>

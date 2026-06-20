@@ -42,7 +42,7 @@ class PipelineOrchestrator:
         we inject its result into the `adapted_spec` using the pillar_id or
         the expected legacy key, so the legacy code doesn't override it.
         """
-        logger.info("🚀 Running Hybrid Architecture Layer (Plugins + Legacy)...")
+        logger.info("Running Hybrid Architecture Layer (Plugins + Legacy)...")
         
         # Legacy key mapping: plugin pillar_id -> adapted_spec key
         legacy_key_map = {
@@ -75,7 +75,7 @@ class PipelineOrchestrator:
         }
         
         for plugin in self.plugins_to_run:
-            logger.info(f"🔌 Running plugin: {plugin.pillar_id} ({plugin.name})")
+            logger.info(f"Running plugin: {plugin.pillar_id} ({plugin.name})")
             try:
                 result = plugin.analyze(metrics, state)
                 

@@ -1,7 +1,3 @@
-# ============================================================
-# AI Architect - Enterprise .gitignore
-# ============================================================
-
 # === Python ===
 __pycache__/
 *.py[cod]
@@ -66,12 +62,15 @@ logs/
 ehthumbs.db
 
 # === Generated Output ===
-# PDF reports and generated deliverables (runtime artifacts)
+# Reports, charts and deliverables produced at runtime
 output_generator/generated/
 *.pdf
+orchestrator/assets/*.png
+orchestrator/assets/visuals/*.png
+orchestrator/assets/final_dossier.html
+orchestrator/assets/premium_report.html
 
-# === Gemini Agent Data ===
-# Agent workspace data — NOT project code
+# === Local tooling ===
 .gemini/
 .agents/
 .agent/

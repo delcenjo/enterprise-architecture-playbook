@@ -231,7 +231,7 @@ class CoreEngine:
         Navigates the Pattern Knowledge Base (V23-V25)
         Determines advanced patterns based on traffic/risk metrics.
         """
-        logger.info("🧠 Reconciling Enterprise Scaling Patterns...")
+        logger.info("Reconciling Enterprise Scaling Patterns...")
         
         recommendations = []
         with open(self.tree_path, "r") as f:
@@ -519,7 +519,7 @@ class CoreEngine:
         V40: Quantitative Compliance Engine (QCE)
         Unified multi-pillar regulatory scoring and reasoning.
         """
-        logger.info("🧮 Running Quantitative Compliance Engine (QCE)...")
+        logger.info("Running Quantitative Compliance Engine (QCE)...")
         
         # Load QCE knowledge base
         with open(self.reg_tree_path, "r") as f:
@@ -591,7 +591,7 @@ class CoreEngine:
         V41: Observability OPS Recommender
         Determines the required observability pillars based on architecture and criticality.
         """
-        logger.info("📡 Recommending Observability Stack...")
+        logger.info("Recommending Observability Stack...")
         
         # Load Ops knowledge base
         with open(self.ops_tree_path, "r") as f:
@@ -644,7 +644,7 @@ class CoreEngine:
         V42: SRE Reliability Engine
         Generates quantitative SLIs, SLOs, and SLAs.
         """
-        logger.info("📈 Running SRE Reliability Engine...")
+        logger.info("Running SRE Reliability Engine...")
         
         with open(self.sre_tree_path, "r") as f:
             sre_tree = json.load(f)
@@ -693,7 +693,7 @@ class CoreEngine:
         V43: Distributed Tracing Recommender
         Determines the sampling strategy and tracing architecture.
         """
-        logger.info("🕵️ Running Distributed Tracing Engine...")
+        logger.info("Running Distributed Tracing Engine...")
         
         with open(self.tracing_tree_path, "r") as f:
             tree = json.load(f)
@@ -735,7 +735,7 @@ class CoreEngine:
         V44: Chaos Engineering Recommender
         Determines the chaos experimentation strategy.
         """
-        logger.info("🧪 Running Chaos Engineering Engine...")
+        logger.info("Running Chaos Engineering Engine...")
         
         with open(self.chaos_tree_path, "r") as f:
             tree = json.load(f)
@@ -748,7 +748,7 @@ class CoreEngine:
                 if question == "root":
                     answer = "yes" if metrics.get("is_microservices") or metrics.get("is_psd2_scope") else "no"
                 elif question == "team_maturity_check":
-                    # For AI Architect, we assume maturity based on business profile
+                    # We assume maturity based on business profile
                     answer = "yes" if metrics.get("is_bde_supervised") or metrics.get("large_scale") else "no"
                 elif question == "experiment_goal_check":
                     # Defaults to resilience validation for most architectures
@@ -779,7 +779,7 @@ class CoreEngine:
         V45: Deployment Strategy Recommender
         Determines the optimal release strategy (Blue-Green, Canary, etc.).
         """
-        logger.info("🚀 Recommending Deployment Strategy...")
+        logger.info("Recommending Deployment Strategy...")
         
         with open(self.deploy_tree_path, "r") as f:
             tree = json.load(f)
@@ -823,7 +823,7 @@ class CoreEngine:
         V46: GitOps Strategy Recommender
         Determines if GitOps is required and which tool is best.
         """
-        logger.info("☸️ Recommending GitOps Strategy...")
+        logger.info("Recommending GitOps Strategy...")
         
         with open(self.gitops_tree_path, "r") as f:
             tree = json.load(f)
@@ -867,7 +867,7 @@ class CoreEngine:
         V47: Supply Chain Security Recommender
         Determines the required security depth for the software supply chain.
         """
-        logger.info("🛡️ Recommending Supply Chain Security...")
+        logger.info("Recommending Supply Chain Security...")
         
         with open(self.supply_tree_path, "r") as f:
             tree = json.load(f)
@@ -911,7 +911,7 @@ class CoreEngine:
         V48: Infrastructure as Code Recommender
         Determines the optimal IaC tool and modularity strategy.
         """
-        logger.info("🏗️ Recommending IaC Strategy...")
+        logger.info("Recommending IaC Strategy...")
         
         with open(self.iac_tree_path, "r") as f:
             tree = json.load(f)
@@ -952,7 +952,7 @@ class CoreEngine:
         V49: Performance Engineering Recommender
         Determines the required load/performance testing strategy.
         """
-        logger.info("📈 Recommending Performance Tests...")
+        logger.info("Recommending Performance Tests...")
         
         with open(self.perf_tree_path, "r") as f:
             tree = json.load(f)
@@ -1000,7 +1000,7 @@ class CoreEngine:
         V50: Profiling Engineering Recommender
         Determines the required profiling depth CPU/Memory/IO.
         """
-        logger.info("🔍 Recommending Profiling Strategy...")
+        logger.info("Recommending Profiling Strategy...")
         
         with open(self.profiling_tree_path, "r") as f:
             tree = json.load(f)
@@ -1046,7 +1046,7 @@ class CoreEngine:
         V51: Database Optimization Recommender
         Determines the needed DB tuning layer (index, pool, query analysis).
         """
-        logger.info("🗄️ Recommending DB Optimization Strategy...")
+        logger.info("Recommending DB Optimization Strategy...")
         
         with open(self.dbopt_tree_path, "r") as f:
             tree = json.load(f)
@@ -1095,7 +1095,7 @@ class CoreEngine:
         V52: Frontend Performance Recommender
         Determines the needed Web Vitals / CSR vs SSR strategy.
         """
-        logger.info("⚡ Recommending Frontend Performance Strategy...")
+        logger.info("Recommending Frontend Performance Strategy...")
         
         with open(self.frontend_perf_tree_path, "r") as f:
             tree = json.load(f)
@@ -1149,7 +1149,7 @@ class CoreEngine:
         V53: Technical Debt Recommender
         Determines refactoring logic based on SQALE, Code Climate, Coverage, and Cyclomatic Complexity.
         """
-        logger.info("⚡ Measuring Technical Debt and Recommending Refactoring Strategy...")
+        logger.info("Measuring Technical Debt and Recommending Refactoring Strategy...")
         
         with open(self.tech_debt_tree_path, "r") as f:
             tree = json.load(f)
@@ -1201,7 +1201,7 @@ class CoreEngine:
         V54: Code Review Recommender
         Determines the review process based on PR sizes, CI/CD presence, and quality gates.
         """
-        logger.info("⚡ Measuring Code Review Quality Gates and Recommending Process...")
+        logger.info("Measuring Code Review Quality Gates and Recommending Process...")
         
         with open(self.code_review_tree_path, "r") as f:
             tree = json.load(f)
@@ -1249,7 +1249,7 @@ class CoreEngine:
         V55: Architectural Fitness Functions Recommender
         Determines the adherence rules based on drift, compliance scores, and blast radius.
         """
-        logger.info("⚡ Measuring Architectural Fitness and Drift...")
+        logger.info("Measuring Architectural Fitness and Drift...")
         
         with open(self.aff_tree_path, "r") as f:
             tree = json.load(f)
@@ -1300,7 +1300,7 @@ class CoreEngine:
         V56: Scalability Analysis Recommender
         Predicts bottlenecks and output architectural scaling patterns (Bulkheads, CQRS, Auto-Scaling).
         """
-        logger.info("⚡ Conducting Predictive Scalability Analysis...")
+        logger.info("Conducting Predictive Scalability Analysis...")
         
         with open(self.scalability_tree_path, "r") as f:
             tree = json.load(f)
@@ -1349,7 +1349,7 @@ class CoreEngine:
         V57: Technical Product Management Recommender
         Routes features to RICE, MoSCoW, or Kano based on financial models and constraints.
         """
-        logger.info("⚡ Engineering Roadmap Prioritization (TPM)...")
+        logger.info("Engineering Roadmap Prioritization (TPM)...")
         
         with open(self.tpm_tree_path, "r") as f:
             tree = json.load(f)
@@ -1398,7 +1398,7 @@ class CoreEngine:
         V58: Technical OKRs Recommender
         Routes to Reliability, Speed, Quality, or Strategic constraints using DORA metrics.
         """
-        logger.info("🎯 Defining Technical OKRs and DORA baselines...")
+        logger.info("Defining Technical OKRs and DORA baselines...")
         
         with open(self.okr_tree_path, "r") as f:
             tree = json.load(f)
@@ -1448,7 +1448,7 @@ class CoreEngine:
         V59: Trade-off Analysis Recommender
         Routes to Build vs Buy, Intentional Tech Debt, or Outsourcing constraints.
         """
-        logger.info("⚖️ Evaluating Strategic Architectural Trade-offs...")
+        logger.info("Evaluating Strategic Architectural Trade-offs...")
         
         with open(self.tradeoff_tree_path, "r") as f:
             tree = json.load(f)
@@ -1497,7 +1497,7 @@ class CoreEngine:
         V60: Platform Engineering Recommender
         Routes to IDPs, Golden Paths, and standardized tooling.
         """
-        logger.info("🛠️ Optimizing Developer Experience (Platform Engineering)...")
+        logger.info("Optimizing Developer Experience (Platform Engineering)...")
         
         with open(self.platform_tree_path, "r") as f:
             tree = json.load(f)
@@ -1543,7 +1543,7 @@ class CoreEngine:
         V61: Senior Evaluation Recommender
         Calculates a weighted score and evaluates engineering maturity to avoid false seniors.
         """
-        logger.info("🧠 Evaluating Senior Engineering Talent (Structural Impact)...")
+        logger.info("Evaluating Senior Engineering Talent (Structural Impact)...")
         
         with open(self.senior_eval_tree_path, "r") as f:
             tree = json.load(f)
@@ -1594,7 +1594,7 @@ class CoreEngine:
         V62: Cultural Fit Recommender
         Calculates a systemic fiction score based on behavioral traits and maps to action.
         """
-        logger.info("🎭 Evaluating Cultural & Systemic Risk (Behavioral Modeling)...")
+        logger.info("Evaluating Cultural & Systemic Risk (Behavioral Modeling)...")
         
         with open(self.cultural_fit_tree_path, "r") as f:
             tree = json.load(f)
@@ -1645,7 +1645,7 @@ class CoreEngine:
         V63: Team Structure Recommender
         Analyzes headcount and compliance needs to propose optimal Team Topologies.
         """
-        logger.info("👥 Evaluating Organizational Design (Team Topology)...")
+        logger.info("Evaluating Organizational Design (Team Topology)...")
         
         with open(self.team_structure_tree_path, "r") as f:
             tree = json.load(f)
@@ -1683,7 +1683,7 @@ class CoreEngine:
         platform maturity, and deployment frequency.
         Measures: TTFC (< 3 days), TTFP (< 10 days), 30-day autonomy.
         """
-        logger.info("🎯 Evaluating Developer Onboarding Strategy (Time-to-Productivity)...")
+        logger.info("Evaluating Developer Onboarding Strategy (Time-to-Productivity)...")
 
         with open(self.onboarding_tree_path, "r") as f:
             tree = json.load(f)
@@ -1802,7 +1802,7 @@ class CoreEngine:
         the appropriate severity-based recommendation.
         If you don't understand CAC, you don't understand if the company lives or dies.
         """
-        logger.info("💰 Evaluating Unit Economics (CAC / Payback / LTV)...")
+        logger.info("Evaluating Unit Economics (CAC / Payback / LTV)...")
 
         with open(self.unit_econ_tree_path, "r") as f:
             tree = json.load(f)
@@ -1936,7 +1936,7 @@ class CoreEngine:
         NRR calculation, expansion revenue modeling, churn stage detection,
         and the finance-architecture intersection.
         """
-        logger.info("📈 Evaluating Advanced LTV Dynamics (NRR / Expansion / Churn Prediction)...")
+        logger.info("Evaluating Advanced LTV Dynamics (NRR / Expansion / Churn Prediction)...")
 
         with open(self.ltv_tree_path, "r") as f:
             tree = json.load(f)
@@ -2106,7 +2106,7 @@ class CoreEngine:
         """
         Layer 2: Adaptive Architecture & Enterprise Patterns (V23)
         """
-        logger.info("🚀 Launching Layer 2: Pattern-Based Engineering...")
+        logger.info("Launching Layer 2: Pattern-Based Engineering...")
         
         # 1. Profile Mapping
         profile = self._identify_profile()
@@ -2366,7 +2366,7 @@ class CoreEngine:
                 if comp['role'] == 'data':
                     comp['gdpr']['reidentification_risk'] = 0.8 if "FINTECH" in profile["id"].upper() else 0.4
                     if comp['gdpr']['personal_data']:
-                        comp['name'] = f"🔒 {comp['name']} (GDPR-Sensitive)"
+                        comp['name'] = f"{comp['name']} (GDPR-Sensitive)"
             
             # V32: Lifecycle Policy logic (Conflict Resolution)
             # Ensure lifecycle is always present if GDPR/AML conflict or retention needed

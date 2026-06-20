@@ -8,7 +8,7 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-app = FastAPI(title="Intelligence Service (Document Forge)", version="1.0.0")
+app = FastAPI(title="Intelligence Engine", version="1.0.0")
 
 app.add_middleware(
     CORSMiddleware,

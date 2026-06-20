@@ -1,7 +1,7 @@
 """
 Port: PillarPlugin — Core contract for all analysis pillars.
 
-Every pillar in the AI Architect Decision Engine implements this interface.
+Every pillar in the decision engine implements this interface.
 Plugins are auto-discovered and executed by the PipelineOrchestrator.
 """
 

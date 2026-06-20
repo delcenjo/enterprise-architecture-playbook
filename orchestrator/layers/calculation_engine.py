@@ -27,7 +27,7 @@ class CalculationEngine:
         3. Multi-Provider Pricing & Currency Conversion
         4. Comparison & Simulation
         """
-        logger.info("🔢 Orchestrating Global Engineering-First Financial Models...")
+        logger.info("Orchestrating Global Engineering-First Financial Models...")
         
         # 1. Load Data
         with open(self.pricing_path, 'r') as f:

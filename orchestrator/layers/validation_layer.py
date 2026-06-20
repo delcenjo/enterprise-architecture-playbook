@@ -21,7 +21,7 @@ class ValidationLayer:
         2. Resource Bottleneck Modeling
         3. Compliance Final Grading
         """
-        logger.info("🔍 Starting Layer 5: Expert Technical Audit...")
+        logger.info("Starting Layer 5: Expert Technical Audit...")
         
         with open(self.rules_path, 'r') as f:
             rules = json.load(f)

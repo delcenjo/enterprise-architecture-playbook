@@ -42,7 +42,7 @@ def test_elite_nrr_usage_based():
     """
     Test 1: Microservices architecture with usage-based expansion → NRR > 130% → Elite
     """
-    print("\n🧪 Test 1: Elite NRR with Usage-Based Expansion")
+    print("\nTest 1: Elite NRR with Usage-Based Expansion")
     state = setup_state(
         concurrent_users=200,
         annual_revenue=6000000,
@@ -68,16 +68,16 @@ def test_elite_nrr_usage_based():
     print(f"  Cohort Health: {calcs['cohort_health']}")
     print(f"  Strategy: {result['strategy']}")
 
-    assert calcs["expansion_model"] == "usage_based", f"❌ Expected usage_based, got {calcs['expansion_model']}"
-    assert calcs["dynamic_ltv_eur"] > calcs["static_ltv_eur"], "❌ Dynamic LTV should exceed static LTV with expansion"
-    assert "Elite" in result["strategy"] or "Scale" in result["strategy"], f"❌ Expected elite strategy, got {result['strategy']}"
-    print("  ✅ PASSED")
+    assert calcs["expansion_model"] == "usage_based", f"Expected usage_based, got {calcs['expansion_model']}"
+    assert calcs["dynamic_ltv_eur"] > calcs["static_ltv_eur"], "Dynamic LTV should exceed static LTV with expansion"
+    assert "Elite" in result["strategy"] or "Scale" in result["strategy"], f"Expected elite strategy, got {result['strategy']}"
+    print("  PASSED")
 
 def test_dying_nrr_high_churn():
     """
     Test 2: High churn, no expansion → NRR < 90% → Revenue Contraction Crisis
     """
-    print("\n🧪 Test 2: Dying NRR (High Churn, No Expansion)")
+    print("\nTest 2: Dying NRR (High Churn, No Expansion)")
     state = setup_state(
         concurrent_users=100,
         annual_revenue=1200000,
@@ -100,16 +100,16 @@ def test_dying_nrr_high_churn():
     print(f"  Strategy: {result['strategy']}")
     print(f"  Severity: {result['severity']}")
 
-    assert calcs["nrr_annual_pct"] < 90, f"❌ Expected NRR < 90%, got {calcs['nrr_annual_pct']}%"
-    assert calcs["cohort_health"] == "degrading", f"❌ Expected degrading, got {calcs['cohort_health']}"
-    assert result["severity"] == "critical", f"❌ Expected critical severity, got {result['severity']}"
-    print("  ✅ PASSED")
+    assert calcs["nrr_annual_pct"] < 90, f"Expected NRR < 90%, got {calcs['nrr_annual_pct']}%"
+    assert calcs["cohort_health"] == "degrading", f"Expected degrading, got {calcs['cohort_health']}"
+    assert result["severity"] == "critical", f"Expected critical severity, got {result['severity']}"
+    print("  PASSED")
 
 def test_mediocre_nrr_early_churn():
     """
     Test 3: Mediocre NRR with early churn (poor onboarding) → Onboarding fix
     """
-    print("\n🧪 Test 3: Mediocre NRR — Early Churn (Onboarding Problem)")
+    print("\nTest 3: Mediocre NRR — Early Churn (Onboarding Problem)")
     state = setup_state(
         concurrent_users=300,
         annual_revenue=3600000,
@@ -130,15 +130,15 @@ def test_mediocre_nrr_early_churn():
     print(f"  Churn Stage: {calcs['churn_stage']}")
     print(f"  Strategy: {result['strategy']}")
 
-    assert calcs["churn_stage"] == "early", f"❌ Expected early churn stage, got {calcs['churn_stage']}"
-    assert "Onboarding" in result["strategy"] or "Early" in result["strategy"], f"❌ Expected onboarding fix, got {result['strategy']}"
-    print("  ✅ PASSED")
+    assert calcs["churn_stage"] == "early", f"Expected early churn stage, got {calcs['churn_stage']}"
+    assert "Onboarding" in result["strategy"] or "Early" in result["strategy"], f"Expected onboarding fix, got {result['strategy']}"
+    print("  PASSED")
 
 def test_good_nrr_seat_expansion():
     """
     Test 4: Good NRR with seat-based model → Optimize adoption
     """
-    print("\n🧪 Test 4: Good NRR — Seat-Based Expansion")
+    print("\nTest 4: Good NRR — Seat-Based Expansion")
     state = setup_state(
         concurrent_users=800,
         annual_revenue=4800000,
@@ -161,14 +161,14 @@ def test_good_nrr_seat_expansion():
     print(f"  Strategy: {result['strategy']}")
     print(f"  Architecture Impact: {result.get('architecture_impact', 'N/A')}")
 
-    assert calcs["expansion_model"] == "seat_based", f"❌ Expected seat_based, got {calcs['expansion_model']}"
-    assert "architecture_impact" in result, "❌ Missing architecture_impact field"
-    print("  ✅ PASSED")
+    assert calcs["expansion_model"] == "seat_based", f"Expected seat_based, got {calcs['expansion_model']}"
+    assert "architecture_impact" in result, "Missing architecture_impact field"
+    print("  PASSED")
 
 
 if __name__ == "__main__":
     print("=" * 70)
-    print("📈 V67: Advanced LTV & Revenue Dynamics Engine - Verification")
+    print("V67: Advanced LTV & Revenue Dynamics Engine - Verification")
     print("=" * 70)
 
     test_elite_nrr_usage_based()
@@ -177,5 +177,5 @@ if __name__ == "__main__":
     test_good_nrr_seat_expansion()
 
     print("\n" + "=" * 70)
-    print("✅ ALL V67 LTV DYNAMICS TESTS PASSED")
+    print("ALL V67 LTV DYNAMICS TESTS PASSED")
     print("=" * 70)
