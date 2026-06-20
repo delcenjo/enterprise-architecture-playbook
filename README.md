@@ -1,5 +1,7 @@
 # Enterprise Architecture Playbook
 
+![CI](https://github.com/delcenjo/enterprise-architecture-playbook/actions/workflows/ci.yml/badge.svg)
+
 A deterministic decision-support engine for cloud architecture and regulatory
 compliance. Given a project's parameters (scale, domain, constraints), it runs a
 multi-layer pipeline that recommends architecture patterns, checks compliance
