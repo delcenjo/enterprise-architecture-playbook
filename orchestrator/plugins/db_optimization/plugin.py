@@ -12,16 +12,21 @@ class DBOptimizationPlugin(BaseDecisionTreePlugin):
         return "recommend_query_plan_analysis"
 
     def build_question_map(self, metrics: Dict[str, Any], state: Any) -> Dict[str, Callable[[Dict[str, Any]], str]]:
-        is_supervised = metrics.get("is_psd2_scope") or metrics.get("is_bde_supervised")
+        raw_input = getattr(state, "raw_input", {}) or {}
+        is_supervised = bool(
+            metrics.get("is_psd2_scope")
+            or metrics.get("is_bde_supervised")
+            or raw_input.get("is_bde_supervised")
+        )
         high_users = metrics.get("concurrent_users_val", 0) > 5000 or (getattr(getattr(state, "traffic_profile", None), "concurrent_users", 0) > 5000)
         requirements = getattr(state, "requirements", {})
         is_reporting = "reporting" in str(requirements).lower()
-        
+
         return {
             "root": lambda m: (
-                "deadlocks" if is_supervised
+                "high_latency" if (m.get("latency_critical") or is_reporting)
+                else "deadlocks" if is_supervised
                 else "connection_timeouts" if high_users
-                else "high_latency" if m.get("latency_critical") or is_reporting
                 else "high_latency"
             ),
             "deadlocks": lambda m: "yes",

@@ -2528,7 +2528,9 @@ class CoreEngine:
                 exemption = "Low Value" if avg_value < 30 else "TRA"
                 
             psd2: Dict[str, Any] = {
-                "sca_required": metrics["requires_sca"],
+                # A Low Value exemption (<30 EUR) removes the SCA obligation;
+                # a TRA exemption keeps SCA in place for the overall system.
+                "sca_required": metrics["requires_sca"] and exemption != "Low Value",
                 "exemption_applied": exemption,
                 "tra_assessment": {
                     "fraud_rate": metrics["fraud_rate"],
