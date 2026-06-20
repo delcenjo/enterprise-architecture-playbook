@@ -61,165 +61,138 @@ class CoreEngine:
         self.tree_path = os.path.join(self.kb_dir, "decision_tree.json")
         self.tradeoff_path = os.path.join(self.kb_dir, "tradeoff_matrix.json")
         
-        # V40: QCE Regulatory Paths
         self.reg_kb_dir = os.path.join(os.path.dirname(__file__), "..", "knowledge", "regulatory")
         self.reg_ontology_path = os.path.join(self.reg_kb_dir, "ontology.json")
         self.reg_tree_path = os.path.join(self.reg_kb_dir, "decision_tree.json")
         self.reg_cases_path = os.path.join(self.reg_kb_dir, "cases.json")
         self.reg_tradeoff_path = os.path.join(self.reg_kb_dir, "tradeoff_matrix.json")
 
-        # V41: Observability Ops Paths
         self.ops_kb_dir = os.path.join(os.path.dirname(__file__), "..", "knowledge", "ops")
         self.ops_ontology_path = os.path.join(self.ops_kb_dir, "ontology.json")
         self.ops_tree_path = os.path.join(self.ops_kb_dir, "decision_tree.json")
         self.ops_cases_path = os.path.join(self.ops_kb_dir, "cases.json")
         self.ops_tradeoff_path = os.path.join(self.ops_kb_dir, "tradeoff_matrix.json")
 
-        # V42: SRE Reliability Paths
         self.sre_ontology_path = os.path.join(self.ops_kb_dir, "sre_ontology.json")
         self.sre_tree_path = os.path.join(self.ops_kb_dir, "sre_decision_tree.json")
         self.sre_cases_path = os.path.join(self.ops_kb_dir, "sre_cases.json")
         self.sre_tradeoff_path = os.path.join(self.ops_kb_dir, "sre_tradeoff.json")
 
-        # V43: Distributed Tracing Paths
         self.tracing_ontology_path = os.path.join(self.ops_kb_dir, "tracing_ontology.json")
         self.tracing_tree_path = os.path.join(self.ops_kb_dir, "tracing_decision_tree.json")
         self.tracing_cases_path = os.path.join(self.ops_kb_dir, "tracing_cases.json")
         self.tracing_tradeoff_path = os.path.join(self.ops_kb_dir, "tracing_tradeoff.json")
 
-        # V44: Chaos Engineering Paths
         self.chaos_ontology_path = os.path.join(self.ops_kb_dir, "chaos_ontology.json")
         self.chaos_tree_path = os.path.join(self.ops_kb_dir, "chaos_decision_tree.json")
         self.chaos_cases_path = os.path.join(self.ops_kb_dir, "chaos_cases.json")
         self.chaos_tradeoff_path = os.path.join(self.ops_kb_dir, "chaos_tradeoff.json")
 
-        # V45: Deployment Strategies Paths
         self.deploy_ontology_path = os.path.join(self.ops_kb_dir, "deploy_ontology.json")
         self.deploy_tree_path = os.path.join(self.ops_kb_dir, "deploy_decision_tree.json")
         self.deploy_cases_path = os.path.join(self.ops_kb_dir, "deploy_cases.json")
         self.deploy_tradeoff_path = os.path.join(self.ops_kb_dir, "deploy_tradeoff.json")
 
-        # V46: GitOps Paths
         self.gitops_ontology_path = os.path.join(self.ops_kb_dir, "gitops_ontology.json")
         self.gitops_tree_path = os.path.join(self.ops_kb_dir, "gitops_decision_tree.json")
         self.gitops_cases_path = os.path.join(self.ops_kb_dir, "gitops_cases.json")
         self.gitops_tradeoff_path = os.path.join(self.ops_kb_dir, "gitops_tradeoff.json")
 
-        # V47: Supply Chain Security Paths
         self.supply_ontology_path = os.path.join(self.ops_kb_dir, "supply_chain_ontology.json")
         self.supply_tree_path = os.path.join(self.ops_kb_dir, "supply_chain_decision_tree.json")
         self.supply_cases_path = os.path.join(self.ops_kb_dir, "supply_chain_cases.json")
         self.supply_tradeoff_path = os.path.join(self.ops_kb_dir, "supply_chain_tradeoff.json")
 
-        # V48: Infrastructure as Code Paths
         self.iac_ontology_path = os.path.join(self.ops_kb_dir, "iac_ontology.json")
         self.iac_tree_path = os.path.join(self.ops_kb_dir, "iac_decision_tree.json")
         self.iac_cases_path = os.path.join(self.ops_kb_dir, "iac_cases.json")
         self.iac_tradeoff_path = os.path.join(self.ops_kb_dir, "iac_tradeoff.json")
 
-        # V49: Performance Engineering Paths
         self.perf_ontology_path = os.path.join(self.ops_kb_dir, "load_testing_ontology.json")
         self.perf_tree_path = os.path.join(self.ops_kb_dir, "load_testing_decision_tree.json")
         self.perf_cases_path = os.path.join(self.ops_kb_dir, "load_testing_cases.json")
         self.perf_tradeoff_path = os.path.join(self.ops_kb_dir, "load_testing_tradeoff.json")
 
-        # V50: Profiling Engineering Paths
         self.profiling_ontology_path = os.path.join(self.ops_kb_dir, "profiling_ontology.json")
         self.profiling_tree_path = os.path.join(self.ops_kb_dir, "profiling_decision_tree.json")
         self.profiling_cases_path = os.path.join(self.ops_kb_dir, "profiling_cases.json")
         self.profiling_tradeoff_path = os.path.join(self.ops_kb_dir, "profiling_tradeoff.json")
 
-        # V51: DB Optimization Paths
         self.dbopt_ontology_path = os.path.join(self.ops_kb_dir, "db_optimization_ontology.json")
         self.dbopt_tree_path = os.path.join(self.ops_kb_dir, "db_optimization_decision_tree.json")
         self.dbopt_cases_path = os.path.join(self.ops_kb_dir, "db_optimization_cases.json")
         self.dbopt_tradeoff_path = os.path.join(self.ops_kb_dir, "db_optimization_tradeoff.json")
 
-        # V52: Frontend Performance Paths
         self.frontend_perf_ontology_path = os.path.join(self.ops_kb_dir, "frontend_perf_ontology.json")
         self.frontend_perf_tree_path = os.path.join(self.ops_kb_dir, "frontend_perf_decision_tree.json")
         self.frontend_perf_cases_path = os.path.join(self.ops_kb_dir, "frontend_perf_cases.json")
         self.frontend_perf_tradeoff_path = os.path.join(self.ops_kb_dir, "frontend_perf_tradeoff.json")
 
-        # V53: Technical Debt Paths
         self.tech_debt_ontology_path = os.path.join(self.ops_kb_dir, "tech_debt_ontology.json")
         self.tech_debt_tree_path = os.path.join(self.ops_kb_dir, "tech_debt_decision_tree.json")
         self.tech_debt_cases_path = os.path.join(self.ops_kb_dir, "tech_debt_cases.json")
         self.tech_debt_tradeoff_path = os.path.join(self.ops_kb_dir, "tech_debt_tradeoff.json")
 
-        # V54: Code Review Paths
         self.code_review_ontology_path = os.path.join(self.ops_kb_dir, "code_review_ontology.json")
         self.code_review_tree_path = os.path.join(self.ops_kb_dir, "code_review_decision_tree.json")
         self.code_review_cases_path = os.path.join(self.ops_kb_dir, "code_review_cases.json")
         self.code_review_tradeoff_path = os.path.join(self.ops_kb_dir, "code_review_tradeoff.json")
 
-        # V55: Architectural Fitness Functions Paths
         self.aff_ontology_path = os.path.join(self.ops_kb_dir, "aff_ontology.json")
         self.aff_tree_path = os.path.join(self.ops_kb_dir, "aff_decision_tree.json")
         self.aff_cases_path = os.path.join(self.ops_kb_dir, "aff_cases.json")
         self.aff_tradeoff_path = os.path.join(self.ops_kb_dir, "aff_tradeoff.json")
         
-        # V56: Scalability Analysis Paths
         self.scalability_ontology_path = os.path.join(self.ops_kb_dir, "scalability_ontology.json")
         self.scalability_tree_path = os.path.join(self.ops_kb_dir, "scalability_decision_tree.json")
         self.scalability_cases_path = os.path.join(self.ops_kb_dir, "scalability_cases.json")
         self.scalability_tradeoff_path = os.path.join(self.ops_kb_dir, "scalability_tradeoff.json")
         
-        # V57: Technical Product Management (TPM) Paths
         self.tpm_ontology_path = os.path.join(self.ops_kb_dir, "tpm_ontology.json")
         self.tpm_tree_path = os.path.join(self.ops_kb_dir, "tpm_decision_tree.json")
         self.tpm_cases_path = os.path.join(self.ops_kb_dir, "tpm_cases.json")
         self.tpm_tradeoff_path = os.path.join(self.ops_kb_dir, "tpm_tradeoff.json")
         
-        # V58: Technical OKRs Paths
         self.okr_ontology_path = os.path.join(self.ops_kb_dir, "okr_ontology.json")
         self.okr_tree_path = os.path.join(self.ops_kb_dir, "okr_decision_tree.json")
         self.okr_cases_path = os.path.join(self.ops_kb_dir, "okr_cases.json")
         self.okr_tradeoff_path = os.path.join(self.ops_kb_dir, "okr_tradeoff.json")
         
-        # V59: Trade-off Analysis Paths
         self.tradeoff_ontology_path = os.path.join(self.ops_kb_dir, "tradeoff_analysis_ontology.json")
         self.tradeoff_tree_path = os.path.join(self.ops_kb_dir, "tradeoff_analysis_decision_tree.json")
         self.tradeoff_cases_path = os.path.join(self.ops_kb_dir, "tradeoff_analysis_cases.json")
         self.tradeoff_matrix_path = os.path.join(self.ops_kb_dir, "tradeoff_analysis_matrix.json")
         
-        # V60: Platform Engineering Paths
         self.platform_ontology_path = os.path.join(self.ops_kb_dir, "platform_engineering_ontology.json")
         self.platform_tree_path = os.path.join(self.ops_kb_dir, "platform_engineering_decision_tree.json")
         self.platform_cases_path = os.path.join(self.ops_kb_dir, "platform_engineering_cases.json")
         self.platform_tradeoff_path = os.path.join(self.ops_kb_dir, "platform_engineering_tradeoff.json")
         
-        # V61: Senior Evaluation Paths
         self.senior_eval_ontology_path = os.path.join(self.ops_kb_dir, "senior_evaluation_ontology.json")
         self.senior_eval_tree_path = os.path.join(self.ops_kb_dir, "senior_evaluation_decision_tree.json")
         self.senior_eval_cases_path = os.path.join(self.ops_kb_dir, "senior_evaluation_cases.json")
         self.senior_eval_matrix_path = os.path.join(self.ops_kb_dir, "senior_evaluation_matrix.json")
         
-        # V62: Cultural Fit Paths
         self.cultural_fit_ontology_path = os.path.join(self.ops_kb_dir, "cultural_fit_ontology.json")
         self.cultural_fit_tree_path = os.path.join(self.ops_kb_dir, "cultural_fit_decision_tree.json")
         self.cultural_fit_cases_path = os.path.join(self.ops_kb_dir, "cultural_fit_cases.json")
         self.cultural_fit_matrix_path = os.path.join(self.ops_kb_dir, "cultural_fit_matrix.json")
         
-        # V63: Team Structure Paths
         self.team_structure_ontology_path = os.path.join(self.ops_kb_dir, "team_structure_ontology.json")
         self.team_structure_tree_path = os.path.join(self.ops_kb_dir, "team_structure_decision_tree.json")
         self.team_structure_cases_path = os.path.join(self.ops_kb_dir, "team_structure_cases.json")
         self.team_structure_tradeoff_path = os.path.join(self.ops_kb_dir, "team_structure_tradeoff.json")
 
-        # V65: Developer Onboarding Paths
         self.onboarding_ontology_path = os.path.join(self.ops_kb_dir, "onboarding_ontology.json")
         self.onboarding_tree_path = os.path.join(self.ops_kb_dir, "onboarding_decision_tree.json")
         self.onboarding_cases_path = os.path.join(self.ops_kb_dir, "onboarding_cases.json")
         self.onboarding_tradeoff_path = os.path.join(self.ops_kb_dir, "onboarding_tradeoff.json")
 
-        # V66: Unit Economics & CAC Paths
         self.unit_econ_ontology_path = os.path.join(self.ops_kb_dir, "unit_economics_ontology.json")
         self.unit_econ_tree_path = os.path.join(self.ops_kb_dir, "unit_economics_decision_tree.json")
         self.unit_econ_cases_path = os.path.join(self.ops_kb_dir, "unit_economics_cases.json")
         self.unit_econ_tradeoff_path = os.path.join(self.ops_kb_dir, "unit_economics_tradeoff.json")
 
-        # V67: Advanced LTV & Revenue Dynamics Paths
         self.ltv_ontology_path = os.path.join(self.ops_kb_dir, "ltv_dynamics_ontology.json")
         self.ltv_tree_path = os.path.join(self.ops_kb_dir, "ltv_dynamics_decision_tree.json")
         self.ltv_cases_path = os.path.join(self.ops_kb_dir, "ltv_dynamics_cases.json")
@@ -255,10 +228,8 @@ class CoreEngine:
                 elif curr == "functional_distribution": answer = "yes" if metrics.get("functional_split") else "no"
                 elif curr == "global_compliance": answer = "yes" if metrics.get("is_cross_border") else "no"
                 elif curr == "high_availability_need": answer = "yes" if metrics.get("latency_critical") else "no"
-                # V34 Scope
                 elif curr == "schrems_ii_safety": answer = "yes" if metrics.get("is_adequate") else "no"
                 
-                # V24 Sharding
                 elif curr == "sharding_evaluation": answer = "yes" if metrics.get("sharding_base") else "no"
                 elif curr == "sharding_type": 
                     if metrics.get("geo_latency"): answer = "no" 
@@ -266,47 +237,38 @@ class CoreEngine:
                 elif curr == "sharding_geo_val": answer = "yes" if metrics.get("geo_latency") else "no"
                 elif curr == "sharding_functional_val": answer = "yes" if metrics.get("functional_split") else "no"
                 elif curr == "sharding_skew_mitigation": answer = "yes" if metrics.get("skew_detected") else "no"
-                # V25 Caching
                 elif curr == "caching_evaluation": answer = "yes" if metrics.get("caching_ready") else "no"
                 elif curr == "caching_geo": answer = "yes" if metrics.get("global_context") else "no"
                 elif curr == "caching_db_hot": answer = "yes" if metrics.get("db_hot") else "no"
-                # V26 Messaging
                 elif curr == "messaging_evaluation": answer = "yes" if metrics.get("coupling_high") else "no"
                 elif curr == "messaging_latency_tolerance": answer = "yes" if metrics.get("latency_tolerant") else "no"
                 elif curr == "messaging_replay_needed": answer = "yes" if metrics.get("replay_required") else "no"
                 elif curr == "messaging_volume": answer = "no" if metrics.get("high_throughput_msg") else "yes"
-                # V27 Consistency
                 elif curr == "consistency_regional_check": answer = "yes" if metrics.get("active_active") else "no"
                 elif curr == "consistency_low_latency_req": answer = "yes" if metrics.get("latency_critical") else "no"
                 elif curr == "consistency_conflict_type": answer = "yes" if metrics.get("collaborative") else "no"
                 elif curr == "consistency_conflict_detect": answer = "yes" if metrics.get("high_conflict_risk") else "no"
-                # V28 Governance
                 elif curr == "governance_evaluation": answer = "yes" if metrics.get("team_scale") else "no"
                 elif curr == "governance_compliance_check": answer = "yes" if metrics.get("strict_governance") else "no"
                 elif curr == "governance_billing_segmentation": answer = "yes" if metrics.get("need_showback") else "no"
-                # V29 Service Mesh
                 elif curr == "mesh_evaluation": answer = "yes" if metrics.get("is_microservices") else "no"
                 elif curr == "mesh_service_count": answer = "yes" if metrics.get("service_count_val", 0) > 5 else "no"
                 elif curr == "mesh_security_req": answer = "yes" if metrics.get("strict_governance") else "no"
                 elif curr == "mesh_progressive_delivery": answer = "yes" if metrics.get("needs_canary") else "no"
                 elif curr == "mesh_light_recommend": answer = "yes" if metrics.get("service_count_val", 0) < 6 and not metrics.get("strict_governance") and not metrics.get("needs_canary") else "no"
-                # V30 Compute Strategy
                 elif curr == "compute_evaluation": answer = "yes" if metrics.get("short_duration") and not metrics.get("stateful_needs") else "no"
                 elif curr == "compute_traffic_type": answer = "yes" if metrics.get("is_event_driven") else "no"
                 elif curr == "compute_latency_tolerance": answer = "yes" if metrics.get("latency_tolerance_high") else "no"
                 elif curr == "compute_cost_sensitivity": answer = "yes" if metrics.get("high_constant_traffic") else "no" 
-                # V31 GDPR Logic
                 elif curr == "privacy_context_check": answer = "yes" if metrics.get("is_gdpr_critical") else "no"
                 elif curr == "kyc_method_evaluation": answer = "yes" if metrics.get("requires_kyc_biometrics") else "no"
                 elif curr == "is_ubo_registry_needed": answer = "yes" if metrics.get("requires_ubo_registry") else "no"
                 elif curr == "aml_monitoring_check": answer = "yes" if metrics.get("requires_aml_monitoring") else "no"
                 elif curr == "aml_reporting_check": answer = "yes" if metrics.get("requires_aml_reporting") else "no"
                 elif curr == "aml_rba_evaluation": answer = "yes" if metrics.get("aml_total_risk", 0) > 2.0 else "no"
-                # V32 Retention Logic
                 elif curr == "retention_policy_evaluation": answer = "yes" if metrics.get("retention_needed") else "no"
                 elif curr == "retention_conflict_check": answer = "yes" if metrics.get("retention_conflict") else "no"
                 elif curr == "deletion_mechanism_evaluation": answer = "yes" if metrics.get("proof_of_deletion") else "no"
-                # V33 DPIA Assessment
                 elif curr == "dpia_evaluation":
                     risk_factors = 0
                     if metrics.get("is_gdpr_critical"): risk_factors += 1
@@ -317,32 +279,26 @@ class CoreEngine:
                     answer = "yes" if risk_factors >= 2 else "no"
                 elif curr == "algorithmic_impact_check": answer = "yes" if metrics.get("automated_decisions") else "no"
                 elif curr == "dpia_new_tech_check": answer = "yes" if metrics.get("new_tech") else "no"
-                # V34 Cross-Border Logic
                 elif curr == "cross_border_evaluation": answer = "yes" if metrics.get("is_cross_border") else "no"
                 elif curr == "adequacy_check": answer = "yes" if metrics.get("is_adequate") else "no"
                 elif curr == "tia_requirement_check": answer = "yes" if metrics.get("jurisdiction_requires_tia") else "no"
                 elif curr == "supplementary_measures_check": answer = "yes" if metrics.get("jurisdiction_requires_supp_measures") else "no"
-                # V35 Audit Ready Logic
                 elif curr == "audit_readiness_evaluation": answer = "yes" if metrics.get("strict_governance") else "no"
                 elif curr == "immutable_logging_requirement": answer = "yes" if metrics.get("strict_governance") else "no"
-                # V36 BdE Circular 4/2017 Logic
                 elif curr == "bde_supervised_check": answer = "yes" if metrics.get("is_bde_supervised") else "no"
                 elif curr == "financial_integrity_requirement": answer = "yes" if metrics.get("high_financial_integrity") else "no"
                 elif curr == "dual_control_requirement": answer = "yes" if metrics.get("requires_dual_control") else "no"
                 elif curr == "bde_change_mgmt_check": answer = "yes" if metrics.get("requires_change_mgmt") else "no"
-                # V37 PSD2 SCA Sub-nodes
                 elif curr == "psd2_scope_check": answer = "yes" if metrics.get("is_psd2_scope") else "no"
                 elif curr == "sca_requirement_check": answer = "yes" if metrics.get("requires_sca") else "no"
                 elif curr == "exemption_evaluation": answer = "yes" if metrics.get("eligible_for_exemption") else "no"
                 elif curr == "sca_dynamic_linking_evaluation": answer = "yes" if metrics.get("requires_dynamic_linking") else "no"
                 
-                # V39 CNMV Sub-nodes
                 elif curr == "cnmv_scope_check": answer = "yes" if metrics.get("is_cnmv_scope") else "no"
                 elif curr == "investment_type_evaluation": answer = metrics.get("investment_type", "none")
                 elif curr == "cnmv_custody_evaluation": answer = "yes" if metrics.get("holds_private_keys") else "no"
                 elif curr == "cnmv_market_abuse_check": answer = "yes" if metrics.get("requires_market_abuse_monitoring") else "no"
                 
-                # V31 GDPR Logic Nodes
                 elif curr == "privacy_context_check": answer = "yes" if metrics.get("is_gdpr_critical") else "no"
                 elif curr == "privacy_environment_check": 
                     env = metrics.get("privacy_env", "testing")
@@ -356,7 +312,6 @@ class CoreEngine:
                 elif curr == "deletion_mechanism_evaluation": answer = "yes" if metrics.get("proof_of_deletion") else "no"
                 elif curr == "gdpr_anonymization_evaluation": answer = "yes" if metrics.get("requires_anonymization") else "no"
 
-                # V41-V60 SRE / Observability Nodes
                 elif curr == "db_optimization": answer = "yes" if metrics.get("is_bde_supervised") else "no"
                 elif curr == "observability_full": answer = "yes" if self.state.traffic_profile.requests_per_second > 100 or metrics.get("is_microservices") else "no"
                 elif curr == "reliability_check": answer = "yes" if metrics.get("sla_critical") else "no"
@@ -466,7 +421,6 @@ class CoreEngine:
                 "impact": {"blast_radius": "Minimal", "compliance": "Guaranteed"}
             })
         # If Kafka/Messaging recommended, inject Idempotency and DLQ markers
-        # V36: BdE Circular 4/2017 Injection
         if metrics["is_bde_supervised"]:
             if metrics["high_financial_integrity"]:
                 recommendations.append({
@@ -2214,7 +2168,6 @@ class CoreEngine:
             "automated_decisions": b_type in ["FINTECH", "ADTECH"] or self.state.raw_input.get("pii_operations_needed", False),
             "vulnerable_groups": "MINORS" in self.state.raw_input.get("tags", []),
             "new_tech": len(adapted['components']) > 15 or "AI" in self.state.raw_input.get("tags", []),
-            # V34 Cross-Border Metrics
             "destination_country": self.state.raw_input.get("destination_country", "EU"),
             "is_cross_border": self.state.raw_input.get("destination_country", "EU") not in ["EU", "EEA", "UK", "CH"],
         }
@@ -2222,14 +2175,12 @@ class CoreEngine:
         metrics["jurisdiction_requires_tia"] = metrics["is_cross_border"] and not metrics["is_adequate"]
         metrics["jurisdiction_requires_supp_measures"] = metrics["jurisdiction_requires_tia"] or (metrics["is_cross_border"] and metrics.get("destination_country") == "US")
 
-        # V36: BdE Metrics
         is_fintech = "FINTECH" in self.state.raw_input.get("business_type", "").upper()
         metrics["is_bde_supervised"] = is_fintech or "BANK" in self.state.raw_input.get("business_type", "").upper()
         metrics["high_financial_integrity"] = metrics["is_bde_supervised"] and self.state.raw_input.get("pii_operations_needed", False)
         metrics["requires_dual_control"] = metrics["high_financial_integrity"] # Supervised + PII (Financial)
         metrics["requires_change_mgmt"] = metrics["is_bde_supervised"] # All supervised need change mgmt
 
-        # V37: PSD2 Metrics
         raw_btype = self.state.raw_input.get("business_type", "").upper()
         is_payment_entity = "PAYMENT" in raw_btype
         is_fintech = "FINTECH" in raw_btype
@@ -2250,7 +2201,6 @@ class CoreEngine:
         metrics["eligible_for_exemption"] = low_value or low_fraud
         metrics["requires_dynamic_linking"] = metrics["requires_sca"] and not low_value
 
-        # V38: AML Metrics
         metrics["is_aml_scope"] = is_fintech or is_payment_entity or "CRYPTO" in b_type or "CUSTODY" in b_type or self.state.raw_input.get("is_aml_scope", False)
         metrics["requires_kyc_biometrics"] = metrics["is_aml_scope"] and self.state.raw_input.get("remote_onboarding_enabled", True)
         metrics["requires_ubo_registry"] = metrics["is_aml_scope"] and self.state.raw_input.get("corporate_customers_enabled", False)
@@ -2271,7 +2221,6 @@ class CoreEngine:
             metrics["retention_needed"] = True
             metrics["retention_years"] = 10 # Ley 10/2010
 
-        # V39: CNMV & MiCA Metrics
         metrics["is_cnmv_scope"] = b_type in ["CROWDFUNDING", "ROBOADVISOR", "BROKER", "CRYPTO_EXCHANGE", "CASP"]
         metrics["investment_type"] = "none"
         if "CROWDFUNDING" in b_type: metrics["investment_type"] = "crowdfunding"
@@ -2354,7 +2303,6 @@ class CoreEngine:
                 "role": "security",
                 "gdpr": {"personal_data": True, "special_category": False}
             })
-            # V32: Add Immitable Deletion Audit for GDPR
             adapted['components'].append({
                 "name": "Immutable Deletion Proof", 
                 "type": "WORM-Storage", 
@@ -2368,7 +2316,6 @@ class CoreEngine:
                     if comp['gdpr']['personal_data']:
                         comp['name'] = f"{comp['name']} (GDPR-Sensitive)"
             
-            # V32: Lifecycle Policy logic (Conflict Resolution)
             # Ensure lifecycle is always present if GDPR/AML conflict or retention needed
             if metrics.get("retention_needed") or metrics.get("retention_conflict"):
                 adapted['lifecycle'] = {
@@ -2381,7 +2328,6 @@ class CoreEngine:
                 # Remove None from policies
                 adapted['lifecycle']['policies'] = [p for p in adapted['lifecycle']['policies'] if p is not None]
 
-        # V33: Automated DPIA Report Assembly
         dpia_triggers: List[str] = []
         if metrics["is_gdpr_critical"]: dpia_triggers.append("Processing of sensitive data")
         if metrics["large_scale"]: dpia_triggers.append("Large scale processing")
@@ -2433,7 +2379,6 @@ class CoreEngine:
             
         adapted['dpia_report'] = dpia
 
-        # V34: Cross-Border Transfer Assessment (Post-Schrems II)
         transfer_measures: List[str] = []
         transfer = {
             "is_international": bool(metrics.get("is_cross_border", False)),
@@ -2458,7 +2403,6 @@ class CoreEngine:
             
         adapted['transfer_assessment'] = transfer
 
-        # V35: Audit-Ready Compliance Evidence
         evidence = {
             "data_registry_updated": True,
             "immutable_logs_enabled": any(r['id'] == "immutable_audit_logging" for r in recommendations),
@@ -2467,7 +2411,6 @@ class CoreEngine:
             "incident_register_ready": True,
             "dpo_review_status": "Reviewed" if metrics["strict_governance"] else "Pending"
         }
-        # V35 Fix: Using top-level import
         self.state.evidence_vault = ComplianceEvidence(**evidence)
 
 
@@ -2500,7 +2443,6 @@ class CoreEngine:
             
         self.state.technical_audit = audit_report
 
-        # V36: Banco de España (BdE) Circular 4/2017 Evidence
         if metrics["is_bde_supervised"]:
             bde = {
 
@@ -2518,12 +2460,10 @@ class CoreEngine:
             if bde["change_management_integrity"]:
                 audit_report.append({"control": "Change Management", "status": "Automated", "evidence": "GitOps Traceability Active"})
 
-        # V37: PSD2 & RTS SCA Evidence
         if metrics["is_psd2_scope"]:
             avg_value = self.state.raw_input.get("avg_transaction_value", 0)
             exemption = "None"
             if metrics.get("eligible_for_exemption"):
-                # V37: Exemption is POSSIBLE, but sca_required remains True if the overall system mandates it.
                 # The traverse logic will set exemption_applied.
                 exemption = "Low Value" if avg_value < 30 else "TRA"
                 
@@ -2553,7 +2493,6 @@ class CoreEngine:
             if psd2["exemption_applied"] != "None":
                 audit_report.append({"control": "SCA Exemption", "status": psd2["exemption_applied"], "evidence": f"Fraud Rate {metrics['fraud_rate']}% justifies TRA"})
 
-        # V38: AML/PBC (Ley 10/2010) Evidence
         if metrics["is_aml_scope"]:
             aml: Dict[str, Any] = {
                 "is_in_scope": True,
@@ -2592,7 +2531,6 @@ class CoreEngine:
             if aml["sepblac_reporting_ready"]:
                 audit_report.append({"control": "SEPBLAC Reporting", "status": "Ready", "evidence": "SAR/ROS Connector Implemented"})
 
-        # V39: CNMV & MiCA Evidence
         if metrics["is_cnmv_scope"]:
             cnmv: Dict[str, Any] = {
                 "is_in_scope": True,
@@ -2625,11 +2563,9 @@ class CoreEngine:
             if cnmv["crypto_config"]["market_abuse_detection"]:
                 audit_report.append({"control": "Market Integrity", "status": "Monitoring", "evidence": "Real-time Abuse Detection Active"})
             
-            # V32: GDPR Crypto-Shredding Evidence
             if any(r['id'] == "crypto_shredding" for r in recommendations):
                 audit_report.append({"control": "Technical Deletion", "status": "Implemented", "evidence": "Crypto-Shredding (KMS Destroy) enabled"})
             
-        # V35: Audit Evidence Vault & Automated QCE Entries
         ev = self.state.evidence_vault
         ev.immutable_logs_enabled = any(r['id'] == "immutable_audit_logging" for r in recommendations)
         ev.data_registry_updated = True
@@ -2738,7 +2674,6 @@ class CoreEngine:
                 "chaos_ready": True
             }
             
-        # V32: Crypto-Shredding Node Injection
         if any(r['id'] == "crypto_shredding" for r in recommendations):
             adapted['components'].append({
                 "name": "KMS - Crypto-Shredding Node",
@@ -2763,7 +2698,6 @@ class CoreEngine:
         if profile["multi_az"]:
             adapted['networking']['subnets'].append({"id": "sn-private-b", "tier": "private", "az": "us-east-1b"})
 
-        # V36: Isolated Financial Segment
         if any(r['id'] == "isolated_financial_segment" for r in recommendations):
             adapted['networking']['subnets'].append({
                 "id": "sn-financial-isolated",
@@ -2777,7 +2711,6 @@ class CoreEngine:
                 "rules": [{"proto": "tcp", "port": 5432, "source": "sn-private-a"}]
             })
 
-        # V37: High-Assurance Auth Subnet (PSD2)
         if any(r['id'] in ["sca_multi_factor", "adaptive_authentication"] for r in recommendations):
             adapted['networking']['subnets'].append({
                 "id": "sn-auth-hsm",

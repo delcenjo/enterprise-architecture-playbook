@@ -74,7 +74,6 @@ class TestPSD2SCA(unittest.TestCase):
         
         psd2 = self.state.psd2_compliance
         self.assertTrue(psd2.sca_required) # SCA still required by default in traverse unless leaf recommends otherwise
-        # Wait, if eligible_for_exemption is True, traverse goes to recommend_tra_engine
         # recommend_tra_engine doesn't disable sca_required (that's set in metrics initially)
         # But it should set the exemption_applied string.
         

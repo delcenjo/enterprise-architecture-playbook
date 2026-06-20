@@ -45,7 +45,6 @@ class TestChaosEngine(unittest.TestCase):
         
         chaos = self.engine.state.architecture.chaos
         # By default SAAS_STANDARD with 10k users -> team_maturity = No (not Bde/LargeScale enough?)
-        # Wait, large_scale is > 50k in metrics. 
         # So for SAAS_STANDARD with 10k users, it should be staging simulation.
         self.assertEqual(chaos["strategy"], "Simulation in Staging")
         self.assertEqual(chaos["tier"], "recommend_staging_simulation")

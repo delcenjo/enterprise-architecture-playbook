@@ -174,7 +174,6 @@ class DocumentOrchestrator:
             "facts": facts.dict(),
             "project": request_ctx.get("project_name", "Unknown Project")
         }
-        # ... logic continue
         
         # 4. Prompting determinístico (Simulado con Template por ahora + Reasoning)
         # Nota: En un sistema real, pasaríamos 'rules' al reasoning_engine

@@ -30,17 +30,17 @@
             <div class="metric-item">
                 <div class="metric-label">5-Year TCO Savings</div>
                 <div class="metric-value">${{ (sections[0].metadata.simulation.metrics.savings / 1000) | round(1) }}K</div>
-                <div class="metric-trend">{% if priority == 'COST' %}★ CRITICAL PRIORITY{% else %}↑ Validated Savings{% endif %}</div>
+                <div class="metric-trend">{% if priority == 'COST' %}CRITICAL PRIORITY{% else %}↑ Validated Savings{% endif %}</div>
             </div>
             <div class="metric-item">
                 <div class="metric-label">Efficiency ROI</div>
                 <div class="metric-value">{{ sections[0].metadata.simulation.metrics.roi_pct }}%</div>
-                <div class="metric-trend">{% if priority == 'PERFORMANCE' %}★ CRITICAL PRIORITY{% else %}↑ Standard Optimized{% endif %}</div>
+                <div class="metric-trend">{% if priority == 'PERFORMANCE' %}CRITICAL PRIORITY{% else %}↑ Standard Optimized{% endif %}</div>
             </div>
             <div class="metric-item">
                 <div class="metric-label">Time to ROI</div>
                 <div class="metric-value">{{ sections[0].metadata.simulation.payback_months }} Mo</div>
-                <div class="metric-trend">{% if priority == 'TIME_TO_MARKET' %}★ CRITICAL PRIORITY{% else %}↑ Validated{% endif %}</div>
+                <div class="metric-trend">{% if priority == 'TIME_TO_MARKET' %}CRITICAL PRIORITY{% else %}↑ Validated{% endif %}</div>
             </div>
         </div>
         

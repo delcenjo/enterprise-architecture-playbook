@@ -39,7 +39,6 @@ async def generate_section(request: GenerationRequest):
     if request.document_type == "cost_analysis":
         try:
             block = orchestrator.generate_cost_analysis_section(request.context)
-            # ... (rest of the block)
             return {
                 "status": "APPROVED",
                 "section_id": block.section_id,

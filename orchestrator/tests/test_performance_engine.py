@@ -48,8 +48,6 @@ class TestPerformanceEngine(unittest.TestCase):
         self.engine.run_layer_2()
         
         perf = self.engine.state.architecture.performance
-        # wait, my core_engine logic for spike depends on metrics.get("is_psd2_scope") or metrics.get("is_bde_supervised")
-        # let's check core_engine.py implementation
         self.assertEqual(perf["strategy"], "Longevity/Soak Testing")
         self.assertEqual(perf["tier"], "recommend_soak_test")
 

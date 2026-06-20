@@ -675,7 +675,7 @@ export default function DocumentForgeApp() {
 
       <footer className="mt-24 pt-8 border-t border-slate-800/50 max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-slate-500 text-xs font-medium uppercase tracking-[0.2em]">
         <span>© 2026</span>
-        <span className="bg-slate-900 px-3 py-1 rounded">God Mode Enabled</span>
+        <span className="bg-slate-900 px-3 py-1 rounded">Live</span>
         <div className="flex gap-4">
           <span className="hover:text-white cursor-pointer transition-colors">Documentation</span>
           <span className="hover:text-white cursor-pointer transition-colors">API Keys</span>

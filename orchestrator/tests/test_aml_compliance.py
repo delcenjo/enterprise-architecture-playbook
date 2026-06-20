@@ -86,8 +86,6 @@ class TestAMLCompliance(unittest.TestCase):
         # Verify it appears in audit as 10 years
         retention_audit = next(item for item in self.state.technical_audit if item["control"] == "Data Retention")
         # In core_engine.py: {"control": "Data Retention", "status": "Automated", "evidence": f"{metrics.get('destination_country', 'EU')} Policy Enforced"}
-        # Wait, I should probably check if metrics['retention_years'] was used in evidence logic.
-        # Let's check the state aml_compliance directly.
         self.assertEqual(self.state.aml_compliance.retention_policy_years, 10)
 
 if __name__ == "__main__":

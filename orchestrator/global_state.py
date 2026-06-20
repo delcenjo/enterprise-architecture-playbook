@@ -18,7 +18,7 @@ class TrafficProfile(BaseModel):
     peak_factor: float = 3.0
     growth_rate: float = 0.0
     requests_per_second: float = 0.0
-    rps_per_user: float = 0.01 # New: V24
+    rps_per_user: float = 0.01
     egress_gb_month: float = 0.0 
 
 class DataProfile(BaseModel):
@@ -160,36 +160,36 @@ class ArchitectureSpec(BaseModel):
     components: List[Dict[str, Any]] = [] # Each component can now have 'gdpr' key with GDPRMetadata
     infrastructure: Dict[str, Any] = {}
     replicas: Dict[str, int] = {}
-    enterprise_patterns: List[Dict[str, Any]] = [] # New: V23 scaling patterns
-    lifecycle: DataLifecycle = Field(default_factory=DataLifecycle) # New: V32 Data Lifecycle
-    dpia_report: DPIAAssessment = Field(default_factory=DPIAAssessment) # New: V33 DPIA Intelligence
-    transfer_assessment: TransferAssessment = Field(default_factory=TransferAssessment) # New: V34 Cross-Border
-    observability: Dict[str, Any] = {} # New: V41 Observability Detail
-    reliability: Dict[str, Any] = {} # New: V42 SRE Reliability Detail
-    tracing: Dict[str, Any] = {} # New: V43 Distributed Tracing Detail
-    chaos: Dict[str, Any] = {} # New: V44 Chaos Engineering Detail
-    deployment: Dict[str, Any] = {} # New: V45 Deployment Strategy Detail
-    gitops: Dict[str, Any] = {} # New: V46 GitOps Detail
-    supply_chain: Dict[str, Any] = {} # New: V47 Supply Chain Security Detail
-    iac: Dict[str, Any] = {} # New: V48 Infrastructure as Code Detail
-    performance: Dict[str, Any] = {} # New: V49 Performance Engineering Detail
-    profiling: Dict[str, Any] = {} # New: V50 Profiling Engineering Detail
-    db_optimization: Dict[str, Any] = {} # New: V51 DB Optimization Detail
-    frontend_perf: Dict[str, Any] = {} # New: V52 Frontend Performance Detail
-    tech_debt: Dict[str, Any] = {} # New: V53 Technical Debt Detail
-    code_review: Dict[str, Any] = {} # New: V54 Code review strategy
-    aff: Dict[str, Any] = {} # New: V55 Architectural Fitness Functions
-    scalability: Dict[str, Any] = {} # New: V56 Scalability predictive analysis
-    tpm: Dict[str, Any] = {} # New: V57 Technical Product Management priorities
-    okrs: Dict[str, Any] = {} # New: V58 Technical OKRs and DORA focus
-    tradeoff_analysis: Dict[str, Any] = {} # New: V59 Build vs Buy Tradeoffs
-    platform_engineering: Dict[str, Any] = {} # New: V60 Developer Productivity
-    senior_evaluation: Dict[str, Any] = {} # New: V61 Talent Architecture
-    cultural_fit: Dict[str, Any] = {} # New: V62 Systemic Friction Risk
-    team_structure: Dict[str, Any] = {} # New: V63 Organizational Topology
-    onboarding: Dict[str, Any] = {} # New: V65 Developer Onboarding
-    unit_economics: Dict[str, Any] = {} # New: V66 CAC & Unit Economics
-    ltv_dynamics: Dict[str, Any] = {} # New: V67 Advanced LTV & Revenue Dynamics
+    enterprise_patterns: List[Dict[str, Any]] = []
+    lifecycle: DataLifecycle = Field(default_factory=DataLifecycle)
+    dpia_report: DPIAAssessment = Field(default_factory=DPIAAssessment)
+    transfer_assessment: TransferAssessment = Field(default_factory=TransferAssessment)
+    observability: Dict[str, Any] = {}
+    reliability: Dict[str, Any] = {}
+    tracing: Dict[str, Any] = {}
+    chaos: Dict[str, Any] = {}
+    deployment: Dict[str, Any] = {}
+    gitops: Dict[str, Any] = {}
+    supply_chain: Dict[str, Any] = {}
+    iac: Dict[str, Any] = {}
+    performance: Dict[str, Any] = {}
+    profiling: Dict[str, Any] = {}
+    db_optimization: Dict[str, Any] = {}
+    frontend_perf: Dict[str, Any] = {}
+    tech_debt: Dict[str, Any] = {}
+    code_review: Dict[str, Any] = {}
+    aff: Dict[str, Any] = {}
+    scalability: Dict[str, Any] = {}
+    tpm: Dict[str, Any] = {}
+    okrs: Dict[str, Any] = {}
+    tradeoff_analysis: Dict[str, Any] = {}
+    platform_engineering: Dict[str, Any] = {}
+    senior_evaluation: Dict[str, Any] = {}
+    cultural_fit: Dict[str, Any] = {}
+    team_structure: Dict[str, Any] = {}
+    onboarding: Dict[str, Any] = {}
+    unit_economics: Dict[str, Any] = {}
+    ltv_dynamics: Dict[str, Any] = {}
     networking: Dict[str, Any] = { # New: Deep networking stack
 
         "vpc_cidr": "10.0.0.0/16",
@@ -344,20 +344,20 @@ class GlobalState(BaseModel):
     # Plugin Results (Layer 2 — dynamic)
     pillar_results: Dict[str, Any] = {}
     
-    tech_debt_profile: TechDebtProfile = Field(default_factory=TechDebtProfile) # New: V53 Technical Debt metrics
-    code_review_profile: CodeReviewProfile = Field(default_factory=CodeReviewProfile) # New: V54 Code Review metrics
-    arch_fitness_profile: ArchFitnessProfile = Field(default_factory=ArchFitnessProfile) # New: V55 AFF metrics
-    scalability_profile: ScalabilityProfile = Field(default_factory=ScalabilityProfile) # New: V56 Scalability metrics
-    tpm_profile: TPMProfile = Field(default_factory=TPMProfile) # New: V57 TPM Metrics
-    okr_profile: OKRProfile = Field(default_factory=OKRProfile) # New: V58 OKR Metrics
-    tradeoff_profile: TradeoffProfile = Field(default_factory=TradeoffProfile) # New: V59 Tradeoff Metrics
-    platform_profile: PlatformProfile = Field(default_factory=PlatformProfile) # New: V60 Platform Engineering
-    senior_eval_profile: SeniorEvalProfile = Field(default_factory=SeniorEvalProfile) # New: V61 Senior Evaluation
-    cultural_fit_profile: CulturalFitProfile = Field(default_factory=CulturalFitProfile) # New: V62 Cultural Fit
-    team_structure_profile: TeamStructureProfile = Field(default_factory=TeamStructureProfile) # New: V63 Team Structure
-    onboarding_profile: DeveloperOnboardingProfile = Field(default_factory=DeveloperOnboardingProfile) # New: V65 Developer Onboarding
-    unit_economics_profile: UnitEconomicsProfile = Field(default_factory=UnitEconomicsProfile) # New: V66 Unit Economics
-    ltv_dynamics_profile: LTVDynamicsProfile = Field(default_factory=LTVDynamicsProfile) # New: V67 LTV Dynamics
+    tech_debt_profile: TechDebtProfile = Field(default_factory=TechDebtProfile)
+    code_review_profile: CodeReviewProfile = Field(default_factory=CodeReviewProfile)
+    arch_fitness_profile: ArchFitnessProfile = Field(default_factory=ArchFitnessProfile)
+    scalability_profile: ScalabilityProfile = Field(default_factory=ScalabilityProfile)
+    tpm_profile: TPMProfile = Field(default_factory=TPMProfile)
+    okr_profile: OKRProfile = Field(default_factory=OKRProfile)
+    tradeoff_profile: TradeoffProfile = Field(default_factory=TradeoffProfile)
+    platform_profile: PlatformProfile = Field(default_factory=PlatformProfile)
+    senior_eval_profile: SeniorEvalProfile = Field(default_factory=SeniorEvalProfile)
+    cultural_fit_profile: CulturalFitProfile = Field(default_factory=CulturalFitProfile)
+    team_structure_profile: TeamStructureProfile = Field(default_factory=TeamStructureProfile)
+    onboarding_profile: DeveloperOnboardingProfile = Field(default_factory=DeveloperOnboardingProfile)
+    unit_economics_profile: UnitEconomicsProfile = Field(default_factory=UnitEconomicsProfile)
+    ltv_dynamics_profile: LTVDynamicsProfile = Field(default_factory=LTVDynamicsProfile)
     compliance_profile: ComplianceProfile = Field(default_factory=ComplianceProfile)
     
     # Layer 2: Architecture
@@ -373,13 +373,13 @@ class GlobalState(BaseModel):
     # Layer 5: Risks & Final Validation
     risk_matrix: List[Dict[str, Any]] = []
     technical_audit: List[Dict[str, Any]] = [] # New: Detailed 2026 Audit
-    evidence_vault: ComplianceEvidence = Field(default_factory=ComplianceEvidence) # New: V35 Audit Ready
-    bde_governance: BdEGovernance = Field(default_factory=BdEGovernance) # New: V36 BdE 4/2017
-    psd2_compliance: PSD2Compliance = Field(default_factory=PSD2Compliance) # New: V37 PSD2/SCA
-    aml_compliance: AMLCompliance = Field(default_factory=AMLCompliance) # New: V38 AML/PBC
-    cnmv_compliance: CNMVCompliance = Field(default_factory=CNMVCompliance) # New: V39 CNMV/MiCA
+    evidence_vault: ComplianceEvidence = Field(default_factory=ComplianceEvidence)
+    bde_governance: BdEGovernance = Field(default_factory=BdEGovernance)
+    psd2_compliance: PSD2Compliance = Field(default_factory=PSD2Compliance)
+    aml_compliance: AMLCompliance = Field(default_factory=AMLCompliance)
+    cnmv_compliance: CNMVCompliance = Field(default_factory=CNMVCompliance)
     compliance_score: float = 0.0
-    audit_ready_score: float = 0.0 # New: V35 Audit Ready
+    audit_ready_score: float = 0.0
     is_frozen: bool = False
 
 
