@@ -11,7 +11,7 @@ class AWSPriceIngestor:
         # Usamos la API pública de AWS Price Bulk:
         # Nota: El archivo entero puede ser masivo (GBs descomprimidos), pero solo hay un endpoint 
         # alternativo index.json por region si queremos saltarnos la credencial boto3
-        self.pricing_url = f"https://pricing.us-east-1.amazonaws.com/offers/v1.0/aws/AmazonEC2/current/eu-west-1/index.json"
+        self.pricing_url = f"https://pricing.us-east-1.amazonaws.com/offers/v1.0/aws/AmazonEC2/current/{self.region}/index.json"
         
     def fetch_all_prices(self, service_code: str = 'AmazonEC2', target_region: str = 'EU (Ireland)') -> Dict:
         """
