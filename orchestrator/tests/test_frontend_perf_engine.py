@@ -14,8 +14,6 @@ class TestFrontendPerfEngine(unittest.TestCase):
             "business_type": "SAAS_STANDARD",
         }
         self.state.requirements = {"services": ["high_interactivity", "dashboard"]}
-        # root -> high_fid -> recommend_code_splitting
-        
         self.engine.run_layer_2()
         
         front = self.engine.state.architecture.frontend_perf
@@ -26,13 +24,11 @@ class TestFrontendPerfEngine(unittest.TestCase):
         """Verify that a massive scale public site gets SSR (SEO/LCP fix)."""
         self.state.raw_input = {
             "application_type": "web",
-            "business_type": "MEDIA_PUBLISHING" # Assuming a profile that implies large_scale
+            "business_type": "MEDIA_PUBLISHING"
         }
-        self.state.traffic_profile.requests_per_second = 15000 # maps to Tier 0 / large_scale in logic, users > 100k
-        self.state.traffic_profile.concurrent_users = 200000 
+        self.state.traffic_profile.requests_per_second = 15000
+        self.state.traffic_profile.concurrent_users = 200000
         self.state.requirements = {"services": ["public_content"]}
-        # root -> high_lcp -> ssr_vs_lazy_check -> yes (large scale, no strict data res) -> recommend_ssr_edge
-        
         self.engine.run_layer_2()
         
         front = self.engine.state.architecture.frontend_perf
@@ -46,10 +42,8 @@ class TestFrontendPerfEngine(unittest.TestCase):
             "business_type": "STARTUP_MVP"
         }
         self.state.traffic_profile.requests_per_second = 500
-        self.state.traffic_profile.concurrent_users = 150000 # triggers high_lcp
-        self.state.requirements = {"data_residency_required": True} # Block SSR in this test's proxy logic
-        # root -> high_lcp -> ssr_vs_lazy_check -> no -> recommend_lazy_load_cdn
-        
+        self.state.traffic_profile.concurrent_users = 150000
+        self.state.requirements = {"data_residency_required": True}  # SSR excluded when data residency is required
         self.engine.run_layer_2()
         
         front = self.engine.state.architecture.frontend_perf

@@ -1,4 +1,4 @@
-"""Profiling Engineering Plugin (V50)."""
+"""Profiling Engineering Plugin."""
 from typing import Any, Callable, Dict
 from plugins._base import BaseDecisionTreePlugin
 

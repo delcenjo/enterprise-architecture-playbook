@@ -3,7 +3,6 @@ import os
 import unittest
 import logging
 
-# Ensure we can import from orchestrator
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
 from global_state import GlobalState, TrafficProfile, DataProfile, ComplianceProfile
@@ -30,12 +29,10 @@ class TestGDPRRetentionPillar(unittest.TestCase):
         pattern_ids = [p['id'] for p in self.state.architecture.enterprise_patterns]
         self.assertIn("crypto_shredding", pattern_ids)
         
-        # Verify KMS Cluster injection
         kms_node = next((c for c in self.state.architecture.components if "KMS" in c['name']), None)
         self.assertIsNotNone(kms_node)
         self.assertEqual(kms_node['type'], "KMS-HSM")
-        
-        # Verify Deletion Audit injection
+
         audit_node = next((c for c in self.state.architecture.components if "Deletion Proof" in c['name']), None)
         self.assertIsNotNone(audit_node)
         print("Correctly recommended Crypto-Shredding and injected security components.")
@@ -50,13 +47,11 @@ class TestGDPRRetentionPillar(unittest.TestCase):
         
         self.engine.run_layer_2()
         
-        # Verify lifecycle policies
         policies = self.state.architecture.lifecycle.policies
         categories = [p.category for p in policies]
         self.assertIn("personal_data", categories)
         self.assertIn("aml_records", categories)
-        
-        # Verify segmented retention pattern
+
         pattern_ids = [p['id'] for p in self.state.architecture.enterprise_patterns]
         # In our tree, conflict check leads to recommend_gdpr_segmented_retention -> automated_ttl_enforcement id
         self.assertIn("automated_ttl_enforcement", pattern_ids)

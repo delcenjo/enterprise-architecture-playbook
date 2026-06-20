@@ -7,7 +7,6 @@ from typing import Dict, Any, List, Optional
 from pydantic import BaseModel, Field, field_validator, model_validator, ValidationError
 from global_state import GlobalState, TrafficProfile, DataProfile, ComplianceProfile, DataSensitivity
 
-# Setup structured logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger("Layer1_Normalizer")
 
@@ -80,16 +79,11 @@ class EnterpriseDecisionInput(BaseModel):
 @lru_cache(maxsize=1)
 def load_normalization_assets():
     assets_dir = os.path.join(os.path.dirname(__file__), "..", "assets")
-    
-    # Load Factors
     factors_path = os.path.join(assets_dir, "normalization_factors.json")
     with open(factors_path, 'r') as f:
         factors = json.load(f)
-        
-    # Load Benchmarks
     benchmarks_path = os.path.join(assets_dir, "benchmarks.csv")
     benchmarks = pd.read_csv(benchmarks_path)
-    
     return factors, benchmarks
 
 class PipelineManager:
@@ -98,8 +92,8 @@ class PipelineManager:
 
     def run_layer_0_and_1(self, input_data: Dict[str, Any]):
         """
-        Layer 0: Advanced Validation
-        Layer 1: Data-Driven Normalization
+        Layer 0: contextual validation.
+        Layer 1: data-driven normalization.
         """
         logger.info("Starting Layer 0: Contextual Validation...")
         try:
@@ -110,8 +104,7 @@ class PipelineManager:
             raise ValueError(f"Strict Validation Failed: {e.json()}")
 
         logger.info("Starting Layer 1: Data-Driven Normalization...")
-        
-        # 1. Traffic Normalization (Configurable)
+
         growth_rate = validated_input.scale_and_load.expected_mom_growth_pct / 100.0
         self.state.traffic_profile = TrafficProfile(
             concurrent_users=validated_input.scale_and_load.peak_concurrent_users,
@@ -119,15 +112,13 @@ class PipelineManager:
             requests_per_second=validated_input.scale_and_load.estimated_rps
         )
 
-        # 2. Data Normalization (Benchmark-based)
         sensitivity_val = DataSensitivity.MEDIUM
         if validated_input.data_and_sensitivity.regulated_entity or validated_input.data_and_sensitivity.processes_payments:
             sensitivity_val = DataSensitivity.CRITICAL
         elif validated_input.data_and_sensitivity.processes_pii:
             sensitivity_val = DataSensitivity.HIGH
         
-        # approximate gb per month based on MAU
-        volume_gb = validated_input.scale_and_load.monthly_active_users * 0.05
+        volume_gb = validated_input.scale_and_load.monthly_active_users * 0.05  # ~0.05 GB per MAU
         
         self.state.data_profile = DataProfile(
             sensitivity=sensitivity_val,
@@ -135,7 +126,6 @@ class PipelineManager:
             retention_days=int(validated_input.data_and_sensitivity.data_retention_years * 365)
         )
 
-        # 3. Compliance Normalization
         frameworks = []
         if validated_input.data_and_sensitivity.regulated_entity:
             frameworks.append("DORA")
@@ -154,7 +144,6 @@ class PipelineManager:
             availability_target=validated_input.scale_and_load.target_sla
         )
         
-        # 4. Team Structure Normalization
         self.state.team_structure_profile.total_developers = validated_input.team_and_organization.total_developers
         self.state.team_structure_profile.platform_maturity = "mature" if validated_input.team_and_organization.has_platform_team else "none"
         self.state.team_structure_profile.regulatory_level = "high" if validated_input.data_and_sensitivity.regulated_entity else "low"

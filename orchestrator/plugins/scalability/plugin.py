@@ -1,4 +1,4 @@
-"""Scalability Analysis Plugin (V56)."""
+"""Scalability Analysis Plugin."""
 from typing import Any, Callable, Dict
 from plugins._base import BaseDecisionTreePlugin
 

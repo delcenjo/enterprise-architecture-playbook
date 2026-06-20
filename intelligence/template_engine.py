@@ -13,7 +13,6 @@ class SmartTemplateEngine:
             lstrip_blocks=True
         )
         
-        # Filtros útiles para plantillas empresariales
         self.env.filters['currency'] = self._format_currency
         self.env.filters['percent'] = self._format_percent
 

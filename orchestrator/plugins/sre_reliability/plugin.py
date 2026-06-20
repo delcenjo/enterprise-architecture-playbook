@@ -46,8 +46,6 @@ class SREReliabilityPlugin(BaseDecisionTreePlugin):
         state: Any,
     ) -> PillarResult:
         """Enrich the base result with ontology definitions for SLIs."""
-        # The base class already pulled `strategy`, `reasoning`, and `_leaf_id`.
-        # Now we process the domain-specific `slis` list using the ontology.
         slis = []
         for sli_name in leaf.get("slis", []):
             if sli_name in ontology:
@@ -63,6 +61,6 @@ class SREReliabilityPlugin(BaseDecisionTreePlugin):
                 "sla_active": leaf.get("sla_active", False),
                 "features": leaf.get("features", []),
                 "slis": slis,
-                "reliability_tier": leaf.get("_leaf_id"),  # For legacy compatibility
+                "reliability_tier": leaf.get("_leaf_id"),
             },
         )

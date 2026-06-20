@@ -8,8 +8,7 @@ logger = logging.getLogger(__name__)
 
 class KnowledgeFetcher:
     """
-    Capa 2: Knowledge Base Fetcher.
-    Retrieves compliance rules and templates based on tech stacks.
+    Retrieves compliance rules and templates from the knowledge base based on tech stacks.
     """
     def __init__(self):
         self.db_url = f"host={os.getenv('DB_HOST', 'postgres')} " \

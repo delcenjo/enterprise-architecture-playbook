@@ -76,7 +76,7 @@ async def calculate_cost(request: CostCalculationRequest):
                 "monthly": round(monthly_cost, 2),
                 "yearly": round(monthly_cost * 12, 2)
             },
-            "confidence": 1.0,  # Datos reales de AWS = confianza máxima
+            "confidence": 1.0,
             "source": "aws_price_list_api",
             "last_updated": result['ingestion_timestamp'].isoformat() if result['ingestion_timestamp'] else 'Unknown'
         }

@@ -27,9 +27,6 @@ class TestObservabilityEngine(unittest.TestCase):
             }
         }
         
-        # We need to ensure metrics calculate is_microservices as true
-        # In core_engine.py: "is_microservices": len(adapted['components']) > 1
-        
         self.engine.run_layer_2()
         
         obs = self.engine.state.architecture.observability
@@ -44,7 +41,7 @@ class TestObservabilityEngine(unittest.TestCase):
         """Verify that high criticality (e.g. PSD2) triggers all pillars."""
         self.state.raw_input = {
             "business_type": "FINTECH_HA",
-            "payment_operations_enabled": True # Triggers is_psd2_scope
+            "payment_operations_enabled": True
         }
         
         self.engine.run_layer_2()

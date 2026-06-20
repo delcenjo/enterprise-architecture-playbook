@@ -48,10 +48,7 @@ CREATE TRIGGER trigger_log_price_change
     BEFORE UPDATE ON aws_pricing_current
     FOR EACH ROW
     EXECUTE FUNCTION log_price_change();
--- ==========================================
 -- Capa 2: Knowledge Base (Compliance & Docs)
--- ==========================================
-
 CREATE TABLE IF NOT EXISTS knowledge_compliance (
     id SERIAL PRIMARY KEY,
     article_id VARCHAR(50) NOT NULL UNIQUE, -- Ej: "DORA_ART_12"
@@ -70,10 +67,7 @@ CREATE TABLE IF NOT EXISTS knowledge_templates (
     category VARCHAR(50) -- "contract", "roadmap", "policy"
 );
 
--- ==========================================
 -- Capa 4: Workflow Orchestration & Event Store
--- ==========================================
-
 CREATE TABLE IF NOT EXISTS workflow_state (
     workflow_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     client_name VARCHAR(255) NOT NULL,
@@ -92,7 +86,6 @@ CREATE TABLE IF NOT EXISTS event_store (
     recorded_at TIMESTAMP DEFAULT NOW()
 );
 
--- Datos iniciales de ejemplo para Capa 2
 INSERT INTO knowledge_compliance (article_id, title, description, applies_to_tags)
 VALUES 
 ('DORA_L1_ICT_RISK', 'DORA: Gestion de Riesgos TIC', 'Requisitos especificos para la gestion de riesgos de terceros en la nube.', '["aws", "cloud", "finance"]'),

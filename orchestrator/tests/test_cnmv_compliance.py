@@ -29,7 +29,6 @@ class TestCNMVCompliance(unittest.TestCase):
         self.assertTrue(cnmv.investment_config.investor_classification_automated)
         self.assertTrue(cnmv.investment_config.cooling_off_period_enforced)
         
-        # Check Patterns
         pattern_ids = [p["id"] for p in self.state.architecture.enterprise_patterns]
         self.assertIn("crowdfunding_escrow_segregation", pattern_ids)
 
@@ -47,7 +46,6 @@ class TestCNMVCompliance(unittest.TestCase):
         self.assertTrue(cnmv.investment_config.suitability_test_structured)
         self.assertTrue(cnmv.investment_config.algorithmic_explainability)
         
-        # Check Patterns
         pattern_ids = [p["id"] for p in self.state.architecture.enterprise_patterns]
         self.assertIn("investor_suitability_hub", pattern_ids)
         self.assertIn("market_abuse_monitoring", pattern_ids)
@@ -66,7 +64,6 @@ class TestCNMVCompliance(unittest.TestCase):
         self.assertTrue(cnmv.crypto_config.cold_storage_hsm)
         self.assertTrue(cnmv.crypto_config.private_key_hardening)
         
-        # Check Patterns
         pattern_ids = [p["id"] for p in self.state.architecture.enterprise_patterns]
         self.assertIn("crypto_cold_storage_hsm", pattern_ids)
         self.assertIn("market_abuse_monitoring", pattern_ids)

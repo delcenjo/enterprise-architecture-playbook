@@ -1,5 +1,5 @@
 """
-V67: Advanced LTV & Revenue Dynamics Engine - Verification Suite
+Advanced LTV & Revenue Dynamics Engine - Verification Suite
 Tests NRR calculation, dynamic LTV, churn stage detection,
 expansion model routing, and severity-based recommendations.
 """
@@ -167,15 +167,11 @@ def test_good_nrr_seat_expansion():
 
 
 if __name__ == "__main__":
-    print("=" * 70)
-    print("V67: Advanced LTV & Revenue Dynamics Engine - Verification")
-    print("=" * 70)
+    print("Advanced LTV & Revenue Dynamics Engine - Verification")
 
     test_elite_nrr_usage_based()
     test_dying_nrr_high_churn()
     test_mediocre_nrr_early_churn()
     test_good_nrr_seat_expansion()
 
-    print("\n" + "=" * 70)
-    print("ALL V67 LTV DYNAMICS TESTS PASSED")
-    print("=" * 70)
+    print("\nALL LTV DYNAMICS TESTS PASSED")

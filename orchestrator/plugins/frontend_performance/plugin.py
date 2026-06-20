@@ -1,4 +1,4 @@
-"""Frontend Performance Plugin (V52)."""
+"""Frontend Performance Plugin."""
 from typing import Any, Callable, Dict
 from plugins._base import BaseDecisionTreePlugin
 

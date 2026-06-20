@@ -6,7 +6,6 @@
 </head>
 <body>
 
-    <!-- Cover Page -->
     <div class="cover-page">
         <div class="logo-area">DOCUMENT FORGE | ENTERPRISE AI</div>
         <h1>{{ project_name | upper }}</h1>
@@ -19,7 +18,6 @@
         </div>
     </div>
 
-    <!-- Executive Summary Dashboard -->
     {% if sections and sections[0].metadata and sections[0].metadata.simulation %}
     {% set priority = context.commercial.strategic_priority if context and context.commercial else 'PERFORMANCE' %}
     <div class="financial-summary" style="page-break-after: always; padding: 2cm;">
@@ -54,7 +52,6 @@
     </div>
     {% endif %}
 
-    <!-- 18-Month Strategic Roadmap -->
     <div class="roadmap-section" style="page-break-after: always; padding: 2cm;">
         <h3 style="color: #64748b; text-transform: uppercase; font-size: 10pt; letter-spacing: 2px;">Strategic Delivery</h3>
         <h1 style="border: none; margin-top: 10px; font-size: 28pt;">18-Month Transformation Roadmap</h1>
@@ -78,7 +75,6 @@
         </div>
     </div>
 
-    <!-- Detailed Implementation (The "Castle" Content) -->
     <div class="detailed-plan" style="page-break-after: always; padding: 2cm;">
         <h3 style="color: #64748b; text-transform: uppercase;">Technical Deep-Dive</h3>
         <h1>Standard 5-Phase Implementation Guide</h1>
@@ -100,7 +96,6 @@
         </div>
     </div>
 
-    <!-- Annexes Section -->
     <div class="annexes" style="page-break-after: always; padding: 2cm;">
         <h3 style="color: #64748b; text-transform: uppercase;">Appendix & Technical Assets</h3>
         <h1>Project Resource Kit</h1>
@@ -120,7 +115,6 @@
         </div>
     </div>
 
-    <!-- Dynamic Content Blocks -->
     <div class="content">
         {% for section in sections %}
             <div class="section-block" style="page-break-after: always; padding: 1cm 2cm;">
@@ -130,7 +124,7 @@
         {% endfor %}
     </div>
 
-    <!-- Audit Trail & Integrity Signatures (Phase 10) -->
+    <!-- Audit Trail -->
     <div class="audit-vault" style="padding: 1cm 2cm; background: #f8fafc; border-top: 2px solid #e2e8f0; margin-top: 50px;">
         <h4 style="color: #64748b; letter-spacing: 1px; margin-bottom: 10px;">IMMUTABLE AUDIT TRAIL | VERIFICATION REPORT</h4>
         <div style="font-family: 'Courier New', monospace; font-size: 8.5pt; color: #475569; line-height: 1.4;">

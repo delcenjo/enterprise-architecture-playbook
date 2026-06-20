@@ -1,4 +1,4 @@
-"""Infrastructure as Code Plugin (V48)."""
+"""Infrastructure as Code Plugin."""
 from typing import Any, Callable, Dict
 from plugins._base import BaseDecisionTreePlugin
 

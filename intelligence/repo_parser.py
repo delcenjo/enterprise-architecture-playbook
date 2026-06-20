@@ -43,7 +43,6 @@ class RepoParser:
         resources = {"instance_count": 0, "storage_gb": 100, "instance_type": "t3.medium"}
         warnings = []
         
-        # 1. Detección de Tags por Firma de Archivos
         for file in file_list:
             file_lower = file.lower()
             for tag, sigs in self.signatures.items():
@@ -55,17 +54,14 @@ class RepoParser:
                 resources["instance_type"] = "m5.large"
                 resources["storage_gb"] = 500
 
-        # 2. Reconciliación con el Intake y Advanced Overrides (P11 Hybrid)
         tech_input = context.get("tech", {})
         user_stack = tech_input.get("current_stack", [])
         advanced_overrides = context.get("advanced_overrides", "") or ""
         
-        # Si el usuario dice que usa algo pero no lo vemos en el código
         for tech in user_stack:
             if tech.lower() not in [t.lower() for t in tags]:
                 warnings.append(f"Contradiction: User specified '{tech}' stack but no file signatures were found in repository.")
 
-        # Procesar Overrides Avanzados (Lógica de "Pisar" Hechos)
         if "OVERRIDE_STORAGE_GB=" in advanced_overrides:
             try:
                 new_val = int(advanced_overrides.split("OVERRIDE_STORAGE_GB=")[1].split()[0])
@@ -74,13 +70,11 @@ class RepoParser:
             except Exception:
                 warnings.append("Failed to parse Advanced Override: OVERRIDE_STORAGE_GB")
 
-        # 3. Mapeo de Compliance
         legal_input = context.get("legal", {})
         compliance = legal_input.get("frameworks", [])
         if context.get("sector") == "fintech" and "DORA" not in compliance:
             compliance.append("DORA (Auto-detected from Industry context)")
 
-        # 4. Empaquetado Verificable
         raw_metadata = f"{list(tags)}-{resources}-{compliance}-{warnings}"
         
         import datetime

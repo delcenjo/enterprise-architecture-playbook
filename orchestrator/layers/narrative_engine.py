@@ -9,7 +9,6 @@ from jinja2 import Environment, FileSystemLoader
 from global_state import GlobalState
 from dotenv import load_dotenv
 
-# Optional Providers
 try:
     from anthropic import Anthropic
     HAS_ANTHROPIC = True
@@ -49,26 +48,20 @@ class NarrativeEngine:
         self.env = Environment(loader=FileSystemLoader(self.assets_dir))
         self.env.filters['format_currency'] = lambda v: f"{float(v):,.2f}"
         
-        # Configuration
         self.provider = os.getenv("PREMIUM_LLM_PROVIDER", "mock").lower()
         self.cache_enabled = os.getenv("ENABLE_NARRATIVE_CACHE", "true").lower() == "true"
 
     async def generate_premium_dossier(self) -> Dict[str, str]:
         """
-        Generates the institutional-grade deliverable (HTML + PDF) using Hybrid LLM Narrative.
+        Generates the institutional-grade deliverable (HTML + PDF).
         """
         if not self.state.is_frozen:
             raise ValueError("State must be FROZEN before generating report.")
 
         logger.info(f"Forging Premium Dossier using Hybrid Intelligence ({self.provider})...")
 
-        # 1. Generate Intelligent Narratives (API or Fallback)
         narratives = await self._get_intelligent_narratives()
-
-        # 2. Template Preparation
         template_data = self._prepare_template_data(narratives)
-
-        # 3. Render and Save
         template = self.env.get_template("dossier_blueprint.html")
         html_content = template.render(**template_data)
         
@@ -89,7 +82,6 @@ class NarrativeEngine:
         """
         Orchestrates LLM calls with caching.
         """
-        # Create unique hash for current state to check cache
         state_json = self.state.model_dump_json()
         cache_key = hashlib.sha256(state_json.encode()).hexdigest()
         cache_file = os.path.join(self.cache_dir, f"narrative_{cache_key}.json")
@@ -99,7 +91,6 @@ class NarrativeEngine:
             with open(cache_file, 'r') as f:
                 return json.load(f)
 
-        # Generate fresh narrative
         narratives = await self._call_llm_api()
         
         if self.cache_enabled:
@@ -110,7 +101,7 @@ class NarrativeEngine:
 
     async def _call_llm_api(self) -> Dict[str, str]:
         """
-        Multi-provider LLM connector.
+        Routes the prompt to the configured LLM provider with fallback.
         """
         summary_data = self._get_minimal_state_summary()
         prompt = self._build_executive_prompt(summary_data)
@@ -124,13 +115,13 @@ class NarrativeEngine:
                 return await self._call_openai(prompt)
         except Exception as e:
             logger.error(f"Premium LLM Call Failed ({self.provider}): {e}")
-            logger.info("Falling back to Deterministic Template Narrative...")
+            logger.info("LLM call failed, falling back to deterministic narrative...")
 
         return self._generate_fallback_narrative()
 
     def _get_minimal_state_summary(self) -> str:
         """
-        Extracts only the critical metrics to save tokens and prevent bias.
+        Extracts the critical metrics for the LLM prompt, keeping token usage minimal.
         """
         return json.dumps({
             "business": self.state.raw_input.get("business_type"),
@@ -170,7 +161,6 @@ INSTRUCTIONS:
             temperature=0.2,
             messages=[{"role": "user", "content": prompt}]
         )
-        # Parse text into dict (simplified for the demo)
         return self._manual_parse_llm_output(message.content[0].text)
 
     async def _call_gemini(self, prompt: str) -> Dict[str, str]:
@@ -189,7 +179,6 @@ INSTRUCTIONS:
 
     def _manual_parse_llm_output(self, text: str) -> Dict[str, str]:
         try:
-            # Look for JSON structure in text
             start = text.find('{')
             end = text.rfind('}') + 1
             return json.loads(text[start:end])
@@ -207,7 +196,7 @@ INSTRUCTIONS:
 
     def _prepare_template_data(self, narratives: Dict[str, str]) -> Dict[str, Any]:
         """
-        Maps GlobalState to the template structure with V3 Transparency.
+        Maps GlobalState to the template structure.
         """
         raw_reqs = self.state.costs.get("raw_requirements", {})
         resource_breakdown = self.state.costs.get("resource_breakdown", {})
@@ -221,7 +210,6 @@ INSTRUCTIONS:
             {"domain": "Storage Performance", "input": "High IOPS", "profile": f"{raw_reqs.get('storage', {}).get('iops', 0):,.0f} IOPS Provisioned"}
         ]
         
-        # Prepare Clean BOM
         clean_bom = []
         for comp in self.state.architecture.components:
             clean_bom.append({

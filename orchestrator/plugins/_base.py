@@ -41,8 +41,6 @@ class BaseDecisionTreePlugin(PillarPlugin):
     ) -> None:
         self._knowledge_repo = knowledge_repo
 
-    # ── Knowledge Resource Names (override to customize) ───────────
-
     @property
     def tree_resource(self) -> str:
         """Resource name for the decision tree JSON."""
@@ -67,8 +65,6 @@ class BaseDecisionTreePlugin(PillarPlugin):
     def default_leaf(self) -> Optional[str]:
         """Fallback leaf key if traversal fails."""
         return None
-
-    # ── Abstract Methods ───────────────────────────────────────────
 
     def build_question_map(
         self,
@@ -96,8 +92,6 @@ class BaseDecisionTreePlugin(PillarPlugin):
             f"{type(self).__name__} must implement build_question_map()"
         )
 
-    # ── Core Analysis (usually not overridden) ─────────────────────
-
     def analyze(
         self,
         metrics: Dict[str, Any],
@@ -116,7 +110,6 @@ class BaseDecisionTreePlugin(PillarPlugin):
                 "Ensure it was injected during discovery."
             )
 
-        # Load knowledge
         tree = self._knowledge_repo.load(self.tree_resource)
         ontology = (
             self._knowledge_repo.load(self.ontology_resource)
@@ -124,11 +117,9 @@ class BaseDecisionTreePlugin(PillarPlugin):
             else {}
         )
 
-        # Build resolver from question map
         question_map = self.build_question_map(metrics, state)
         resolver = build_simple_resolver(question_map, default_answer="no")
 
-        # Walk the tree
         leaf = walk_decision_tree(
             tree,
             question_resolver=resolver,
@@ -136,7 +127,6 @@ class BaseDecisionTreePlugin(PillarPlugin):
             default_leaf_key=self.default_leaf,
         )
 
-        # Build result
         return self.build_result(leaf, ontology, metrics, state)
 
     def build_result(

@@ -1,4 +1,4 @@
-"""Architectural Fitness Functions Plugin (V55)."""
+"""Architectural Fitness Functions Plugin."""
 from typing import Any, Callable, Dict
 from plugins._base import BaseDecisionTreePlugin
 

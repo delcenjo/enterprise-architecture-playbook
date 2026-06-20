@@ -1,6 +1,4 @@
-"""
-Observability Stack Plugin (V41).
-"""
+"""Observability Stack Plugin."""
 from typing import Any, Callable, Dict
 from domain.ports.pillar_plugin import PillarResult
 from plugins._base import BaseDecisionTreePlugin

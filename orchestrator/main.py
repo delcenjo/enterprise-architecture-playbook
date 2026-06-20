@@ -100,7 +100,7 @@ async def start_workflow(request: EnterpriseIntakeSchema, background_tasks: Back
     workflow_id = wm.create_workflow(
         request.client_name, 
         request.project_name, 
-        request.dict() # Passing the full structured schema as context
+        request.dict()
     )
     if not workflow_id:
         raise HTTPException(status_code=500, detail="Failed to initialize EventStream")
@@ -115,7 +115,6 @@ async def get_workflow_status(workflow_id: str):
 @app.post("/workflow/{workflow_id}/approve")
 async def approve_step(workflow_id: str, approval: ApprovalRequest, background_tasks: BackgroundTasks):
     status = wm.get_status(workflow_id)
-    # Ejemplo: Gate 1 requiere aprobación TECHNICAL
     gate_mapping = {
         "PENDING_TECH_APPROVAL": "TECHNICAL",
         "PENDING_FINANCIAL_APPROVAL": "FINANCIAL",
@@ -136,16 +135,13 @@ async def approve_step(workflow_id: str, approval: ApprovalRequest, background_t
     return {"status": "PROCEEDING"}
 
 class ConsultingSaga:
-    """
-    Orquestador SAGA de Grado Industrial.
-    Cada método es una fase que culmina en un Checkpoint Humano.
-    """
+    """Orquestador SAGA. Cada método es una fase que culmina en un checkpoint humano."""
     def __init__(self, workflow_id: str):
         self.workflow_id = workflow_id
         self.wm = wm
 
     async def execute(self):
-        """Fase 1: Extracción Técnica y Verificación de Hechos."""
+        """Fase 1: Extracción técnica."""
         try:
             status = self.wm.get_status(self.workflow_id)
             async with httpx.AsyncClient(timeout=60.0) as client:
@@ -164,13 +160,12 @@ class ConsultingSaga:
             self.wm.update_state(self.workflow_id, "ERROR", {"phase": "TECHNICAL", "error": str(e)})
 
     async def resume(self):
-        """Continúa la SAGA tras aprobación humana."""
+        """Continúa la SAGA tras aprobación."""
         status = self.wm.get_status(self.workflow_id)
         current = status['current_status']
         
         async with httpx.AsyncClient(timeout=120.0) as client:
             if current == "GATE_TECHNICAL_PASSED":
-                # Fase 2: Cálculos Financieros Determinísticos
                 resp = await client.post(
                     f"{INTELLIGENCE_URL}/generate/section",
                     json={"document_type": "cost_analysis", "context": status['context'], "facts": status['metadata']['extraction_facts']}
@@ -178,7 +173,6 @@ class ConsultingSaga:
                 self.wm.update_state(self.workflow_id, "PENDING_FINANCIAL_APPROVAL", resp.json())
                 
             elif current == "GATE_FINANCIAL_PASSED":
-                # Fase 3: Compliance Mapping (DORA/GDPR)
                 resp = await client.post(
                     f"{INTELLIGENCE_URL}/generate/section",
                     json={"document_type": "compliance_analysis", "context": status['context'], "facts": status['metadata']['extraction_facts']}
@@ -186,7 +180,6 @@ class ConsultingSaga:
                 self.wm.update_state(self.workflow_id, "PENDING_LEGAL_APPROVAL", resp.json())
 
             elif current == "GATE_LEGAL_PASSED":
-                # Fase 4: Editorial Synthesis & PDF Generation
                 resp = await client.post(
                     f"{OUTPUT_GENERATOR_URL}/generate-dossier",
                     json={

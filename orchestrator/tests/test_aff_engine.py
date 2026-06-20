@@ -9,10 +9,8 @@ class TestAFFEngine(unittest.TestCase):
 
     def test_critical_violations(self):
         """Verify that catastrophic architectural flaws trigger senior escalation and merge block."""
-        self.state.arch_fitness_profile.critical_violations = 1 # Triggers critical_violations
-        self.state.arch_fitness_profile.services_modified = 10 # Should be superseded by critical
-        
-        # root -> critical_violations -> recommend_block_escalate
+        self.state.arch_fitness_profile.critical_violations = 1
+        self.state.arch_fitness_profile.services_modified = 10
         self.engine.run_layer_2()
         
         aff = self.engine.state.architecture.aff
@@ -21,10 +19,8 @@ class TestAFFEngine(unittest.TestCase):
 
     def test_broad_blast_radius(self):
         """Verify that a massive multi-service PR triggers full AFF validation."""
-        self.state.arch_fitness_profile.critical_violations = 0 
-        self.state.arch_fitness_profile.services_modified = 8 # Triggers broad_blast_radius
-        
-        # root -> broad_blast_radius -> recommend_full_aff
+        self.state.arch_fitness_profile.critical_violations = 0
+        self.state.arch_fitness_profile.services_modified = 8
         self.engine.run_layer_2()
         
         aff = self.engine.state.architecture.aff
@@ -33,10 +29,8 @@ class TestAFFEngine(unittest.TestCase):
 
     def test_high_drift(self):
         """Verify that drift over 10% blocks new features for a refactor sprint."""
-        self.state.arch_fitness_profile.services_modified = 2 
-        self.state.arch_fitness_profile.drift_rate = 12.5 # Triggers high_drift
-        
-        # root -> high_drift -> recommend_refactor_plan
+        self.state.arch_fitness_profile.services_modified = 2
+        self.state.arch_fitness_profile.drift_rate = 12.5
         self.engine.run_layer_2()
         
         aff = self.engine.state.architecture.aff
@@ -46,9 +40,7 @@ class TestAFFEngine(unittest.TestCase):
     def test_modularity_violation(self):
         """Verify that minor coupling trips an async team alert."""
         self.state.arch_fitness_profile.drift_rate = 5.0
-        self.state.arch_fitness_profile.modularity_violated = True # Triggers modularity_violation
-        
-        # root -> modularity_violation -> recommend_alert_team
+        self.state.arch_fitness_profile.modularity_violated = True
         self.engine.run_layer_2()
         
         aff = self.engine.state.architecture.aff
@@ -57,11 +49,9 @@ class TestAFFEngine(unittest.TestCase):
 
     def test_low_compliance_score(self):
         """Verify that sub-80 compliance generates risk reports."""
-        self.state.arch_fitness_profile.modularity_violated = False 
-        self.state.arch_fitness_profile.compliance_score = 72.0 # Triggers low_compliance
-        self.state.arch_fitness_profile.drift_rate = 8.0 
-        
-        # root -> low_compliance -> recommend_risk_report
+        self.state.arch_fitness_profile.modularity_violated = False
+        self.state.arch_fitness_profile.compliance_score = 72.0
+        self.state.arch_fitness_profile.drift_rate = 8.0
         self.engine.run_layer_2()
         
         aff = self.engine.state.architecture.aff
@@ -71,11 +61,9 @@ class TestAFFEngine(unittest.TestCase):
     def test_healthy_state(self):
         """Verify that optimal architectures pass with standard checks."""
         self.state.arch_fitness_profile.services_modified = 1
-        self.state.arch_fitness_profile.modularity_violated = False 
-        self.state.arch_fitness_profile.compliance_score = 98.0 
-        self.state.arch_fitness_profile.drift_rate = 1.0 
-        
-        # root -> healthy_state -> recommend_partial_checks
+        self.state.arch_fitness_profile.modularity_violated = False
+        self.state.arch_fitness_profile.compliance_score = 98.0
+        self.state.arch_fitness_profile.drift_rate = 1.0
         self.engine.run_layer_2()
         
         aff = self.engine.state.architecture.aff

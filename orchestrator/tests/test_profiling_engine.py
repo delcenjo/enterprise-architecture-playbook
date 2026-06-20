@@ -13,9 +13,8 @@ class TestProfilingEngine(unittest.TestCase):
             "business_type": "FINTECH_HA",
             "is_bde_supervised": True
         }
-        self.state.requirements = {"latency": "<50ms"} # high_latency
-        # logic: root->high_latency, cpu_or_io->cpu_bound, prod_safety->yes
-        
+        self.state.requirements = {"latency": "<50ms"}
+
         self.engine.run_layer_2()
         
         prof = self.engine.state.architecture.profiling
@@ -28,9 +27,8 @@ class TestProfilingEngine(unittest.TestCase):
         self.state.raw_input = {
             "business_type": "STARTUP_MVP",
         }
-        self.state.requirements = {"latency": "<100ms", "services": ["api"]} # latency_critical=maybe not?
-        # root -> general_slowness (if not latency_critical and microservices) -> cpu_or_io -> cpu_bound -> prod_safety=no
-        
+        self.state.requirements = {"latency": "<100ms", "services": ["api"]}
+
         self.engine.run_layer_2()
         
         prof = self.engine.state.architecture.profiling
@@ -42,9 +40,8 @@ class TestProfilingEngine(unittest.TestCase):
         self.state.raw_input = {
             "business_type": "SAAS_STANDARD",
         }
-        self.state.traffic_profile.concurrent_users = 50000 # > 10000 -> memory leaks
-        # root -> increasing_memory -> memory profiling
-        
+        self.state.traffic_profile.concurrent_users = 50000
+
         self.engine.run_layer_2()
         
         prof = self.engine.state.architecture.profiling

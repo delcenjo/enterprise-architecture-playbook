@@ -38,7 +38,7 @@ class PriceValidator:
                 )
         
         # Regla 3: Precios máximos razonables para EC2 OnDemand comunes MVP
-        if price > 500:  # $500/hora es $360.000/mes! Bastante sospechoso.
+        if price > 500:  # $500/h sería ~$360k/mes
             errors.append(f"Suspiciously high price: ${price}/hour for {sku}")
         
         is_valid = len(errors) == 0

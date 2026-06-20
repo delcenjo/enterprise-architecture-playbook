@@ -1,5 +1,5 @@
 """
-V65: Developer Onboarding & Productivity Engine - Verification Suite
+Developer Onboarding & Productivity Engine - Verification Suite
 Tests the deterministic routing of onboarding strategies based on
 team size, platform maturity, and deployment frequency.
 """
@@ -20,11 +20,8 @@ def setup_state(total_devs, platform_maturity="none", reg_level="low"):
     return state
 
 def test_startup_lean_onboarding():
-    """
-    Test 1: Startup < 10 devs → Lean Developer Immersion
-    Expected: Ad-hoc maturity, TTFC < 2 days, no platform overhead.
-    """
-    print("\nTest 1: Startup Lean Onboarding (< 10 devs)")
+    """Startup < 10 devs → Lean Developer Immersion. Ad-hoc maturity, TTFC < 2 days."""
+    print("\nTest: Startup Lean Onboarding (< 10 devs)")
     state = setup_state(total_devs=6)
     
     from layers.core_engine import CoreEngine
@@ -47,11 +44,8 @@ def test_startup_lean_onboarding():
     print("  PASSED")
 
 def test_agile_structured_onboarding():
-    """
-    Test 2: Scale-up 10-40 devs → Structured 30-Day Mentorship
-    Expected: Structured maturity, TTFC < 3 days, formalized buddy.
-    """
-    print("\nTest 2: Agile Scale-up Onboarding (25 devs)")
+    """Scale-up 10-40 devs → Structured 30-Day Mentorship. TTFC < 3 days, formalized buddy."""
+    print("\nTest: Agile Scale-up Onboarding (25 devs)")
     state = setup_state(total_devs=25)
     
     from layers.core_engine import CoreEngine
@@ -72,11 +66,8 @@ def test_agile_structured_onboarding():
     print("  PASSED")
 
 def test_enterprise_no_platform_onboarding():
-    """
-    Test 3: Enterprise > 40 devs, NO platform team → Standardized Enterprise Onboarding
-    Expected: Structured maturity, Quality Gates focus, ADR mandates.
-    """
-    print("\nTest 3: Enterprise Onboarding WITHOUT Platform Team (60 devs)")
+    """Enterprise > 40 devs, no platform team → Standardized Enterprise Onboarding. ADR mandates."""
+    print("\nTest: Enterprise Onboarding WITHOUT Platform Team (60 devs)")
     state = setup_state(total_devs=60, platform_maturity="none")
     
     from layers.core_engine import CoreEngine
@@ -95,11 +86,8 @@ def test_enterprise_no_platform_onboarding():
     print("  PASSED")
 
 def test_data_driven_platform_onboarding():
-    """
-    Test 4: Mature Platform > 40 devs → Data-Driven Platform Onboarding
-    Expected: Data-Driven maturity, TTFC automated tracking, friction heatmaps.
-    """
-    print("\nTest 4: Data-Driven Platform Onboarding (80 devs, mature platform)")
+    """Mature Platform > 40 devs → Data-Driven Platform Onboarding. TTFC automated tracking."""
+    print("\nTest: Data-Driven Platform Onboarding (80 devs, mature platform)")
     state = setup_state(total_devs=80, platform_maturity="mature")
     
     from layers.core_engine import CoreEngine
@@ -120,15 +108,9 @@ def test_data_driven_platform_onboarding():
     print("  PASSED")
 
 if __name__ == "__main__":
-    print("=" * 70)
-    print("V65: Developer Onboarding & Productivity Engine - Verification")
-    print("=" * 70)
-    
     test_startup_lean_onboarding()
     test_agile_structured_onboarding()
     test_enterprise_no_platform_onboarding()
     test_data_driven_platform_onboarding()
-    
-    print("\n" + "=" * 70)
-    print("ALL V65 ONBOARDING TESTS PASSED")
-    print("=" * 70)
+
+    print("\nALL ONBOARDING TESTS PASSED")

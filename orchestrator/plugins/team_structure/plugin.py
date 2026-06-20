@@ -1,4 +1,4 @@
-"""Team Structure Plugin (V63)."""
+"""Team Structure Plugin."""
 from typing import Any, Callable, Dict
 from domain.ports.pillar_plugin import PillarPlugin, PillarResult
 from domain.ports.knowledge_repository import KnowledgeRepository

@@ -9,10 +9,9 @@ class TestOKREngine(unittest.TestCase):
 
     def test_reliability_focus(self):
         """Verify that high failure rate triggers Reliability MTTR prioritization."""
-        self.state.okr_profile.change_failure_rate_high = True # Top priority
-        self.state.okr_profile.deployment_frequency_low = True 
-        
-        # root -> high_failure_rate_or_mttr -> recommend_reliability_focus
+        self.state.okr_profile.change_failure_rate_high = True
+        self.state.okr_profile.deployment_frequency_low = True
+
         self.engine.run_layer_2()
         
         okrs = self.engine.state.architecture.okrs
@@ -22,9 +21,8 @@ class TestOKREngine(unittest.TestCase):
     def test_speed_focus(self):
         """Verify that low delivery speed triggers Delivery Speed focus."""
         self.state.okr_profile.change_failure_rate_high = False
-        self.state.okr_profile.deployment_frequency_low = True # Triggers speed constraint
-        
-        # root -> low_deployment_frequency -> recommend_speed_focus
+        self.state.okr_profile.deployment_frequency_low = True
+
         self.engine.run_layer_2()
         
         okrs = self.engine.state.architecture.okrs
@@ -33,11 +31,10 @@ class TestOKREngine(unittest.TestCase):
 
     def test_strategic_alignment(self):
         """Verify that business priorities route explicitly to mapped technical goals."""
-        self.state.okr_profile.deployment_frequency_low = False 
+        self.state.okr_profile.deployment_frequency_low = False
         self.state.okr_profile.change_failure_rate_high = False
-        self.state.okr_profile.strategic_business_goal_active = True # Triggers strategy
-        
-        # root -> strategic_business_goal -> recommend_strategic_alignment
+        self.state.okr_profile.strategic_business_goal_active = True
+
         self.engine.run_layer_2()
         
         okrs = self.engine.state.architecture.okrs
@@ -47,9 +44,8 @@ class TestOKREngine(unittest.TestCase):
     def test_quality_degradation(self):
         """Verify that falling coverage routes to Code Quality refactoring OKRs."""
         self.state.okr_profile.strategic_business_goal_active = False
-        self.state.okr_profile.quality_degradation = True # Triggers quality metrics
-        
-        # root -> quality_degradation -> recommend_quality_focus
+        self.state.okr_profile.quality_degradation = True
+
         self.engine.run_layer_2()
         
         okrs = self.engine.state.architecture.okrs
@@ -59,11 +55,10 @@ class TestOKREngine(unittest.TestCase):
     def test_operational_maintenance(self):
         """Verify that healthy DORA metrics fallback to steady state tracking."""
         self.state.okr_profile.change_failure_rate_high = False
-        self.state.okr_profile.deployment_frequency_low = False 
+        self.state.okr_profile.deployment_frequency_low = False
         self.state.okr_profile.strategic_business_goal_active = False
         self.state.okr_profile.quality_degradation = False
-        
-        # root -> stable_metrics -> recommend_operational_maintenance
+
         self.engine.run_layer_2()
         
         okrs = self.engine.state.architecture.okrs

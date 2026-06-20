@@ -13,7 +13,6 @@ state.raw_input = {
     "aml_product_risk": 4,   # High
     "pii_operations_needed": True
 }
-# We don't call run_layer_2, we just run the metrics and traversal manually
 adapted = engine._build_from_profile(engine._identify_profile())
 metrics = engine._calculate_runtime_metrics(adapted, engine._identify_profile())
 print("is_aml", metrics.get("is_aml_scope"))

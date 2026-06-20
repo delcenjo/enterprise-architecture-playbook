@@ -14,12 +14,10 @@ import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { useEffect, useRef } from 'react';
 
-// UTILS
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-// COMPONENTS
 const InputField = ({ label, value, onChange, placeholder, type = "text" }: any) => (
   <div className="space-y-2">
     <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider">{label}</label>
@@ -64,7 +62,6 @@ const Dashboard = ({ clientName, roadmap, onDownload }: any) => (
     </div>
 
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-      {/* 18-MONTH ROADMAP */}
       <div className="lg:col-span-2 space-y-6">
         <div className="bg-slate-900/80 border border-slate-800 p-8 rounded-3xl shadow-2xl relative overflow-hidden">
           <div className="absolute top-0 right-0 p-4 opacity-5">
@@ -96,7 +93,6 @@ const Dashboard = ({ clientName, roadmap, onDownload }: any) => (
         </div>
       </div>
 
-      {/* NUDGES & ACTION CENTER */}
       <div className="space-y-6">
         <div className="bg-indigo-900/20 border border-indigo-500/30 p-6 rounded-2xl">
           <h3 className="text-sm font-bold text-indigo-300 uppercase tracking-widest mb-4 flex items-center gap-2">
@@ -264,7 +260,6 @@ export default function DocumentForgeApp() {
     }
   };
 
-  // Polling logic
   useEffect(() => {
     if (workflowId) {
       pollingInterval.current = setInterval(async () => {
@@ -315,7 +310,6 @@ export default function DocumentForgeApp() {
 
   return (
     <div className="min-h-screen bg-[#0d1117] text-slate-200 font-sans p-6 md:p-12">
-      {/* Header */}
       <header className="max-w-6xl mx-auto flex items-center justify-between mb-16">
         <div className="flex items-center gap-4">
           <div className="bg-blue-600 p-2.5 rounded-xl shadow-[0_0_20px_rgba(37,99,235,0.4)]">
@@ -356,7 +350,6 @@ export default function DocumentForgeApp() {
       ) : (
         <main className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-start">
 
-          {/* Configuration Section */}
           <section className="space-y-8 animate-in fade-in slide-in-from-left-4 duration-700">
             <div className="space-y-2">
               <h2 className="text-4xl font-extrabold tracking-tight text-white">
@@ -388,7 +381,6 @@ export default function DocumentForgeApp() {
               </div>
 
               <div className="space-y-8">
-                {/* BLOCK 1: PROJECT CONTEXT */}
                 <div className="space-y-4">
                   <h3 className="text-sm font-bold text-slate-300 uppercase tracking-widest border-b border-slate-700 pb-2">1. Project Context</h3>
                   <div className="grid md:grid-cols-2 gap-4">
@@ -419,7 +411,6 @@ export default function DocumentForgeApp() {
                   </div>
                 </div>
 
-                {/* BLOCK 2: CURRENT ARCHITECTURE */}
                 <div className="space-y-4">
                   <h3 className="text-sm font-bold text-slate-300 uppercase tracking-widest border-b border-slate-700 pb-2">2. Current Architecture</h3>
                   <div className="grid md:grid-cols-2 gap-4">
@@ -449,7 +440,6 @@ export default function DocumentForgeApp() {
                   </div>
                 </div>
 
-                {/* BLOCK 3: USER OBJECTIVES */}
                 <div className="space-y-4">
                   <h3 className="text-sm font-bold text-slate-300 uppercase tracking-widest border-b border-slate-700 pb-2">3. Strategic Objectives</h3>
                   <InputField
@@ -466,7 +456,6 @@ export default function DocumentForgeApp() {
                   />
                 </div>
 
-                {/* SMART UI Nivel 2: SCALE & LOAD */}
                 {(formData.user_objectives.strategic_goals.includes('Escalar sin romper') || parseInt(formData.scale_and_load.monthly_active_users) >= 1000000 || formData.project_context.product_phase === 'Scaling' || formData.project_context.product_phase === 'Enterprise-grade') && (
                   <div className="space-y-4 animate-in fade-in zoom-in duration-500 bg-blue-900/10 p-5 border border-blue-500/20 rounded-xl relative overflow-hidden">
                     <div className="absolute top-0 right-0 p-4 opacity-10">
@@ -484,7 +473,6 @@ export default function DocumentForgeApp() {
                   </div>
                 )}
 
-                {/* SMART UI Nivel 2: REGULATED FINTECH (PSD2/DORA/BDE) */}
                 {(formData.project_context.industry === 'Fintech' && (formData.project_context.countries_of_operation.includes('España') || formData.project_context.countries_of_operation.includes('EU'))) && (
                   <div className="space-y-4 animate-in fade-in zoom-in duration-500 bg-amber-900/10 p-5 border border-amber-500/20 rounded-xl relative overflow-hidden">
                     <div className="absolute top-0 right-0 p-4 opacity-10">
@@ -500,7 +488,6 @@ export default function DocumentForgeApp() {
                   </div>
                 )}
 
-                {/* SMART UI Nivel 2: FUNDRAISING & FINANCIALS */}
                 {(formData.user_objectives.strategic_goals.includes('Levantar ronda') || formData.project_context.product_phase === 'Startup' || formData.project_context.product_phase === 'Scale-up') && (
                   <div className="space-y-4 animate-in fade-in zoom-in duration-500 bg-emerald-900/10 p-5 border border-emerald-500/20 rounded-xl relative overflow-hidden">
                     <div className="absolute top-0 right-0 p-4 opacity-10">
@@ -518,7 +505,6 @@ export default function DocumentForgeApp() {
                   </div>
                 )}
 
-                {/* BLOCK 4: TEAM STRUCTURE */}
                 <div className="space-y-4">
                   <h3 className="text-sm font-bold text-slate-300 uppercase tracking-widest border-b border-slate-700 pb-2">4. Team Topology</h3>
                   <div className="grid md:grid-cols-3 gap-4">
@@ -533,7 +519,6 @@ export default function DocumentForgeApp() {
                   </div>
                 </div>
 
-                {/* ADVANCED OVERRIDES */}
                 <div className="space-y-4">
                   <h3 className="text-sm font-bold text-slate-300 uppercase tracking-widest border-b border-slate-700 pb-2">5. Overrides</h3>
                   <textarea
@@ -609,7 +594,6 @@ export default function DocumentForgeApp() {
             </div>
           </section>
 
-          {/* Feature Cards / Preview Section */}
           <section className="space-y-6 lg:mt-12 animate-in fade-in slide-in-from-right-4 duration-1000">
             <div className="grid sm:grid-cols-2 gap-4">
               <FeatureCard

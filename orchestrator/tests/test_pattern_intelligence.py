@@ -3,13 +3,12 @@ import os
 import json
 import unittest
 
-# Ensure we can import from orchestrator
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
 from global_state import GlobalState, TrafficProfile, DataProfile, ComplianceProfile
 from layers.core_engine import CoreEngine
 
-class TestPatternIntelligenceV23(unittest.TestCase):
+class TestPatternIntelligence(unittest.TestCase):
     def setUp(self):
         self.state = GlobalState()
         self.engine = CoreEngine(self.state)
@@ -21,10 +20,8 @@ class TestPatternIntelligenceV23(unittest.TestCase):
         """
         print("\nTest 1: Context Detection (Small Team)")
         self.state.traffic_profile = TrafficProfile(concurrent_users=100, rps_per_user=0.01)
-        # Mocking lower throughput and team size logic
         adapted = {"components": [{"name": "App", "type": "Generic"}]}
-        
-        # We manually trigger the engine logic
+
         metrics = self.engine._calculate_runtime_metrics(adapted, {"name": "Test"})
         self.engine._reconcile_enterprise_patterns(adapted, metrics)
         
@@ -40,13 +37,12 @@ class TestPatternIntelligenceV23(unittest.TestCase):
         print("\nTest 2: Pattern Combination (Conflict)")
         self.state.traffic_profile = TrafficProfile(concurrent_users=50000, rps_per_user=0.01)
         self.state.data_profile = DataProfile(sensitivity="medium", volume_gb=10)
-        
+
         adapted = {"components": [{"name": "Single Monolith", "type": "EC2"}]}
         metrics = self.engine._calculate_runtime_metrics(adapted, {"name": "Test"})
         self.engine._reconcile_enterprise_patterns(adapted, metrics)
-        
+
         pattern_ids = [p['id'] for p in adapted['enterprise_patterns']]
-        # If it's a monolith (1 component), Saga should not be there
         self.assertNotIn("saga", pattern_ids, "Saga pattern should not apply to a Monolith.")
         print("Successfully prevented distributed patterns in non-distributed context.")
 
@@ -69,10 +65,7 @@ class TestPatternIntelligenceV23(unittest.TestCase):
         print("Impact metrics accurately retrieved from Knowledge Base.")
 
     def test_04_sharding_startup_should_postpone(self):
-        """
-        Caso 1: Startup SaaS low scale.
-        Respuesta correcta: No shardear aún.
-        """
+        """Startup SaaS low scale → sharding should not be recommended yet."""
         print("\nTest 4: Sharding Startup (Postpone)")
         self.state.raw_input["business_type"] = "SaaS"
         self.state.traffic_profile = TrafficProfile(concurrent_users=5000)
@@ -88,14 +81,13 @@ class TestPatternIntelligenceV23(unittest.TestCase):
         print("Correctly advised to postpone sharding for Startup.")
 
     def test_05_sharding_marketplace_tenant_hotspot(self):
-        """
-        Caso 2: Marketplace High Scale.
-        Respuesta correcta: Tenant-based + hotspot mitigation.
-        Note: The tree currenty breaks after first leaf, but we verify the one hit.
+        """Marketplace high scale → tenant-based sharding + hotspot mitigation.
+
+        Note: The tree currently breaks after first leaf, but we verify the one hit.
         """
         print("\nTest 5: Sharding Marketplace (Tenant/Hotspot)")
         self.state.raw_input["business_type"] = "Marketplace B2B"
-        self.state.traffic_profile = TrafficProfile(concurrent_users=5000000, rps_per_user=0.01) # 50k RPS
+        self.state.traffic_profile = TrafficProfile(concurrent_users=5000000, rps_per_user=0.01)
         self.state.data_profile = DataProfile(volume_gb=3000)
         
         adapted = {"components": [{"name": "Catalog", "type": "S"} for _ in range(10)]}
@@ -107,10 +99,7 @@ class TestPatternIntelligenceV23(unittest.TestCase):
         print("Recommended Tenant-based Sharding for high-scale Marketplace.")
 
     def test_06_sharding_fintech_geo(self):
-        """
-        Caso 3: Fintech Regulatory.
-        Respuesta correcta: Geographic sharding.
-        """
+        """Fintech regulatory context → geographic sharding."""
         print("\nTest 6: Sharding Fintech (Geographic)")
         self.state.raw_input["business_type"] = "Fintech"
         self.state.raw_input["multi_region_requested"] = True
@@ -118,7 +107,7 @@ class TestPatternIntelligenceV23(unittest.TestCase):
         self.state.data_profile = DataProfile(volume_gb=1000)
         self.state.compliance_profile.frameworks = ["GDPR"]
         
-        adapted = {"components": [{"name": "Payment", "type": "S"}]} # Simplified to skip tenant check
+        adapted = {"components": [{"name": "Payment", "type": "S"}]}
         metrics = self.engine._calculate_runtime_metrics(adapted, {"name": "Test"})
         self.engine._reconcile_enterprise_patterns(adapted, metrics)
         
@@ -127,12 +116,8 @@ class TestPatternIntelligenceV23(unittest.TestCase):
         print("Recommended Geographic Sharding for regulatory Fintech.")
 
     def test_07_cache_low_ratio_should_postpone(self):
-        """
-        Caso 1: API con 1:1 read/write ratio.
-        Respuesta correcta: No cachear.
-        """
+        """API with 1:1 read/write ratio → caching should not be recommended."""
         print("\nTest 7: Caching Low Ratio (Postpone)")
-        # 100 RPS total, 50 writes/s -> rps_per_user=0.5
         self.state.traffic_profile = TrafficProfile(concurrent_users=100, requests_per_second=100, rps_per_user=0.5)
         
         adapted = {"components": [{"name": "CoreAPI", "type": "S"}]}
@@ -145,13 +130,9 @@ class TestPatternIntelligenceV23(unittest.TestCase):
         print("Correctly rejected cache for low r/w ratio.")
 
     def test_08_cache_marketplace_cdn_app(self):
-        """
-        Caso 2: Marketplace 90% lecturas catálogo.
-        Respuesta correcta: CDN + Application cache.
-        """
+        """Marketplace with ~90% catalog reads → CDN + Application cache."""
         print("\nTest 8: Caching Marketplace (CDN/App)")
-        # 10k RPS, small write ratio
-        self.state.traffic_profile = TrafficProfile(concurrent_users=100000, requests_per_second=10000, rps_per_user=0.01) # 1000 writes/s
+        self.state.traffic_profile = TrafficProfile(concurrent_users=100000, requests_per_second=10000, rps_per_user=0.01)
         self.state.raw_input["multi_region_requested"] = True
         
         adapted = {"components": [{"name": "Catalog", "type": "S"}]}
@@ -163,10 +144,7 @@ class TestPatternIntelligenceV23(unittest.TestCase):
         print("Recommended CDN for high-read global Marketplace.")
 
     def test_09_cache_financial_critical(self):
-        """
-        Caso 3: Sistema financiero con datos críticos.
-        Respuesta correcta: Cache limitada, evitación de stale (validado vía rationale).
-        """
+        """Financial system with critical data → limited cache with stale-avoidance and circuit breaker."""
         print("\nTest 9: Caching Financial (Critical)")
         self.state.data_profile.sensitivity = "critical"
         self.state.traffic_profile = TrafficProfile(concurrent_users=50000, requests_per_second=5000, rps_per_user=0.01)
@@ -178,18 +156,13 @@ class TestPatternIntelligenceV23(unittest.TestCase):
         
         pattern_ids = [p['id'] for p in adapted['enterprise_patterns']]
         self.assertIn("cache_app_memory", pattern_ids)
-        # Verify Circuit Breaker also injected for critical
         self.assertIn("circuit_breaker", pattern_ids)
         print("Verified hybrid Caching + Resilience for Financial context.")
 
     def test_10_messaging_startup_small(self):
-        """
-        Caso 1: Startup, 3 servicios, 200 req/s.
-        Respuesta correcta: Sin Kafka. SQS si acaso (si hay acoplamiento).
-        """
+        """Startup with 2 services and 200 req/s → no Kafka."""
         print("\nTest 10: Messaging Startup (No Kafka)")
         self.state.traffic_profile = TrafficProfile(concurrent_users=500, requests_per_second=200, rps_per_user=0.1)
-        # Only 2 components -> low coupling
         adapted = {"components": [{"name": "Auth", "type": "S"}, {"name": "User", "type": "S"}]}
         metrics = self.engine._calculate_runtime_metrics(adapted, {"name": "Test"})
         self.engine._reconcile_enterprise_patterns(adapted, metrics)
@@ -199,15 +172,11 @@ class TestPatternIntelligenceV23(unittest.TestCase):
         print("Correctly avoided Kafka for small startup.")
 
     def test_11_messaging_fintech_kafka(self):
-        """
-        Caso 2: Plataforma fintech, ledger inmutable, 10 consumidores.
-        Respuesta correcta: Kafka + Idempotencia.
-        """
+        """Fintech platform with immutable ledger and multiple consumers → Kafka + Idempotency."""
         print("\nTest 11: Messaging Fintech (Kafka + Idempotency)")
         self.state.raw_input["business_type"] = "FINTECH"
         self.state.traffic_profile = TrafficProfile(concurrent_users=10000, requests_per_second=1000, rps_per_user=0.01)
-        # 5 components -> high coupling
-        adapted = {"components": [{"name": "Ledger", "type": "S"}, {"name": "Auth", "type": "S"}, 
+        adapted = {"components": [{"name": "Ledger", "type": "S"}, {"name": "Auth", "type": "S"},
                                  {"name": "Notify", "type": "S"}, {"name": "Audit", "type": "S"},
                                  {"name": "Risk", "type": "S"}]}
         metrics = self.engine._calculate_runtime_metrics(adapted, {"name": "Test"})
@@ -219,15 +188,11 @@ class TestPatternIntelligenceV23(unittest.TestCase):
         print("Recommended Kafka + Idempotency for complex Fintech event-streaming.")
 
     def test_12_messaging_simple_queue(self):
-        """
-        Caso 3: Sistema de emails post-compra.
-        Respuesta correcta: Queue simple.
-        """
+        """Retail post-purchase email system → simple queue (no Kafka)."""
         print("\nTest 12: Messaging Simple Queue (SQS/Rabbit)")
         self.state.raw_input["business_type"] = "RETAIL"
         self.state.traffic_profile = TrafficProfile(concurrent_users=10000, requests_per_second=1000, rps_per_user=0.01)
-        # 4 components -> high coupling heuristic
-        adapted = {"components": [{"name": "Orders", "type": "S"}, {"name": "Payments", "type": "S"}, 
+        adapted = {"components": [{"name": "Orders", "type": "S"}, {"name": "Payments", "type": "S"},
                                  {"name": "Inventory", "type": "S"}, {"name": "Emailer", "type": "S"}]}
         metrics = self.engine._calculate_runtime_metrics(adapted, {"name": "Test"})
         self.engine._reconcile_enterprise_patterns(adapted, metrics)
@@ -238,10 +203,7 @@ class TestPatternIntelligenceV23(unittest.TestCase):
         print("Recommended simple Queue for background retail tasks.")
 
     def test_13_consistency_banking_strict(self):
-        """
-        Caso 1: Banco, Multi-región pedida.
-        Respuesta correcta: NO consistencia eventual para core, priorizar CP.
-        """
+        """Bank with multi-region request → CP consistency, no eventual consistency for core."""
         print("\nTest 13: Consistency Banking (Strict CP)")
         self.state.raw_input["business_type"] = "FINTECH"
         self.state.raw_input["multi_region_requested"] = True
@@ -255,10 +217,7 @@ class TestPatternIntelligenceV23(unittest.TestCase):
         print("Correctly prioritized CP for Banking despite multi-region request.")
 
     def test_14_consistency_collab_crdt(self):
-        """
-        Caso 2: App colaborativa (Notion clone).
-        Respuesta correcta: CRDT.
-        """
+        """Collaborative app (Notion-style) with multi-region → CRDT convergence."""
         print("\nTest 14: Consistency Collaborative (CRDT)")
         self.state.raw_input["business_type"] = "COLLABORATIVE"
         self.state.raw_input["multi_region_requested"] = True
@@ -273,15 +232,11 @@ class TestPatternIntelligenceV23(unittest.TestCase):
         print("Recommended CRDT for collaborative multi-region sync.")
 
     def test_15_consistency_global_ecommerce(self):
-        """
-        Caso 3: E-commerce global, alta disponibilidad regional.
-        Respuesta correcta: Eventual Consistency + Conflict detection.
-        """
+        """Global e-commerce with high write volume → eventual consistency + conflict detection."""
         print("\nTest 15: Consistency Global E-commerce (Eventual)")
         self.state.raw_input["business_type"] = "RETAIL"
         self.state.raw_input["multi_region_requested"] = True
-        # High volume writes -> conflict risk
-        self.state.traffic_profile = TrafficProfile(concurrent_users=500000, requests_per_second=10000, rps_per_user=0.01) # 5000 writes/s
+        self.state.traffic_profile = TrafficProfile(concurrent_users=500000, requests_per_second=10000, rps_per_user=0.01)
 
         adapted = {"components": [{"name": "Catalog", "type": "S"}]}
         metrics = self.engine._calculate_runtime_metrics(adapted, {"name": "Test"})
@@ -292,14 +247,10 @@ class TestPatternIntelligenceV23(unittest.TestCase):
         print("Recommended Vector Clocks for high-conflict global commerce.")
 
     def test_16_governance_solo_startup(self):
-        """
-        Caso 1: 1 producto, equipo pequeño, sin compliance.
-        Respuesta correcta: Single account.
-        """
+        """Single product, small team, no compliance → single account governance."""
         print("\nTest 16: Governance Solo Startup (Single Account)")
         self.state.raw_input["business_type"] = "RETAIL"
         self.state.compliance_profile.frameworks = []
-        # Low traffic heuristic for 16
         self.state.traffic_profile = TrafficProfile(concurrent_users=100, requests_per_second=100, rps_per_user=1.0)
         
         adapted = {"components": [{"name": "Auth", "type": "S"}]}
@@ -311,10 +262,7 @@ class TestPatternIntelligenceV23(unittest.TestCase):
         print("Avoided multi-account overhead for solo startup.")
 
     def test_17_governance_enterprise_fintech(self):
-        """
-        Caso 2: Fintech enterprise, multi-producto, DORA+GDPR.
-        Respuesta correcta: Multi-account + Landing Zone + SCP.
-        """
+        """Fintech enterprise, multi-product, DORA+GDPR → Multi-account + Landing Zone + SCP."""
         print("\nTest 17: Governance Enterprise Fintech (Multi-Account / SCP)")
         self.state.raw_input["business_type"] = "FINTECH"
         self.state.compliance_profile.frameworks = ["DORA", "GDPR", "SOC2"]
@@ -331,16 +279,12 @@ class TestPatternIntelligenceV23(unittest.TestCase):
         print("Recommended Multi-account Organization with full SCP & Landing Zone.")
 
     def test_18_mesh_small_microservices(self):
-        """
-        Caso 1: 3 microservicios, sin requerimientos críticos.
-        Respuesta correcta: No service mesh completo.
-        """
+        """3 microservices, no critical requirements → no service mesh."""
         print("\nTest 18: Service Mesh Small (Avoid Overkill)")
         self.state.raw_input["business_type"] = "RETAIL"
         self.state.compliance_profile.frameworks = []
         self.state.traffic_profile = TrafficProfile(concurrent_users=500, requests_per_second=100, rps_per_user=0.2)
-        
-        # 3 services
+
         adapted = {"components": [{"name": "Auth", "type": "S"}, {"name": "Catalog", "type": "S"}, {"name": "Orders", "type": "S"}]}
         metrics = self.engine._calculate_runtime_metrics(adapted, {"name": "Test"})
         self.engine._reconcile_enterprise_patterns(adapted, metrics)
@@ -350,16 +294,12 @@ class TestPatternIntelligenceV23(unittest.TestCase):
         print("Correctly avoided Service Mesh overkill for 3 services.")
 
     def test_19_mesh_enterprise_full(self):
-        """
-        Caso 2: 12 microservicios, fintech core, canary + mtls.
-        Respuesta correcta: Istio full mesh.
-        """
+        """12 microservices, fintech core, canary + mTLS → full Istio service mesh."""
         print("\nTest 19: Service Mesh Enterprise (Full Istio/Canary/mTLS)")
         self.state.raw_input["business_type"] = "FINTECH"
         self.state.compliance_profile.frameworks = ["PCI-DSS", "DORA"]
         self.state.traffic_profile = TrafficProfile(concurrent_users=100000, requests_per_second=10000, rps_per_user=0.1)
 
-        # 12 services
         adapted = {"components": [{"name": f"Service_{i}", "type": "S"} for i in range(12)]}
         metrics = self.engine._calculate_runtime_metrics(adapted, {"name": "Test"})
         self.engine._reconcile_enterprise_patterns(adapted, metrics)
@@ -371,10 +311,7 @@ class TestPatternIntelligenceV23(unittest.TestCase):
         print("Recommended full Service Mesh with mTLS and Traffic Splitting for complex Fintech.")
 
     def test_20_compute_serverless_api(self):
-        """
-        Caso 1: API event-driven, bajo tráfico, corta duración.
-        Respuesta correcta: Serverless.
-        """
+        """Event-driven API, low traffic, short duration → serverless compute."""
         print("\nTest 20: Compute Strategy Serverless (Event-driven API)")
         self.state.raw_input["tags"] = ["EVENT_DRIVEN"]
         self.state.raw_input["avg_request_duration_ms"] = 200
@@ -390,12 +327,9 @@ class TestPatternIntelligenceV23(unittest.TestCase):
         print("Recommended Serverless for low-volume event-driven tasks.")
 
     def test_21_compute_containers_batch(self):
-        """
-        Caso 2: Procesamiento batch, larga duración (>15min).
-        Respuesta correcta: Containers.
-        """
+        """Batch processing with long duration (>15 min) → containers."""
         print("\nTest 21: Compute Strategy Containers (Long-running Batch)")
-        self.state.raw_input["avg_request_duration_ms"] = 1200000 # 20 min
+        self.state.raw_input["avg_request_duration_ms"] = 1200000  # 20 min
         self.state.traffic_profile = TrafficProfile(concurrent_users=1, requests_per_second=0.01, rps_per_user=0.01)
 
         adapted = {"components": [{"name": "BatchProcessor", "type": "S"}]}
@@ -407,23 +341,18 @@ class TestPatternIntelligenceV23(unittest.TestCase):
         print("Recommended Containers for long-running batch (>15min).")
 
     def test_22_compute_containers_high_traffic(self):
-        """
-        Caso 3: Servicio constante, alto tráfico, baja latencia requerida.
-        Respuesta correcta: Containers.
-        """
+        """Constant high-traffic service with strict latency requirement → containers, not serverless."""
         print("\nTest 22: Compute Strategy Containers (High Constant Traffic)")
         self.state.raw_input["avg_request_duration_ms"] = 50
-        self.state.raw_input["latency_requirement_ms"] = 30 # ms
+        self.state.raw_input["latency_requirement_ms"] = 30
         self.state.traffic_profile = TrafficProfile(concurrent_users=50000, requests_per_second=2000, rps_per_user=0.04)
 
         adapted = {"components": [{"name": "WebService", "type": "S"}]}
-        # Overwrite latency metric to be strict
         metrics = self.engine._calculate_runtime_metrics(adapted, {"name": "Test"})
         self.engine._reconcile_enterprise_patterns(adapted, metrics)
-        
+
         pattern_ids = [p['id'] for p in adapted['enterprise_patterns']]
         self.assertIn("container_compute", pattern_ids)
-        # Should NOT have serverless due to constant traffic and latency needs
         self.assertNotIn("serverless_compute", pattern_ids)
         print("Recommended Containers for high-traffic constant web service.")
 

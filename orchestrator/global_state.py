@@ -25,8 +25,8 @@ class DataProfile(BaseModel):
     volume_gb: float = 0.0
     sensitivity: DataSensitivity = DataSensitivity.MEDIUM
     daily_growth_mb: float = 0.0
-    iops_required: int = 3000 # New: IOPS benchmarks
-    retention_days: int = 365 # New: For tiering logic
+    iops_required: int = 3000 # IOPS benchmark
+    retention_days: int = 365 # For tiering logic
 
 class TechDebtProfile(BaseModel):
     sqale_index: float = 10.0 # 0-10, lower is worse
@@ -108,9 +108,9 @@ class TeamStructureProfile(BaseModel):
 class ComplianceProfile(BaseModel):
     frameworks: List[str] = []
     required_region: str = "US"
-    currency: str = "USD" # New: For localization
+    currency: str = "USD"
     availability_target: str = "99.9%"
-    multi_region: bool = False # New: For DR architecture
+    multi_region: bool = False # For DR architecture
 
 class GDPRMetadata(BaseModel):
     personal_data: bool = False
@@ -190,8 +190,7 @@ class ArchitectureSpec(BaseModel):
     onboarding: Dict[str, Any] = {}
     unit_economics: Dict[str, Any] = {}
     ltv_dynamics: Dict[str, Any] = {}
-    networking: Dict[str, Any] = { # New: Deep networking stack
-
+    networking: Dict[str, Any] = {
         "vpc_cidr": "10.0.0.0/16",
         "subnets": [],
         "gateways": [],
@@ -202,7 +201,7 @@ class ArchitectureSpec(BaseModel):
 class FinancialModel(BaseModel):
     cloud_costs: Dict[str, Any] = {}
     on_prem_costs: Dict[str, Any] = {}
-    usage_breakdown: Dict[str, float] = {} # New: Egress, Storage, Compute
+    usage_breakdown: Dict[str, float] = {} # Egress, storage, compute breakdown
     npv: float = 0.0
     roi_months: int = 0
     scenarios: Dict[str, Any] = {}
@@ -372,7 +371,7 @@ class GlobalState(BaseModel):
     
     # Layer 5: Risks & Final Validation
     risk_matrix: List[Dict[str, Any]] = []
-    technical_audit: List[Dict[str, Any]] = [] # New: Detailed 2026 Audit
+    technical_audit: List[Dict[str, Any]] = []
     evidence_vault: ComplianceEvidence = Field(default_factory=ComplianceEvidence)
     bde_governance: BdEGovernance = Field(default_factory=BdEGovernance)
     psd2_compliance: PSD2Compliance = Field(default_factory=PSD2Compliance)

@@ -16,10 +16,9 @@ class ValidationLayer:
 
     def run_layer_5(self):
         """
-        Layer 5: Technical Audit & Expert Risk Engine (V22)
-        1. 2026 Threat Profile Analysis (Score = P * I * E)
-        2. Resource Bottleneck Modeling
-        3. Compliance Final Grading
+        Layer 5: Technical Audit & Risk Engine.
+        Scores threats as Probability * Impact * Exposure, models resource bottlenecks,
+        and produces a compliance grade.
         """
         logger.info("Starting Layer 5: Expert Technical Audit...")
         
@@ -31,24 +30,21 @@ class ValidationLayer:
         
         threats = rules.get("threat_profiles_2026", {})
         
-        # 1. Expert Threat Modeling: Probability * Impact * Exposure
         for key, threat in threats.items():
             prob = threat['probability'] # 0-5
             impact = threat['impact']     # 0-5
-            
-            # Exposure Factor based on actual metrics
             exposure = 1.0
             driver = threat['resource_driver']
             
             if driver == "compute":
                 vcpu = self.state.costs.get("raw_requirements", {}).get("compute", {}).get("vcpu", 0)
-                if vcpu > 50: exposure += 0.5 # High scale increases misconfig/overload risk
+                if vcpu > 50: exposure += 0.5
             elif driver == "storage":
                 vol = self.state.data_profile.volume_gb
-                if vol > 1000: exposure += 0.4 # Massive data increases breach impact
+                if vol > 1000: exposure += 0.4
             elif driver == "egress":
                 egress = self.state.costs.get("raw_requirements", {}).get("networking", {}).get("egress_gb", 0)
-                if egress > 500000: exposure += 0.6 # High egress increases leak surface
+                if egress > 500000: exposure += 0.6
             
             base_score = prob * impact * exposure
             mitigated_score = base_score * (1 - threat['mitigation_reduction'])
@@ -61,14 +57,12 @@ class ValidationLayer:
                 "exposure": round(exposure, 2),
                 "raw_score": round(base_score, 1),
                 "mitigated_score": round(mitigated_score, 1),
-                "coordinates": {"x": prob, "y": impact}, # For Heatmap
+                "coordinates": {"x": prob, "y": impact},
                 "mitigation": rules['mitigations'].get(key, "Apply Well-Architected standard controls"),
                 "critical_resource": driver.upper()
             })
             global_risk_scores.append(mitigated_score)
 
-        # 2. Resource Specific Bottleneck Logic
-        # CPU Overload Risk
         vcpu_req = self.state.costs.get("raw_requirements", {}).get("compute", {}).get("vcpu", 0)
         if vcpu_req > 32:
             expert_audit.append({
@@ -84,35 +78,26 @@ class ValidationLayer:
                 "critical_resource": "COMPUTE"
             })
 
-        # 3. Aggregated Reporting
         self.state.technical_audit = expert_audit
-        self.state.risk_matrix = expert_audit # Syncing for backward compatibility
-        
-        # Trigger Visual Heatmap (V22)
+        self.state.risk_matrix = expert_audit  # backward compatibility
+
         from layers.visual_engine import VisualEngine
         VisualEngine(self.state)._generate_risk_heatmap()
 
-        # Weighted Compliance Score (Scale 0-100)
-        # Sum of mitigated scores / Max possible (assume max score is ~25 per item)
+        # Compliance score: 100 minus the ratio of total mitigated risk to theoretical maximum.
         total_risk = sum(global_risk_scores)
         max_theoretical = len(threats) * 25
         self.state.compliance_score = max(0, 100 - (total_risk / max_theoretical * 100))
         
-        # 4. State Integrity & Freeze
         self._freeze_with_integrity()
 
         logger.info(f"Layer 5 Expert Audit Complete. Resilience Index: {self.state.compliance_score:.1f}%")
         return f"Expert Audit complete. Sealed with Integrity Seal."
 
     def _freeze_with_integrity(self):
-        # Freeze Pydantic object
         self.state.freeze()
-        
-        # Generate State Hash (Integrity Seal)
         state_data = self.state.model_dump_json().encode()
         state_hash = hashlib.sha256(state_data).hexdigest()
-        
-        # Store metadata in costs or as a separate tag in a real system
         self.state.costs["state_integrity_seal"] = state_hash
         logger.info(f"Integrity Seal Generated: {state_hash[:16]}...")
 

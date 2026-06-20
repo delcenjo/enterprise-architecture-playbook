@@ -10,34 +10,26 @@ class PDFBuilder:
         self.env = Environment(loader=FileSystemLoader(templates_dir))
 
     def build_pdf(self, client_name: str, project_name: str, sections: List[Dict[str, Any]]) -> bytes:
-        """
-        Toma una lista de bloques Markdown, los procesa a HTML usando estilos premium
-        y devuelve el subyacente PDF en bytes usando WeasyPrint.
-        """
+        """Convierte los bloques Markdown a HTML y genera el PDF con WeasyPrint."""
         
-        # Extraemos y convertimos todo el Markdown a HTML
         rendered_sections = []
         for sec in sections:
             raw_md = sec.get("content", "")
-            # extras=["tables"] ensures the markdown tables render to <table> tags natively
             html_chunk = markdown2.markdown(raw_md, extras=["tables", "fenced-code-blocks"])
             rendered_sections.append({
                 "title": sec.get("title", "Sección"),
                 "html_content": html_chunk
             })
-            
-        # Metemos los chunks HTML en la Plantilla Maestra (portada, headers, footers)
+
         template = self.env.get_template("master_dossier.html.j2")
         full_html = template.render(
             client_name=client_name,
             project_name=project_name,
             sections=rendered_sections
         )
-        
-        # Localizamos nuestro CSS premium
+
         css_path = os.path.join(self.templates_dir, "pdf_style.css")
-        
-        # Construimos con WeasyPrint
+
         pdf_bytes = HTML(string=full_html).write_pdf(
             stylesheets=[CSS(filename=css_path)]
         )

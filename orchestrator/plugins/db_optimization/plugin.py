@@ -1,4 +1,4 @@
-"""DB Optimization Plugin (V55)."""
+"""DB Optimization Plugin."""
 from typing import Any, Callable, Dict
 from plugins._base import BaseDecisionTreePlugin
 

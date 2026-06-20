@@ -1,4 +1,4 @@
-"""Code Review Plugin (V54)."""
+"""Code Review Plugin."""
 from typing import Any, Callable, Dict
 from plugins._base import BaseDecisionTreePlugin
 

@@ -1,4 +1,4 @@
-"""GitOps Plugin (V46)."""
+"""GitOps Plugin."""
 from typing import Any, Callable, Dict
 from plugins._base import BaseDecisionTreePlugin
 

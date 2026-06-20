@@ -42,8 +42,6 @@ class PillarPlugin(ABC):
     4. The returned ``PillarResult`` is stored in ``PipelineState.pillar_results``.
     """
 
-    # ── Identity ────────────────────────────────────────────────────
-
     @property
     @abstractmethod
     def pillar_id(self) -> str:
@@ -69,8 +67,6 @@ class PillarPlugin(ABC):
         """SemVer version of this plugin."""
         return "1.0.0"
 
-    # ── Ordering ────────────────────────────────────────────────────
-
     @property
     def dependencies(self) -> List[str]:
         """``pillar_id`` values that must execute before this plugin.
@@ -88,8 +84,6 @@ class PillarPlugin(ABC):
         peers with identical dependency sets.
         """
         return 100
-
-    # ── Core Logic ──────────────────────────────────────────────────
 
     @abstractmethod
     def analyze(

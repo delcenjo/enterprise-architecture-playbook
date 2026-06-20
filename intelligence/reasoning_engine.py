@@ -10,8 +10,7 @@ DEFAULT_MODEL = os.environ.get("LLM_MODEL", "gpt-4o")
 
 class SectionGenerator:
     """
-    Motor de razonamiento LLM de Grado Consultoría (Big 4 Persona).
-    Transforma datos técnicos en decisiones estratégicas de negocio.
+    LLM reasoning layer. Transforms raw technical data into strategic business analysis.
     """
     def __init__(self, model_override: str = None):
         self.model = model_override or DEFAULT_MODEL
@@ -25,7 +24,7 @@ class SectionGenerator:
             response = litellm.completion(
                 model=self.model,
                 messages=[{"role": "user", "content": prompt}],
-                temperature=0.1 # Máxima precisión
+                temperature=0.1
             )
             return response.choices[0].message.content
         except Exception as e:
@@ -34,7 +33,7 @@ class SectionGenerator:
 
     def generate_with_reasoning(self, raw_markdown: str, context: Dict[str, Any]) -> str:
         """
-        Aplica razonamiento ejecutivo de nivel Socio (Partner) para enriquecer el dossier.
+        Enriches a technical draft with strategic business reasoning via a two-pass LLM call.
         """
         logger.info(f"Escalating reasoning to {self.model} (Consulting Persona)...")
         

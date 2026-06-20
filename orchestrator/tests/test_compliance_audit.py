@@ -28,20 +28,13 @@ class TestComplianceAudit(unittest.TestCase):
         
         self.engine.run_layer_2()
         
-        # Verify scores
         self.assertGreaterEqual(self.state.compliance_score, 80)
         self.assertGreaterEqual(self.state.audit_ready_score, 70)
-        
-        # Verify evidence vault
         self.assertTrue(self.state.evidence_vault.immutable_logs_enabled)
         self.assertTrue(self.state.evidence_vault.data_registry_updated)
         self.assertEqual(self.state.evidence_vault.dpo_review_status, "Reviewed")
-        
-        # Verify technical audit report contains "Immutable"
         audit_controls = [item["control"] for item in self.state.technical_audit]
         self.assertIn("Audit Trails", audit_controls)
-        
-        # Verify pattern injection
         pattern_ids = [p["id"] for p in self.state.architecture.enterprise_patterns]
         self.assertIn("immutable_audit_logging", pattern_ids)
 
@@ -56,12 +49,7 @@ class TestComplianceAudit(unittest.TestCase):
         
         self.engine.run_layer_2()
         
-        # Without GDPR/Strict governance, scores should be different (or defaults)
-        # Note: In our current engine, non-GDPR critical might have empty score components
-        # falling back to a default high score or 50.
-        # But specifically, immutable_logs_enabled will be False
         self.assertFalse(self.state.evidence_vault.immutable_logs_enabled)
-        # audit_ready_score should be lower than compliance_score by factor 0.6
         self.assertAlmostEqual(self.state.audit_ready_score, self.state.compliance_score * 0.6)
 
 if __name__ == "__main__":

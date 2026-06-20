@@ -1,4 +1,4 @@
-"""Platform Engineering Plugin (V60)."""
+"""Platform Engineering Plugin."""
 from typing import Any, Callable, Dict
 from plugins._base import BaseDecisionTreePlugin
 

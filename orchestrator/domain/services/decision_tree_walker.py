@@ -82,19 +82,16 @@ def walk_decision_tree(
     while depth < max_depth:
         depth += 1
 
-        # Check if we've reached a leaf
         if current in leaves:
             leaf = dict(leaves[current])  # shallow copy
             leaf["_leaf_id"] = current
             return leaf
 
-        # Check if it's a valid node
         if current not in nodes:
             break
 
         node = nodes[current]
 
-        # Resolve the answer for this node
         try:
             answer = question_resolver(current, metrics)
         except Exception as e:
@@ -106,12 +103,10 @@ def walk_decision_tree(
             )
             answer = "no"
 
-        # Navigate to the next node/leaf
         options = node.get("options", {})
         next_step = options.get(answer)
 
         if next_step is None:
-            # Try fallback to 'no' if the answer key doesn't exist
             next_step = options.get("no")
             if next_step is None:
                 logger.warning(
@@ -123,7 +118,6 @@ def walk_decision_tree(
                 )
                 break
 
-        # Check if next_step is a leaf directly
         if next_step in leaves:
             leaf = dict(leaves[next_step])
             leaf["_leaf_id"] = next_step
@@ -131,7 +125,6 @@ def walk_decision_tree(
 
         current = next_step
 
-    # Fallback
     if default_leaf_key and default_leaf_key in leaves:
         logger.info(
             "Traversal did not reach a leaf; using default '%s'.",

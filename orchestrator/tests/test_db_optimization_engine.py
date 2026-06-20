@@ -13,7 +13,6 @@ class TestDbOptimizationEngine(unittest.TestCase):
             "business_type": "FINTECH_HA",
         }
         self.state.requirements = {"latency": "<20ms", "services": ["reporting"]} # latency_critical=True
-        # Logic: root -> high_latency, query_type_check -> reporting (due to large_scale flag from Tier 0)
         
         self.engine.run_layer_2()
         
@@ -28,7 +27,6 @@ class TestDbOptimizationEngine(unittest.TestCase):
         }
         self.state.traffic_profile.concurrent_users = 10000 
         self.state.requirements = {} # not latency critical
-        # logic: root -> connection_timeouts
         
         self.engine.run_layer_2()
         
@@ -42,8 +40,7 @@ class TestDbOptimizationEngine(unittest.TestCase):
             "business_type": "ENTERPRISE_CORE",
             "is_bde_supervised": True
         }
-        self.state.traffic_profile.concurrent_users = 1000 # keep below 5000 to bypass pool check and not latency_critical
-        # logic: root -> deadlocks
+        self.state.traffic_profile.concurrent_users = 1000 # below 5000 to bypass pool check; not latency_critical
         
         self.engine.run_layer_2()
         

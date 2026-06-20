@@ -65,18 +65,13 @@ class TestPSD2SCA(unittest.TestCase):
             "business_type": "FINTECH",
             "payment_operations_enabled": True,
             "avg_transaction_value": 80,
-            "historical_fraud_rate": 0.05, # < 0.13% (represented as 0.05 index/rate)
+            "historical_fraud_rate": 0.05,
             "pii_operations_needed": True
         }
-        # My logic in core_engine uses raw fraud rate comparison
-        # 80 EUR < 100 EUR and fraud 0.05 < 0.13 -> TRA Eligible
         self.engine.run_layer_2()
-        
+
         psd2 = self.state.psd2_compliance
-        self.assertTrue(psd2.sca_required) # SCA still required by default in traverse unless leaf recommends otherwise
-        # recommend_tra_engine doesn't disable sca_required (that's set in metrics initially)
-        # But it should set the exemption_applied string.
-        
+        self.assertTrue(psd2.sca_required)
         self.assertEqual(psd2.exemption_applied, "TRA")
         
         pattern_ids = [p["id"] for p in self.state.architecture.enterprise_patterns]

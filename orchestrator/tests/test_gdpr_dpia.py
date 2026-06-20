@@ -32,8 +32,6 @@ class TestGDPRDPIA(unittest.TestCase):
         self.assertEqual(report.overall_risk_level, "Extreme")
         self.assertTrue(report.dpo_approval_required)
 
-        
-        # Verify specific risks
         risk_descriptions = [r.description for r in report.risks]
         self.assertTrue(any("Discriminación algorítmica" in d for d in risk_descriptions))
 

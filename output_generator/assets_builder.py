@@ -9,44 +9,34 @@ class AssetsBuilder:
         self.env = Environment(loader=FileSystemLoader(templates_dir))
 
     def build_full_package(self, client_name: str, pdf_bytes: bytes, sections: List[Dict[str, Any]]) -> bytes:
-        """
-        Empaqueta el PDF, los artefactos Terraform, ADRs y el HTML de control
-        en un solo archivo ZIP "Enterprise Grade".
-        """
+        """Empaqueta el PDF, artefactos Terraform, ADRs y el dashboard HTML en un ZIP."""
         zip_buffer = io.BytesIO()
         
         with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zip_file:
-            # 1. Insertamos el Documento Maestro PDF
             zip_file.writestr("01_Executive_Dossier.pdf", pdf_bytes)
-            
-            # 2. Generamos Artefactos Técnicos -> Terraform
+
             terraform_main = self._generate_terraform_base(sections)
             zip_file.writestr("02_Technical_Assets/Terraform/main.tf", terraform_main)
-            
-            # Generamos Artefactos Técnicos -> ADR (Architecture Decision Record)
+
             adr_content = self._generate_adr(sections)
             zip_file.writestr("02_Technical_Assets/ADR/0001-cloud-strategy.md", adr_content)
-            
-            # 3. Generamos el Dashboard interactivo HTML
+
             dashboard_html = self._generate_dashboard(client_name, sections)
             zip_file.writestr("03_Interactive_Dashboard/index.html", dashboard_html)
 
-            # 4. Generamos los Anexos (Excel Simulator, Checklist)
             roi_csv = self._generate_roi_csv(sections)
             zip_file.writestr("04_Enterprise_Annexes/ROI_Simulator_Export.csv", roi_csv)
-            
+
             checklist = self._generate_checklist(sections)
             zip_file.writestr("04_Enterprise_Annexes/Implementation_Checklist.md", checklist)
             
         return zip_buffer.getvalue()
 
     def _generate_terraform_base(self, sections: List[Dict[str, Any]]) -> str:
-        # Extraemos el contexto de la infraestructura metadata si existe
         infra = "t3.medium"
         region = "eu-west-1"
         for sec in sections:
             meta = sec.get("metadata", {})
-            # We assume contextual data might be passed here or inside content somehow
             if "context" in meta:
                infra = meta["context"].get("infrastructure", infra)
                region = meta["context"].get("region", region)
@@ -77,11 +67,9 @@ resource "aws_vpc" "main" {{
 """
 
     def _generate_adr(self, sections: List[Dict[str, Any]]) -> str:
-        # Extraer una posible recomendación/decisión del contexto
         recommendation = "Migrar workloads on-premise a instancias de Cloud Pública (AWS)."
         for sec in sections:
             if "content" in sec and "Recomendación" in sec["content"]:
-                # simple heuristic for now
                 recommendation = "Implementar recomendaciones propuestas en la sección de Análisis de Costes."
 
         return f"""# ADR 0001: Arquitectura y Estrategia Cloud
@@ -101,9 +89,7 @@ Requerimientos técnicos indican necesidad de optimización de costes y escalabi
 """
 
     def _generate_dashboard(self, client_name: str, sections: List[Dict[str, Any]]) -> str:
-        # En el MVP renderizaremos una plantilla HTML con JS embebido
         try:
-            # Extraemos la simulación de la primera sección (Análisis de Costes)
             simulation_data = {}
             for sec in sections:
                 if "metadata" in sec and "simulation" in sec["metadata"]:

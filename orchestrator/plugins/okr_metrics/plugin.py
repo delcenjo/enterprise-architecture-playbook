@@ -1,4 +1,4 @@
-"""Technical OKRs Plugin (V58)."""
+"""Technical OKRs Plugin."""
 from typing import Any, Callable, Dict
 from plugins._base import BaseDecisionTreePlugin
 

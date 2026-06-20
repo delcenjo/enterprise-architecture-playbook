@@ -40,8 +40,6 @@ class JsonFileRepository(KnowledgeRepository):
         self._cache_enabled = cache_enabled
         self._cache: Dict[str, Dict[str, Any]] = {}
 
-    # ── KnowledgeRepository interface ──────────────────────────────
-
     def load(self, resource_name: str) -> Dict[str, Any]:
         """Load a JSON resource by its logical name.
 
@@ -68,8 +66,6 @@ class JsonFileRepository(KnowledgeRepository):
     def exists(self, resource_name: str) -> bool:
         """Check if a resource file exists."""
         return os.path.isfile(self._resolve_path(resource_name))
-
-    # ── Helpers ─────────────────────────────────────────────────────
 
     def _resolve_path(self, resource_name: str) -> str:
         """Resolve a logical resource name to a filesystem path."""

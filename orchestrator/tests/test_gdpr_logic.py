@@ -3,7 +3,6 @@ import os
 import unittest
 import logging
 
-# Ensure we can import from orchestrator
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
 from global_state import GlobalState, TrafficProfile, DataProfile, ComplianceProfile
@@ -24,7 +23,6 @@ class TestGDPRTechnicalPillar(unittest.TestCase):
         self.state.compliance_profile.frameworks = ["GDPR"]
         self.state.raw_input["business_type"] = "FINTECH"
         
-        # Trigger Layer 2
         self.engine.run_layer_2()
         
         db_node = next((c for c in self.state.architecture.components if c['role'] == 'data'), None)
@@ -64,9 +62,7 @@ class TestGDPRTechnicalPillar(unittest.TestCase):
         # In our decision tree, k-anonymity points to 'anonymization_advanced' pattern_id currently
         self.assertIn("anonymization_advanced", pattern_ids)
         
-        # Verify recommendation name
         rec = next(r for r in self.state.architecture.enterprise_patterns if r['id'] == "anonymization_advanced")
-        # Note: If multiple branches lead to the same leaf, we might need more specific checks
         print(f"Recommended {rec['name']} for analytics.")
 
     def test_04_differential_privacy_strict(self):

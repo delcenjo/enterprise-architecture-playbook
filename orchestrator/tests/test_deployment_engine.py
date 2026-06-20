@@ -17,11 +17,7 @@ class TestDeploymentEngine(unittest.TestCase):
             "business_type": "FINTECH_HA",
             "payment_operations_enabled": True
         }
-        # In core_engine, is_psd2_scope is triggered by business_type "FINTECH"
-        # latency_critical is triggered by FINTECH (forces 200ms)
-        # large_scale is triggered by concurrent_users > 50000
-        
-        # We need is_bde_supervised or large_scale for Blue-Green
+        # Blue-Green requires is_bde_supervised or large_scale
         self.state.raw_input["is_bde_supervised"] = True
         
         self.engine.run_layer_2()
@@ -35,14 +31,11 @@ class TestDeploymentEngine(unittest.TestCase):
         self.state.raw_input = {
             "business_type": "SAAS_STANDARD",
         }
-        # large_scale = True triggers Canary check after root=No
-        self.state.traffic_profile.concurrent_users = 100000 
-        
+        self.state.traffic_profile.concurrent_users = 100000  # large_scale=True triggers Canary
+
         self.engine.run_layer_2()
-        
+
         deploy = self.engine.state.architecture.deployment
-        # root=No because not PSD2 and not latency_critical (SaaS != Fintech)
-        # canary_check=Yes because large_scale or microservices
         self.assertEqual(deploy["strategy"], "Canary Deployment")
         self.assertEqual(deploy["tier"], "recommend_canary")
 
@@ -51,13 +44,11 @@ class TestDeploymentEngine(unittest.TestCase):
         self.state.raw_input = {
             "business_type": "SAAS_STANDARD",
         }
-        self.state.traffic_profile.concurrent_users = 1000 # scaling_problem=True, but not large_scale
-        
+        self.state.traffic_profile.concurrent_users = 1000  # not large_scale; multi_tenant triggers feature flags
+
         self.engine.run_layer_2()
-        
+
         deploy = self.engine.state.architecture.deployment
-        # root=No, canary_check=No (not large_scale, 1 component default?), 
-        # feature_flag_check=Yes (multi_tenant is True for SAAS)
         self.assertEqual(deploy["strategy"], "Feature Flags / Dark Launches")
         self.assertEqual(deploy["tier"], "recommend_feature_flags")
 

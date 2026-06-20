@@ -55,7 +55,6 @@ class EventStore:
                         (aggregate_id,)
                     )
                     events = cur.fetchall()
-                    # Validación de integridad en lectura
                     for ev in events:
                         actual_checksum = self._compute_checksum(ev['payload'])
                         if actual_checksum != ev['checksum']:
@@ -99,7 +98,6 @@ class WorkflowManager:
         if not events:
             return None
         
-        # Projection Logic
         state = {}
         for ev in events:
             if ev['event_type'] == "WORKFLOW_CREATED":
@@ -108,7 +106,6 @@ class WorkflowManager:
                 state["status"] = ev['payload']["to_status"]
                 state.setdefault("metadata", {}).update(ev['payload']["update_data"])
         
-        # Para compatibilidad con el resto del sistema
         state["workflow_id"] = workflow_id
         state["current_status"] = state.get("status") 
         return state

@@ -1,5 +1,5 @@
 """
-V66: Unit Economics & CAC Engine - Verification Suite
+Unit Economics & CAC Engine - Verification Suite
 Tests the deterministic calculation and routing of CAC, Payback Period,
 LTV/CAC ratio, and severity-based recommendations.
 """
@@ -158,15 +158,11 @@ def test_over_optimized_growth_warning():
 
 
 if __name__ == "__main__":
-    print("=" * 70)
-    print("V66: Unit Economics & CAC Engine - Verification")
-    print("=" * 70)
-    
+    print("Unit Economics & CAC Engine - Verification")
+
     test_healthy_unit_economics()
     test_dead_unit_economics()
     test_mediocre_with_dangerous_payback()
     test_over_optimized_growth_warning()
-    
-    print("\n" + "=" * 70)
-    print("ALL V66 UNIT ECONOMICS TESTS PASSED")
-    print("=" * 70)
+
+    print("\nALL UNIT ECONOMICS TESTS PASSED")

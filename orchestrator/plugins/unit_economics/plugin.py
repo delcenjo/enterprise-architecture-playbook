@@ -1,11 +1,11 @@
-"""Unit Economics & CAC Plugin (V66)."""
+"""Unit Economics & CAC Plugin."""
 from typing import Any, Dict
 from domain.ports.pillar_plugin import PillarPlugin, PillarResult
 from domain.ports.knowledge_repository import KnowledgeRepository
 
 
 class UnitEconomicsPlugin(PillarPlugin):
-    """Non-standard: performs financial calculations + tree routing."""
+    """Performs financial calculations and routes via decision tree."""
     pillar_id = "unit_economics"
     name = "Unit Economics & CAC Analysis"
     category = "financial"
@@ -37,7 +37,6 @@ class UnitEconomicsPlugin(PillarPlugin):
         ltv = gm_per_customer * avg_lifetime
         ltv_cac_ratio = ltv / max(cac, 1.0)
 
-        # Update state profile
         ue = getattr(state, "unit_economics_profile", None)
         if ue:
             ue.cac = round(cac, 2)
@@ -48,7 +47,6 @@ class UnitEconomicsPlugin(PillarPlugin):
             ue.payback_months = round(payback_months, 1)
             ue.ltv_cac_ratio = round(ltv_cac_ratio, 2)
 
-        # Route
         if ltv_cac_ratio < 1.0: ltv_bucket = "dead"
         elif ltv_cac_ratio < 3.0: ltv_bucket = "mediocre"
         elif ltv_cac_ratio <= 5.0: ltv_bucket = "healthy"

@@ -15,7 +15,6 @@ class WorkloadModel:
         
         latency_multiplier = env_factors.get("latency_penalty", 1.0) if env_factors else 1.0
         
-        # Calculations
         peak_rps = (expected_users * rps_per_user) * 3.0 * latency_multiplier
         daily_requests = expected_users * rps_per_user * 3600 * 24
         monthly_egress_gb = (daily_requests * avg_payload_kb * 30 * latency_multiplier) / (1024 * 1024)

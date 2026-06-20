@@ -79,18 +79,13 @@ class PipelineOrchestrator:
             try:
                 result = plugin.analyze(metrics, state)
                 
-                # Store in state's pillar_results
                 if hasattr(state, "pillar_results"):
                     state.pillar_results[plugin.pillar_id] = result
                 
-                # Build a legacy-compatible dict from PillarResult.
-                # Legacy format: {"strategy": ..., "tier": ..., "pillars": [...], "reasoning": ...}
-                # plus any plugin-specific keys from details.
-                legacy_dict = dict(result.details)  # start with all details
+                legacy_dict = dict(result.details)
                 legacy_dict["strategy"] = result.strategy
                 legacy_dict["tier"] = result.tier
                 legacy_dict["reasoning"] = result.reasoning
-                # Ensure 'pillars' exists (most legacy tests check it)
                 if "pillars" not in legacy_dict:
                     legacy_dict["pillars"] = legacy_dict.get("pillars", [])
                 

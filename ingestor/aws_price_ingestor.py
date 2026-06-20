@@ -8,9 +8,7 @@ import gzip
 class AWSPriceIngestor:
     def __init__(self, region: str = 'us-east-1'):
         self.region = region
-        # Usamos la API pública de AWS Price Bulk:
-        # Nota: El archivo entero puede ser masivo (GBs descomprimidos), pero solo hay un endpoint 
-        # alternativo index.json por region si queremos saltarnos la credencial boto3
+        # Uses the public AWS Bulk Pricing API; no credentials required.
         self.pricing_url = f"https://pricing.us-east-1.amazonaws.com/offers/v1.0/aws/AmazonEC2/current/{self.region}/index.json"
         
     def fetch_all_prices(self, service_code: str = 'AmazonEC2', target_region: str = 'EU (Ireland)') -> Dict:
@@ -43,7 +41,6 @@ class AWSPriceIngestor:
                 os_name == 'Linux' and 
                 capacity == 'Used'):
                 
-                # Adjuntar terms (el precio) al product obj para hacerlo compatible con la logica previa
                 product_terms = {}
                 if sku in terms:
                     product_terms['OnDemand'] = terms[sku]
@@ -100,7 +97,6 @@ class AWSPriceIngestor:
         attrs = product.get('product', {}).get('attributes', {})
         sku = product.get('product', {}).get('sku', '')
         
-        # Parse numbers robustly
         vcpus_str = attrs.get('vcpu', '0')
         mem_str = attrs.get('memory', '0 GiB').split(' ')[0]
         try:

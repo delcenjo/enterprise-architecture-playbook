@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ client_name }} - Enterprise Dash</title>
-    <!-- Tailwind CSS loaded from CDN for single-file portability without build tools -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Chart.js for interactive visualizations -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
@@ -53,7 +51,6 @@
                 </div>
             </div>
 
-            <!-- TCO Summary Widget -->
             <div class="glass-panel p-6 rounded-2xl bg-gradient-to-br from-indigo-900/50 to-slate-800/50 border-indigo-500/30">
                 <h4 class="text-sm font-medium text-indigo-300 mb-1">Projected 3rd-Year Savings</h4>
                 <div class="text-3xl font-bold mt-2">$<span id="savingsValue">{{ simulation.metrics.savings_3yr | round(0) }}</span></div>
@@ -88,7 +85,6 @@
     </script>
 
     <script>
-        // Interactivity JS
         const range = document.getElementById('timelineInput');
         const val = document.getElementById('timelineVal');
         const savingsEl = document.getElementById('savingsValue');
@@ -99,7 +95,6 @@
             val.textContent = e.target.value + 'm';
         });
 
-        // Initialize Chart.js
         const ctx = document.getElementById('cashflowChart').getContext('2d');
         const labels = rawSeries.map(s => s.period);
         const onpremData = rawSeries.map(s => s.onprem / 1000);

@@ -1,4 +1,4 @@
-"""Technical Debt Plugin (V53)."""
+"""Technical Debt Plugin."""
 from typing import Any, Callable, Dict
 from plugins._base import BaseDecisionTreePlugin
 

@@ -33,10 +33,9 @@ class TestSREEngine(unittest.TestCase):
         self.assertTrue(rel["sla_active"])
         self.assertIn("Burn Rate Alerts", rel["features"])
         
-        # Verify SLIs
         sli_names = [s["concepto"] for s in rel["slis"]]
-        self.assertIn("SLI", sli_names) # Latency is SLI
-        self.assertIn("SLO", sli_names) # Availability is SLO
+        self.assertIn("SLI", sli_names)
+        self.assertIn("SLO", sli_names)
 
     def test_moderate_startup_sre(self):
         """Verify that a small startup gets moderate SLOs and no SLA."""

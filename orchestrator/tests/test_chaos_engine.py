@@ -40,12 +40,9 @@ class TestChaosEngine(unittest.TestCase):
         self.state.traffic_profile.concurrent_users = 10000 # triggers root
         self.state.requirements = {"services": ["app", "worker"]} # triggers microservices
         
-        # For SAAS_STANDARD, maturity might be lower than banking
         self.engine.run_layer_2()
-        
+
         chaos = self.engine.state.architecture.chaos
-        # By default SAAS_STANDARD with 10k users -> team_maturity = No (not Bde/LargeScale enough?)
-        # So for SAAS_STANDARD with 10k users, it should be staging simulation.
         self.assertEqual(chaos["strategy"], "Simulation in Staging")
         self.assertEqual(chaos["tier"], "recommend_staging_simulation")
 

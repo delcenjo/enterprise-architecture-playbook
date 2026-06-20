@@ -1,4 +1,4 @@
-"""Deployment Strategy Plugin (V45)."""
+"""Deployment Strategy Plugin."""
 from typing import Any, Callable, Dict
 from plugins._base import BaseDecisionTreePlugin
 

@@ -34,13 +34,11 @@ class TestAMLCompliance(unittest.TestCase):
         self.assertTrue(aml.monitoring.is_real_time)
         self.assertEqual(aml.retention_policy_years, 10)
         
-        # Check Patterns
         pattern_ids = [p["id"] for p in self.state.architecture.enterprise_patterns]
         self.assertIn("kyc_automated_biometrics", pattern_ids)
         self.assertIn("transaction_monitoring_realtime", pattern_ids)
         self.assertIn("aml_rba_engine", pattern_ids)
         
-        # Check Audit
         audit_controls = [item["control"] for item in self.state.technical_audit]
         self.assertIn("AML RBA", audit_controls)
         self.assertIn("KYC Identity", audit_controls)
@@ -81,11 +79,8 @@ class TestAMLCompliance(unittest.TestCase):
         }
         self.engine.run_layer_2()
         
-        # Check in metrics (indirectly via aml_compliance)
         self.assertEqual(self.state.aml_compliance.retention_policy_years, 10)
-        # Verify it appears in audit as 10 years
         retention_audit = next(item for item in self.state.technical_audit if item["control"] == "Data Retention")
-        # In core_engine.py: {"control": "Data Retention", "status": "Automated", "evidence": f"{metrics.get('destination_country', 'EU')} Policy Enforced"}
         self.assertEqual(self.state.aml_compliance.retention_policy_years, 10)
 
 if __name__ == "__main__":

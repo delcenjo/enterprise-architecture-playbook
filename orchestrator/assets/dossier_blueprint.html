@@ -5,13 +5,11 @@
     <title>{{ title }}</title>
     <link rel="stylesheet" href="dossier_style.css">
     <style>
-        /* Embedding CSS for WeasyPrint consistency if needed */
-        
+
     </style>
 </head>
 <body>
 
-    <!-- PORTADA -->
     <div class="page cover-page">
         <div class="logo-placeholder">IA²E ARCHITECT ENGINE</div>
         <h1>{{ b_type }} ARCHITECTURE STRATEGY</h1>
@@ -24,7 +22,6 @@
         </div>
     </div>
 
-    <!-- EXECUTIVE SUMMARY -->
     <div class="page">
         <h2>01. Executive Summary</h2>
         <div class="kpi-grid">
@@ -69,7 +66,6 @@
         </div>
     </div>
 
-    <!-- REQUIREMENTS & AUDIT -->
     <div class="page">
         <h2>02. Constraints & Assumptions Audit</h2>
         <p>A deterministic normalization was applied to the initial business parameters to ensure technical feasibility and risk mitigation.</p>
@@ -99,7 +95,6 @@
         </div>
     </div>
 
-    <!-- RESOURCE TRANSPARENCY -->
     <div class="page">
         <h2>02.1 Resource Requirements Transparency</h2>
         <p>The following infrastructure specifications were derived through pure mathematical modeling based on the load profile above. Zero speculative estimation was used.</p>
@@ -151,7 +146,6 @@
         </table>
     </div>
 
-    <!-- ARCHITECTURE STRATEGY -->
     <div class="page">
         <h2>03. Target Architecture Strategy</h2>
         <p>The system has selected the <strong>{{ architecture_pattern }}</strong> blueprint as the optimal structural foundation.</p>
@@ -190,7 +184,6 @@
         </table>
     </div>
 
-    <!-- RISK & MITIGATION -->
     <div class="page">
         <h2>04. Risk Register & Recommendations</h2>
         <p>The following risks were identified during the technical audit phase based on the stated sensitivity and availability targets. Probability and Impact scores are based on <strong>2026 Cloud Threat Benchmarks</strong>.</p>
@@ -234,10 +227,9 @@
         </div>
     </div>
 
-    <!-- ADVANCED SCALABILITY DESIGN (V23) -->
     <div class="page">
         <h2>05. Advanced Scalability & Pattern Strategy</h2>
-        <p>Based on the <strong>Pattern Knowledge Base (V23)</strong> and the calculated traffic profile, the following expert scaling patterns are recommended to achieve enterprise-grade resilience.</p>
+        <p>Based on the <strong>Pattern Knowledge Base</strong> and the calculated traffic profile, the following expert scaling patterns are recommended to achieve enterprise-grade resilience.</p>
 
         {% if enterprise_patterns %}
         <div class="expert-section">
@@ -296,7 +288,6 @@
         </table>
     </div>
 
-    <!-- APPENDICES -->
     <div class="page">
         <h2>06. Appendices</h2>
         <h3>Methodology</h3>

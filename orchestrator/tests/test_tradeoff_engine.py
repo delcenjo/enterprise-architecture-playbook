@@ -10,9 +10,8 @@ class TestTradeoffEngine(unittest.TestCase):
     def test_intentional_tech_debt(self):
         """Verify that core business with massive time urgency accepts intentional tech debt."""
         self.state.tradeoff_profile.is_core_business = True
-        self.state.tradeoff_profile.time_to_market_critical = True # Overrides standard flows
-        
-        # root -> core_business_time_critical -> recommend_intentional_tech_debt
+        self.state.tradeoff_profile.time_to_market_critical = True
+
         self.engine.run_layer_2()
         
         tradeoff = self.engine.state.architecture.tradeoff_analysis
@@ -24,7 +23,6 @@ class TestTradeoffEngine(unittest.TestCase):
         self.state.tradeoff_profile.is_core_business = False
         self.state.tradeoff_profile.mature_saas_available = True
         
-        # root -> non_core_saas_available -> recommend_buy_saas
         self.engine.run_layer_2()
         
         tradeoff = self.engine.state.architecture.tradeoff_analysis
@@ -37,7 +35,6 @@ class TestTradeoffEngine(unittest.TestCase):
         self.state.tradeoff_profile.time_to_market_critical = False
         self.state.tradeoff_profile.long_term_maintenance_critical = True
         
-        # root -> core_long_term_critical -> recommend_internal_build
         self.engine.run_layer_2()
         
         tradeoff = self.engine.state.architecture.tradeoff_analysis
@@ -50,7 +47,6 @@ class TestTradeoffEngine(unittest.TestCase):
         self.state.tradeoff_profile.mature_saas_available = False
         self.state.tradeoff_profile.budget_constrained = True
         
-        # root -> non_core_budget_constrained -> recommend_outsourcing_buy_minimum
         self.engine.run_layer_2()
         
         tradeoff = self.engine.state.architecture.tradeoff_analysis
@@ -65,7 +61,6 @@ class TestTradeoffEngine(unittest.TestCase):
         self.state.tradeoff_profile.mature_saas_available = False
         self.state.tradeoff_profile.budget_constrained = False
         
-        # root -> balanced_standard -> recommend_standard_evaluation
         self.engine.run_layer_2()
         
         tradeoff = self.engine.state.architecture.tradeoff_analysis

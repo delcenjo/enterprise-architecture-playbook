@@ -23,7 +23,6 @@ body {
     padding: 0;
 }
 
-/* Page Setup for PDF */
 @page {
     size: A4;
     margin: 20mm;
@@ -69,7 +68,6 @@ h3 { font-size: 1.3rem; color: var(--text-bold); }
     border: 1px dashed var(--border);
 }
 
-/* KPI Dashboard */
 .kpi-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -88,7 +86,6 @@ h3 { font-size: 1.3rem; color: var(--text-bold); }
 .kpi-val { font-size: 1.8rem; font-weight: 700; color: var(--text-bold); }
 .kpi-label { font-size: 0.9rem; color: var(--text-main); text-transform: uppercase; letter-spacing: 0.05em; }
 
-/* Tables */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -110,7 +107,6 @@ td {
 
 tr:nth-child(even) { background: #F1F5F9; }
 
-/* Visuals */
 .visual-box {
     margin: 2rem 0;
     text-align: center;
@@ -122,12 +118,10 @@ tr:nth-child(even) { background: #F1F5F9; }
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
-/* Risks */
 .risk-high { color: var(--danger); font-weight: 700; }
 .risk-med { color: var(--warning); font-weight: 700; }
 .risk-low { color: var(--success); font-weight: 700; }
 
-/* Utility */
 .mb-8 { margin-bottom: 2rem; }
 .mt-4 { margin-top: 1rem; }
 

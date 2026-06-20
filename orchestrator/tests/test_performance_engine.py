@@ -13,9 +13,8 @@ class TestPerformanceEngine(unittest.TestCase):
             "business_type": "FINTECH_HA",
             "is_bde_supervised": True
         }
-        self.state.traffic_profile.concurrent_users = 100000 # large_scale -> detect_limits
-        # is_bde_supervised -> is_it_sudden_spike=yes
-        
+        self.state.traffic_profile.concurrent_users = 100000
+
         self.engine.run_layer_2()
         
         perf = self.engine.state.architecture.performance
@@ -28,8 +27,8 @@ class TestPerformanceEngine(unittest.TestCase):
         self.state.raw_input = {
             "business_type": "SAAS_STANDARD",
         }
-        self.state.traffic_profile.concurrent_users = 500 # not large_scale -> ci_cd_validation
-        
+        self.state.traffic_profile.concurrent_users = 500
+
         self.engine.run_layer_2()
         
         perf = self.engine.state.architecture.performance
@@ -41,10 +40,9 @@ class TestPerformanceEngine(unittest.TestCase):
         self.state.raw_input = {
             "business_type": "ENTERPRISE_CORE",
         }
-        self.state.traffic_profile.concurrent_users = 100000 # large_scale
-        self.state.requirements = {"services": ["auth", "orders"]} # is_microservices
-        # logic: detect_limits -> spike=no (not fintech), ensure_stability -> soak=yes (micro + large)
-        
+        self.state.traffic_profile.concurrent_users = 100000
+        self.state.requirements = {"services": ["auth", "orders"]}
+
         self.engine.run_layer_2()
         
         perf = self.engine.state.architecture.performance

@@ -1,4 +1,4 @@
-"""Senior Evaluation Plugin (V61)."""
+"""Senior Evaluation Plugin."""
 from typing import Any, Callable, Dict
 from domain.ports.pillar_plugin import PillarPlugin, PillarResult
 from domain.ports.knowledge_repository import KnowledgeRepository

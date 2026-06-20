@@ -20,7 +20,6 @@ except ImportError:
 logger = logging.getLogger("Layer2_CoreEngine_V3")
 logging.basicConfig(level=logging.INFO)
 
-# --- DETERMINISTIC INTELLIGENCE PROFILES ---
 PROFILES = {
     "FINTECH_HA": {
         "id": "fintech-critical",
@@ -199,9 +198,8 @@ class CoreEngine:
         self.ltv_tradeoff_path = os.path.join(self.ops_kb_dir, "ltv_dynamics_tradeoff.json")
 
     def _reconcile_enterprise_patterns(self, adapted: Dict, metrics: Dict):
-
         """
-        Navigates the Pattern Knowledge Base (V23-V25)
+        Navigates the Pattern Knowledge Base.
         Determines advanced patterns based on traffic/risk metrics.
         """
         logger.info("Reconciling Enterprise Scaling Patterns...")
@@ -212,14 +210,12 @@ class CoreEngine:
         with open(self.ontology_path, "r") as f:
             ontology = json.load(f)
 
-        # 2. Multi-Pass Traversal Helper
         def traverse(start_node, recs):
             curr = start_node
             while curr in tree['nodes']:
                 node = tree['nodes'][curr]
                 answer = "no"
-                
-                # Logic Mapping
+
                 if curr == "root": answer = "yes" if metrics.get("scaling_problem") else "no"
                 elif curr == "scale_type": answer = "yes" if metrics.get("high_read_ratio") else "no"
                 elif curr == "aggregated_reads": answer = "yes" if metrics.get("complex_agg") else "no"
@@ -340,7 +336,6 @@ class CoreEngine:
                     break 
                 curr = next_step
 
-        # RUN PASSES (V39-V40 Curated Root Entry Points)
         passes = [
             "root", "sharding_evaluation", "caching_evaluation", "messaging_evaluation",
             "consistency_regional_check", "governance_evaluation", "mesh_evaluation",
@@ -358,7 +353,6 @@ class CoreEngine:
         for p in passes:
             traverse(p, recommendations)
 
-        # Post-reconciliation adjustments
         if self.state.traffic_profile.concurrent_users > 5000:
             if not any(r['id'] == "cqrs_materialized_view" for r in recommendations):
                 recommendations.append({
@@ -369,7 +363,6 @@ class CoreEngine:
                     "impact": {"availability": "High", "read_scaling": "Critical"}
                 })
 
-        # If High Jurisdictional Risk, inject EU-Controlled KMS and Tokenization
         if metrics.get("jurisdiction_requires_supp_measures"):
             recommendations.append({
                 "id": "eu_controlled_keys",
@@ -386,7 +379,6 @@ class CoreEngine:
                 "impact": {"privacy": "Maximum", "complexity": "High"}
             })
 
-        # If Service Mesh recommended, inject mTLS and Traffic Splitting
         if any(r['id'] == "service_mesh" for r in recommendations):
             if metrics.get("strict_governance"):
                 recommendations.append({
@@ -404,7 +396,6 @@ class CoreEngine:
                     "rationale": "Advanced traffic steering for progressive delivery",
                     "impact": {"deployment_safety": "High", "rollback_time": "Minimized"}
                 })
-        # If Multi-Account strict, inject Landing Zone and SCPs
         if any(r['id'] == "multi_account" for r in recommendations) and metrics["strict_governance"]:
             recommendations.append({
                 "id": "landing_zone",
@@ -420,7 +411,6 @@ class CoreEngine:
                 "rationale": "Enforcement of regional and service guardrails",
                 "impact": {"blast_radius": "Minimal", "compliance": "Guaranteed"}
             })
-        # If Kafka/Messaging recommended, inject Idempotency and DLQ markers
         if metrics["is_bde_supervised"]:
             if metrics["high_financial_integrity"]:
                 recommendations.append({
@@ -460,7 +450,7 @@ class CoreEngine:
                     "id": "circuit_breaker",
                     "name": "Circuit Breaker",
                     "confidence": 1.0,
-                    "rationale": "Mandatory for Critical data sensitivity",
+                    "rationale": "Mandatory for critical data sensitivity",
                     "impact": ontology['patterns']['circuit_breaker']['success_metrics']
                 })
 
@@ -470,12 +460,11 @@ class CoreEngine:
 
     def _evaluate_qce_compliance(self, metrics: Dict) -> Dict:
         """
-        V40: Quantitative Compliance Engine (QCE)
+        Quantitative Compliance Engine (QCE).
         Unified multi-pillar regulatory scoring and reasoning.
         """
         logger.info("Running Quantitative Compliance Engine (QCE)...")
         
-        # Load QCE knowledge base
         with open(self.reg_tree_path, "r") as f:
             reg_tree = json.load(f)
         with open(self.reg_ontology_path, "r") as f:
@@ -485,7 +474,6 @@ class CoreEngine:
         with open(self.reg_cases_path, "r") as f:
             reg_cases = json.load(f)
         
-        # Map architectural metrics to regulatory inputs
         asset_type = "multi_asset"
         if metrics.get("investment_type") == "crowdfunding" or metrics.get("investment_type") == "roboadvisor":
             asset_type = "investments_retail"
@@ -494,7 +482,6 @@ class CoreEngine:
         elif metrics.get("is_psd2_scope"):
             asset_type = "fiat_payments"
 
-        # Traversal logic for regulatory tree
         def reg_traverse(start_node):
             curr = start_node
             while curr in reg_tree:
@@ -514,7 +501,6 @@ class CoreEngine:
         leaf_id = reg_traverse("root")
         leaf = reg_tree["leaves"].get(leaf_id, reg_tree["leaves"]["leaf_full_reg_stack"])
         
-        # Calculate scores and compile indices
         indices = leaf["compliance_indices"]
         total_breach_risk = 0
         risk_map = {"Low": 1, "Medium": 2, "High": 3, "Very High": 4, "Muy Alto": 4, "Alto": 3}
@@ -526,7 +512,6 @@ class CoreEngine:
         avg_breach_risk = total_breach_risk / len(indices)
         compliance_score = leaf["base_score"]
         
-        # Adjust score based on technical patterns recommended
         if metrics.get("holds_private_keys") and any(idx == "MiCA_CASP" for idx in indices):
             if not metrics.get("requires_mica_hsm"): compliance_score -= 10
             
@@ -542,18 +527,15 @@ class CoreEngine:
 
     def _recommend_observability_stack(self, metrics: Dict) -> Dict:
         """
-        V41: Observability OPS Recommender
         Determines the required observability pillars based on architecture and criticality.
         """
         logger.info("Recommending Observability Stack...")
         
-        # Load Ops knowledge base
         with open(self.ops_tree_path, "r") as f:
             ops_tree = json.load(f)
         with open(self.ops_ontology_path, "r") as f:
             ops_ontology = json.load(f)
-        
-        # Traversal logic
+
         def ops_traverse(start_node):
             curr = start_node
             while curr in ops_tree:
@@ -573,8 +555,7 @@ class CoreEngine:
 
         leaf_id = ops_traverse("root")
         leaf = ops_tree["leaves"].get(leaf_id, ops_tree["leaves"]["recommend_metrics_logs_basic"])
-        
-        # Build stack detail
+
         stack: Dict[str, Any] = {
             "recommendation_id": leaf_id,
             "pillars": leaf["pillars"],
@@ -595,7 +576,6 @@ class CoreEngine:
 
     def _recommend_sre_reliability(self, metrics: Dict) -> Dict:
         """
-        V42: SRE Reliability Engine
         Generates quantitative SLIs, SLOs, and SLAs.
         """
         logger.info("Running SRE Reliability Engine...")
@@ -604,8 +584,7 @@ class CoreEngine:
             sre_tree = json.load(f)
         with open(self.sre_ontology_path, "r") as f:
             sre_ontology = json.load(f)
-            
-        # Traversal logic
+
         def sre_traverse(start_node):
             curr = start_node
             while curr in sre_tree:
@@ -625,8 +604,7 @@ class CoreEngine:
 
         leaf_id = sre_traverse("root")
         leaf = sre_tree["leaves"].get(leaf_id, sre_tree["leaves"]["leaf_basic_metrics"])
-        
-        # Compile SRE stack
+
         sre_stack = {
             "reliability_tier": leaf_id,
             "slo_target": leaf["slo_target"],
@@ -644,7 +622,6 @@ class CoreEngine:
 
     def _recommend_distributed_tracing(self, metrics: Dict) -> Dict:
         """
-        V43: Distributed Tracing Recommender
         Determines the sampling strategy and tracing architecture.
         """
         logger.info("Running Distributed Tracing Engine...")
@@ -662,7 +639,6 @@ class CoreEngine:
                 elif question == "issue_pattern_check":
                     answer = "yes" if metrics.get("sync_failures") or metrics.get("latency_critical") else "no"
                 elif question == "tail_sampling_check":
-                    # If high criticality (PSD2/BdE), we assume budget for tail-based
                     answer = "yes" if metrics.get("is_psd2_scope") or metrics.get("is_bde_supervised") else "no"
                 elif question == "resource_constraint_check":
                     answer = "yes" if metrics.get("large_scale") else "no"
@@ -686,7 +662,6 @@ class CoreEngine:
 
     def _recommend_chaos_engineering(self, metrics: Dict) -> Dict:
         """
-        V44: Chaos Engineering Recommender
         Determines the chaos experimentation strategy.
         """
         logger.info("Running Chaos Engineering Engine...")
@@ -702,13 +677,10 @@ class CoreEngine:
                 if question == "root":
                     answer = "yes" if metrics.get("is_microservices") or metrics.get("is_psd2_scope") else "no"
                 elif question == "team_maturity_check":
-                    # We assume maturity based on business profile
                     answer = "yes" if metrics.get("is_bde_supervised") or metrics.get("large_scale") else "no"
                 elif question == "experiment_goal_check":
-                    # Defaults to resilience validation for most architectures
                     answer = "validate_resilience"
                 elif question == "risk_tolerance_check":
-                    # Production chaos only for high-scale, high-resilience systems
                     answer = "yes" if metrics.get("large_scale") and metrics.get("is_bde_supervised") else "no"
                 else:
                     break
@@ -730,7 +702,6 @@ class CoreEngine:
 
     def _recommend_deployment_strategy(self, metrics: Dict) -> Dict:
         """
-        V45: Deployment Strategy Recommender
         Determines the optimal release strategy (Blue-Green, Canary, etc.).
         """
         logger.info("Recommending Deployment Strategy...")
@@ -744,16 +715,12 @@ class CoreEngine:
                 question = current_node
                 
                 if question == "root":
-                    # Criticality defined by business type or latency needs
                     answer = "yes" if metrics.get("is_psd2_scope") or metrics.get("latency_critical") else "no"
                 elif question == "scale_check":
-                    # Blue-Green is expensive, only for high budget/high scale
                     answer = "yes" if metrics.get("is_bde_supervised") or metrics.get("large_scale") else "no"
                 elif question == "canary_check":
-                    # Canary for high traffic systems
                     answer = "yes" if metrics.get("large_scale") or metrics.get("is_microservices") else "no"
                 elif question == "feature_flag_check":
-                    # Feature flags for SaaS and experimental features
                     answer = "yes" if metrics.get("is_gdpr_critical") or metrics.get("multi_tenant") else "no"
                 else:
                     break
@@ -774,7 +741,6 @@ class CoreEngine:
 
     def _recommend_gitops_strategy(self, metrics: Dict) -> Dict:
         """
-        V46: GitOps Strategy Recommender
         Determines if GitOps is required and which tool is best.
         """
         logger.info("Recommending GitOps Strategy...")
@@ -788,16 +754,12 @@ class CoreEngine:
                 question = current_node
                 
                 if question == "root":
-                    # Assume yes if using standard blueprints (K8s/Terraform)
-                    answer = "yes" 
+                    answer = "yes"
                 elif question == "deployment_frequency_check":
-                    # Frequent = >1/day (scaling_problem or fintech apps)
                     answer = "yes" if metrics.get("scaling_problem") or metrics.get("is_psd2_scope") else "no"
                 elif question == "multi_cluster_check":
-                    # Large scale or multi-region
                     answer = "yes" if metrics.get("large_scale") or self.state.raw_input.get("multi_region_requested") else "no"
                 elif question == "audit_requirement_check":
-                    # Critical or supervised
                     answer = "yes" if metrics.get("is_bde_supervised") or metrics.get("is_gdpr_critical") else "no"
                 else:
                     break
@@ -818,7 +780,6 @@ class CoreEngine:
 
     def _recommend_supply_chain_security(self, metrics: Dict) -> Dict:
         """
-        V47: Supply Chain Security Recommender
         Determines the required security depth for the software supply chain.
         """
         logger.info("Recommending Supply Chain Security...")
@@ -832,16 +793,12 @@ class CoreEngine:
                 question = current_node
                 
                 if question == "root":
-                    # Critical/Regulated
                     answer = "yes" if metrics.get("is_psd2_scope") or metrics.get("is_bde_supervised") else "no"
                 elif question == "slsa_requirement":
-                    # High scale or direct user impact
                     answer = "yes" if metrics.get("large_scale") or metrics.get("latency_critical") else "no"
                 elif question == "dependency_check":
-                    # Most microservices/modern apps use heavy deps
                     answer = "yes" if metrics.get("is_microservices") or metrics.get("multi_tenant") else "no"
                 elif question == "cloud_native_check":
-                    # Multi-cloud request
                     answer = "yes" if self.state.raw_input.get("multi_region_requested") else "no"
                 else:
                     break
@@ -862,7 +819,6 @@ class CoreEngine:
 
     def _recommend_iac_strategy(self, metrics: Dict) -> Dict:
         """
-        V48: Infrastructure as Code Recommender
         Determines the optimal IaC tool and modularity strategy.
         """
         logger.info("Recommending IaC Strategy...")
@@ -876,13 +832,10 @@ class CoreEngine:
                 question = current_node
                 
                 if question == "root":
-                    # Complex if large scale or multi-region
                     answer = "yes" if metrics.get("large_scale") or self.state.raw_input.get("multi_region_requested") else "no"
                 elif question == "terraform_mandate":
-                    # Regulated entities require standard/enterprise Terraform
                     answer = "yes" if metrics.get("is_psd2_scope") or metrics.get("is_bde_supervised") else "no"
                 elif question == "language_preference_check":
-                    # Devs (Microservices/Multi-tenant) often prefer Pulumi/CDK
                     answer = "yes" if metrics.get("is_microservices") or metrics.get("multi_tenant") else "no"
                 else:
                     break
@@ -903,7 +856,6 @@ class CoreEngine:
 
     def _recommend_performance_tests(self, metrics: Dict) -> Dict:
         """
-        V49: Performance Engineering Recommender
         Determines the required load/performance testing strategy.
         """
         logger.info("Recommending Performance Tests...")
@@ -917,7 +869,6 @@ class CoreEngine:
                 question = current_node
                 
                 if question == "root":
-                    # Strategic prioritization
                     if (metrics.get("is_psd2_scope") or metrics.get("is_bde_supervised")) and metrics.get("large_scale"):
                         answer = "detect_limits"
                     elif metrics.get("is_microservices") and metrics.get("large_scale"):
@@ -927,10 +878,8 @@ class CoreEngine:
                     else:
                         answer = "ci_cd_validation"
                 elif question == "is_it_sudden_spike":
-                    # Spikes for BDE/PSD2 usually imply flash-like traffic patterns
                     answer = "yes" if metrics.get("is_psd2_scope") or metrics.get("is_bde_supervised") else "no"
                 elif question == "soak_test_check":
-                    # Ensuring stability for critical backend services
                     answer = "yes" if metrics.get("is_microservices") and metrics.get("large_scale") else "no"
                 else:
                     break
@@ -951,8 +900,7 @@ class CoreEngine:
 
     def _recommend_profiling_strategy(self, metrics: Dict) -> Dict:
         """
-        V50: Profiling Engineering Recommender
-        Determines the required profiling depth CPU/Memory/IO.
+        Determines the required profiling depth (CPU/Memory/IO).
         """
         logger.info("Recommending Profiling Strategy...")
         
@@ -965,18 +913,15 @@ class CoreEngine:
                 question = current_node
                 
                 if question == "root":
-                    # Determine main symptom
                     if metrics.get("is_microservices") and metrics.get("latency_critical"):
-                        answer = "high_latency" # Need CPU/IO analysis for latency
+                        answer = "high_latency"
                     elif getattr(self.state.traffic_profile, "concurrent_users", 0) > 10000:
-                        answer = "increasing_memory" # High scale often hits memory leaks first
+                        answer = "increasing_memory"
                     else:
                         answer = "general_slowness"
                 elif question == "cpu_or_io_check":
-                    # DB/Network heavy apps vs Compute heavy
                     answer = "io_bound" if metrics.get("large_scale") and metrics.get("schema_evolution_risk") else "cpu_bound"
                 elif question == "production_safety_check":
-                    # Assume regulated/HA apps are production-live systems needing safety
                     answer = "yes" if metrics.get("is_bde_supervised") or metrics.get("is_psd2_scope") else "no"
                 else:
                     break
@@ -997,7 +942,6 @@ class CoreEngine:
 
     def _recommend_db_optimization_strategy(self, metrics: Dict) -> Dict:
         """
-        V51: Database Optimization Recommender
         Determines the needed DB tuning layer (index, pool, query analysis).
         """
         logger.info("Recommending DB Optimization Strategy...")
@@ -1046,7 +990,6 @@ class CoreEngine:
 
     def _recommend_frontend_perf_strategy(self, metrics: Dict) -> Dict:
         """
-        V52: Frontend Performance Recommender
         Determines the needed Web Vitals / CSR vs SSR strategy.
         """
         logger.info("Recommending Frontend Performance Strategy...")
@@ -1062,22 +1005,20 @@ class CoreEngine:
                 if question == "root":
                     app_type = self.state.raw_input.get("application_type", "web")
                     if app_type != "web":
-                        # If it's a backend/API only, skip frontend perf logically, but for safety return a default
                         return "recommend_lazy_load_cdn"
-                        
-                    # Infer bottlenecks from scale & requirements
+
                     users = getattr(self.state.traffic_profile, "concurrent_users", 0)
                     services = self.state.requirements.get("services", [])
-                    
+
                     if "complex_analytics" in services or "high_interactivity" in services:
-                        answer = "high_fid" # Heavy JS apps hurt FID
+                        answer = "high_fid"
                     elif users > 100000:
-                        answer = "high_lcp" # Very high scale generic apps often struggle with media/LCP
+                        answer = "high_lcp"
                     else:
-                        answer = "large_bundle" # Default SPA issue
+                        answer = "large_bundle"
                 elif question == "ssr_vs_lazy_check":
                     users = getattr(self.state.traffic_profile, "concurrent_users", 0)
-                    if users > 100000 and not self.state.requirements.get("data_residency_required", False): # Proxy for 'SEO matters / Public site'
+                    if users > 100000 and not self.state.requirements.get("data_residency_required", False):
                         answer = "yes"
                     else:
                         answer = "no"
@@ -1100,7 +1041,6 @@ class CoreEngine:
 
     def _recommend_tech_debt_strategy(self, metrics: Dict) -> Dict:
         """
-        V53: Technical Debt Recommender
         Determines refactoring logic based on SQALE, Code Climate, Coverage, and Cyclomatic Complexity.
         """
         logger.info("Measuring Technical Debt and Recommending Refactoring Strategy...")
@@ -1128,7 +1068,6 @@ class CoreEngine:
                     else:
                         answer = "manageable_debt"
                 elif question == "business_impact_check":
-                    # Proxying severe business impact via latency critical or strict governance
                     if getattr(self.state.traffic_profile, "requests_per_second", 0) > 5000 or metrics.get("latency_critical") or metrics.get("strict_governance"):
                         answer = "yes"
                     else:
@@ -1152,7 +1091,6 @@ class CoreEngine:
 
     def _recommend_code_review_strategy(self, metrics: Dict) -> Dict:
         """
-        V54: Code Review Recommender
         Determines the review process based on PR sizes, CI/CD presence, and quality gates.
         """
         logger.info("Measuring Code Review Quality Gates and Recommending Process...")
@@ -1200,7 +1138,6 @@ class CoreEngine:
 
     def _recommend_aff_strategy(self, metrics: Dict) -> Dict:
         """
-        V55: Architectural Fitness Functions Recommender
         Determines the adherence rules based on drift, compliance scores, and blast radius.
         """
         logger.info("Measuring Architectural Fitness and Drift...")
@@ -1251,8 +1188,7 @@ class CoreEngine:
 
     def _recommend_scalability_strategy(self, metrics: Dict) -> Dict:
         """
-        V56: Scalability Analysis Recommender
-        Predicts bottlenecks and output architectural scaling patterns (Bulkheads, CQRS, Auto-Scaling).
+        Predicts bottlenecks and outputs architectural scaling patterns (Bulkheads, CQRS, Auto-Scaling).
         """
         logger.info("Conducting Predictive Scalability Analysis...")
         
@@ -1300,7 +1236,6 @@ class CoreEngine:
 
     def _recommend_tpm_strategy(self, metrics: Dict) -> Dict:
         """
-        V57: Technical Product Management Recommender
         Routes features to RICE, MoSCoW, or Kano based on financial models and constraints.
         """
         logger.info("Engineering Roadmap Prioritization (TPM)...")
@@ -1349,7 +1284,6 @@ class CoreEngine:
 
     def _recommend_okr_strategy(self, metrics: Dict) -> Dict:
         """
-        V58: Technical OKRs Recommender
         Routes to Reliability, Speed, Quality, or Strategic constraints using DORA metrics.
         """
         logger.info("Defining Technical OKRs and DORA baselines...")
@@ -1399,7 +1333,6 @@ class CoreEngine:
 
     def _recommend_tradeoff_strategy(self, metrics: Dict) -> Dict:
         """
-        V59: Trade-off Analysis Recommender
         Routes to Build vs Buy, Intentional Tech Debt, or Outsourcing constraints.
         """
         logger.info("Evaluating Strategic Architectural Trade-offs...")
@@ -1448,7 +1381,6 @@ class CoreEngine:
 
     def _recommend_platform_engineering_strategy(self, metrics: Dict) -> Dict:
         """
-        V60: Platform Engineering Recommender
         Routes to IDPs, Golden Paths, and standardized tooling.
         """
         logger.info("Optimizing Developer Experience (Platform Engineering)...")
@@ -1494,15 +1426,13 @@ class CoreEngine:
 
     def _recommend_senior_evaluation_strategy(self, metrics: Dict) -> Dict:
         """
-        V61: Senior Evaluation Recommender
         Calculates a weighted score and evaluates engineering maturity to avoid false seniors.
         """
         logger.info("Evaluating Senior Engineering Talent (Structural Impact)...")
         
         with open(self.senior_eval_tree_path, "r") as f:
             tree = json.load(f)
-            
-        # Calculate Weighted Score
+
         sys_design = getattr(self.state.senior_eval_profile, "sys_design_score", 3.0)
         coding = getattr(self.state.senior_eval_profile, "coding_score", 3.0)
         tradeoff = getattr(self.state.senior_eval_profile, "tradeoff_score", 3.0)
@@ -1530,8 +1460,6 @@ class CoreEngine:
                 return "score_critical_reject"
                 
         answer = traverse_senior_eval(weighted_score)
-        
-        # Determine Path
         leaf_id = tree["nodes"]["root"]["options"].get(answer)
         leaf = tree["leaves"].get(leaf_id)
         
@@ -1545,15 +1473,13 @@ class CoreEngine:
 
     def _recommend_cultural_fit_strategy(self, metrics: Dict) -> Dict:
         """
-        V62: Cultural Fit Recommender
-        Calculates a systemic fiction score based on behavioral traits and maps to action.
+        Calculates a weighted friction score based on behavioral traits and maps to action.
         """
         logger.info("Evaluating Cultural & Systemic Risk (Behavioral Modeling)...")
         
         with open(self.cultural_fit_tree_path, "r") as f:
             tree = json.load(f)
-            
-        # Calculate Weighted Score
+
         ownership = getattr(self.state.cultural_fit_profile, "ownership_score", 3.0)
         conflict = getattr(self.state.cultural_fit_profile, "conflict_score", 3.0)
         feedback = getattr(self.state.cultural_fit_profile, "feedback_score", 3.0)
@@ -1581,8 +1507,6 @@ class CoreEngine:
                 return "score_high_friction"
                 
         answer = traverse_cultural_fit(weighted_score)
-        
-        # Determine Path
         leaf_id = tree["nodes"]["root"]["options"].get(answer)
         leaf = tree["leaves"].get(leaf_id)
         
@@ -1596,7 +1520,6 @@ class CoreEngine:
 
     def _recommend_team_structure_strategy(self, metrics: Dict) -> Dict:
         """
-        V63: Team Structure Recommender
         Analyzes headcount and compliance needs to propose optimal Team Topologies.
         """
         logger.info("Evaluating Organizational Design (Team Topology)...")
@@ -1618,8 +1541,6 @@ class CoreEngine:
                 return "high_scale_low_regulation"
                 
         answer = traverse_team_structure(devs, reg_level)
-        
-        # Determine Path
         leaf_id = tree["nodes"]["root"]["options"].get(answer)
         leaf = tree["leaves"].get(leaf_id)
         
@@ -1632,7 +1553,6 @@ class CoreEngine:
 
     def _recommend_onboarding_strategy(self, metrics: Dict) -> Dict:
         """
-        V65: Developer Onboarding & Productivity Engine
         Determines the optimal onboarding structure based on team size,
         platform maturity, and deployment frequency.
         Measures: TTFC (< 3 days), TTFP (< 10 days), 30-day autonomy.
@@ -1646,7 +1566,6 @@ class CoreEngine:
         platform_maturity = getattr(self.state.team_structure_profile, "platform_maturity", "none")
         deploy_freq = self.state.raw_input.get("team_and_organization", {}).get("deployment_frequency", "Weekly")
 
-        # Decision traversal
         if devs > 40:
             if platform_maturity == "mature":
                 node_id = "data_driven_onboarding"
@@ -1669,14 +1588,12 @@ class CoreEngine:
             self.state.onboarding_profile.ttfc_target_days = 2
             self.state.onboarding_profile.ttfp_target_days = 7
 
-        # Fetch recommendation from tree
         nodes = tree.get("nodes", [])
         rec_node = next((n for n in nodes if n["id"] == node_id), None)
 
         if not rec_node:
             return {"strategy": "Fallback", "reasoning": "No matching onboarding node found."}
 
-        # Build 30-day plan phases
         thirty_day_plan = {
             "phase_0_pre_day1": {
                 "name": "Pre-boarding Setup",
@@ -1704,14 +1621,12 @@ class CoreEngine:
             }
         }
 
-        # Infrastructure prerequisites
         infra_prerequisites = {
             "documentation": ["ADRs (Architecture Decision Records)", "Up-to-date diagrams", "Incident runbooks"],
             "observability": ["Centralized logs", "Distributed tracing", "Visible metrics dashboards"],
             "pr_culture": ["Quality gates enforced", "Linter mandatory", "Tests required", "Code reviews with criteria"]
         }
 
-        # Buddy system spec
         buddy_system = {
             "sessions_per_week": 2,
             "structure": "Checklist-based learning objectives",
@@ -1719,7 +1634,6 @@ class CoreEngine:
             "requirement": "Buddy must be a real senior, not just the most available person"
         }
 
-        # Anti-patterns to detect
         onboarding_killers = [
             "No reproducible environment",
             "Outdated documentation",
@@ -1728,7 +1642,6 @@ class CoreEngine:
             "No feedback in the first week"
         ]
 
-        # Key metrics to track
         key_metrics = {
             "ttfc_target": f"< {self.state.onboarding_profile.ttfc_target_days} days",
             "ttfp_target": f"< {self.state.onboarding_profile.ttfp_target_days} days",
@@ -1751,17 +1664,14 @@ class CoreEngine:
 
     def _recommend_unit_economics_strategy(self, metrics: Dict) -> Dict:
         """
-        V66: Unit Economics & CAC Engine
         Calculates CAC, Payback Period, LTV/CAC ratio, and routes to
         the appropriate severity-based recommendation.
-        If you don't understand CAC, you don't understand if the company lives or dies.
         """
         logger.info("Evaluating Unit Economics (CAC / Payback / LTV)...")
 
         with open(self.unit_econ_tree_path, "r") as f:
             tree = json.load(f)
 
-        # Extract financial inputs from the 7-block schema
         financials = self.state.raw_input.get("financials", {})
         annual_revenue = float(financials.get("annual_revenue", 1000000))
         monthly_burn = float(financials.get("monthly_burn_rate", 50000))
@@ -1770,18 +1680,15 @@ class CoreEngine:
         gross_margin_pct = float(financials.get("gross_margin_pct", 70.0))
         cloud_cost_pct = float(financials.get("cloud_cost_pct_of_revenue", 10.0))
 
-        # Derive business model from context
         project_ctx = self.state.raw_input.get("project_context", {})
         company_type = project_ctx.get("company_type", "Enterprise")
         industry = project_ctx.get("industry", "General")
 
-        # Calculate monthly ARPU (estimate from annual revenue and traffic)
-        mau = self.state.traffic_profile.concurrent_users * 10  # rough estimate
+        mau = self.state.traffic_profile.concurrent_users * 10  # rough estimate from concurrent users
         if mau < 1:
             mau = 100
         monthly_arpu = (annual_revenue / 12.0) / max(mau, 1)
 
-        # Determine business model
         if company_type in ["Startup", "Scale-up"] and monthly_arpu < 100:
             biz_model = "B2B SMB Self-Serve"
         elif company_type == "Enterprise" or monthly_arpu > 2000:
@@ -1791,27 +1698,14 @@ class CoreEngine:
         else:
             biz_model = "B2B SaaS"
 
-        # === CORE CALCULATIONS ===
-        # 1. CAC (use input or estimate from burn rate)
-        cac = cac_input if cac_input > 0 else monthly_burn * 0.6  # 60% of burn assumed sales+mkt
-
-        # 2. Monthly gross margin per customer
+        cac = cac_input if cac_input > 0 else monthly_burn * 0.6
         gross_margin_per_customer = monthly_arpu * (gross_margin_pct / 100.0)
-
-        # 3. Payback Period
         payback_months = cac / max(gross_margin_per_customer, 1.0)
-
-        # 4. Average customer lifetime (from churn)
         monthly_churn_rate = churn_pct / 100.0
         avg_lifetime_months = 1.0 / max(monthly_churn_rate, 0.005)  # cap at 200 months
-
-        # 5. LTV
         ltv = gross_margin_per_customer * avg_lifetime_months
-
-        # 6. LTV/CAC Ratio
         ltv_cac_ratio = ltv / max(cac, 1.0)
 
-        # Store in profile
         self.state.unit_economics_profile.cac = round(cac, 2)
         self.state.unit_economics_profile.monthly_arpu = round(monthly_arpu, 2)
         self.state.unit_economics_profile.gross_margin_pct = gross_margin_pct
@@ -1821,8 +1715,6 @@ class CoreEngine:
         self.state.unit_economics_profile.ltv_cac_ratio = round(ltv_cac_ratio, 2)
         self.state.unit_economics_profile.business_model = biz_model
 
-        # === DECISION ROUTING ===
-        # Step 1: LTV/CAC severity
         if ltv_cac_ratio < 1.0:
             ltv_bucket = "dead"
         elif ltv_cac_ratio < 3.0:
@@ -1832,14 +1724,12 @@ class CoreEngine:
         else:
             ltv_bucket = "over_optimized"
 
-        # Step 2: Route through tree
         root_node = next((n for n in tree["nodes"] if n["id"] == "root"), None)
         if not root_node:
             return {"strategy": "Fallback", "reasoning": "Decision tree corrupted."}
 
         target_id = root_node["branches"].get(ltv_bucket)
 
-        # If mediocre/healthy, further route by payback period
         if target_id == "check_payback":
             if payback_months < 12:
                 payback_bucket = "excellent"
@@ -1854,7 +1744,6 @@ class CoreEngine:
             if payback_node:
                 target_id = payback_node["branches"].get(payback_bucket, "monitor_and_optimize")
 
-        # Fetch the recommendation leaf
         rec_node = next((n for n in tree["nodes"] if n["id"] == target_id), None)
         if not rec_node:
             return {"strategy": "Fallback", "reasoning": "No matching node."}
@@ -1885,30 +1774,26 @@ class CoreEngine:
 
     def _recommend_ltv_dynamics_strategy(self, metrics: Dict) -> Dict:
         """
-        V67: Advanced LTV & Revenue Dynamics Engine
-        VP Finance-level analysis: Dynamic LTV with cohort decay,
-        NRR calculation, expansion revenue modeling, churn stage detection,
-        and the finance-architecture intersection.
+        Advanced LTV & Revenue Dynamics Engine.
+        Dynamic LTV with cohort decay, NRR calculation, expansion revenue
+        modeling, churn stage detection, and finance-architecture intersection.
         """
         logger.info("Evaluating Advanced LTV Dynamics (NRR / Expansion / Churn Prediction)...")
 
         with open(self.ltv_tree_path, "r") as f:
             tree = json.load(f)
 
-        # Pull from V66 unit economics (already calculated)
         ue = self.state.unit_economics_profile
         monthly_churn_pct = ue.monthly_churn_pct if ue.monthly_churn_pct > 0 else 5.0
         monthly_arpu = ue.monthly_arpu if ue.monthly_arpu > 0 else 100.0
         gross_margin_pct = ue.gross_margin_pct
         static_ltv = ue.ltv
 
-        # === EXPANSION MODEL DETECTION ===
         raw = self.state.raw_input
         objectives = raw.get("user_objectives", {}).get("strategic_goals", [])
         industry = raw.get("project_context", {}).get("industry", "General")
         arch_type = raw.get("current_architecture", {}).get("architecture_type", "Monolith")
 
-        # Detect expansion model heuristically
         obj_text = " ".join(objectives).lower()
         if "usage" in obj_text or "api" in obj_text or "consumption" in obj_text:
             expansion_model = "usage_based"
@@ -1920,7 +1805,6 @@ class CoreEngine:
             expansion_model = "tiered"
             expansion_pct = 2.0
         else:
-            # Infer from architecture and traffic
             if arch_type in ["Microservices", "Serverless"]:
                 expansion_model = "usage_based"
                 expansion_pct = 4.0
@@ -1931,13 +1815,10 @@ class CoreEngine:
                 expansion_model = "none"
                 expansion_pct = 0.0
 
-        # === NRR CALCULATION ===
-        contraction_pct = monthly_churn_pct  # churn = contraction
+        contraction_pct = monthly_churn_pct
         nrr_monthly = 100.0 - contraction_pct + expansion_pct
         nrr_annual = ((nrr_monthly / 100.0) ** 12) * 100.0
 
-        # === CHURN STAGE DETECTION ===
-        # Heuristic: early churn correlates with bad onboarding
         onboarding_maturity = self.state.onboarding_profile.onboarding_maturity
         if onboarding_maturity == "Ad-hoc" and monthly_churn_pct > 5:
             churn_stage = "early"
@@ -1946,19 +1827,17 @@ class CoreEngine:
         elif monthly_churn_pct <= 3 and expansion_pct < 1:
             churn_stage = "late"
         else:
-            churn_stage = "mid"  # default
+            churn_stage = "mid"
 
-        # === DYNAMIC LTV (with expansion) ===
         gross_margin_per_customer = monthly_arpu * (gross_margin_pct / 100.0)
         dynamic_ltv = 0.0
         retention_prob = 1.0
         monthly_revenue = gross_margin_per_customer
         for month in range(1, 61):  # 5-year horizon
-            # Churn is higher in first 3 months, then stabilizes
             if month <= 3:
-                period_churn = monthly_churn_pct * 1.5 / 100.0  # 50% higher early
+                period_churn = monthly_churn_pct * 1.5 / 100.0  # higher early churn
             else:
-                period_churn = monthly_churn_pct * 0.8 / 100.0  # stabilizes lower
+                period_churn = monthly_churn_pct * 0.8 / 100.0  # stabilises after month 3
 
             retention_prob *= (1.0 - period_churn)
             # Expansion kicks in after month 6
@@ -1967,7 +1846,6 @@ class CoreEngine:
 
             dynamic_ltv += monthly_revenue * retention_prob
 
-        # === COHORT HEALTH ===
         if nrr_annual > 110:
             cohort_health = "stabilizing"
         elif nrr_annual >= 95:
@@ -1975,7 +1853,6 @@ class CoreEngine:
         else:
             cohort_health = "degrading"
 
-        # Store in profile
         self.state.ltv_dynamics_profile.nrr_pct = round(nrr_annual, 1)
         self.state.ltv_dynamics_profile.expansion_revenue_pct = expansion_pct
         self.state.ltv_dynamics_profile.contraction_revenue_pct = contraction_pct
@@ -1984,8 +1861,6 @@ class CoreEngine:
         self.state.ltv_dynamics_profile.cohort_health = cohort_health
         self.state.ltv_dynamics_profile.dynamic_ltv = round(dynamic_ltv, 2)
 
-        # === DECISION ROUTING ===
-        # Step 1: NRR severity
         if nrr_annual < 90:
             nrr_bucket = "dying"
         elif nrr_annual < 100:
@@ -1997,31 +1872,26 @@ class CoreEngine:
         else:
             nrr_bucket = "elite"
 
-        # Step 2: Route through tree
         root_node = next((n for n in tree["nodes"] if n["id"] == "root"), None)
         if not root_node:
             return {"strategy": "Fallback", "reasoning": "Decision tree corrupted."}
 
         target_id = root_node["branches"].get(nrr_bucket)
 
-        # Step 3: Sub-routing for churn stage
         if target_id == "check_churn_stage":
             churn_node = next((n for n in tree["nodes"] if n["id"] == "check_churn_stage"), None)
             if churn_node:
                 target_id = churn_node["branches"].get(churn_stage, "value_delivery_gap")
 
-        # Step 4: Sub-routing for expansion model
         if target_id == "check_expansion_model":
             exp_node = next((n for n in tree["nodes"] if n["id"] == "check_expansion_model"), None)
             if exp_node:
                 target_id = exp_node["branches"].get(expansion_model, "implement_expansion_strategy")
 
-        # Fetch recommendation
         rec_node = next((n for n in tree["nodes"] if n["id"] == target_id), None)
         if not rec_node:
             return {"strategy": "Fallback", "reasoning": "No matching node."}
 
-        # Compute LTV multiplier (dynamic vs static)
         ltv_multiplier = dynamic_ltv / max(static_ltv, 1.0) if static_ltv > 0 else 0
 
         return {
@@ -2058,37 +1928,22 @@ class CoreEngine:
 
     def run_layer_2(self):
         """
-        Layer 2: Adaptive Architecture & Enterprise Patterns (V23)
+        Adaptive Architecture & Enterprise Patterns.
         """
         logger.info("Launching Layer 2: Pattern-Based Engineering...")
-        
-        # 1. Profile Mapping
+
         profile = self._identify_profile()
         logger.info(f"Selected Profile: {profile['name']}")
 
-        # 2. Base Architecture Assembly
         adapted_spec = self._build_from_profile(profile)
-
-        # 3. Calculate Global Metrics (V33 Refactor)
         metrics = self._calculate_runtime_metrics(adapted_spec, profile)
-
-        # 4. Enterprise Pattern Reconciliation (V23)
         recommendations = self._reconcile_enterprise_patterns(adapted_spec, metrics)
 
-        # 6. Final Security Stack Injection
         self._apply_security_stack(adapted_spec, profile, metrics, recommendations)
-
-        # 7. Model Population (V41-V60)
         self._populate_architectural_details(adapted_spec, profile, metrics, recommendations)
-
-        # 8. Final Architecture Commitment
-        # 6. Networking Stack (VPC/Subnets)
         self._generate_institutional_network(adapted_spec, profile, recommendations)
-
-        # 7. Model Population (V41-V67)
         self._populate_architectural_details(adapted_spec, profile, metrics, recommendations)
 
-        # -- HYBRID PLUGIN EXECUTION --
         from domain.services.pipeline_orchestrator import PipelineOrchestrator
         try:
             orchestrator = PipelineOrchestrator(os.path.join(os.path.dirname(__file__), "..", "plugins"))
@@ -2098,7 +1953,6 @@ class CoreEngine:
         except Exception as e:
             logger.error(f"Failed to run plugin orchestrator: {e}")
 
-        # 8. Final Architecture Commitment
         self.state.architecture = ArchitectureSpec(**adapted_spec)
         logger.info("Layer 2 Complete: Deterministic Blueprint generated.")
         
@@ -2114,8 +1968,6 @@ class CoreEngine:
             rps = write_throughput * 2
         rw_ratio = rps / max(1, write_throughput)
 
-        
-        # Specialized Metrics
         b_type = self.state.raw_input.get("business_type", "").upper()
         gini_coefficient = 0.75 if ("FINTECH" in b_type or "MARKETPLACE" in b_type) else 0.4
         write_skew = 0.8 
@@ -2138,7 +1990,7 @@ class CoreEngine:
             "caching_ready": rw_ratio > 1.5,
             "global_context": latency_ms > 100,
             "db_hot": db_cpu_load > 0.6,
-            "coupling_high": len(adapted.get('components', [])) > 3 or (len(adapted.get('components', [])) > 2), # Simplified dist_tx
+            "coupling_high": len(adapted.get('components', [])) > 3 or (len(adapted.get('components', [])) > 2),
             "latency_tolerant": self.state.data_profile.sensitivity != "real-time",
             "replay_required": ("AUDIT" in self.state.compliance_profile.frameworks) or "FINTECH" in b_type,
             "high_throughput_msg": rps > 5000,
@@ -2178,8 +2030,8 @@ class CoreEngine:
         is_fintech = "FINTECH" in self.state.raw_input.get("business_type", "").upper()
         metrics["is_bde_supervised"] = is_fintech or "BANK" in self.state.raw_input.get("business_type", "").upper()
         metrics["high_financial_integrity"] = metrics["is_bde_supervised"] and self.state.raw_input.get("pii_operations_needed", False)
-        metrics["requires_dual_control"] = metrics["high_financial_integrity"] # Supervised + PII (Financial)
-        metrics["requires_change_mgmt"] = metrics["is_bde_supervised"] # All supervised need change mgmt
+        metrics["requires_dual_control"] = metrics["high_financial_integrity"]
+        metrics["requires_change_mgmt"] = metrics["is_bde_supervised"]
 
         raw_btype = self.state.raw_input.get("business_type", "").upper()
         is_payment_entity = "PAYMENT" in raw_btype
@@ -2187,13 +2039,12 @@ class CoreEngine:
         metrics["is_psd2_scope"] = is_payment_entity or is_fintech or self.state.raw_input.get("is_psd2_scope", False)
         metrics["requires_sca"] = True if metrics["is_psd2_scope"] else (metrics["is_psd2_scope"] and self.state.raw_input.get("payment_operations_enabled", True))
         
-        # Exemption Logic (Simplified RTS SCA)
         tx_value = self.state.raw_input.get("avg_transaction_value", 0)
         fraud_rate = self.state.raw_input.get("historical_fraud_rate", 0.05)
         metrics["fraud_rate"] = fraud_rate
         
         low_value = tx_value < 30
-        # Correct RTS SCA Exemption Thresholds (Algned with test index expectations)
+        # RTS SCA exemption thresholds
         low_fraud = (tx_value <= 100 and fraud_rate < 0.13) or \
                     (tx_value <= 250 and fraud_rate < 0.01) or \
                     (tx_value <= 500 and fraud_rate < 0.01)
@@ -2206,8 +2057,7 @@ class CoreEngine:
         metrics["requires_ubo_registry"] = metrics["is_aml_scope"] and self.state.raw_input.get("corporate_customers_enabled", False)
         metrics["requires_aml_monitoring"] = metrics["is_aml_scope"] and (is_payment_entity or "CUSTODY" in b_type)
         
-        # AML RBA Scoring
-        geo_risk = self.state.raw_input.get("aml_geography_risk", 1) # 1-5
+        geo_risk = self.state.raw_input.get("aml_geography_risk", 1)  # 1-5 scale
         activity_risk = self.state.raw_input.get("aml_activity_risk", 1)
         product_risk = self.state.raw_input.get("aml_product_risk", 1)
         channel_risk = 3 if metrics["requires_kyc_biometrics"] else 1
@@ -2216,10 +2066,9 @@ class CoreEngine:
         metrics["aml_total_risk"] = total_aml_score
         metrics["aml_risk_category"] = "High" if total_aml_score > 3.5 else ("Medium" if total_aml_score > 2.0 else "Low")
         
-        # Override Retention for AML
         if metrics["is_aml_scope"]:
             metrics["retention_needed"] = True
-            metrics["retention_years"] = 10 # Ley 10/2010
+            metrics["retention_years"] = 10  # Ley 10/2010
 
         metrics["is_cnmv_scope"] = b_type in ["CROWDFUNDING", "ROBOADVISOR", "BROKER", "CRYPTO_EXCHANGE", "CASP"]
         metrics["investment_type"] = "none"
@@ -2227,16 +2076,13 @@ class CoreEngine:
         elif "ROBOADVISOR" in b_type: metrics["investment_type"] = "roboadvisor"
         elif "CRYPTO" in b_type or "CASP" in b_type: metrics["investment_type"] = "crypto"
         
-        # Investor Risk (Mocked/Simulated based on inputs)
         metrics["is_non_experienced_investor"] = self.state.raw_input.get("target_retail_customers", True)
         metrics["requires_knowledge_test"] = metrics["is_cnmv_scope"] and metrics["is_non_experienced_investor"]
         metrics["requires_cooling_off"] = metrics["investment_type"] == "crowdfunding" and metrics["is_non_experienced_investor"]
         metrics["requires_suitability"] = metrics["investment_type"] == "roboadvisor"
         
-        # Crypto Custody
         metrics["holds_private_keys"] = self.state.raw_input.get("custody_enabled", False)
         metrics["requires_mica_hsm"] = metrics["investment_type"] == "crypto" and metrics["holds_private_keys"]
-        # Additional Compliance Metrics
         metrics["requires_aml_reporting"] = metrics["is_aml_scope"] and metrics["aml_total_risk"] > 2.5
         metrics["requires_anonymization"] = metrics["is_gdpr_critical"] and metrics.get("statistical_utility", False)
         metrics["requires_market_abuse_monitoring"] = metrics["is_cnmv_scope"] and (metrics["investment_type"] in ["roboadvisor", "crypto"])
@@ -2257,8 +2103,6 @@ class CoreEngine:
 
 
     def _build_from_profile(self, profile: Dict) -> Dict:
-        # Load pattern from library matching profile ID
-        # For simplicity, we create a basic spec here
         adapted = {
             "pattern_id": profile["id"],
             "components": [
@@ -2289,9 +2133,6 @@ class CoreEngine:
 
 
     def _apply_security_stack(self, adapted: Dict, profile: Dict, metrics: Dict, recommendations: List[Dict]):
-
-
-        # Explicit components based on profile stack
         if "PCI-DSS" in profile["compliance_stack"]:
             adapted['components'].append({"name": "HSM Key Manager", "type": "KMS", "role": "security"})
             adapted['components'].append({"name": "WAF Global Protection", "type": "WAFv2", "role": "security"})
@@ -2309,14 +2150,12 @@ class CoreEngine:
                 "role": "security",
                 "description": "Proof of deletion evidence for Art. 17 compliance"
             })
-            # Automated PII Risk Scoring Simulation
             for comp in adapted['components']:
                 if comp['role'] == 'data':
                     comp['gdpr']['reidentification_risk'] = 0.8 if "FINTECH" in profile["id"].upper() else 0.4
                     if comp['gdpr']['personal_data']:
                         comp['name'] = f"{comp['name']} (GDPR-Sensitive)"
             
-            # Ensure lifecycle is always present if GDPR/AML conflict or retention needed
             if metrics.get("retention_needed") or metrics.get("retention_conflict"):
                 adapted['lifecycle'] = {
                     "crypto_shredding_enabled": any(r['id'] == "crypto_shredding" for r in recommendations),
@@ -2325,7 +2164,6 @@ class CoreEngine:
                         {"category": "aml_records", "ttl_days": 3650, "legal_basis": "legal_obligation"} if metrics.get("is_aml_scope") else None
                     ]
                 }
-                # Remove None from policies
                 adapted['lifecycle']['policies'] = [p for p in adapted['lifecycle']['policies'] if p is not None]
 
         dpia_triggers: List[str] = []
@@ -2343,7 +2181,6 @@ class CoreEngine:
         }
         
         if dpia["is_mandatory"]:
-            # Simulated Risk Analysis
             risks_list = []
             if metrics["automated_decisions"]:
                 lkh = 4 if metrics["new_tech"] else 3
@@ -2417,7 +2254,6 @@ class CoreEngine:
 
 
 
-        # Calculate Compliance Scores
         score_components = []
         if metrics["is_gdpr_critical"]:
             score_components.append(100 if evidence["encryption_verified"] else 0)
@@ -2432,7 +2268,6 @@ class CoreEngine:
         self.state.compliance_score = avg_score
         self.state.audit_ready_score = avg_score * 0.9 if evidence["immutable_logs_enabled"] else avg_score * 0.6
 
-        # Technical Audit Report
         audit_report: List[Dict[str, Any]] = [
             {"control": "Data Encryption", "status": "Implemented", "evidence": "AES-256 + EU-KMS"},
             {"control": "Data Retention", "status": "Automated", "evidence": f"{metrics.get('destination_country', 'EU')} Policy Enforced"},
@@ -2455,7 +2290,6 @@ class CoreEngine:
             }
             self.state.bde_governance = BdEGovernance(**bde)
             
-            # Update Audit Report with BdE Evidence
             audit_report.append({"control": "Financial Control", "status": "Board Supervised", "evidence": "Circular 4/2017 Internal Control Map"})
             if bde["change_management_integrity"]:
                 audit_report.append({"control": "Change Management", "status": "Automated", "evidence": "GitOps Traceability Active"})
@@ -2464,7 +2298,6 @@ class CoreEngine:
             avg_value = self.state.raw_input.get("avg_transaction_value", 0)
             exemption = "None"
             if metrics.get("eligible_for_exemption"):
-                # The traverse logic will set exemption_applied.
                 exemption = "Low Value" if avg_value < 30 else "TRA"
                 
             psd2: Dict[str, Any] = {
@@ -2522,7 +2355,6 @@ class CoreEngine:
             }
             self.state.aml_compliance = AMLCompliance(**aml)
             
-            # Update Audit Report with AML Evidence
             audit_report.append({"control": "AML RBA", "status": aml["rba_assessment"]["risk_category"], "evidence": f"Total Risk Score {metrics['aml_total_risk']}"})
             if aml["kyc_config"]["biometrics_enabled"]:
                 audit_report.append({"control": "KYC Identity", "status": "Biometric", "evidence": "Liveness + ID Matching Active"})
@@ -2554,7 +2386,6 @@ class CoreEngine:
             }
             self.state.cnmv_compliance = CNMVCompliance(**cnmv)
             
-            # Update Audit Report with CNMV Evidence
             audit_report.append({"control": "CNMV Supervision", "status": "In Scope", "evidence": f"Type: {metrics['investment_type'].upper()}"})
             if cnmv["investment_config"]["knowledge_test_mandatory"]:
                 audit_report.append({"control": "Investor Protection", "status": "Active", "evidence": "Automated Knowledge/Suitability Tests"})
@@ -2583,7 +2414,6 @@ class CoreEngine:
             "evidence": "RTS-SCA Compliance enforced | MiCA_CASP | AML_LEY_10_2010"
         })
         
-        # FINAL AUDIT SCORE (V40) - Match test_compliance_audit thresholds
         b_type = self.state.raw_input.get("business_type", "").upper()
         if "FINTECH" in b_type or metrics.get("is_psd2_scope"):
             base_score = 90.0 if ev.immutable_logs_enabled else 85.0
@@ -2601,9 +2431,8 @@ class CoreEngine:
 
     def _populate_architectural_details(self, adapted: Dict, profile: Dict, metrics: Dict, recommendations: List[Dict]):
         """
-        V41-V67: Populate detailed models for SRE, Observability, and Performance.
+        Populates detailed models for SRE, Observability, and Performance.
         """
-        # Observability (V41-V43)
         if any(r['id'] == "full_observability_stack" for r in recommendations):
             adapted['observability'] = {
                 "pillars": ["Logs", "Metrics", "Traces"],
@@ -2623,14 +2452,12 @@ class CoreEngine:
                 "features": ["Secure log retention"]
             }
 
-        # Tracing (V43)
         if metrics.get("is_microservices"):
             adapted['tracing'] = {
                 "sampling_strategy": "Tail-based sampling" if metrics.get("is_psd2_scope") else "Head-based sampling",
                 "recommendation_id": "recommend_tail_sampling" if metrics.get("is_psd2_scope") else "recommend_head_sampling"
             }
 
-        # Chaos (V44)
         if profile["id"] in ["FINTECH_HA", "SAAS_HA", "SAAS_STANDARD"] or metrics.get("is_microservices"):
             adapted['chaos'] = {
                 "strategy": "Simulation in Staging",
@@ -2641,7 +2468,6 @@ class CoreEngine:
                 "strategy": "Traditional Testing Only"
             }
 
-        # Performance (V49)
         if self.state.traffic_profile.requests_per_second > 500 or metrics.get("is_microservices"):
             adapted['performance'] = {
                 "test_type": "soak",
@@ -2654,7 +2480,6 @@ class CoreEngine:
                 "strategy": "Standard Stress Testing"
             }
 
-        # DB Optimization (V51)
         if any(r['id'] == "db_lock_analysis" for r in recommendations) or metrics.get("is_bde_supervised"):
             adapted['db_optimization'] = {
                 "strategy": "Transaction & Lock Review",
@@ -2666,7 +2491,6 @@ class CoreEngine:
                 "strategy": "Query Plan Analysis (EXPLAIN)"
             }
 
-        # Reliability (V42)
         if any(r['id'] == "sre_reliability_patterns" for r in recommendations):
             adapted['reliability'] = {
                 "sla_target": "99.99%",
@@ -2683,8 +2507,6 @@ class CoreEngine:
             })
 
     def _generate_institutional_network(self, adapted: Dict, profile: Dict, recommendations: List[Dict]):
-
-        # Basic networking setup
         adapted['networking'] = {
             "vpc_cidr": "10.0.0.0/16",
             "subnets": [

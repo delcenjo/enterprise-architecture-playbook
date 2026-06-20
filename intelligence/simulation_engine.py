@@ -30,12 +30,9 @@ class SimulationEngine:
         """
         Calcula TCO basado en inventario real del Agente Extractor.
         """
-        # Baseline On-Prem (Modelado determinístico: Server + Licencias + Rack/Cooling)
-        # $850/usuario/año es un benchmark auditado para Enterprise.
+        # $850/usuario/año: benchmark auditado para Enterprise on-prem (Server + Licencias + Rack/Cooling).
         annual_onprem = (company_size * 850)
-        
-        # Cloud: Calculado desde el Snapshot
-        # monthly_compute = sum(instances * price_from_json)
+
         prices = self.pricing.get("services", {})
         compute_hourly = prices.get("compute", {}).get(stack_config.get("instance_type", "t3.medium"), 0.0416)
         
@@ -74,7 +71,6 @@ class SimulationEngine:
         """
         metrics = self.calculate_long_term_tco(stack_config, company_size)
         
-        # Cashflow Projection
         annual_onprem = company_size * 850
         prices = self.pricing.get("services", {})
         compute_hourly = prices.get("compute", {}).get(stack_config.get("instance_type", "t3.medium"), 0.0416)

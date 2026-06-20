@@ -19,12 +19,10 @@ class MultiLevelValidator:
         logger.info("Executing Multi-Level Validation...")
         errors = []
         
-        # Ejecutamos Nivel 3 Factual Check
         factual_result = self._level3_factual_check(original_factual_markdown, llm_enriched_markdown)
         if not factual_result.passed:
             errors.extend(factual_result.errors)
-            
-        # Ejecutamos Nivel 2 Format Check
+
         format_result = self._level2_format_check(llm_enriched_markdown)
         if not format_result.passed:
             errors.extend(format_result.errors)
@@ -41,7 +39,6 @@ class MultiLevelValidator:
         """
         Extrae todos los números (enteros, decimales, porcentajes, divisas) del texto.
         """
-        # Encuentra cosas como 127.75, 1,533.00, 15.00, etc. Quitamos comas para castear.
         pattern = r'\b\d{1,3}(?:,\d{3})*(?:\.\d+)?\b'
         matches = re.findall(pattern, text)
         
@@ -61,7 +58,6 @@ class MultiLevelValidator:
         original_nums = set(self._extract_numbers(original))
         enriched_nums = set(self._extract_numbers(enriched))
         
-        # El LLM no puede eliminar números de la plantilla estrictamente original
         missing_nums = original_nums - enriched_nums
         
         errors = []

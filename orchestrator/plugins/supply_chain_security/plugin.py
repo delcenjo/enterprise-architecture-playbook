@@ -1,4 +1,4 @@
-"""Supply Chain Security Plugin (V47)."""
+"""Supply Chain Security Plugin."""
 from typing import Any, Callable, Dict
 from plugins._base import BaseDecisionTreePlugin
 

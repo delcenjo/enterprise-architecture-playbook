@@ -37,8 +37,6 @@ class PluginRegistry:
         self._plugins: Dict[str, PillarPlugin] = {}
         self._categories: Dict[str, List[str]] = defaultdict(list)
 
-    # ── Registration ────────────────────────────────────────────────
-
     def register(self, plugin: PillarPlugin) -> None:
         """Register a single plugin instance.
 
@@ -55,7 +53,6 @@ class PluginRegistry:
                 f"Duplicate plugin ID: '{pid}' is already registered."
             )
 
-        # Validate required properties
         for attr in ("pillar_id", "name", "category"):
             val = getattr(plugin, attr, None)
             if not val or not isinstance(val, str):
@@ -71,8 +68,6 @@ class PluginRegistry:
             plugin.name,
             plugin.category,
         )
-
-    # ── Discovery ───────────────────────────────────────────────────
 
     def discover(
         self,
@@ -107,7 +102,6 @@ class PluginRegistry:
         for entry in sorted(os.listdir(plugins_dir)):
             entry_path = os.path.join(plugins_dir, entry)
 
-            # Skip non-directories and private entries
             if not os.path.isdir(entry_path) or entry.startswith("_"):
                 continue
 
@@ -145,18 +139,15 @@ class PluginRegistry:
     ) -> PillarPlugin:
         """Load a single plugin from its package directory."""
 
-        # Load optional manifest
         manifest_path = os.path.join(package_dir, "manifest.json")
         manifest: Dict[str, Any] = {}
         if os.path.isfile(manifest_path):
             with open(manifest_path, "r") as f:
                 manifest = json.load(f)
 
-        # Import the plugin module
         module_name = f"plugins.{package_name}.plugin"
         module = importlib.import_module(module_name)
 
-        # Find the PillarPlugin subclass
         plugin_class: Optional[Type[PillarPlugin]] = None
         for attr_name in dir(module):
             obj = getattr(module, attr_name)
@@ -174,15 +165,12 @@ class PluginRegistry:
                 f"No concrete PillarPlugin subclass found in {module_name}"
             )
 
-        # Prepare knowledge repository if factory provided
         kwargs: Dict[str, Any] = {}
         knowledge_dir = os.path.join(package_dir, "knowledge")
         if knowledge_repo_factory and os.path.isdir(knowledge_dir):
             kwargs["knowledge_repo"] = knowledge_repo_factory(knowledge_dir)
 
         return plugin_class(**kwargs)
-
-    # ── Query ───────────────────────────────────────────────────────
 
     @property
     def plugins(self) -> Dict[str, PillarPlugin]:
@@ -199,8 +187,6 @@ class PluginRegistry:
     def get_by_category(self, category: str) -> List[PillarPlugin]:
         return [self._plugins[pid] for pid in self._categories.get(category, [])]
 
-    # ── Execution Order (Topological Sort) ──────────────────────────
-
     def get_execution_order(self) -> List[PillarPlugin]:
         """Return plugins in dependency-respecting execution order.
 
@@ -212,7 +198,6 @@ class PluginRegistry:
         ValueError
             If a circular dependency is detected.
         """
-        # Build adjacency and in-degree maps
         in_degree: Dict[str, int] = {pid: 0 for pid in self._plugins}
         dependents: Dict[str, List[str]] = defaultdict(list)
 
@@ -228,7 +213,6 @@ class PluginRegistry:
                         dep,
                     )
 
-        # Kahn's algorithm
         queue: deque[str] = deque()
         for pid, deg in in_degree.items():
             if deg == 0:

@@ -25,7 +25,6 @@ app.add_middleware(
 class DossierRequest(BaseModel):
     client_name: str = "Enterprise Corp"
     project_name: str = "Cloud Transformation Strategy"
-    # This models the "ContentBlocks" we compiled in Phase 3
     sections: List[Dict[str, Any]]
 
 @app.get("/health")
@@ -34,30 +33,24 @@ async def health_check():
 
 @app.post("/generate-dossier")
 async def generate_dossier(request: DossierRequest):
-    """
-    Recibe el contenido estructurado y aprobado (los Markdown)
-    y lo empaqueta todo en un archivo ZIP con los 3 entregables clave.
-    """
+    """Genera el PDF y los artefactos técnicos, y los devuelve empaquetados en un ZIP."""
     logger.info(f"Generating full dossier for {request.client_name}...")
     
     try:
-        # 1. Compilar el Documento Maestro (PDF 30-50 pages style)
         pdf_builder = PDFBuilder()
         pdf_bytes = pdf_builder.build_pdf(
             client_name=request.client_name,
             project_name=request.project_name,
             sections=request.sections
         )
-        
-        # 2. Compilar Artefactos Técnicos y Dashboard interactivo (ZIP)
+
         assets_builder = AssetsBuilder()
         zip_bytes = assets_builder.build_full_package(
             client_name=request.client_name,
             pdf_bytes=pdf_bytes,
             sections=request.sections
         )
-        
-        # Stream the zip back
+
         zip_io = io.BytesIO(zip_bytes)
         return StreamingResponse(
             zip_io,

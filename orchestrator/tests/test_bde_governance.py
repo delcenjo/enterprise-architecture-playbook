@@ -26,21 +26,17 @@ class TestBdEGovernance(unittest.TestCase):
         
         self.engine.run_layer_2()
         
-        # Verify BdE governance state
         self.assertTrue(self.state.bde_governance.is_supervised_entity)
         self.assertEqual(self.state.bde_governance.board_approval_status, "Mandatory")
         self.assertTrue(self.state.bde_governance.operational_risk_mapping)
-        
-        # Verify technical audit report contains BdE control
+
         audit_controls = [item["control"] for item in self.state.technical_audit]
         self.assertIn("Financial Control", audit_controls)
-        
-        # Verify architectural patterns
+
         pattern_ids = [p["id"] for p in self.state.architecture.enterprise_patterns]
         self.assertIn("isolated_financial_segment", pattern_ids)
         self.assertIn("dual_control_op", pattern_ids)
-        
-        # Verify networking isolation
+
         subnets = self.state.architecture.networking["subnets"]
         financial_subnet = next((s for s in subnets if s.get("purpose") == "BdE Circular 4/2017 Compliance"), None)
         self.assertIsNotNone(financial_subnet, "Financial subnet should be present")
@@ -57,10 +53,8 @@ class TestBdEGovernance(unittest.TestCase):
         
         self.engine.run_layer_2()
         
-        # Verify BdE governance state is default/inactive
         self.assertFalse(self.state.bde_governance.is_supervised_entity)
-        
-        # Verify architectural patterns do not include BdE specific ones
+
         pattern_ids = [p["id"] for p in self.state.architecture.enterprise_patterns]
         self.assertNotIn("isolated_financial_segment", pattern_ids)
         self.assertNotIn("dual_control_op", pattern_ids)

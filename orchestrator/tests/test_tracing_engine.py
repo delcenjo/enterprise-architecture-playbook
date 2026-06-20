@@ -3,7 +3,6 @@ import os
 import sys
 from typing import Dict, List, Any
 
-# Mock setup for standalone testing if needed, though we use the real engine
 from global_state import GlobalState, ArchitectureSpec
 from layers.core_engine import CoreEngine
 
@@ -16,10 +15,9 @@ class TestTracingEngine(unittest.TestCase):
         """Verify that a complex fintech system gets Tail-based sampling."""
         self.state.raw_input = {
             "business_type": "FINTECH_HA",
-            "payment_operations_enabled": True, # PSD2 scope
+            "payment_operations_enabled": True,
             "is_bde_supervised": True
         }
-        # Simulate microservices
         self.state.requirements = {"services": ["auth", "payment", "ledger"]}
         
         self.engine.run_layer_2()
@@ -34,7 +32,7 @@ class TestTracingEngine(unittest.TestCase):
         self.state.raw_input = {
             "business_type": "STARTUP_MVP"
         }
-        self.state.requirements = {"services": ["api"]} # Only one
+        self.state.requirements = {"services": ["api"]}
         
         self.engine.run_layer_2()
         
@@ -47,11 +45,8 @@ class TestTracingEngine(unittest.TestCase):
         self.state.raw_input = {
             "business_type": "MARKETPLACE",
         }
-        # Force high RPS
         self.state.traffic_profile.requests_per_second = 5000
-        self.state.traffic_profile.concurrent_users = 100000 # large_scale = True
-        
-        # Multiple services in requirements to trigger is_microservices
+        self.state.traffic_profile.concurrent_users = 100000
         self.state.requirements = {"services": ["frontend", "catalog", "order"]}
         
         self.engine.run_layer_2()

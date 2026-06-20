@@ -1,4 +1,4 @@
-"""Developer Onboarding Plugin (V65)."""
+"""Developer Onboarding Plugin."""
 from typing import Any, Dict
 from domain.ports.pillar_plugin import PillarPlugin, PillarResult
 from domain.ports.knowledge_repository import KnowledgeRepository
@@ -20,7 +20,6 @@ class DeveloperOnboardingPlugin(PillarPlugin):
         devs = getattr(tsp, "total_developers", 5) if tsp else 5
         platform_maturity = getattr(tsp, "platform_maturity", "none") if tsp else "none"
 
-        # Decision routing
         if devs > 40:
             if platform_maturity == "mature":
                 node_id = "data_driven_onboarding"
@@ -39,14 +38,12 @@ class DeveloperOnboardingPlugin(PillarPlugin):
             maturity = "Ad-hoc"
             ttfc, ttfp = 2, 7
 
-        # Update state profile if available
         ob = getattr(state, "onboarding_profile", None)
         if ob:
             ob.onboarding_maturity = maturity
             ob.ttfc_target_days = ttfc
             ob.ttfp_target_days = ttfp
 
-        # Fetch from tree
         nodes = tree.get("nodes", [])
         rec_node = next((n for n in nodes if n["id"] == node_id), None)
 

@@ -19,31 +19,25 @@ class IntelligentDossierForge:
     async def execute_pipeline(self, input_data: Dict[str, Any]):
         print("Starting Revolutionized 6-Layer Deterministic Pipeline...")
         
-        # Layer 0 & 1: Normalization
         self.manager.run_layer_0_and_1(input_data)
         print("Layer 1: Contextual Validation & Normalization Complete.")
 
-        # Layer 2: Core Engine
         from layers.core_engine import CoreEngine
         CoreEngine(self.manager.state).run_layer_2()
         print("Layer 2: Adaptive Architecture & Component Injection Complete.")
 
-        # Layer 3: Calculation Engine
         from layers.calculation_engine import CalculationEngine
         CalculationEngine(self.manager.state).run_layer_3()
         print("Layer 3: Precise Pricing & Scenario Analysis Complete.")
 
-        # Layer 4: Visual Engine
         from layers.visual_engine import VisualEngine
         VisualEngine(self.manager.state).run_layer_4()
         print("Layer 4: High-Res Clustered Visuals Generated.")
 
-        # Layer 5: Validation & Audit
         from layers.validation_layer import ValidationLayer
         ValidationLayer(self.manager.state).run_layer_5()
         print(f"Layer 5: Technical Audit & Integrity Seal Generated. Compliance: {self.manager.state.compliance_score}%")
 
-        # Layer 6: Narrative Engine
         from layers.narrative_engine import NarrativeEngine
         narrative_engine = NarrativeEngine(self.manager.state)
         results = await narrative_engine.generate_premium_dossier()

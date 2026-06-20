@@ -20,25 +20,20 @@ class PricingEngine:
     def calculate_total_monthly(self, requirements: Dict[str, Any], provider: str = "aws") -> Dict[str, Any]:
         p_info = self.meta["providers"].get(provider, self.meta["providers"]["aws"])
         
-        # 1. Compute Cost
         vcpu = requirements['compute']['vcpu']
         units = max(1, vcpu / 2)
         base_compute = units * self.pricing['instances']['m5.large']['hourly_cost'] * 730
         compute_cost = base_compute * p_info["base_index"]
-        
-        # 2. Storage Cost
+
         storage_gb = requirements['storage']['volume_gb']
         storage_cost = storage_gb * self.pricing['storage']['gp3']['per_gb_month']
-        
-        # IOPS
+
         extra_iops = max(0, requirements['storage']['iops'] - 3000)
         iops_cost = extra_iops * self.pricing['storage']['gp3']['extra_iops_cost']
-        
-        # 3. Networking (Egress)
+
         egress_gb = requirements['networking']['egress_gb']
         egress_cost = egress_gb * p_info["egress_discount_tier"]
-            
-        # 4. Regional & Currency & Tax Adjustment
+
         subtotal_usd = (compute_cost + storage_cost + iops_cost + egress_cost) * self.regional_multiplier
         
         # Environmental Compliance Penalty (e.g. GDPR audits)

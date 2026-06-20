@@ -38,7 +38,6 @@ def fetch_historical_price(cursor, sku: str):
 def main():
     logger.info("Starting AWS Price Ingestion Pipeline...")
     
-    # Wait for DB to be ready
     conn = None
     retries = 5
     while retries > 0:
@@ -57,13 +56,11 @@ def main():
     ingestor = AWSPriceIngestor(region='us-east-1')
     validator = PriceValidator()
     
-    # 1. Fetch from AWS
     logger.info("Fetching data from AWS...")
     ingestion_payload = ingestor.fetch_all_prices('AmazonEC2', 'EU (Ireland)')
     
     valid_products_to_insert = []
     
-    # 2. Validate
     logger.info("Validating prices...")
     cursor = conn.cursor()
     for raw_product in ingestion_payload['data']:
@@ -77,7 +74,6 @@ def main():
         else:
             logger.error(f"Validation failed for SKU {parsed_data['sku']}. Not inserting.")
             
-    # 3. Insert / Update Database
     logger.info(f"Inserting {len(valid_products_to_insert)} approved products into DB...")
     
     effective_date = datetime.utcnow().date()

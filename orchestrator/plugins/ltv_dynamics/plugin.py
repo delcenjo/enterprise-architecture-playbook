@@ -1,4 +1,4 @@
-"""Advanced LTV & Revenue Dynamics Plugin (V67)."""
+"""Advanced LTV & Revenue Dynamics Plugin."""
 from typing import Any, Dict
 from domain.ports.pillar_plugin import PillarPlugin, PillarResult
 from domain.ports.knowledge_repository import KnowledgeRepository
@@ -23,7 +23,6 @@ class LTVDynamicsPlugin(PillarPlugin):
         gross_margin_pct = getattr(ue, "gross_margin_pct", 70.0) if ue else 70.0
         static_ltv = getattr(ue, "ltv", 0) if ue else 0
 
-        # Expansion model detection
         raw = getattr(state, "raw_input", {})
         objectives = raw.get("user_objectives", {}).get("strategic_goals", [])
         obj_text = " ".join(objectives).lower() if objectives else ""
@@ -37,12 +36,10 @@ class LTVDynamicsPlugin(PillarPlugin):
         else:
             expansion_model, expansion_pct = "none", 0.0
 
-        # NRR
         contraction_pct = churn_pct
         nrr_monthly = 100.0 - contraction_pct + expansion_pct
         nrr_annual = ((nrr_monthly / 100.0) ** 12) * 100.0
 
-        # Churn stage
         ob = getattr(state, "onboarding_profile", None)
         ob_maturity = getattr(ob, "onboarding_maturity", "Ad-hoc") if ob else "Ad-hoc"
         if ob_maturity == "Ad-hoc" and churn_pct > 5: churn_stage = "early"
@@ -50,7 +47,6 @@ class LTVDynamicsPlugin(PillarPlugin):
         elif churn_pct <= 3 and expansion_pct < 1: churn_stage = "late"
         else: churn_stage = "mid"
 
-        # Dynamic LTV (5-year horizon)
         gm = monthly_arpu * (gross_margin_pct / 100.0)
         dynamic_ltv, retention, revenue = 0.0, 1.0, gm
         for month in range(1, 61):
@@ -61,7 +57,6 @@ class LTVDynamicsPlugin(PillarPlugin):
 
         cohort_health = "stabilizing" if nrr_annual > 110 else "flat" if nrr_annual >= 95 else "degrading"
 
-        # Update state
         ldp = getattr(state, "ltv_dynamics_profile", None)
         if ldp:
             ldp.nrr_pct = round(nrr_annual, 1)
@@ -72,7 +67,6 @@ class LTVDynamicsPlugin(PillarPlugin):
             ldp.cohort_health = cohort_health
             ldp.dynamic_ltv = round(dynamic_ltv, 2)
 
-        # Decision routing
         if nrr_annual < 90: nrr_bucket = "dying"
         elif nrr_annual < 100: nrr_bucket = "mediocre"
         elif nrr_annual < 115: nrr_bucket = "good"

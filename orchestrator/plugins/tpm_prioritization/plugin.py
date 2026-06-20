@@ -1,4 +1,4 @@
-"""Technical Product Management Plugin (V57)."""
+"""Technical Product Management Plugin."""
 from typing import Any, Callable, Dict
 from plugins._base import BaseDecisionTreePlugin
 

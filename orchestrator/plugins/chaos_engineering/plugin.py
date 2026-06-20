@@ -1,4 +1,4 @@
-"""Chaos Engineering Plugin (V44)."""
+"""Chaos Engineering Plugin."""
 from typing import Any, Callable, Dict
 from domain.ports.pillar_plugin import PillarResult
 from plugins._base import BaseDecisionTreePlugin
